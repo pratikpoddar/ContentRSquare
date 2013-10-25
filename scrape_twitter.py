@@ -3,6 +3,7 @@ import json
 import jsonpickle
 from time import sleep
 import sys
+import itertools
 
 def checkRateLimit():
 	
