@@ -28,7 +28,7 @@ def getStatus(twitterid):
 	statuses = vertex.statuses
 	statuses = json.loads(statuses)
 	totalstatus = ""
-	for status in statuses['py/seq']:
+	for status in statuses:
 		totalstatus+=clean_status(status['text'])+" "
 	return totalstatus
 

@@ -4,6 +4,15 @@ import jsonpickle
 from time import sleep
 import sys
 
+def checkRateLimit():
+	
+	ratelimit_list = api.rate_limit_status()['resources'].values()
+	ratechoke = len(filter(lambda x: x['remaining']==0, reduce(lambda x,y: list(itertools.chain(x,y.values())), ratelimit_list, [])))
+	if ratechoke > 0:
+		print "Rate Limit Error. Please stop"
+		sys.exit(0)
+	return
+
 def getProfiledList():
 	profiledlist = []
 	vertices = g.V
@@ -21,6 +30,7 @@ def crsq_user_status_from_twitter(twitterid):
 		page = 1
 		statuslist = []
 		while True:
+			checkRateLimit()
 			statuses = api.user_timeline(page=page, id=twitterid)
 			if statuses:
 				for status in statuses:
@@ -37,6 +47,7 @@ def crsq_user_status_from_twitter(twitterid):
 	
 def crsq_user_dict_from_twitter(twitterid):
 	try:
+		checkRateLimit()
 		userObj = api.get_user(twitterid)
 	except Exception as e:
 		print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
@@ -50,6 +61,7 @@ def crsq_user_dict_from_twitter(twitterid):
 		return returndict
 
 	try:
+		checkRateLimit()
 		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=jsonpickle.encode(crsq_user_status_from_twitter(twitterid)), statuses_count=userObj.statuses_count, location=userObj.location, followers=jsonpickle.encode(userObj.followers_ids()), followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
 		return returndict
 	except Exception as e:	
