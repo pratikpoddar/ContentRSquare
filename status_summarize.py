@@ -14,10 +14,10 @@ def get_Status_Concepts(status):
 		print('')
 		print('## Concepts ##')
 		for concept in response['concepts']:
-			print('text: ', concept['text'] + ' ' + concept['relevance'])
+			print('text: ' + concept['text'] + ' ' + concept['relevance'])
 		return response['concepts']
 	else:
-		print('Error in concept tagging call: ', response['statusInfo'])
+		print('Error in concept tagging call: '+ response['statusInfo'])
 		return None
 
 def get_Status_Categories(status):
@@ -26,10 +26,10 @@ def get_Status_Categories(status):
 	if response['status'] == 'OK':
 		print('')
 		print('## Category ##')
-		print('text: ', response['category'] + ' ' + response['score'])
+		print('text: '+ response['category'] + ' ' + response['score'])
 		return response
 	else:
-		print('Error in text categorization call: ', response['statusInfo'])
+		print('Error in text categorization call: '+ response['statusInfo'])
 		return None
 
 if __name__ == "__main__":

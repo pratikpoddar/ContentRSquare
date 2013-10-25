@@ -24,7 +24,7 @@ def getStatus(twitterid):
 		print str(twitterid) + " not in the database - taking 66690578"
 		vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
 	print ""
-	print "## " + str(twitterid) + ' ' + vertex.screen_name + ' ' + vertex.name + " ##"
+	print "## " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
 	statuses = vertex.statuses
 	statuses = json.loads(statuses)
 	totalstatus = ""
