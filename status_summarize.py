@@ -8,7 +8,7 @@ import sys
 alchemyapi = AlchemyAPI()
 
 def get_Status_Concepts(status):
-	response = alchemyapi.concepts('text', statuses)
+	response = alchemyapi.concepts('text', status)
 
 	if response['status'] == 'OK':
 		print('')
@@ -21,7 +21,7 @@ def get_Status_Concepts(status):
 		return None
 
 def get_Status_Categories(status):
-	response = alchemyapi.category('text',statuses)
+	response = alchemyapi.category('text',status)
 
 	if response['status'] == 'OK':
 		print('')
