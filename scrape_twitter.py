@@ -4,11 +4,42 @@ import jsonpickle
 from time import sleep
 import sys
 
+def getProfiledList():
+	profiledlist = []
+	vertices = g.V
+	for v in vertices:
+		try:
+			if v.profiled == 1:
+				profiledlist.append(v.twitterid)
+		except:
+			pass
+	print "Length of Profiled List: " + str(len(profiledlist))
+	return profiledlist
+
+def crsq_user_status_from_twitter(twitterid):
+	try:
+		page = 1
+		statuslist = []
+		while True:
+			statuses = api.user_timeline(page=page, id=twitterid)
+			if statuses:
+				for status in statuses:
+			            statuslist.append(status)
+			else:
+			        break
+    			page += 1  # next page
+			if page >= 4:
+				break
+		return statuslist
+	except Exception as e:
+		print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
+		raise
+	
 def crsq_user_dict_from_twitter(twitterid):
 	try:
 		userObj = api.get_user(twitterid)
 	except Exception as e:
-		print "Restricted profile / Rate limit Exception: " + str(twitterid) + " " + str(e)
+		print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
 		
 		if str(e).find("Rate limit")>-1:
 			sys.exit(1)
@@ -19,10 +50,10 @@ def crsq_user_dict_from_twitter(twitterid):
 		return returndict
 
 	try:
-		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=jsonpickle.encode(userObj.timeline()), statuses_count=userObj.statuses_count, location=userObj.location, followers=jsonpickle.encode(userObj.followers_ids()), followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
+		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=jsonpickle.encode(crsq_user_status_from_twitter(twitterid)), statuses_count=userObj.statuses_count, location=userObj.location, followers=jsonpickle.encode(userObj.followers_ids()), followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
 		return returndict
 	except Exception as e:	
-		print "Restricted profile / Rate limit Exception: " + str(userObj.id) + " " + str(userObj.screen_name) + " " + str(e)
+		print "Restricted profile / Rate limit Exception / No Internet : " + str(userObj.id) + " " + str(userObj.screen_name) + " " + str(e)
 
 		if str(e).find("Rate limit")>-1:
 			sys.exit(1)
@@ -36,6 +67,7 @@ def crsq_user_dict_from_twitter(twitterid):
 
 def expandVertex(vertex):
 	followers = jsonpickle.decode(vertex.followers)
+	followers = filter(lambda x: x not in profiledlist, followers)
 	for follower in followers:
 		vertex2 = createVertex(follower)
 		createEdge(vertex, vertex2, "followed by")
@@ -121,6 +153,7 @@ api = tweepy.API(auth)
 from bulbs.neo4jserver import Graph, Config, NEO4J_URI
 config = Config(NEO4J_URI)
 g = Graph(config)
+profiledlist = getProfiledList()
 
 if __name__ == "__main__":
 	#pratikpoddar
