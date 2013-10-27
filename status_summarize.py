@@ -8,9 +8,10 @@ import urllib
 import urllib2
 import re
 from lxml import etree
-rx = re.compile('\W+')
+from calais import Calais
 
 alchemyapi = AlchemyAPI()
+calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
@@ -40,7 +41,7 @@ def get_Status_Categories(status):
 		return None
 
 def get_Content_Analysis(status):
-	print("--------------")
+	
 	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20contentanalysis.analyze%20where%20text%3D%22" + urllib.quote_plus(re.compile('\W+').sub(' ', status).strip()) + "%22&diagnostics=true"
 	root = etree.fromstring(urllib2.urlopen(url).read())
 	relevantlist = root.getchildren()[1].getchildren()
@@ -57,18 +58,36 @@ def get_Content_Analysis(status):
 	print(yresult)
 	return yresult
 
+def get_Calais_Topics(status):
+	
+	calais_result = calais.analyze(status)
+	print('')
+	print('## Open Calais Topics ##')
+	try:
+		print("Topics")
+		calais_result.print_topics()
+	except Exception as e:
+		pass
+	try:
+		print("Entities")
+		calais_result.print_entities()
+	except Exception as e:
+		pass
+	return calais_result
+	
 if __name__ == "__main__":
 	if len(sys.argv)>1:
 		twitteridlist = [int(sys.argv[1])]
 	else:
 		twitteridlist = [66690578,62438757]
 
-	yahooapires = None
+	calaisapires = None
 	for twitterid in twitteridlist:
 		statuses = getStatus(twitterid)
 		concepts = get_Status_Concepts(statuses)
 		categories = get_Status_Categories(statuses)
 		yahooapires = get_Content_Analysis(statuses)
+		calaisapires = get_Calais_Topics(statuses)
 
 
 

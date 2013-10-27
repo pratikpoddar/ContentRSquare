@@ -4,7 +4,7 @@ import jsonpickle
 from time import sleep
 import sys
 from bulbs.neo4jserver import Graph, Config, NEO4J_URI
-from status_summarize import get_Status_Concepts, get_Status_Categories, getStatus, get_Content_Analysis
+from status_summarize import get_Status_Concepts, get_Status_Categories, getStatus, get_Content_Analysis, get_Calais_Topics
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def removetick(s): return s.replace("'","")
@@ -32,11 +32,13 @@ def save_Status_Tags(twitterid):
 		y_cat_ent = get_Content_Analysis(status)
 		vertex.yentities = jsonpickle.encode(y_cat_ent['yentities'])
 		vertex.ycategories = jsonpickle.encode(y_cat_ent['ycategories'])
+		vertex.calaistopics = jsonpickle.encode(get_Calais_Topics(status))
 		if vertex.alchemy_concepts != None:
 			if vertex.alchemy_categories != None:
 				if vertex.yentities != None:
 					vertex.ycategories != None:
-						vertex.status_analyzed = 1
+						vertex.calaistopics != None:
+							vertex.status_analyzed = 2
 		vertex.save()
 	except Exception as e:
 		print "Exception in save_Status_Tags : " + str(twitterid) + " " + str(e)
@@ -56,7 +58,7 @@ def get_Not_Status_Analyzed_People():
 
         for v in vertices:
                 try:
-                        if v.status_analyzed == 1:
+                        if v.status_analyzed == 2:
                                 not_stat_analy_list.remove(v.twitterid)
                 except:
 			pass
