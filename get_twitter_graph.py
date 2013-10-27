@@ -8,10 +8,10 @@ from bulbs.neo4jserver import Graph, Config, NEO4J_URI
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def removetick(s): return s.replace("'","")
 def removementions(s): return ' '.join(i for i in s.split(' ') if not i.startswith('@'))
-def removelinks(s): return ' '.join(i for i in s.split(' ') if not i.startswith('http'))
+def removelinks(s): return ' '.join(i for i in s.split(' ') if not i.find('http') > -1)
 def removelines(s): return s.replace("\n"," ")
 
-def clean_status(s): return removelines(removelinks(removementions(removetick(removeNonAscii(s)))))
+def clean_status(s): return removelinks(removelines(removementions(removetick(removeNonAscii(s)))))
 
 config = Config(NEO4J_URI)
 g = Graph(config)
@@ -32,6 +32,33 @@ def getStatus(twitterid):
 		totalstatus+=clean_status(status['text'])+" "
 	return totalstatus
 
+def printData(twitterid):
+	try:
+		vertex = list(g.vertices.index.lookup(twitterid=twitterid))[0]
+		print "----------------------"
+		print removeNonAscii(str(vertex.twitterid)) + " - " + removeNonAscii(str(vertex.screen_name)) + " - " + removeNonAscii(str(vertex.name)) + " - " + removeNonAscii(str(vertex.location)) + " - " + removeNonAscii(str(vertex.description))
+		print "Status Count: " + str(vertex.statuses_count) + " - Friends Count: " + str(vertex.friends_count) + " - Followers Count: " + str(vertex.followers_count) + " - Profiled: " + str(vertex.profiled) + " - StatusAnalyzed: " + str(vertex.status_analyzed)
+		print "Alchemy Category: " + json.loads(str(vertex.alchemy_categories))['category']
+		print "Alchemy Concepts: " + str(map(lambda x: x['text'], json.loads(str(vertex.alchemy_concepts))))
+		print "Statuses:"
+		print map(lambda x: clean_status(x['text']), json.loads(str(vertex.statuses)))
+	except Exception as e:
+		print "Exception " + str(e)
+		pass
+	return
 
-
+def printAll():
+	counter = 0
+	while counter<5:
+		counter+=1
+		try:
+			vertex = g.vertices.get(counter)
+			try:
+				twitterid = vertex.twitterid
+				printData(twitterid)
+			except:
+				pass
+		except:
+			print "------------------------------------ Ending --------------------------------"
+			return
 
