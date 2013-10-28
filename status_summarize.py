@@ -21,9 +21,11 @@ def get_Status_Concepts(status):
 	if response['status'] == 'OK':
 		print('')
 		print('## Concepts ##')
+		responseOutput = []
 		for concept in response['concepts']:
 			print(removeNonAscii('text: ' + concept['text'] + ' ' + concept['relevance']))
-		return response['concepts']
+			responseOutput.append({'text': concept['text'], 'freebase': get_Freebase_Meaning(concept['text']), 'source': "get_Status_Concepts"})
+		return responseOutput
 	else:
 		print('Error in concept tagging call: '+ response['statusInfo'])
 		return None
@@ -34,8 +36,13 @@ def get_Status_Categories(status):
 	if response['status'] == 'OK':
 		print('')
 		print('## Category ##')
+		responseOutput = {}
 		print(removeNonAscii('text: '+ response['category'] + ' ' + response['score']))
-		return response
+		if response['category'] == "unknown":
+			responseOutput = None
+		else:
+			responseOutput = {'text': response['category'], 'freebase': get_Freebase_Meaning(response['category']), 'source': "get_Status_Categories" }
+		return responseOutput
 	else:
 		print('Error in text categorization call: '+ response['statusInfo'])
 		return None
@@ -48,40 +55,71 @@ def get_Content_Analysis(status):
 	print('')
         print('## Yahoo Content Analysis ##')
 	yresult = {}
+	responseOutput = []
 	yresult['yentities'] = []
 	yresult['ycategories'] = []
 	for relevantgroup in relevantlist:
 		if relevantgroup.tag == "{urn:yahoo:cap}entities":
 			yresult['yentities'] = map(lambda entity: entity.getchildren()[0].text, relevantgroup)
+			responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'yentities'}, yresult['yentities'])
 		if relevantgroup.tag == "{urn:yahoo:cap}yctCategories":
 			yresult['ycategories'] = map(lambda category: category.text, relevantgroup.getchildren())
-	print(yresult)
-	return yresult
+			responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'ycategories'}, yresult['ycategories'])
+	print(responseOutput)
+	return responseOutput
 
 def get_Calais_Topics(status):
 	
 	calais_result = calais.analyze(status)
 	print('')
 	print('## Open Calais Topics ##')
+	responseOutput = []
 	try:
 		print("Topics")
 		calais_result.print_topics()
+		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_topics', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.topics)
 	except Exception as e:
 		pass
 	try:
 		print("Entities")
 		calais_result.print_entities()
+		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_entities', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.entities)
 	except Exception as e:
 		pass
-	return calais_result
+	
+	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	return responseOutput
+
+def get_Freebase_Meaning(term):
+	
+	try:
+		term = removeNonAscii(term)
+		url = "https://www.googleapis.com/freebase/v1/search?query=" + urllib.quote_plus(term)
+		jsonResult = json.loads(urllib2.urlopen(url).read())['result']
+		if jsonResult[0]['score']>100:
+			try:
+				return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': jsonResult[0]['id']}
+			except:
+				try:
+					return {'parentnode': '', 'wikilink': jsonResult[0]['id']}
+				except:
+					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+		else:
+			return None
+	except Exception as e:
+		return None
 	
 if __name__ == "__main__":
 	if len(sys.argv)>1:
 		twitteridlist = [int(sys.argv[1])]
 	else:
 		twitteridlist = [66690578,62438757]
+		twitteridlist = [66690578]
 
-	calaisapires = None
+	concepts = []
+	categories = []
+	yahooapires = []
+	calaisapires = []
 	for twitterid in twitteridlist:
 		statuses = getStatus(twitterid)
 		concepts = get_Status_Concepts(statuses)
