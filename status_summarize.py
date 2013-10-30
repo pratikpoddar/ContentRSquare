@@ -72,16 +72,17 @@ def get_Calais_Topics(status):
 	
 	calais_result = calais.analyze(status)
 	print('')
-	print('## Open Calais Topics ##')
+	print('## Open Calais ##')
 	responseOutput = []
 	try:
-		print("Topics")
+		print("Calais Topics")
 		calais_result.print_topics()
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_topics', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.topics)
 	except Exception as e:
 		pass
+
 	try:
-		print("Entities")
+		print("Calais Entities")
 		calais_result.print_entities()
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_entities', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.entities)
 	except Exception as e:

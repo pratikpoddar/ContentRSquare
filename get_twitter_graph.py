@@ -24,14 +24,43 @@ def getStatus(twitterid):
 		print str(twitterid) + " not in the database - taking 66690578"
 		vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
 	print ""
-	print "## " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
+	print "## getStatus " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
 	statuses = vertex.statuses
 	statuses = json.loads(statuses)
 	totalstatus = ""
 	for status in statuses:
-		totalstatus+=clean_status(status['text'])+" "
+		if not status['in_reply_to_user_id_str']:
+			totalstatus+=clean_status(status['text'])+" "
 	return totalstatus
 
+def getStatusStatistics(twitterid):
+        gen = g.vertices.index.lookup(twitterid=twitterid)
+        try:
+                vertex = list(gen)[0]
+        except:
+                print str(twitterid) + " not in the database - taking 66690578"
+                vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
+        print ""
+        print "## getStatusStatistics " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
+        statuses = vertex.statuses
+        statuses = json.loads(statuses)
+	mentions = []
+	hashes = []
+	favorite_count = 0
+	retweet_count = 0
+        for status in statuses:
+		favorite_count += status['favorite_count']
+		retweet_count += status['retweet_count']
+		try:
+			mentions += map(lambda x: x['id_str'], status['entities']['user_mentions'])
+		except:
+			pass
+		try:
+			hashes += map(lambda x: x['text'], status['entities']['hashtags'])
+		except:
+			pass
+        return {'mentions': mentions, 'hashes': hashes, 'favorite_count': favorite_count, 'retweet_count': retweet_count}
+	
 def printData(twitterid):
 	try:
 		vertex = list(g.vertices.index.lookup(twitterid=twitterid))[0]

@@ -4,7 +4,8 @@ import jsonpickle
 from time import sleep
 import sys
 from bulbs.neo4jserver import Graph, Config, NEO4J_URI
-from status_summarize import get_Status_Concepts, get_Status_Categories, getStatus, get_Content_Analysis, get_Calais_Topics
+from status_summarize import get_Status_Concepts, get_Status_Categories, get_Content_Analysis, get_Calais_Topics, get_Freebase_Meaning
+from get_twitter_graph import getStatus, getStatusStatistics
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def removetick(s): return s.replace("'","")
@@ -24,21 +25,25 @@ def save_Status_Tags(twitterid):
 		vertex = list(gen)[0]
 	except:
 		print str(twitterid) + " not in the database - taking 66690578"
+		twitterid = 66690578
 		vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
 	status = getStatus(twitterid)
 	try:
 		vertex.alchemy_concepts = jsonpickle.encode(get_Status_Concepts(status))
 		vertex.alchemy_categories = jsonpickle.encode(get_Status_Categories(status))
-		y_cat_ent = get_Content_Analysis(status)
-		vertex.yentities = jsonpickle.encode(y_cat_ent['yentities'])
-		vertex.ycategories = jsonpickle.encode(y_cat_ent['ycategories'])
+		vertex.y_entities_categories = jsonpickle.encode(get_Content_Analysis(status))
 		vertex.calaistopics = jsonpickle.encode(get_Calais_Topics(status))
+		vertex.status_stats = jsonpickle.encode(getStatusStatistics(twitterid))
 		if vertex.alchemy_concepts != None:
 			if vertex.alchemy_categories != None:
-				if vertex.yentities != None:
-					vertex.ycategories != None:
-						vertex.calaistopics != None:
+				if vertex.y_entities_categories != None:
+					if vertex.calaistopics != None:
+						if vertex.status_stats != None:
 							vertex.status_analyzed = 2
+		try:
+			vertex.real_location = get_Freebase_Meaning(vertex.location)['wikilink']
+		except:
+			vertex.real_location = vertex.location
 		vertex.save()
 	except Exception as e:
 		print "Exception in save_Status_Tags : " + str(twitterid) + " " + str(e)
