@@ -16,13 +16,21 @@ def clean_status(s): return removelinks(removelines(removementions(removetick(re
 config = Config(NEO4J_URI)
 g = Graph(config)
 
+def getVertex(twitterid, minstage):
+        vertices = g.vertices.index.lookup(twitterid=twitterid)
+        if vertices:
+                vertices = list(vertices)
+                if len(vertices)!=1:
+                        raise Exception("Assertion Error: getVertex: not a unique vertex with the same twitterid " + str(twitterid))
+		vertex = vertices[0]
+		if vertex.stage < minstage:
+			raise Exception("Assertion Error: getVertex: vertex with stage value < " + str(minstage) + " - " + str(twitterid) + " " + str(vertex))
+		return vertex
+	else:
+		raise Exception("Error: getVertex: No Vertex with twitterid " + str(twitterid))
+
 def getStatus(twitterid):
-	gen = g.vertices.index.lookup(twitterid=twitterid)
-	try:
-		vertex = list(gen)[0]
-	except:
-		print str(twitterid) + " not in the database - taking 66690578"
-		vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
+	vertex = getVertex(twitterid, 2)
 	print ""
 	print "## getStatus " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
 	statuses = vertex.statuses
@@ -34,12 +42,7 @@ def getStatus(twitterid):
 	return totalstatus
 
 def getStatusStatistics(twitterid):
-        gen = g.vertices.index.lookup(twitterid=twitterid)
-        try:
-                vertex = list(gen)[0]
-        except:
-                print str(twitterid) + " not in the database - taking 66690578"
-                vertex = list(g.vertices.index.lookup(twitterid=66690578))[0]
+        vertex = getVertex(twitterid, 2)
         print ""
         print "## getStatusStatistics " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
         statuses = vertex.statuses
@@ -60,10 +63,19 @@ def getStatusStatistics(twitterid):
 		except:
 			pass
         return {'mentions': mentions, 'hashes': hashes, 'favorite_count': favorite_count, 'retweet_count': retweet_count}
+
+## TODO: Implement it
+def getFollowerStats(twitterid):
+	vertex = getVertex(twitterid,3)
+	print ""
+        print "## getFollowerStats " + str(twitterid) + ' ' + removeNonAscii(vertex.screen_name) + ' ' + removeNonAscii(vertex.name) + " ##"
+        followers = vertex.followers
+	
+	return {}
 	
 def printData(twitterid):
 	try:
-		vertex = list(g.vertices.index.lookup(twitterid=twitterid))[0]
+		vertex = getVertex(twitterid,0)
 		print "----------------------"
 		print removeNonAscii(str(vertex.twitterid)) + " - " + removeNonAscii(str(vertex.screen_name)) + " - " + removeNonAscii(str(vertex.name)) + " - " + removeNonAscii(str(vertex.location)) + " - " + removeNonAscii(str(vertex.description))
 		print "Status Count: " + str(vertex.statuses_count) + " - Friends Count: " + str(vertex.friends_count) + " - Followers Count: " + str(vertex.followers_count) + " - Profiled: " + str(vertex.profiled) + " - StatusAnalyzed: " + str(vertex.status_analyzed)
@@ -76,18 +88,4 @@ def printData(twitterid):
 		pass
 	return
 
-def printAll():
-	counter = 0
-	while counter<5:
-		counter+=1
-		try:
-			vertex = g.vertices.get(counter)
-			try:
-				twitterid = vertex.twitterid
-				printData(twitterid)
-			except:
-				pass
-		except:
-			print "------------------------------------ Ending --------------------------------"
-			return
 

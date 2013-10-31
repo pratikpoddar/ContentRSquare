@@ -2,7 +2,6 @@
 from __future__ import print_function
 from alchemyapi import AlchemyAPI
 import json
-from get_twitter_graph import getStatus
 import sys
 import urllib
 import urllib2
@@ -15,8 +14,8 @@ calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-s
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
-def get_Status_Concepts(status):
-	response = alchemyapi.concepts('text', status)
+def get_Text_Concepts(text):
+	response = alchemyapi.concepts('text', text)
 
 	if response['status'] == 'OK':
 		print('')
@@ -24,14 +23,14 @@ def get_Status_Concepts(status):
 		responseOutput = []
 		for concept in response['concepts']:
 			print(removeNonAscii('text: ' + concept['text'] + ' ' + concept['relevance']))
-			responseOutput.append({'text': concept['text'], 'freebase': get_Freebase_Meaning(concept['text']), 'source': "get_Status_Concepts"})
+			responseOutput.append({'text': concept['text'], 'freebase': get_Freebase_Meaning(concept['text']), 'source': "get_Text_Concepts"})
 		return responseOutput
 	else:
 		print('Error in concept tagging call: '+ response['statusInfo'])
 		return None
 
-def get_Status_Categories(status):
-	response = alchemyapi.category('text',status)
+def get_Text_Categories(text):
+	response = alchemyapi.category('text',text)
 
 	if response['status'] == 'OK':
 		print('')
@@ -41,15 +40,15 @@ def get_Status_Categories(status):
 		if response['category'] == "unknown":
 			responseOutput = None
 		else:
-			responseOutput = {'text': response['category'], 'freebase': get_Freebase_Meaning(response['category']), 'source': "get_Status_Categories" }
+			responseOutput = {'text': response['category'], 'freebase': get_Freebase_Meaning(response['category']), 'source': "get_Text_Categories" }
 		return responseOutput
 	else:
 		print('Error in text categorization call: '+ response['statusInfo'])
 		return None
 
-def get_Content_Analysis(status):
+def get_Content_Analysis(text):
 	
-	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20contentanalysis.analyze%20where%20text%3D%22" + urllib.quote_plus(re.compile('\W+').sub(' ', status).strip()) + "%22&diagnostics=true"
+	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20contentanalysis.analyze%20where%20text%3D%22" + urllib.quote_plus(re.compile('\W+').sub(' ', text).strip()) + "%22&diagnostics=true"
 	root = etree.fromstring(urllib2.urlopen(url).read())
 	relevantlist = root.getchildren()[1].getchildren()
 	print('')
@@ -68,9 +67,9 @@ def get_Content_Analysis(status):
 	print(responseOutput)
 	return responseOutput
 
-def get_Calais_Topics(status):
+def get_Calais_Topics(text):
 	
-	calais_result = calais.analyze(status)
+	calais_result = calais.analyze(text)
 	print('')
 	print('## Open Calais ##')
 	responseOutput = []
@@ -111,22 +110,20 @@ def get_Freebase_Meaning(term):
 		return None
 	
 if __name__ == "__main__":
+	from get_twitter_graph import getStatus
 	if len(sys.argv)>1:
 		twitteridlist = [int(sys.argv[1])]
 	else:
 		twitteridlist = [66690578,62438757]
 		twitteridlist = [66690578]
 
-	concepts = []
-	categories = []
-	yahooapires = []
-	calaisapires = []
 	for twitterid in twitteridlist:
 		statuses = getStatus(twitterid)
-		concepts = get_Status_Concepts(statuses)
-		categories = get_Status_Categories(statuses)
+		concepts = get_Text_Concepts(statuses)
+		categories = get_Text_Categories(statuses)
 		yahooapires = get_Content_Analysis(statuses)
-		calaisapires = get_Calais_Topics(statuses)
+		calaisapires = get_Calais_Topics(statuses
+)
 
 
 

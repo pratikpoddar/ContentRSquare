@@ -14,16 +14,36 @@ def checkRateLimit():
 		sys.exit(0)
 	return
 
-def getProfiledList():
+def handleTwitterApiException(twitterid, e):
+
+	print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
+	if str(e).find("Rate limit")>-1:
+		sys.exit(1)
+	if str(e).find("Failed to send request")>-1:
+		sys.exit(1)
+
+	return
+	
+def getProfiledList(level):
 	profiledlist = []
 	vertices = g.V
 	for v in vertices:
 		try:
-			if v.profiled == 1:
-				profiledlist.append(v.twitterid)
+			if level=='basic':
+				if v.stage >= 1:
+					profiledlist.append(v.twitterid)
+			if level=='statusfollowers':
+				if v.stage >= 2:
+					profiledlist.append(v.twitterid)
+			if level=='expanded':
+				if v.stage >= 3:
+					profiledlist.append(v.twitterid)
+			if level=='analyzed':
+				if v.stage >= 4:
+					profiledlist.append(v.twitterid)
 		except:
 			pass
-	print "Length of Profiled List: " + str(len(profiledlist))
+	print "Length of Profiled List: (" + level + ") " + str(len(profiledlist))
 	return profiledlist
 
 def crsq_user_status_from_twitter(twitterid):
@@ -43,110 +63,115 @@ def crsq_user_status_from_twitter(twitterid):
 				break
 		return statuslist
 	except Exception as e:
-		print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
+		handleTwitterApiException(twitterid, e)
 		raise
 	
-def crsq_user_dict_from_twitter(twitterid):
+def crsq_user_dict_from_twitter(twitterid, list_of_attr):
 	try:
 		checkRateLimit()
 		userObj = api.get_user(twitterid)
-	except Exception as e:
-		print "Restricted profile / Rate limit Exception / No Internet : " + str(twitterid) + " " + str(e)
+		try:
+			if 'statuses' in list_of_attr:
+				checkRateLimit()
+				statuses=jsonpickle.encode(crsq_user_status_from_twitter(twitterid))
+			else:
+				statuses=jsonpickle.encode([])
+		except:
+			handleTwitterApiException(twitterid, e)
+			statuses=jsonpickle.encode([])
 		
-		if str(e).find("Rate limit")>-1:
-			sys.exit(1)
-		if str(e).find("Failed to send request")>-1:
-			sys.exit(1)
+		try:
+			if 'followers' in list_of_attr:
+				checkRateLimit()
+				followers=jsonpickle.encode(userObj.followers_ids())
+			else:
+				followers=jsonpickle.encode([])
+		except:
+			handleTwitterApiException(twitterid, e)
+			followers=jsonpickle.encode([])
+	
+		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=statuses, statuses_count=userObj.statuses_count, location=userObj.location, followers=followers, followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
+	
+	except Exception as e:
+		handleTwitterApiException(twitterid, e)
+		sys.exit(1)
 
-                returndict = dict(twitterid=twitterid, screen_name='', name='', statuses=jsonpickle.encode([]), statuses_count=0, location='', followers=jsonpickle.encode([]), followers_count=0, friends_count=0, description='')
-		return returndict
+	return returndict
 
-	try:
-		checkRateLimit()
-		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=jsonpickle.encode(crsq_user_status_from_twitter(twitterid)), statuses_count=userObj.statuses_count, location=userObj.location, followers=jsonpickle.encode(userObj.followers_ids()), followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
-		return returndict
-	except Exception as e:	
-		print "Restricted profile / Rate limit Exception / No Internet : " + str(userObj.id) + " " + str(userObj.screen_name) + " " + str(e)
-
-		if str(e).find("Rate limit")>-1:
-			sys.exit(1)
-		if str(e).find("Failed to send request")>-1:
-			sys.exit(1)
-
-		returndict = dict(twitterid=userObj.id, screen_name=userObj.screen_name, name=userObj.name, statuses=jsonpickle.encode([]), statuses_count=userObj.statuses_count, location=userObj.location, followers=jsonpickle.encode([]), followers_count=userObj.followers_count, friends_count=userObj.friends_count, description=userObj.description)
-		return returndict
-
-	return
+def getFollowersFromEdges(vertex):
+	edges = vertex.outE("followed by")
+	list_of_twitterids = []
+	if edges:
+		for edge in list(edges):
+			list_of_twitterids.append(edge.inV().twitterid)
+	return list_of_twitterids
 
 def expandVertex(vertex):
 	followers = jsonpickle.decode(vertex.followers)
-	followers = filter(lambda x: x not in profiledlist, followers)
-	for follower in followers:
-		vertex2 = createVertex(follower)
+	not_yet_edged = list(set(followers) - set(getFollowersFromEdges(vertex)))
+	not_yet_profiled= filter(lambda x: x not in profiledlistBasic, followers)
+	for follower in (not_yet_profiled+not_yet_edged):
+		vertex2 = createVertex(follower, basicData)
 		createEdge(vertex, vertex2, "followed by")
 	print "Expanded Vertex " + str(vertex.twitterid) + " " + str(vertex.screen_name)
-	vertex.expanded = 1
+	if vertex.stage > 3:
+		vertex.stage = vertex.stage
+	else:
+		vertex.stage = 3
 	vertex.save()
 	return
-	
-def createVertex(twitterid):
-	vertex = check_if_profile_exists(twitterid)
-	if not(vertex==None):
-		print "Already there user " + str(vertex.twitterid) + " " + str(vertex.screen_name)
+
+def createVertex(twitterid, list_of_attrs):
+	vertex = getorcreateVertex(twitterid)
+	if twitterid in profiledlistStatusFollowers:
+		print str(vertex.twitterid) + " " + str(vertex.screen_name) + " already there"
 		return vertex
+	if (twitterid in profiledlistBasic) and not('statuses' in list_of_attrs) and not('followers' in list_of_attrs):
+		print str(vertex.twitterid) + " " + str(vertex.screen_name) + " already there"
+		return vertex
+	crsquserDict = crsq_user_dict_from_twitter(twitterid, list_of_attrs)
+	for attr in list_of_attrs:
+		vertex.data()[attr] = crsquserDict[attr]
+	if ('statuses' in list_of_attrs) and ('followers' in list_of_attrs):
+		vertex.stage = 2 #detail-profiled
 	else:
-		crsquserDict = crsq_user_dict_from_twitter(twitterid)
-		vertex = g.vertices.create(twitterid=crsquserDict['twitterid'])
-		vertex.screen_name = crsquserDict['screen_name']
-		vertex.name = crsquserDict['name']
-		vertex.statuses = crsquserDict['statuses']
-		vertex.statuses_count = crsquserDict['statuses_count']
-		vertex.location = crsquserDict['location']
-		vertex.followers = crsquserDict['followers']
-		vertex.followers_count = crsquserDict['followers_count']
-		vertex.friends_count = crsquserDict['friends_count']
-		vertex.description = crsquserDict['description']
-		vertex.profiled = 1
-		vertex.save()
-		print "Creating new user " + str(crsquserDict['twitterid']) + " " + str(crsquserDict['screen_name'])
-	
+		vertex.stage = 1 #profiled
+	vertex.save()
+
+	print str(vertex.twitterid) + " " + str(vertex.screen_name) + " created - with attrs " + str(list_of_attrs)
+
 	return vertex
 
-def check_if_profile_exists(twitterid):
-	vertices = g.vertices.index.lookup(twitterid=twitterid)
-	if vertices:
-                vertex = list(vertices)[0]
-                print "--- Already there user " + str(twitterid)
-                try:
-			if vertex.profiled==1:
-                                return vertex
-			else:
-				raise
-			
-                except:
-                        print "--- User was there but no data: " + str(twitterid)
-			print "--- Deleting user"
-			g.vertices.delete(vertex.eid)
-                        return None
+def getorcreateVertex(twitterid):
+	minstage = 1
+        vertices = g.vertices.index.lookup(twitterid=twitterid)
+        if vertices:
+                vertices = list(vertices)
+                if len(vertices)!=1:
+                        raise Exception("Assertion Error: getorcreateVertex: not a unique vertex with the same twitterid " + str(twitterid))
+
+                vertex = vertices[0]
+                if vertex.stage < minstage:
+                	raise Exception("Assertion Error: getorcreateVertex: vertex with stage value < " + str(minstage) + " - " + str(twitterid) + " " + str(vertex))
+	        return vertex
 	else:
-		return None
+                vertex = g.vertices.create(twitterid=twitterid)
+                vertex.stage = 0
+                vertex.save()
+		return vertex
 
 def createEdge(vertex1, vertex2, string):
-	vertices = g.vertices.index.lookup(twitterid=vertex1.twitterid)
-	if vertices:
-		vertex = list(vertices)[0]
-		edges = vertex.outE(string)
-		if edges:
-			edgeslist = list(edges)
-			for edge in edgeslist:
-				if edge.inV().twitterid == vertex2.twitterid:
-					print "Old edge " + str(vertex1.twitterid) + " " + str(vertex1.screen_name) + " connecting to " + str(vertex2.twitterid) + " " + str(vertex2.screen_name) + " via " + string
-
-					return
+	vertex1 = getorcreateVertex(vertex1.twitterid)
+	vertex2 = getorcreateVertex(vertex2.twitterid)
+	edges = vertex1.outE(string)
+	if edges:
+		for edge in list(edges):
+			if edge.inV().twitterid == vertex2.twitterid:
+				print "Old edge " + str(vertex1.twitterid) + " " + str(vertex1.screen_name) + " connecting to " + str(vertex2.twitterid) + " " + str(vertex2.screen_name) + " via " + string
+				return
 
 	edge = 	g.edges.create(vertex1, string, vertex2)
 	print str(vertex1.twitterid) + " connecting to " + str(vertex2.twitterid) + " via " + string
-
 	return
 		
 ## tweepy
@@ -166,14 +191,18 @@ api = tweepy.API(auth)
 from bulbs.neo4jserver import Graph, Config, NEO4J_URI
 config = Config(NEO4J_URI)
 g = Graph(config)
-profiledlist = getProfiledList()
+profiledlistBasic = getProfiledList("basic")
+profiledlistStatusFollowers = getProfiledList("statusfollowers")
+profiledlistExpanded = getProfiledList("expanded")
+profiledlistAnalyzed = getProfiledList("analyzed")
+
+basicData = ['screen_name', 'name', 'statuses_count', 'location', 'followers_count', 'friends_count', 'description']
 
 if __name__ == "__main__":
 	#pratikpoddar
-	v = createVertex(66690578)
-	#anandlunia
-	#v = createVertex(62438757)
-
+	v = createVertex(66690578, basicData + ['statuses', 'followers'])
 	expandVertex(v)
+	#anandlunia
+	v = createVertex(62438757, basicData + ['statuses', 'followers'])
 
 
