@@ -11,4 +11,5 @@
 	}
 	$current .= "!!!!!!!!!!!!!!\n";
 	fwrite($handle, $current);
+	fclose($handle);
 ?>
