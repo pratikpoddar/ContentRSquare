@@ -27,13 +27,6 @@ jQuery(function ($) {
     });
 });
 
-//sticky navigation
-$(document).ready(function () {
-    $(".header").sticky({
-        topSpacing: 0
-    });
-});
-
 //toggle menu
 $('.menu-btn').on('click',function(){
     $('.navigation').collapse({
@@ -126,13 +119,6 @@ $(function () {
         }, 1000, 'linear');
         event.preventDefault();
     });
-});
-
-
-//testimonial carousel setting
-$(".testimonial").list_ticker({
-    speed: 5000,
-    effect: 'fade'
 });
 
 
