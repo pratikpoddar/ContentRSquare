@@ -64,13 +64,14 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "contact.php",
+            url: "sendmessage.php",
             dataType: "html",
             data: myData,
             success: function (response) {
                 $("#MainResult").html('<fieldset class="response">' + response + '</fieldset>');
                 $("#MainResult").slideDown("slow"); //show Result 
                 $("#MainContent").hide(); //hide form div slowly
+		$("#ErrResults").html("Message Sent. You will get a call from one of our teammates soon. Thanks a ton for your patience.");
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#ErrResults").html(thrownError);
