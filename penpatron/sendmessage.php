@@ -1,9 +1,8 @@
 <?php
-	$file = 'messages.txt';
-	// Open the file to get existing content
-	$current = file_get_contents($file);
-	// Append a new person to the file
-	$current .= "!!!!!!!!!!!!!!!\n";
+	$file = 'message'.time().'.txt';
+	$handle = fopen($file, 'w');
+	$current = "!!!!!!!!!!!!!!!\n";
+	$current .= time()."\n";
 	foreach ( $_POST as $key => $value )
 	{
         	$current .= "----\n";
@@ -11,6 +10,5 @@
 		$current .= $value."\n";
 	}
 	$current .= "!!!!!!!!!!!!!!\n";
-	// Write the contents back to the file
-	file_put_contents($file, $current);
+	fwrite($handle, $current);
 ?>
