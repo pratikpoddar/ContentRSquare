@@ -1,5 +1,5 @@
 <?php
-	$file = 'message'.time().'.txt';
+	$file = 'messages/message'.time().'.txt';
 	$handle = fopen($file, 'w');
 	$current = "!!!!!!!!!!!!!!!\n";
 	$current .= time()."\n";
