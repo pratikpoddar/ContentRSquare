@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from __future__ import print_function
-from alchemyapi import AlchemyAPI
+from alchemyapi_python.alchemyapi import AlchemyAPI
 import json
 import sys
 import urllib
@@ -108,12 +108,13 @@ def get_Freebase_Meaning(term):
 			return None
 	except Exception as e:
 		return None
-	
-text = "In a shake up ahead of the LS polls, environment minister Jayanthi Natarajan resigned from the Union council of ministers. More resignations may be in line for being drafted into party work. The resignation of 59-year-old Natarajan, minister of state with independent charge of environment and forests, has been accepted by the President, a Rashtrapati Bhavan communique said. It also said that oil minister M Veerappa Moily will hold additional charge of the environment ministry. Natarajan, a senior member of Rajya Sabha doing a third term, hails from Tamil Nadu and was brought into the ministry two years ago. Sources said Natarajan, who has, of late, been more visible on television channels defending the party, may be drafted for organisation work. Sources said there could be some more ministers who could resign to be brought to party organisation in preparation for the elections."
-concepts = get_Text_Concepts(text)
-categories = get_Text_Categories(text)
-yahooapires = get_Content_Analysis(text)
-calaisapires = get_Calais_Topics(text)
+
+if __name__=="__main__":	
+	text = "In a shake up ahead of the LS polls, environment minister Jayanthi Natarajan resigned from the Union council of ministers. More resignations may be in line for being drafted into party work. The resignation of 59-year-old Natarajan, minister of state with independent charge of environment and forests, has been accepted by the President, a Rashtrapati Bhavan communique said. It also said that oil minister M Veerappa Moily will hold additional charge of the environment ministry. Natarajan, a senior member of Rajya Sabha doing a third term, hails from Tamil Nadu and was brought into the ministry two years ago. Sources said Natarajan, who has, of late, been more visible on television channels defending the party, may be drafted for organisation work. Sources said there could be some more ministers who could resign to be brought to party organisation in preparation for the elections."
+	concepts = get_Text_Concepts(text)
+	categories = get_Text_Categories(text)
+	yahooapires = get_Content_Analysis(text)
+	calaisapires = get_Calais_Topics(text)
 
 
 
