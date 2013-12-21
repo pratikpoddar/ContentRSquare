@@ -16,6 +16,23 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+
+def print_status(status):
+	urls = map(lambda x: x['expanded_url'], status.entities['urls'])
+        if len(urls):
+        	print "-----"
+                print map(lambda x: urlutils.getLongUrlOptimized(x), urls)
+                #print status.text
+                breakpoints = map(lambda x: x['indices'], status.entities['urls']+status.entities['user_mentions'])
+                breakpoints = sorted(sum(breakpoints + [[0, len(status.text)]], []))
+                printable_status = ""
+                for i in range(0,len(breakpoints)/2):
+                        printable_status += status.text[breakpoints[2*i]:breakpoints[2*i+1]]
+		printable_status = printable_status.replace('RT ', '').replace(':','').replace('\n',' ').replace('  ',' ').replace('  ',' ').strip()
+                print removeNonAscii(printable_status)
+	return
+
 def search_twitter(result_type, lang, loc, fromperson, filtertype):
 
 	for tweet in tweepy.Cursor(api.search,
@@ -25,8 +42,7 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype):
 			include_entities=True,
 			geocode=loc,
 			lang=lang).items():
-		print map(lambda x: x['expanded_url'], tweet.entities['urls'])
-		print tweet.text
+		print_status(tweet)
 
 #search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links")
 #search_twitter("popular", "en", "", "pratikpoddar","news")
@@ -45,16 +61,10 @@ def get_list_timeline(owner, listname):
 	    theMaxId = statuses[-1].id
 	    theMaxId = theMaxId - 1
 
-	    # Get new page of statuses based on current id location
 	    statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
 
-
 	for status in status_list:
-		urls = map(lambda x: x['expanded_url'], status.entities['urls'])
-		if len(urls):
-			print map(lambda x: urlutils.getLongUrlOptimized(x), urls)
-			print urls
-			print status.text
+		print_status(status)
 
 get_list_timeline("pratikpoddar", "startups")
 
