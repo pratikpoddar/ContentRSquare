@@ -5,3 +5,5 @@ Download OpenCalais https://code.google.com/p/python-calais/downloads/detail?nam
 Download http://scrapy.org/download/
 Download http://scikit-learn.org/stable/install.html
 
+pip install bottlenose
+
