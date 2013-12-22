@@ -16,7 +16,7 @@ $(window).load(function() {
 
 		$.ajax({
 		  type: "POST",
-		  url: "http://www.tomonotomo.com/getContentAffiliateAdvertising",
+		  url: "http://www.penpatron.com/getContentAffiliateAdvertising.php",
 		  data: { text: text, tracker: "1qaz2wsx" }
 		})
 		  .done(function( res ) {
