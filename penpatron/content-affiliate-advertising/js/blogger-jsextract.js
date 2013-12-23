@@ -35,11 +35,11 @@ function contentAffiliateAdvertising() {
 	$.ajax({
 	  type: "POST",
 	  crossDomain: true,
-	  url: "http://www.penpatron.com/getContentAffiliateAdvertising.php",
-	  data: { text: totaltext, tracker: "1qaz2wsx", options: options }
+	  url: "http://www.penpatron.com/content-affiliate-advertising/getContentAffiliateAdvertising.php",
+	  data: { text: totaltext, tracker: "1qaz2wsx", options: options },
+	  dataType: "json"
 	}).done(function() {
-//	    result = res;
-	    console.log("ssdds");
+	    console.log("Done");
 	  });
 
 
