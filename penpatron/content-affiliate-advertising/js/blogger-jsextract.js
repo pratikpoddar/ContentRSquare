@@ -28,6 +28,8 @@ function contentAffiliateAdvertising() {
 	    jsonp: 'jsonp_callback'
 	}).done(function(data) {
 	    result=data.keywords;
+	    console.log("Content-Affiliate-Advertising");
+	    console.log(result);
 	    //result = [{'keyword': 'Columbia Business School', 'link': 'http://www.cseblog.com'} , {'keyword': 'IBM', 'link': 'http://www.pratikpoddar.com'}];
 	    $.each(result, function(i,v) {
 		$.each($($(".post-body").parent()).children(".post-body"), function(index, value) { $(this).html(function(index,html){return html.replace(v['keyword'], '<a target="_blank" href="'+v['link']+'">'+v['keyword']+'</a>')})})
