@@ -14,12 +14,12 @@ function checkJquery() {
 checkJquery();
 
 function contentAffiliateAdvertising() {
-	var totaltext = $($(".post-body").parent()).children(".post-body").text();
+	var totaltext = $($(".post-body").parent()).children(".post-body").text().replace(/[\r\n]/g,' ');
 	var options = {'maxaffiliatelinks': 8, 'maxwikilinks': 5}
 	var tracker = "1qaz2wsx";
 	var result = null;
 	$.ajax({
-      	    type: "POST",
+      	    type: "GET",
 	    crossDomain: true,
 	    url: "http://www.penpatron.com/content-affiliate-advertising/getContentAffiliateAdvertising.php",
 	    data: { text: totaltext, tracker: tracker, options: options },
