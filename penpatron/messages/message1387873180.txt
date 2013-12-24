@@ -1,0 +1,21 @@
+!!!!!!!!!!!!!!!
+1387873180
+----
+postName
+Pratik Poddar
+----
+postEmail
+pratik.phodu@gmail.com
+----
+postPhone
+9620267962
+----
+postCollege
+IIT Bombay
+----
+postBlog
+http://www.cseblog.com
+----
+postMessage
+I am a math blogger
+!!!!!!!!!!!!!!
