@@ -17,13 +17,12 @@ function contentAffiliateAdvertising() {
 	var totaltext = $($(".post-body").parent()).children(".post-body").text().replace(/[\r\n]/g,' ');
 	var options = {'maxaffiliatelinks': 8, 'maxwikilinks': 5};
 	var index = "Books";
-	var tracker = "1qaz2wsx";
 	var result = null;
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
 	    url: "http://www.penpatron.com/content-affiliate-advertising/getContentAffiliateAdvertising.php",
-	    data: { text: totaltext, tracker: tracker, options: options, index: index },
+	    data: { text: totaltext, options: options, index: index },
 	    dataType: "jsonp",
 	    jsonp: 'jsonp_callback'
 	}).done(function(data) {
