@@ -1,6 +1,22 @@
 from text_summarize.text_summarize import *
 from lxml import objectify
 import bottlenose
+import hashlib
+import pickledb
+
+db = pickledb.load('content-affiliate.db', False)
+
+def content_affiliate(content, index):
+
+	combined_hash = int(hashlib.md5(content+index).hexdigest(), 16)
+	if db.get(combined_hash):
+		return db.get(combined_hash)
+	
+	else:
+		output = get_Content_Affliate_Advertising(content, index)
+		db.set(combined_hash, output)
+		db.dump()
+		return output
 
 def get_Content_Affliate_Advertising(content, index):
 
@@ -68,7 +84,7 @@ try:
 except:
 	pass
 
-output = get_Content_Affliate_Advertising(text, index)
+output = content_affiliate(text, index)
 ##print "[{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]"
 print output
 
