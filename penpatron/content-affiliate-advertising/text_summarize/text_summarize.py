@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from __future__ import print_function
+from alchemyapi_python.alchemyapi import AlchemyAPI
 import json
 import sys
 import urllib
@@ -8,9 +9,42 @@ import re
 from lxml import etree
 from calais import Calais
 
+alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+
+def get_Text_Concepts(text):
+	response = alchemyapi.concepts('text', text)
+
+	if response['status'] == 'OK':
+		print('')
+		print('## Concepts ##')
+		responseOutput = []
+		for concept in response['concepts']:
+			print(removeNonAscii('text: ' + concept['text'] + ' ' + concept['relevance']))
+			responseOutput.append({'text': concept['text'], 'freebase': get_Freebase_Meaning(concept['text']), 'source': "get_Text_Concepts"})
+		return responseOutput
+	else:
+		print('Error in concept tagging call: '+ response['statusInfo'])
+		return None
+
+def get_Text_Categories(text):
+	response = alchemyapi.category('text',text)
+
+	if response['status'] == 'OK':
+		print('')
+		print('## Category ##')
+		responseOutput = {}
+		print(removeNonAscii('text: '+ response['category'] + ' ' + response['score']))
+		if response['category'] == "unknown":
+			responseOutput = None
+		else:
+			responseOutput = {'text': response['category'], 'freebase': get_Freebase_Meaning(response['category']), 'source': "get_Text_Categories" }
+		return responseOutput
+	else:
+		print('Error in text categorization call: '+ response['statusInfo'])
+		return None
 
 def get_Content_Analysis(text):
 	
@@ -52,9 +86,8 @@ def get_Calais_Topics(text):
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_entities', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.entities)
 	except Exception as e:
 		pass
-
-	##responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
-	print(responseOutput)
+	
+	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
 	return responseOutput
 
 def get_Freebase_Meaning(term):
@@ -78,6 +111,8 @@ def get_Freebase_Meaning(term):
 
 if __name__=="__main__":	
 	text = "In a shake up ahead of the LS polls, environment minister Jayanthi Natarajan resigned from the Union council of ministers. More resignations may be in line for being drafted into party work. The resignation of 59-year-old Natarajan, minister of state with independent charge of environment and forests, has been accepted by the President, a Rashtrapati Bhavan communique said. It also said that oil minister M Veerappa Moily will hold additional charge of the environment ministry. Natarajan, a senior member of Rajya Sabha doing a third term, hails from Tamil Nadu and was brought into the ministry two years ago. Sources said Natarajan, who has, of late, been more visible on television channels defending the party, may be drafted for organisation work. Sources said there could be some more ministers who could resign to be brought to party organisation in preparation for the elections."
+	concepts = get_Text_Concepts(text)
+	categories = get_Text_Categories(text)
 	yahooapires = get_Content_Analysis(text)
 	calaisapires = get_Calais_Topics(text)
 
