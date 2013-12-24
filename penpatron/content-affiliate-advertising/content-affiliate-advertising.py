@@ -2,9 +2,9 @@ from text_summarize.text_summarize import *
 from lxml import objectify
 import bottlenose
 
-def get_Content_Affliate_Advertising(content):
+def get_Content_Affliate_Advertising(content, index):
 
-	keywords = []
+	keywords = ['Columbia Business School', 'IBM']
 	keywords += map(lambda x: x['text'], get_Calais_Topics(content))
 	keywords += map(lambda x: x['text'], get_Content_Analysis(content))
 	print keywords
@@ -19,12 +19,13 @@ def get_Content_Affliate_Advertising(content):
 
 	for kw in keywords:
 		try:
-		        response = amazon.ItemSearch(Keywords=kw, SearchIndex="All", ResponseGroup="ItemAttributes")
+		        response = amazon.ItemSearch(Title=kw, SearchIndex=index, ResponseGroup="ItemAttributes")
 		        root = objectify.fromstring(response)
 			if root.Items.Item.ASIN:
 		        	link = "http://www.amazon.com/dp/"+("000000"+str(root.Items.Item.ASIN)+"/")[-11:-1]+"?tag=cb02-20"
 				output.append({'keyword': kw, 'link': link})
-		except:
+		except Exception as e:
+			print e
 			pass
 
 	return output		
@@ -33,10 +34,11 @@ text = "Disclaimer: It is a made up problem. Not to be attempted by light hearte
 
 try:
 	text = sys.argv[1]
+	index = sys.argv[2]
 except:
 	pass
 
-output = get_Content_Affliate_Advertising(text)
+output = get_Content_Affliate_Advertising(text, index)
 ##print "[{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]"
 print output
 

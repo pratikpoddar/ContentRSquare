@@ -15,7 +15,7 @@ checkJquery();
 
 function contentAffiliateAdvertising() {
 	var totaltext = $($(".post-body").parent()).children(".post-body").text().replace(/[\r\n]/g,' ');
-	var options = {'maxaffiliatelinks': 8, 'maxwikilinks': 5}
+	var options = {'maxaffiliatelinks': 8, 'maxwikilinks': 5, 'index':'Books'}
 	var tracker = "1qaz2wsx";
 	var result = null;
 	$.ajax({
