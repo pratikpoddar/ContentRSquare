@@ -5,8 +5,36 @@ import bottlenose
 def get_Content_Affliate_Advertising(content, index):
 
 	keywords = []
-	keywords += map(lambda x: x['text'], get_Calais_Topics(content))
-	keywords += map(lambda x: x['text'], get_Content_Analysis(content))
+	try:
+		k1 = get_Calais_Topics(content)
+	except:
+		k1 = []
+	
+	try:
+		k2 = get_Content_Analysis(content)
+	except:
+		k2 = []
+
+	try:
+		k3 = get_Text_Concepts(content)
+	except:
+		k3 = []
+
+	try:
+		keywords += map(lambda x: x['text'], k1)
+	except:
+		pass
+
+	try:
+		keywords += map(lambda x: x['text'], k2)
+	except:
+		pass
+
+	try:
+		keywords += map(lambda x: x['text'], k3)
+	except:
+		pass
+
 	keywords = list(set(keywords))
 	#keywords = ["Columbia Business School", "IBM"]
 
