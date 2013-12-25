@@ -1,25 +1,40 @@
 import urllib2
 from bs4 import BeautifulSoup
+from urlnorm import norm
+from urlparse import parse_qs, urlsplit, urlunsplit
+from urllib import urlencode
+from cgi import escape
 
-def getUrlTitle(url):
+def getCanonicalUrl(url):
+    res = urlsplit(url)
+    if res.query:
+	    qdict = parse_qs(res.query)
+	    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
+	    res = list(res)
+	    res[3] = escape(urlencode(qdict, doseq=1))
+    else:
+	    res = list(res)
+    res[4] = ''
+    return norm(urlunsplit(res))
+
+def getCanonicalUrlTitle(url):
 	try:
-		resp = urllib2.urlopen(url)
+		#resp = urllib2.urlopen(url)
+		resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
 		if resp.getcode() == 200:
 			try:
-				return {'url': resp.geturl(), 'title': BeautifulSoup(resp).title.string.replace('\t','').replace('\n','').strip()}
+				return {'url': getCanonicalUrl(resp.geturl()), 'title': BeautifulSoup(resp).title.string.replace('\t','').replace('\n','').strip()}
 			except Exception as e:
-				try:
-					return {'url': resp.geturl(), 'title': str(e)}
-				except:
-					raise
+				raise
 		else:
 			raise
 	except Exception as e:
-		return {'url': url, 'title': str(e)}
+		return None
 
 def getLongUrl(tinyurl):
         try:
-                resp = urllib2.urlopen(tinyurl)
+                resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
+                #resp = urllib2.urlopen(tinyurl)
                 if resp.getcode() == 200:
                         return resp.url
                 else:

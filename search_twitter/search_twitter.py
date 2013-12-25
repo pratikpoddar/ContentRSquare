@@ -29,7 +29,7 @@ def print_status(status):
 	printable = ""
         if len(urls):
         	printable += "-----\n"
-		urltitles = map(lambda x: urlutils.getUrlTitle(x), urls)
+		urltitles = map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)
 		for ut in urltitles:
 			try:
 				printable += str(ut['url'])+"\n"+str(removeNonAscii(ut['title']))+"\n"
@@ -53,23 +53,31 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype):
 #search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links")
 #search_twitter("popular", "en", "", "pratikpoddar","news")
 
-def get_list_timeline(owner, listname):
+def is_status_an_article(status):
+        urls = map(lambda x: x['expanded_url'], status.entities['urls'])
+        urls = filter(lambda url: url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i'], urls)
+        if len(urls):
+                return True
+        else:
+                return False
+
+
+def get_list_timeline(owner, listname, numlinks):
 
 	status_list = [] # Create empty list to hold statuses
-	cur_status_count = 0 # set current status count to zero
 
 	try:
-		statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1")
-		while statuses != []:
-		    cur_status_count = cur_status_count + len(statuses)
+		statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1")
+		while (statuses != []) and (len(status_list)<numlinks):
 		    for status in statuses:
-		        status_list.append(status)
-
+			if is_status_an_article(status):
+			        status_list.append(status)
+		    
 		    # Get tweet id from last status in each page
 		    theMaxId = statuses[-1].id
 		    theMaxId = theMaxId - 1
 
-		    statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
+		    statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
 	except:
 		pass
 
@@ -77,8 +85,8 @@ def get_list_timeline(owner, listname):
         jobs = [pool.spawn(print_status , s) for s in status_list]
         pool.join()
 
-#get_list_timeline("pratikpoddar", "startups")
+#get_list_timeline("pratikpoddar", "startups", 100)
 if len(sys.argv)==3:
-	get_list_timeline(sys.argv[1], sys.argv[2])
+	get_list_timeline(sys.argv[1], sys.argv[2], 100)
 
 

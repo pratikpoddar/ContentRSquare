@@ -1,5 +1,11 @@
 Download everything from http://bulbflow.com/download/
 Install http://pythonhosted.org/tweepy/html/
+sudo pip install tweepy
+sudo pip install jsonpickle
+pip install beautifulsoup4
+sudo apt-get install libevent-dev python-all-dev
+sudo pip install greenlet
+sudo pip install gevent 
 Download Alchemy API http://www.alchemyapi.com/developers/sdks/
 Download OpenCalais https://code.google.com/p/python-calais/downloads/detail?name=python-calais-1.4.tar.gz
 Download http://scrapy.org/download/
@@ -8,4 +14,5 @@ Download http://scikit-learn.org/stable/install.html
 sudo apt-get install libxml2-dev libxslt-dev python-dev lib32z1-dev python-lxml
 pip install simplejson
 pip install bottlenose
+pip install -U urlnorm
 
