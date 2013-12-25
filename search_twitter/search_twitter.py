@@ -16,21 +16,27 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+import gevent
+from gevent import monkey
+from gevent.pool import Pool
+
+monkey.patch_all(thread=False)
+
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
 def print_status(status):
 	urls = map(lambda x: x['expanded_url'], status.entities['urls'])
+	printable = ""
         if len(urls):
-        	print "-----"
-                print map(lambda x: urlutils.getLongUrlOptimized(x), urls)
-                #print status.text
-                breakpoints = map(lambda x: x['indices'], status.entities['urls']+status.entities['user_mentions'])
-                breakpoints = sorted(sum(breakpoints + [[0, len(status.text)]], []))
-                printable_status = ""
-                for i in range(0,len(breakpoints)/2):
-                        printable_status += status.text[breakpoints[2*i]:breakpoints[2*i+1]]
-		printable_status = printable_status.replace('RT ', '').replace(':','').replace('\n',' ').replace('  ',' ').replace('  ',' ').strip()
-                print removeNonAscii(printable_status)
+        	printable += "-----\n"
+		urltitles = map(lambda x: urlutils.getUrlTitle(x), urls)
+		for ut in urltitles:
+			try:
+				printable += str(ut['url'])+"\n"+str(removeNonAscii(ut['title']))+"\n"
+			except:
+				pass
+
+	print printable
 	return
 
 def search_twitter(result_type, lang, loc, fromperson, filtertype):
@@ -51,20 +57,28 @@ def get_list_timeline(owner, listname):
 
 	status_list = [] # Create empty list to hold statuses
 	cur_status_count = 0 # set current status count to zero
-	statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1")
-	while statuses != []:
-	    cur_status_count = cur_status_count + len(statuses)
-	    for status in statuses:
-	        status_list.append(status)
 
-	    # Get tweet id from last status in each page
-	    theMaxId = statuses[-1].id
-	    theMaxId = theMaxId - 1
+	try:
+		statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1")
+		while statuses != []:
+		    cur_status_count = cur_status_count + len(statuses)
+		    for status in statuses:
+		        status_list.append(status)
 
-	    statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
+		    # Get tweet id from last status in each page
+		    theMaxId = statuses[-1].id
+		    theMaxId = theMaxId - 1
 
-	for status in status_list:
-		print_status(status)
+		    statuses = api.list_timeline(count=200, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
+	except:
+		pass
 
-get_list_timeline("pratikpoddar", "startups")
+        pool = Pool(len(status_list))
+        jobs = [pool.spawn(print_status , s) for s in status_list]
+        pool.join()
+
+#get_list_timeline("pratikpoddar", "startups")
+if len(sys.argv)==3:
+	get_list_timeline(sys.argv[1], sys.argv[2])
+
 
