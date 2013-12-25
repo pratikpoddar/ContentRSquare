@@ -1,0 +1,656 @@
+-----
+http://www.google.com/santatracker/
+Google Santa Tracker
+{'tw': 80185, 'fb': 742857}
+
+-----
+http://www.youtube.com/watch?v=QHPmRJIoc2k
+Tom Lehrer Full Copenhagen Performance - YouTube
+{'tw': 52, 'fb': 755}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.cnn.com/2013/12/25/health/gallery/health-trends-2013/index.html?hpt=he_c1
+Best and worst health trends of 2013 - CNN.com
+{'tw': 17, 'fb': 8}
+
+-----
+http://www.nbcnews.com/health/bioethicist-texas-shouldnt-force-life-support-pregnant-woman-2D11792148?ocid=twitter
+Bioethicist: Texas shouldn't force life support on pregnant woman - NBC News.com
+{'tw': 6, 'fb': 101}
+
+-----
+http://www.grameenfoundation.org/blog/best-2013-key-lessons-and-resources-fight-against-poverty
+Best of 2013: Key Lessons and Resources for the Fight Against Poverty | Grameen Foundation | Connecting the World's Poor to Their Potential
+{'tw': 20, 'fb': 6}
+
+-----
+http://www.today.com/health/doctors-group-sounds-warning-freezing-eggs-buy-time-your-biological-2D11792138?ocid=twitter
+Doctors' group sounds warning on freezing eggs to buy time on your biological clock - TODAY.com
+{'tw': 9, 'fb': 97}
+
+-----
+http://www.cbsnews.com/news/ho-ho-heart-attack-cardiac-woes-found-to-spike-during-holidays/
+Ho ho heart attack: Cardiac woes found to spike during holidays - CBS News
+{'tw': 14, 'fb': 34}
+
+-----
+http://www.bbc.co.uk/news/health-25492620
+BBC News - Eating nuts during pregnancy 'may curb allergies'
+{'tw': 436, 'fb': 1869}
+
+-----
+http://www.cbsnews.com/news/terminally-ill-pa-girl-dies-christmas-day-after-receiving-her-caroling-wish/
+Terminally ill Pa. girl dies Christmas Day after receiving her caroling wish - CBS News
+{'tw': 103, 'fb': 28}
+
+-----
+http://news.health.com/2013/12/25/a-stretching-routine-to-prevent-injuries/
+A Stretching Routine to Prevent Injuries - Health News and Views - Health.com
+{'tw': 13, 'fb': 0}
+
+-----
+http://www.cbsnews.com/news/teen-left-brain-dead-after-tonsillectomy-to-get-second-opinion/
+Jahi McMath's family seeks second opinion - CBS News
+{'tw': 33, 'fb': 62}
+
+-----
+http://www.dallasnews.com/opinion/sunday-commentary/20131129-the-risky-business-of-dietary-supplements.ece
+The risky business of dietary supplements | Dallas Morning News
+{'tw': 112, 'fb': 388}
+
+-----
+http://online.wsj.com/news/articles/SB10001424052702303773704579269990020773098
+Robert Grady: Obama's Misguided Obsession With Inequality - WSJ.com
+{'tw': 357, 'fb': 2385}
+
+-----
+http://www.usatoday.com/story/news/nation/2013/12/23/colorado-girl-mistaken-burglar-killed/4180329/
+Stepfather kills Colo. teen mistaken for burglar
+{'tw': 165, 'fb': 4020}
+
+-----
+http://www.nbcnews.com/health/pregnant-woman-kept-alive-against-familys-wishes-texas-2D11792149?ocid=twitter
+Pregnant woman kept alive against family's wishes in Texas - NBC News.com
+{'tw': 14, 'fb': 1466}
+
+-----
+http://www.bbc.co.uk/news/health-25507128
+BBC News - Guinness World Record for heart transplant patient
+{'tw': 184, 'fb': 426}
+
+-----
+http://news.health.com/2013/12/23/white-house-extends-insurance-enrollment-deadline-by-a-day/
+White House Extends Insurance Enrollment Deadline by a Day - Health News and Views - Health.com
+{'tw': 12, 'fb': 0}
+
+-----
+http://healthaffairs.org/blog/2013/12/23/advanced-care-model-honors-dignity-integrates-health-system-for-seriously-ill-people-and-loved-ones/
+Advanced Care Model Honors Dignity, Integrates Health System For Seriously Ill People And Loved Ones     Health Affairs Blog
+{'tw': 24, 'fb': 11}
+
+-----
+http://www.nbcnews.com/health/consumers-beware-not-all-health-plans-cover-doc-visit-deductible-2D11794861?ocid=twitter
+Consumers beware: Not all health plans cover doc visits before deductible is met - NBC News.com
+{'tw': 10, 'fb': 163}
+
+-----
+http://news.health.com/2013/12/24/giada-de-laurentiis-dishes-on-staying-fit-and-making-the-holiday-season-delicious/
+Giada De Laurentiis Dishes On Staying Fit and Making the Holiday Season Delicious - Health News and Views - Health.com
+{'tw': 10, 'fb': 1}
+
+-----
+http://www.bbc.co.uk/news/uk-england-leeds-25505370
+BBC News - Elm View nursing home bosses jailed for neglect
+{'tw': 228, 'fb': 80}
+
+-----
+{'tw': 0, 'fb': 0}
+
+-----
+http://www.cbsnews.com/news/teen-jahi-mcmath-brain-dead-after-tonsil-surgery-court-appointed-doctor-confirms/
+Calif. judge: Brain-dead teen can be taken off life support - CBS News
+{'tw': 99, 'fb': 729}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.cbsnews.com/news/california-family-celebrates-3-heart-transplants/
+California family celebrates three heart transplants - CBS News
+{'tw': 12, 'fb': 2}
+
+-----
+http://www.forbes.com/sites/danschawbel/2013/12/24/steve-case-why-entrepreneurs-will-rebuild-the-economy/
+Steve Case: Why Entrepreneurs Will Rebuild The Economy - Forbes
+{'tw': 163, 'fb': 34}
+
+-----
+http://www.ozy.com/c-notes/ozys-guest-editor-bill-gates/4467.article
+OZY's Guest Editor: Bill Gates | C-Notes | OZY
+{'tw': 238, 'fb': 2218}
+
+-----
+http://www.youtube.com/watch?v=hEvGKUXW0iI
+Bing Crosby - Mele Kalikimaka (Hawaiian Christmas Song) - YouTube
+{'tw': 3054, 'fb': 0}
+
+-----
+http://www.cbsnews.com/news/judge-orders-brain-dead-teen-jahi-mcmath-kept-on-ventilator-through-holidays/
+Judge orders "brain dead" teen Jahi McMath kept on ventilator through holidays - CBS News
+{'tw': 60, 'fb': 15}
+
+-----
+http://www.cbsnews.com/news/breast-feeding-longer-than-6-months-tied-to-better-cognitive-motor-development/
+Breast-feeding longer than six months tied to better cognitive, motor development - CBS News
+{'tw': 16, 'fb': 5}
+
+-----
+http://www.bbc.co.uk/news/uk-england-birmingham-25508672
+BBC News - Queen Elizabeth Hospital surgeon suspended over 'branding' claim
+{'tw': 1202, 'fb': 4569}
+
+-----
+http://www.getreadyforflu.org/ecard.htm
+Get ready with one of our free e-cards!
+{'tw': 344, 'fb': 262}
+
+-----
+http://www.bbc.co.uk/news/uk-wales-mid-wales-25493169
+BBC News - Health service report for mid Wales ordered by minister
+{'tw': 257, 'fb': 68}
+
+-----
+http://www.inc.com/issie-lapowsky/idea-lab-malcolm-gladwell-what-entrepreneurs-can-learn.html
+Malcolm Gladwell: What Entrepreneurs Can Learn From Underdogs | Inc.com
+{'tw': 176, 'fb': 4734}
+
+-----
+http://news.health.com/2013/12/25/recipe-of-the-day-smoked-salmon-rillettes-and-dilled-yogurt/
+Recipe of the Day: Smoked Salmon Rillettes and Dilled Yogurt - Health News and Views - Health.com
+{'tw': 8, 'fb': 0}
+
+-----
+http://www.cbsnews.com/news/flu-vaccine-may-work-better-for-women-than-men/
+Flu vaccine may work better for women than men - CBS News
+{'tw': 12, 'fb': 17}
+
+-----
+http://www.cbsnews.com/news/brain-dead-teens-family-hopes-for-miracle-after-judge-rules-life-support-can-be-removed/
+Jahi McMath's family hopes for miracle after judge rules life support can be removed - CBS News
+{'tw': 33, 'fb': 16}
+
+-----
+http://www.sltrib.com/sltrib/news/57302939-78/county-licenses-marriage-sex.html.csp
+Utah counties split on issuing same-sex marriage licenses     | The Salt Lake Tribune
+{'tw': 7, 'fb': 184}
+
+-----
+http://vimeo.com/81891178
+Scene from "Spark: A Burning Man Story" with Original Song "We Ride" by Missy Higgins on Vimeo
+{'tw': 35, 'fb': 2273}
+
+-----
+http://news.health.com/2013/12/24/holiday-eating-peer-pressure-6-diet-dos-and-donts/
+Holiday Eating Peer Pressure? 6 Diet Dos and Donts - Health News and Views - Health.com
+{'tw': 22, 'fb': 4}
+
+-----
+http://www.bbc.co.uk/news/science-environment-25506198
+BBC News - Diabetes risk gene 'from Neanderthals'
+{'tw': 506, 'fb': 118}
+
+-----
+http://www.today.com/health/boy-rare-facial-paralyzing-disorder-has-special-christmas-wish-smile-2D11794857?ocid=twitter
+Boy with rare facial paralyzing disorder has special Christmas wish: a smile - TODAY.com
+{'tw': 8, 'fb': 3871}
+
+-----
+http://blog.ted.com/2013/12/23/diana-nyad-epic-playlist/
+Diana Nyads epic motivational playlist | TED Blog
+{'tw': 93, 'fb': 164}
+
+-----
+http://www.businessinsider.com/winners-of-national-geographic-photography-contest-2013-12
+Winners of National Geographic Photography Contest - Business Insider
+{'tw': 362, 'fb': 6392}
+
+-----
+http://www.cnn.com/2013/12/24/health/irpt-26-marathons/index.html
+Man completes 26 marathons in 26 days - CNN.com
+{'tw': 233, 'fb': 2546}
+
+-----
+http://www.cbsnews.com/news/pregnant-woman-kept-on-life-support-against-husbands-wishes/
+Report: Pregnant woman kept on life support against husband's wishes - CBS News
+{'tw': 64, 'fb': 1143}
+
+-----
+https://www.change.org/petitions/are-you-ready-to-be-fearless
+Petition | Are YOU Ready to Be Fearless? | Change.org
+{'tw': 9, 'fb': 0}
+
+-----
+http://www.bloomberg.com/news/2013-12-23/how-to-be-happy.html?alcmpid=view
+How to Be Happy - Bloomberg
+{'tw': 18, 'fb': 16}
+
+-----
+http://www.impatientoptimists.org/Posts/2013/12/A-Year-of-Progress-a-Year-of-Promise
+A Year of Progress, a Year of Promise  | Impatient Optimists
+{'tw': 40, 'fb': 2}
+
+-----
+http://www.forbes.com/sites/danschawbel/2013/12/24/steve-case-why-entrepreneurs-will-rebuild-the-economy/
+Steve Case: Why Entrepreneurs Will Rebuild The Economy - Forbes
+{'tw': 163, 'fb': 34}
+
+-----
+http://www.bbc.co.uk/news/health-25265531
+BBC News - Malaria: The dangers of not taking anti-malaria tablets
+{'tw': 425, 'fb': 206}
+
+-----
+http://www.bbc.co.uk/news/uk-england-bristol-25494954
+BBC News - Bristol Children's Hospital told to improve cleanliness
+{'tw': 366, 'fb': 131}
+
+-----
+http://www.nbcnews.com/health/obamacare-draws-last-minute-shoppers-site-gets-nearly-2-million-2D11792117?ocid=twitter
+Obamacare draws last-minute shoppers; site gets nearly 2 million visits - NBC News.com
+{'tw': 8, 'fb': 145}
+
+-----
+http://www.unfoundation.org/blog/6-cool-development-innovations.html
+United Nations Foundation -6 Cool Development Innovations
+{'tw': 150, 'fb': 55}
+
+-----
+http://www.bbc.co.uk/news/health-25498840
+BBC News - New genetic clues for rheumatoid arthritis 'cure'
+{'tw': 450, 'fb': 114}
+
+-----
+http://www.cbsnews.com/news/how-to-senior-proof-your-home-in-order-to-prevent-unnecessary-falls/
+Senior-proof your home in order to prevent falls - CBS News
+{'tw': 11, 'fb': 275}
+
+-----
+http://www.cnbc.com/id/101283552
+5 ways to kick your 24/7 tech addiction in 2014
+{'tw': 70, 'fb': 83}
+
+-----
+http://www.bbc.co.uk/news/uk-northern-ireland-25499377
+BBC News - Downe and Lagan Valley A&E opening hours reduced
+{'tw': 243, 'fb': 229}
+
+-----
+http://www.nbcnews.com/health/women-are-superior-testosterone-may-make-men-likelier-get-flu-2D11795012?ocid=twitter
+Testosterone may make men likely to get the flu, study finds - NBC News.com
+{'tw': 43, 'fb': 678}
+
+-----
+http://www.theatlantic.com/entertainment/archive/2013/12/why-cs-lewis-never-goes-out-of-style/282351/
+Why C.S. Lewis Never Goes Out of Style - Aaron Cline Hanbury - The Atlantic
+{'tw': 687, 'fb': 5595}
+
+-----
+http://www.cbsnews.com/news/eating-nuts-during-pregnancy-may-lower-childs-chance-of-peanut-tree-nut-allergies/
+Eating nuts during pregnancy may lower child's chance of peanut allergy - CBS News
+{'tw': 24, 'fb': 133}
+
+-----
+http://www.cdc.gov/tb/publications/MobileLTBIApp/default.html
+CDC | TB | Publications & Mobile LTBI App
+{'tw': 0, 'fb': 0}
+
+-----
+http://www.impatientoptimists.org/Posts/2013/12/Seven-Ways-to-Start-Some-Good-this-Holiday-Season
+7 Ways to Start Some Good this Holiday Season | Impatient Optimists
+{'tw': 43, 'fb': 7}
+
+-----
+http://www.nbcnews.com/health/obama-signs-health-insurance-dc-website-2D11792136?ocid=twitter
+Obama signed up for health insurance in DC - NBC News.com
+{'tw': 5, 'fb': 1864}
+
+-----
+http://www.cnn.com/2013/12/23/living/irpt-personal-essays-yir-2013/index.html
+13 stories unforgettable personal essays in parenting, relationships - CNN.com
+{'tw': 530, 'fb': 1366}
+
+-----
+http://www.chicagotribune.com/features/books/chi-library-future-20131212,0,2880286.story
+Libraries reinvent themselves for the 21st century  - chicagotribune.com
+{'tw': 419, 'fb': 0}
+
+-----
+http://www.cbsnews.com/news/hpv-vaccine-gardasil-voluntarily-recalled-due-to-glass-shards-in-some-vials/
+HPV vaccine Gardasil recalled over glass shards in vials - CBS News
+{'tw': 206, 'fb': 191}
+
+-----
+http://health.usnews.com/health-news/health-wellness/articles/2013/12/23/dealing-with-dementia-during-the-holidays-and-keeping-life-merry?s_cid=rss:dealing-with-dementia-during-the-holidays-and-keeping-life-merry
+Dealing With Dementia During the Holidays and Keeping Life Merry - US News and World Report
+{'tw': 24, 'fb': 24}
+
+-----
+http://news.health.com/2013/12/23/recipe-of-the-day-mini-raspberry-tarts/
+Recipe of the Day: Mini Raspberry Tarts - Health News and Views - Health.com
+{'tw': 17, 'fb': 1}
+
+-----
+http://www.bbc.co.uk/news/health-25503238
+BBC News - GP visits: Millions wait a week or longer
+{'tw': 130, 'fb': 30}
+
+-----
+http://news.health.com/2013/12/23/5-last-minute-stocking-stuffers-for-the-fitness-fanatic/
+5 Last-Minute Stocking Stuffers for the Fitness Fanatic - Health News and Views - Health.com
+{'tw': 34, 'fb': 93}
+
+-----
+http://www.cnn.com/2013/12/21/health/gupta-religion-medicine/index.html
+Dr. Gupta: When religion and medicine meet - CNN.com
+{'tw': 614, 'fb': 22174}
+
+-----
+http://news.health.com/2013/12/23/luggage-lifting-tips-for-safe-travels/
+9 Luggage-Lifting Tips for Safe Travels - Health News and Views - Health.com
+{'tw': 20, 'fb': 6}
+
+-----
+http://www.mobli.com/media/show/id/88420615
+Since I don't have everyone's address - a tweet will have to work. Happy holidays to you all.
+{'tw': 131, 'fb': 17599}
+
+-----
+http://www.forbes.com/sites/thesba/2013/12/17/5-small-business-mistakes-to-avoid-in-2014/
+5 Small Business Mistakes To Avoid In 2014 - Forbes
+{'tw': 424, 'fb': 119}
+
+-----
+http://www.cnn.com/2013/12/23/health/pregnant-life-support-texas/index.html
+Husband of pregnant woman wants her off life support - CNN.com
+{'tw': 588, 'fb': 6863}
+
+-----
+http://www.cnn.com/2013/12/23/health/christmas-death-rate/index.html
+Why do more people die during the holidays? - CNN.com
+{'tw': 125, 'fb': 6044}
+
+-----
+http://news.health.com/2013/12/24/6-healthy-breakfast-ideas-for-christmas-morning/
+6 Healthy Breakfast Ideas for Christmas Morning - Health News and Views - Health.com
+{'tw': 27, 'fb': 4}
+
+-----
+http://news.health.com/2013/12/23/tips-for-safe-winter-workouts/
+Tips for Safe Winter Workouts - Health News and Views - Health.com
+{'tw': 29, 'fb': 6}
+
+-----
+http://www.bbc.co.uk/news/health-25494943
+BBC News - GP visits: Millions wait a week or longer
+{'tw': 366, 'fb': 576}
+
+-----
+http://www.nbcnews.com/health/deadline-looms-obamacare-2D11792133?ocid=twitter
+'Record day' as last-minute Obamacare shoppers get a 24-hour buffer - NBC News.com
+{'tw': 7, 'fb': 838}
+
+-----
+http://water.org/eoy/gallery/
+Make First World Problems Our Last Concern
+{'tw': 1630, 'fb': 4171}
+
+-----
+http://www.nbcnews.com/health/it-safe-pregnant-women-eat-peanuts-2D11794866?ocid=twitter
+Is it safe for pregnant women to eat peanuts? - NBC News.com
+{'tw': 13, 'fb': 176}
+
+-----
+http://www.ihealthbeat.org/articles/2013/12/23/concern-grows-about-doctor-offices-opting-out-of-meaningful-use
+Concern Grows About Doctor Offices Opting Out of Meaningful Use - iHealthBeat
+{'tw': 33, 'fb': 4}
+
+-----
+http://drivenforward.com/blog/steve-case-versus-steve-colbert
+Forward Thinking
+{'tw': 3, 'fb': 0}
+
+-----
+http://www.bbc.co.uk/news/uk-wales-north-east-wales-25498293
+BBC News - Tawel Fan ward at Glan Clwyd hospital closed and investigated
+{'tw': 190, 'fb': 176}
+
+-----
+http://www.bbc.co.uk/news/health-25447185
+BBC News - Toddler's tennis-ball sized tumour caused 'head tilt'
+{'tw': 269, 'fb': 1155}
+
+-----
+https://about.twitter.com/download
+Download the free Twitter app
+{'tw': 364172, 'fb': 10647}
+
+-----
+http://shotatlife.org/blog/become-a-champion-at-the.html
+Shot@Life - Become a Champion at the 2014 Shot@Life Champion Summit
+{'tw': 21, 'fb': 34}
+
+-----
+http://content.time.com/time/magazine/article/0,9171,2160966,00.html
+10 Questions with Rick Warren - TIME
+{'tw': 28, 'fb': 0}
+
+-----
+http://www.bbc.co.uk/news/uk-scotland-edinburgh-east-fife-25494554
+BBC News - One treated after Edinburgh Royal Infirmary chemical spill
+{'tw': 104, 'fb': 69}
+
+-----
+http://news.health.com/2013/12/23/the-health-benefits-of-black-wild-and-brown-rice/
+The Health Benefits of Black, Wild, and Brown Rice - Health News and Views - Health.com
+{'tw': 11, 'fb': 4}
+
+-----
+http://www.theatlantic.com/magazine/archive/2013/11/innovations-list/309536/
+The 50 Greatest Breakthroughs Since the Wheel - James Fallows - The Atlantic
+{'tw': 2445, 'fb': 6864}
+
+-----
+http://www.theatlantic.com/health/archive/2013/12/make-time-for-awe/282245/
+Make Time for Awe - Cayte Bosler - The Atlantic
+{'tw': 396, 'fb': 4473}
+
+-----
+http://www.nytimes.com/2013/12/24/science/aggressions-positives-1-letter.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Aggressions Positives (1 Letter) - NYTimes.com
+{'tw': 24, 'fb': 0}
+
+-----
+http://www.forbes.com/sites/natalierobehmed/2013/12/16/what-is-a-startup/
+What Is A Startup? - Forbes
+{'tw': 333, 'fb': 74}
+
+-----
+http://www.nytimes.com/2013/12/26/world/asia/china-investigates-vaccine-maker-after-infant-deaths.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+China Investigates Vaccine Maker After Infant Deaths - NYTimes.com
+{'tw': 193, 'fb': 0}
+
+-----
+http://www.nytimes.com/2013/12/24/health/gynecologys-gender-question.html?_r=0
+Gynecologys Gender Question - NYTimes.com
+{'tw': 331, 'fb': 227}
+
+-----
+http://www.nytimes.com/2013/12/24/health/preserving-vaccines.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Preserving Vaccines - NYTimes.com
+{'tw': 62, 'fb': 0}
+
+-----
+http://www.nytimes.com/2013/12/24/science/dental-frustration-1-letter.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Dental Frustration (1 Letter) - NYTimes.com
+{'tw': 25, 'fb': 0}
+
+-----
+http://health.usnews.com/health-news/blogs/eat-run/2013/12/25/when-in-doubt-give-epinephrine?s_cid=rss:eat-run:when-in-doubt-give-epinephrine
+When in Doubt, Give Epinephrine - Eat + Run (usnews.com)
+{'tw': 28, 'fb': 53}
+
+-----
+http://www.nytimes.com/2013/12/23/health/beet-orange-and-arugula-salad.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Beet, Orange and Arugula Salad - NYTimes.com
+{'tw': 49, 'fb': 0}
+
+-----
+http://sweetgreen.tumblr.com/post/70490689667/health-food-trend-predictions-2014
+Just a few years ago finding kale at your local... | passion x purpose
+{'tw': 13, 'fb': 7}
+
+-----
+http://www.nationalgeographic.com/year-in-review-2013/
+2013: Year In Review | National Geographic
+{'tw': 251, 'fb': 1944}
+
+-----
+http://www.cbsnews.com/news/meningitis-victims-nearing-settlement-with-new-england-compounding-center-for-100m/
+Meningitis victims nearing settlement with New England Compounding Center for $100M - CBS News
+{'tw': 55, 'fb': 26}
+
+-----
+http://www.nytimes.com/2013/12/24/health/gynecologys-gender-question.html?ref=health&amp;_r=0
+Gynecologys Gender Question - NYTimes.com
+{'tw': 104, 'fb': 0}
+
+-----
+http://www.nytimes.com/2013/12/23/opinion/inequality-for-dummies.html?_r=1
+Inequality for Dummies - NYTimes.com
+{'tw': 387, 'fb': 3361}
+
+-----
+http://www.theatlantic.com/magazine/archive/2014/01/finding-the-next-edison/355747/
+Finding the Next Edison - Derek Thompson - The Atlantic
+{'tw': 37, 'fb': 16}
+
+-----
+http://well.blogs.nytimes.com/2013/12/25/for-fitness-intensity-matters/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+For Fitness, Intensity Matters - NYTimes.com
+{'tw': 262, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/to-smoosh-peas-is-to-learn/?partner=rss&amp;emc=rss&amp;_r=0
+To Smoosh Peas Is to Learn - NYTimes.com
+{'tw': 100, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/taking-life-into-your-own-hands/?partner=rss&amp;emc=rss&amp;_r=0
+How CPR Can Save a Life - NYTimes.com
+{'tw': 96, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/to-smoosh-peas-is-to-learn/?ref=health&amp;_r=0
+To Smoosh Peas Is to Learn - NYTimes.com
+{'tw': 38, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/25/for-fitness-intensity-matters/?partner=rss&amp;emc=rss&amp;_r=0
+For Fitness, Intensity Matters - NYTimes.com
+{'tw': 262, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/overturning-the-myth-of-valley-girl-speak/?partner=rss&amp;emc=rss&amp;_r=0
+Overturning the Myth of Valley Girl Speak - NYTimes.com
+{'tw': 539, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/a-new-focus-on-depression/?partner=rss&amp;emc=rss&amp;_r=0
+A New Focus on Depression - NYTimes.com
+{'tw': 246, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/overturning-the-myth-of-valley-girl-speak/?partner=rss&amp;emc=rss&amp;_r=0
+Overturning the Myth of Valley Girl Speak - NYTimes.com
+{'tw': 539, 'fb': 0}
+
+-----
+http://www.nytimes.com/2013/12/24/health/gynecologys-gender-question.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Gynecologys Gender Question - NYTimes.com
+{'tw': 331, 'fb': 0}
+
+-----
+http://www.nytimes.com/2013/12/24/science/a-doctors-intimate-view-of-hemophilia.html?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+A Doctors Intimate View of Hemophilia - NYTimes.com
+{'tw': 95, 'fb': 0}
+
+-----
+http://health.usnews.com/health-news/blogs/eat-run/2013/12/24/new-years-resolutions-i-wish-food-companies-would-make-and-keep?s_cid=rss:eat-run:new-years-resolutions-i-wish-food-companies-would-make-and-keep
+New Year's Resolutions I Wish Food Companies Would Make (and Keep) - Eat + Run (usnews.com)
+{'tw': 29, 'fb': 6}
+
+-----
+http://www.livestrong.org/givethegift/
+LIVESTRONG.org | Donate Now
+{'tw': 59, 'fb': 13}
+http://www.youtube.com/watch?feature=youtu.be&amp;v=GFJgi1cYCHI
+Fertility and Cancer: Aaron's Story (short) - YouTube
+{'tw': 746004, 'fb': 0}
+
+-----
+http://newoldage.blogs.nytimes.com/2013/12/23/how-seniors-manage-to-adapt/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+How Seniors Manage to Adapt - NYTimes.com
+{'tw': 72, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/a-new-focus-on-depression/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+A New Focus on Depression - NYTimes.com
+{'tw': 246, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/taking-life-into-your-own-hands/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+How CPR Can Save a Life - NYTimes.com
+{'tw': 96, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/24/eating-nuts-in-pregnancy-tied-to-lower-allergy-risk-in-offspring/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Eating Nuts in Pregnancy Tied to Lower Allergy Risk in Offspring - NYTimes.com
+{'tw': 129, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/overturning-the-myth-of-valley-girl-speak/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+Overturning the Myth of Valley Girl Speak - NYTimes.com
+{'tw': 539, 'fb': 0}
+
+-----
+http://well.blogs.nytimes.com/2013/12/23/to-smoosh-peas-is-to-learn/?seid=auto&amp;_r=0&amp;smid=tw-nytimeshealth
+To Smoosh Peas Is to Learn - NYTimes.com
+{'tw': 100, 'fb': 0}
+
+-----
+http://blogs.hbr.org/2013/12/its-a-good-thing-you-waited-until-now-to-found-your-start-up/
+It's a Good Thing You Waited Until Now to Found Your Start-up - Andrew OConnell - Harvard Business Review
+{'tw': 529, 'fb': 65}
+

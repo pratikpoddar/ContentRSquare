@@ -10,4 +10,6 @@ echo "Scobleizer weapons-for-entrepreneurs"
 python search_twitter.py Scobleizer weapons-for-entrepreneurs > "twitter_Scobleizer_weapons-for-entrepreneurs_$(date +%Y-%m-%d_%H:%M:%S).txt"
 echo "jasonsparrow cio"
 python search_twitter.py jasonsparrow cio > "twitter_jasonsparrow_cio_$(date +%Y-%m-%d_%H:%M:%S).txt"
+echo "sachin tendulkar"
+python search_twitter.py "sachin tendulkar" > "twittersearch_sachin_tendulkar_$(date +%Y-%m-%d_%H:%M:%S).txt"
 

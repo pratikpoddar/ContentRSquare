@@ -27,7 +27,7 @@ def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 def print_status(status):
 	urls = map(lambda x: x['expanded_url'], status.entities['urls'])
 	printable = ""
-        urltitles = filter(lambda x: is_url_an_article(x), filter(lambda x: x, map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)))
+        urltitles = filter(lambda x: is_url_an_article(x['url']), filter(lambda x: x, map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)))
 
 	if len(urltitles):
 		printable += "-----\n"
@@ -41,13 +41,14 @@ def print_status(status):
 				printable += str(urlutils.getSocialShares(ut['url']))+"\n"
 			except:
 				pass
-	print printable
+
+		print printable
 	return
 
-def search_twitter(result_type, lang, loc, fromperson, filtertype):
+def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword):
 
 	for tweet in tweepy.Cursor(api.search,
-			q="filter:"+filtertype+" from:"+fromperson,
+			q=keyword+" filter:"+filtertype+" from:"+fromperson,
 			rpp=100,
 			result_type=result_type,
 			include_entities=True,
@@ -55,11 +56,8 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype):
 			lang=lang).items():
 		print_status(tweet)
 
-#search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links")
-#search_twitter("popular", "en", "", "pratikpoddar","news")
-
 def is_url_an_article(url):
-	return url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow']
+	return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic']
 
 def is_status_an_article(status):
         urls = map(lambda x: x['expanded_url'], status.entities['urls'])
@@ -96,5 +94,12 @@ def get_list_timeline(owner, listname, numlinks):
 #get_list_timeline("pratikpoddar", "startups", 100)
 if len(sys.argv)==3:
 	get_list_timeline(sys.argv[1], sys.argv[2], 100)
+
+#search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links","")
+#search_twitter("popular", "en", "", "pratikpoddar","news","")
+if len(sys.argv)==2:
+	search_twitter("recent", "en", "", "", "news", sys.argv[1])
+
+	
 
 
