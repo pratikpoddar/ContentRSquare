@@ -27,15 +27,20 @@ def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 def print_status(status):
 	urls = map(lambda x: x['expanded_url'], status.entities['urls'])
 	printable = ""
-        if len(urls):
-        	printable += "-----\n"
-		urltitles = map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)
+        urltitles = filter(lambda x: is_url_an_article(x), filter(lambda x: x, map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)))
+
+	if len(urltitles):
+		printable += "-----\n"
 		for ut in urltitles:
 			try:
 				printable += str(ut['url'])+"\n"+str(removeNonAscii(ut['title']))+"\n"
 			except:
 				pass
 
+			try:
+				printable += str(urlutils.getSocialShares(ut['url']))+"\n"
+			except:
+				pass
 	print printable
 	return
 
@@ -53,9 +58,12 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype):
 #search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links")
 #search_twitter("popular", "en", "", "pratikpoddar","news")
 
+def is_url_an_article(url):
+	return url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow']
+
 def is_status_an_article(status):
         urls = map(lambda x: x['expanded_url'], status.entities['urls'])
-        urls = filter(lambda url: url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i'], urls)
+        urls = filter(lambda url: is_url_an_article(url), urls)
         if len(urls):
                 return True
         else:

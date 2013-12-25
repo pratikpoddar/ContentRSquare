@@ -4,8 +4,12 @@ from urlnorm import norm
 from urlparse import parse_qs, urlsplit, urlunsplit
 from urllib import urlencode
 from cgi import escape
+import simplejson
 
 def getCanonicalUrl(url):
+    if not url:
+	return None
+	
     res = urlsplit(url)
     if res.query:
 	    qdict = parse_qs(res.query)
@@ -16,6 +20,22 @@ def getCanonicalUrl(url):
 	    res = list(res)
     res[4] = ''
     return norm(urlunsplit(res))
+
+def getSocialShares(url):
+	
+	fb = 0
+	tw = 0
+	try:
+		fb = simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url))[url]['shares']
+	except:
+		pass
+	
+	try:
+		tw = simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url))['count']
+	except:
+		pass
+
+	return {'fb': fb, 'tw': tw}
 
 def getCanonicalUrlTitle(url):
 	try:
