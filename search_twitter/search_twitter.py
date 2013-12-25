@@ -45,7 +45,9 @@ def print_status(status):
 		print printable
 	return
 
-def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword):
+def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword, numlinks):
+
+	status_list = []
 
 	for tweet in tweepy.Cursor(api.search,
 			q=keyword+" filter:"+filtertype+" from:"+fromperson,
@@ -54,7 +56,15 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword):
 			include_entities=True,
 			geocode=loc,
 			lang=lang).items():
-		print_status(tweet)
+		status_list.append(tweet)
+		if len(status_list)>numlinks:
+			break
+
+        pool = Pool(len(status_list))
+        jobs = [pool.spawn(print_status , s) for s in status_list]
+        pool.join()
+
+	return
 
 def is_url_an_article(url):
 	return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic']
@@ -95,10 +105,10 @@ def get_list_timeline(owner, listname, numlinks):
 if len(sys.argv)==3:
 	get_list_timeline(sys.argv[1], sys.argv[2], 100)
 
-#search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links","")
-#search_twitter("popular", "en", "", "pratikpoddar","news","")
+#search_twitter("recent", "en", "37.781157,-122.398720,10000mi", "pratikpoddar", "links","", 100)
+#search_twitter("popular", "en", "", "pratikpoddar","news","", 100)
 if len(sys.argv)==2:
-	search_twitter("recent", "en", "", "", "news", sys.argv[1])
+	search_twitter("recent", "en", "", "", "news", sys.argv[1], 100)
 
 	
 
