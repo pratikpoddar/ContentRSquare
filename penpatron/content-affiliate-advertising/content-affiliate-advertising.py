@@ -4,18 +4,23 @@ import bottlenose
 import hashlib
 import pickledb
 
-db = pickledb.load('content-affiliate.db', False)
-
 def content_affiliate(content, index):
 
-	combined_hash = int(hashlib.md5(content+index).hexdigest(), 16)
-	if db.get(combined_hash):
-		return db.get(combined_hash)
+	try:
+		db = pickledb.load('content-affiliate.db', False)
+
+		combined_hash = int(hashlib.md5(content+index).hexdigest(), 16)
+		if db.get(combined_hash):
+			return db.get(combined_hash)
 	
-	else:
+		else:
+			output = get_Content_Affliate_Advertising(content, index)
+			db.set(combined_hash, output)
+			db.dump()
+			return output
+	
+	except:
 		output = get_Content_Affliate_Advertising(content, index)
-		db.set(combined_hash, output)
-		db.dump()
 		return output
 
 def get_Content_Affliate_Advertising(content, index):
