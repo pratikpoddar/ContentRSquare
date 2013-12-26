@@ -30,9 +30,8 @@ function relatedVideosAdvertising() {
                 onYouTubeIframeAPIReady();
 }
 
-function getCRSQVideoSuggestions() {
-        var videoid = 123;
-	var userid = 123;
+function getCRSQVideoSuggestions(videoid) {
+	console.log(videoid);
 	var result = null;
         $.ajax({
             type: "GET",
@@ -110,7 +109,7 @@ function onPlayerReady(event){
         if(event.target.a.id == 'ytplayer0'){
                 var videoId = "Related-Videos-Advertising";
                 videoId = videoId.video_id;
-                getCRSQVideoSuggestions(null,videoId);
+                getCRSQVideoSuggestions(videoId);
         }
 }
 
