@@ -177,7 +177,7 @@ var videoNegHeight = -1 * videoHeight;
                        	       }    
 
                                var powered = document.createElement('div');
-                               powered.innerHTML = "<a id='crsqVideoLink' href='#'>Powered by: Content R Square Related-Videos-Advertising</a>";
+                               powered.innerHTML = "<a id='crsqVideoLink' href='#'>Powered by: PenPatron Related-Videos-Advertising</a>";
                                jQuery(powered).appendTo("#suggestionsContainer"+id);
                                jQuery('.suggestion img').css('height',imageHeight);
        			       if(crsqVideoSuggestions.length > 0){
