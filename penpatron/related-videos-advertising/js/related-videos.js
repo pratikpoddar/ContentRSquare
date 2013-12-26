@@ -7,13 +7,13 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-checker = null;
+var checker = null;
 var player = new Array()
 var crsqVideoSuggestions = new Array();
 
 function jsFilesLoaded() {
 	clearInterval(checker);
-	relatedVideosAdvertising()
+	onYouTubeIframeAPIReady();
 }
  
 function checkJSFiles() {
@@ -22,22 +22,14 @@ function checkJSFiles() {
  
 checkJSFiles();
 
-function relatedVideosAdvertising() {
-                var tag = document.createElement("script");
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName("script")[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-                onYouTubeIframeAPIReady();
-}
-
-function getCRSQVideoSuggestions(videoid) {
-	console.log(videoid);
+function getCRSQVideoSuggestions() {
+	var videoid="q3w";
 	var result = null;
         $.ajax({
             type: "GET",
             crossDomain: true,
             url: "http://www.penpatron.com/related-videos-advertising/getRelatedVideos.php",
-            data: { 'videoid': videoid, 'userid': userid },
+            data: { 'videoid': videoid },
             dataType: "jsonp",
             jsonp: 'jsonp_callback'
         }).done(function(data) {
@@ -107,13 +99,14 @@ function onPlayerReady(event){
         var tags = getPostTags();
         var link = window.location.href;
         if(event.target.a.id == 'ytplayer0'){
-                var videoId = "Related-Videos-Advertising";
-                videoId = videoId.video_id;
-                getCRSQVideoSuggestions(videoId);
+		//videoId = event.target.a.src.replace("https:","").replace("http:","").replace("//www.youtube.com/embed/","");
+		var videoId="1212";
+                getCRSQVideoSuggestions(null,videoId);
         }
 }
 
 function onPlayerStateChange(event){
+		      console.log(event.target);
                       var id  = event.target.a.id.substring(8);
                       if (event.data == 0) {
                               var width = event.target.a.clientWidth;
