@@ -17,24 +17,33 @@ def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def get_nltk_ne(text):
 
+	print('')
+	print ('## NLTK NE ##')
 	tags = nltk.pos_tag(nltk.word_tokenize(text))
-	ne = nltk.ne_chunk(tags, binary=True)
+	ne = nltk.ne_chunk(tags)
 	list_of_nes = []
 	for i in range(len(ne)):
 		try:
 			if (ne[i].node=="PERSON") or (ne[i].node=="ORGANIZATION") or (ne[i].node=="NE"):
-			   	list_of_nes.append(ne[i])
+			   	list_of_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
 		except:
 			pass
 		
 		try:
 			if (ne[i][1]=="PERSON") or (ne[i][1]=="ORGANIZATION") or (ne[i][1]=="NE"):
-				list_of_nes.append(ne[i])
+				list_of_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
 		except:
 			pass
 
-	return list_of_nes
+	list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
+	print(map(lambda x: removeNonAscii(x), list_of_nes))
+	
+	responseOutput = []
 
+	for ne in list_of_nes:
+		responseOutput.append({'text': ne, 'freebase': get_Freebase_Meaning(ne), 'source': "get_nltk_ne"})
+		
+	return responseOutput
 
 def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)
