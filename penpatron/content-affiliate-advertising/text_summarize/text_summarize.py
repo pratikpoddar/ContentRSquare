@@ -8,11 +8,33 @@ import urllib2
 import re
 from lxml import etree
 from calais import Calais
+import nltk
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+
+def get_nltk_ne(text):
+
+	tags = nltk.pos_tag(nltk.word_tokenize(text))
+	ne = nltk.ne_chunk(tags, binary=True)
+	list_of_nes = []
+	for i in range(len(ne)):
+		try:
+			if (ne[i].node=="PERSON") or (ne[i].node=="ORGANIZATION") or (ne[i].node=="NE"):
+			   	list_of_nes.append(ne[i])
+		except:
+			pass
+		
+		try:
+			if (ne[i][1]=="PERSON") or (ne[i][1]=="ORGANIZATION") or (ne[i][1]=="NE"):
+				list_of_nes.append(ne[i])
+		except:
+			pass
+
+	return list_of_nes
+
 
 def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)

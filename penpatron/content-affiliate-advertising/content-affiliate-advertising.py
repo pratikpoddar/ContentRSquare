@@ -86,11 +86,10 @@ index = "Books"
 try:
 	text = sys.argv[1]
 	index = sys.argv[2]
+	output = content_affiliate(text, index)
+	##print "[{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]"
+	print output
 except:
 	pass
-
-output = content_affiliate(text, index)
-##print "[{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]"
-print output
 
 
