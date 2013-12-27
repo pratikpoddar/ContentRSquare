@@ -2,25 +2,27 @@ s = document.createElement('script');
 s.setAttribute('src', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
 document.getElementsByTagName('head')[0].appendChild(s);
 
-var tag = document.createElement("script");
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName("script")[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+function loadYoutubeAPI() {
+	var tag = document.createElement("script");
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName("script")[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
 
 var checker = null;
 var player = new Array()
 var crsqVideoSuggestions = new Array();
 
-function jsFilesLoaded() {
+function jqueryLoaded() {
 	clearInterval(checker);
-	onYouTubeIframeAPIReady();
+	loadYoutubeAPI();
 }
  
-function checkJSFiles() {
-	if ((window.jQuery) && (window.YT)) {jsFilesLoaded();} else { checker = window.setInterval(checkJSFiles, 2000);}
+function check_jquery_files() {
+	if (window.jQuery) {jqueryLoaded();} else { checker = window.setInterval(check_jquery_files, 2000);}
 }
- 
-checkJSFiles();
+
+check_jquery_files();
 
 function getCRSQVideoSuggestions(videoid) {
 	var result = null;
@@ -105,6 +107,7 @@ function onPlayerReady(event){
 
 function onPlayerStateChange(event){
                       var id  = event.target.a.id.substring(8);
+		      console.log(event);
                       if (event.data == 0) {
                               var width = event.target.a.clientWidth;
                               var videoHeight = event.target.a.clientHeight;
