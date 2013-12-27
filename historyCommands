@@ -16,13 +16,13 @@ pip install simplejson
 pip install bottlenose
 pip install -U urlnorm
 
-pip install ntlk
+pip install nltk
 
 sudo apt-get install python-numpy python-scipy python-matplotlib
 
 >>> nltk.download('maxent_treebank_pos_tagger')
 >>> nltk.download('maxent_ne_chunker')
->>> nltk.download('all-corpora')
+>>> nltk.download('words')
 
 
 
