@@ -8,11 +8,52 @@ import urllib2
 import re
 from lxml import etree
 from calais import Calais
+import nltk
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+
+def get_nltk_ne(text):
+
+	print('')
+	print ('## NLTK NE ##')
+	tags = nltk.pos_tag(nltk.word_tokenize(text))
+	ne = nltk.ne_chunk(tags)
+	list_of_people_nes = []
+	list_of_orgs_nes = []
+	for i in range(len(ne)):
+		try:
+			if (ne[i].node=="PERSON"):
+			   	list_of_people_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+		except:
+			pass
+
+                try:
+                        if (ne[i].node=="ORGANIZATION"):
+                                list_of_orgs_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+                except:
+                        pass
+
+	list_of_nes = []
+	list_of_nes += list_of_people_nes + list_of_orgs_nes
+	list_of_nes += map(lambda x: ' '.join(x), zip(list_of_people_nes[:-1],list_of_people_nes[1:]))
+	list_of_nes += map(lambda x: ' '.join(x), zip(list_of_orgs_nes[:-1],list_of_orgs_nes[1:]))
+	
+	list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
+	
+	responseOutput = []
+
+	for ne in list_of_nes:
+		responseOutput.append({'text': ne, 'freebase': get_Freebase_Meaning(ne), 'source': "get_nltk_ne"})
+
+	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	try:
+		print(responseOutput)		
+	except:
+		pass
+	return responseOutput
 
 def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)
@@ -87,7 +128,8 @@ def get_Calais_Topics(text):
 	except Exception as e:
 		pass
 	
-	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	#responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	print(responseOutput)
 	return responseOutput
 
 def get_Freebase_Meaning(term):
