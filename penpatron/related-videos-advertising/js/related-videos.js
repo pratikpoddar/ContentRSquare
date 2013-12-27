@@ -22,8 +22,7 @@ function checkJSFiles() {
  
 checkJSFiles();
 
-function getCRSQVideoSuggestions() {
-	var videoid="q3w";
+function getCRSQVideoSuggestions(videoid) {
 	var result = null;
         $.ajax({
             type: "GET",
@@ -99,14 +98,12 @@ function onPlayerReady(event){
         var tags = getPostTags();
         var link = window.location.href;
         if(event.target.a.id == 'ytplayer0'){
-		//videoId = event.target.a.src.replace("https:","").replace("http:","").replace("//www.youtube.com/embed/","");
-		var videoId="1212";
-                getCRSQVideoSuggestions(null,videoId);
+		videoId = event.target.a.src.replace("https:","").replace("http:","").replace("//www.youtube.com/embed/","");
+                getCRSQVideoSuggestions(videoId);
         }
 }
 
 function onPlayerStateChange(event){
-		      console.log(event.target);
                       var id  = event.target.a.id.substring(8);
                       if (event.data == 0) {
                               var width = event.target.a.clientWidth;

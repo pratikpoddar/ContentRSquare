@@ -87,7 +87,8 @@ def get_Calais_Topics(text):
 	except Exception as e:
 		pass
 	
-	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	#responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+	print(responseOutput)
 	return responseOutput
 
 def get_Freebase_Meaning(term):
