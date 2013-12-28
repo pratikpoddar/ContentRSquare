@@ -103,6 +103,7 @@ function onPlayerReady(event){
 		videoId = event.target.a.src.replace("https:","").replace("http:","").replace("//www.youtube.com/embed/","");
                 getCRSQVideoSuggestions(videoId);
         }
+	console.log(event);
 }
 
 function onPlayerStateChange(event){
