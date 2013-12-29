@@ -42,7 +42,7 @@ def get_nltk_ne(text):
 	list_of_nes += map(lambda x: ' '.join(x), zip(list_of_orgs_nes[:-1],list_of_orgs_nes[1:]))
 	
 	list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
-	
+
 	responseOutput = []
 
 	for ne in list_of_nes:
@@ -148,7 +148,7 @@ def get_Freebase_Meaning(term):
 					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
 		else:
 			return None
-	except Exception as e:
+	except:
 		return None
 
 if __name__=="__main__":	

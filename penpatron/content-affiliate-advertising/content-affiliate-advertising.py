@@ -8,16 +8,15 @@ def content_affiliate(content, index):
 
 	try:
 		db = pickledb.load('content-affiliate.db', False)
-
-		combined_hash = int(hashlib.md5(content+index).hexdigest(), 16)
-		if db.get(combined_hash):
-			return db.get(combined_hash)
-	
-		else:
+		combined_hash = str(int(hashlib.md5(content.replace(' ','')+index.replace(' ','')).hexdigest(), 16))
+		if db.get(combined_hash) == None:
 			output = get_Content_Affliate_Advertising(content, index)
 			db.set(combined_hash, output)
 			db.dump()
 			return output
+
+		else:
+			return db.get(combined_hash)
 	
 	except:
 		output = get_Content_Affliate_Advertising(content, index)
