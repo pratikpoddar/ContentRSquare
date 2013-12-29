@@ -67,7 +67,7 @@ def get_Text_Concepts(text):
 			responseOutput.append({'text': concept['text'], 'freebase': get_Freebase_Meaning(concept['text']), 'source': "get_Text_Concepts"})
 		return responseOutput
 	else:
-		print('Error in concept tagging call: '+ response['statusInfo'])
+		print('Error in Alchemy concept tagging call: '+ response['statusInfo'])
 		return None
 
 def get_Text_Categories(text):
@@ -84,29 +84,34 @@ def get_Text_Categories(text):
 			responseOutput = {'text': response['category'], 'freebase': get_Freebase_Meaning(response['category']), 'source': "get_Text_Categories" }
 		return responseOutput
 	else:
-		print('Error in text categorization call: '+ response['statusInfo'])
+		print('Error in Alchemy text categorization call: '+ response['statusInfo'])
 		return None
 
 def get_Content_Analysis(text):
 	
 	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20contentanalysis.analyze%20where%20text%3D%22" + urllib.quote_plus(re.compile('\W+').sub(' ', text).strip()) + "%22&diagnostics=true"
-	root = etree.fromstring(urllib2.urlopen(url).read())
-	relevantlist = root.getchildren()[1].getchildren()
-	print('')
-        print('## Yahoo Content Analysis ##')
-	yresult = {}
-	responseOutput = []
-	yresult['yentities'] = []
-	yresult['ycategories'] = []
-	for relevantgroup in relevantlist:
-		if relevantgroup.tag == "{urn:yahoo:cap}entities":
-			yresult['yentities'] = map(lambda entity: entity.getchildren()[0].text, relevantgroup)
-			responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'yentities'}, yresult['yentities'])
-		if relevantgroup.tag == "{urn:yahoo:cap}yctCategories":
-			yresult['ycategories'] = map(lambda category: category.text, relevantgroup.getchildren())
-			responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'ycategories'}, yresult['ycategories'])
-	print(responseOutput)
-	return responseOutput
+
+	try:
+		root = etree.fromstring(urllib2.urlopen(url).read())
+		relevantlist = root.getchildren()[1].getchildren()
+		print('')
+	        print('## Yahoo Content Analysis ##')
+		yresult = {}
+		responseOutput = []
+		yresult['yentities'] = []
+		yresult['ycategories'] = []
+		for relevantgroup in relevantlist:
+			if relevantgroup.tag == "{urn:yahoo:cap}entities":
+				yresult['yentities'] = map(lambda entity: entity.getchildren()[0].text, relevantgroup)
+				responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'yentities'}, yresult['yentities'])
+			if relevantgroup.tag == "{urn:yahoo:cap}yctCategories":
+				yresult['ycategories'] = map(lambda category: category.text, relevantgroup.getchildren())
+				responseOutput += map(lambda x: {'text': x, 'freebase': get_Freebase_Meaning(x), 'source':'ycategories'}, yresult['ycategories'])
+		print(responseOutput)
+		return responseOutput
+	except Exception as e:
+		print('Error in Yahoo Content Analysis: ' + str(e))
+		
 
 def get_Calais_Topics(text):
 	
@@ -119,6 +124,7 @@ def get_Calais_Topics(text):
 		calais_result.print_topics()
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_topics', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.topics)
 	except Exception as e:
+		print('Error in Calais Topics Extraction ' + str(e))
 		pass
 
 	try:
@@ -126,6 +132,7 @@ def get_Calais_Topics(text):
 		calais_result.print_entities()
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_entities', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.entities)
 	except Exception as e:
+		print('Error in Calais Entities Extraction ' + str(e))
 		pass
 	
 	#responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
@@ -148,7 +155,8 @@ def get_Freebase_Meaning(term):
 					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
 		else:
 			return None
-	except:
+	except Exception as e:
+		print('Error in Freebase Meaning ' + str(term) + ' : ' + str(e))
 		return None
 
 if __name__=="__main__":	
