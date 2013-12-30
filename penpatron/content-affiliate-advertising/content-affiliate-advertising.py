@@ -25,45 +25,30 @@ def content_affiliate(content, index):
 def get_Content_Affliate_Advertising(content, index):
 
 	keywords = []
-	try:
-		k1 = get_Calais_Topics(content)
-	except:
-		k1 = []
-	
 	#try:
-	#	k2 = get_Content_Analysis(content)
-	#except:
-	#	k2 = []
-
-	try:
-		k3 = get_Text_Concepts(content)
-	except:
-		k3 = []
-
-	try:
-		k4 = get_nltk_ne(content)
-	except:
-		k4 = []
-
-	try:
-		keywords += map(lambda x: x['text'], k1)
-	except:
-		pass
-
-	#try:
-	#	keywords += map(lambda x: x['text'], k2)
+	#	keywords += map(lambda x: x['text'], get_Calais_Topics(content))
 	#except:
 	#	pass
+	
+        #try:
+        #        keywords += map(lambda x: x['text'], get_Content_Analysis(content))
+        #except:
+        #        pass
 
-	try:
-		keywords += map(lambda x: x['text'], k3)
-	except:
-		pass
+        #try:
+        #        keywords += map(lambda x: x['text'], get_Text_Concepts(content))
+        #except:
+        #        pass
 
-	try:
-		keywords += map(lambda x: x['text'], k4)
-	except:
-		pass
+        try:
+                keywords += map(lambda x: x['text'], get_nltk_ne(content))
+        except:
+                pass
+
+        try:
+                keywords += map(lambda x: x['text'], get_python_tagger(content))
+        except:
+                pass
 
 	keywords = list(set(keywords))
 	#keywords = ["Columbia Business School", "IBM"]

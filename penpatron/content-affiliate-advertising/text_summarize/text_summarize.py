@@ -9,51 +9,68 @@ import re
 from lxml import etree
 from calais import Calais
 import nltk
+from tagger import tagger
+import pickle
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
+def get_python_tagger(text):
+
+        print('')
+        print ('## Python Tagger ##')
+	weights = pickle.load(open('text_summarize/tagger/data/dict.pkl', 'rb')) 
+	myreader = tagger.Reader()
+	mystemmer = tagger.Stemmer()
+	myrater = tagger.Rater(weights)
+	mytagger = tagger.Tagger(myreader, mystemmer, myrater)
+	tags = list(mytagger(text, 5))
+
+        responseOutput = []
+	print(tags)
+        for tag in tags:
+		try:
+	                responseOutput.append({'text': str(tag), 'freebase': get_Freebase_Meaning(str(tag)), 'source': "get_python_tagger"})
+		except Exception as e:
+			print('Error in Python Tagger: ' + str(e))
+
+        responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+        try:
+                print(responseOutput)
+        except:
+                pass
+        return responseOutput
+	
+
 def get_nltk_ne(text):
 
 	print('')
 	print ('## NLTK NE ##')
-	tags = nltk.pos_tag(nltk.word_tokenize(text))
-	ne = nltk.ne_chunk(tags)
-	list_of_people_nes = []
-	list_of_orgs_nes = []
-	for i in range(len(ne)):
-		try:
-			if (ne[i].node=="PERSON"):
-			   	list_of_people_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
-		except:
-			pass
-
+        tags = nltk.pos_tag(nltk.word_tokenize(text))
+        ne = nltk.ne_chunk(tags, binary=True)
+        list_of_nes = []
+        for i in range(len(ne)):
                 try:
-                        if (ne[i].node=="ORGANIZATION"):
-                                list_of_orgs_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+                        if (ne[i].node=="NE"):
+                                list_of_nes.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
                 except:
                         pass
 
-	list_of_nes = []
-	list_of_nes += list_of_people_nes + list_of_orgs_nes
-	list_of_nes += map(lambda x: ' '.join(x), zip(list_of_people_nes[:-1],list_of_people_nes[1:]))
-	list_of_nes += map(lambda x: ' '.join(x), zip(list_of_orgs_nes[:-1],list_of_orgs_nes[1:]))
-	
-	list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
+        list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
 
-	responseOutput = []
+        responseOutput = []
 
-	for ne in list_of_nes:
-		responseOutput.append({'text': ne, 'freebase': get_Freebase_Meaning(ne), 'source': "get_nltk_ne"})
+        for ne in list_of_nes:
+                responseOutput.append({'text': ne, 'freebase': get_Freebase_Meaning(ne), 'source': "get_nltk_ne"})
 
-	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
-	try:
-		print(responseOutput)		
-	except:
-		pass
-	return responseOutput
+        responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+        try:
+                print(responseOutput)
+        except:
+                pass
+        return responseOutput
 
 def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)
