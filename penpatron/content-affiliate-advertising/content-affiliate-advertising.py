@@ -50,6 +50,11 @@ def get_Content_Affliate_Advertising(content, index):
         except:
                 pass
 
+        try:
+                keywords += map(lambda x: x['text'], get_topia_termextract(content))
+        except:
+                pass
+
 	keywords = list(set(keywords))
 	#keywords = ["Columbia Business School", "IBM"]
 

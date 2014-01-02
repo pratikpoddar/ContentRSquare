@@ -30,3 +30,14 @@ cd python-goose
 python setup.py install
 cd ..
 rm -rf python-goose
+
+wget https://pypi.python.org/packages/source/t/topia.termextract/topia.termextract-1.1.0.tar.gz
+tar -xzvf topia.termextract-1.1.0.tar.gz
+cd topia.termextract-1.1.0
+python setup.py install
+cd ..
+rm -rf topia.termextract-1.1.0*
+
+pip install -U textblob
+curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
+

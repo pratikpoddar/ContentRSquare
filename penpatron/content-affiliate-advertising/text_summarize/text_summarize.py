@@ -11,6 +11,7 @@ from calais import Calais
 import nltk
 from tagger import tagger
 import pickle
+from topia.termextract import extract
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
@@ -71,6 +72,27 @@ def get_nltk_ne(text):
         except:
                 pass
         return responseOutput
+
+def get_topia_termextract(text):
+
+        print('')
+        print ('## Topia Termextract ##')
+	extractor = extract.TermExtractor()
+	tags = extractor(text)
+	tags = map(lambda x: x[0], filter(lambda x: len(x[0])>6, tags))
+
+	responseOutput = []
+
+	for tag in tags:
+		responseOutput.append({'text': str(tag), 'freebase': get_Freebase_Meaning(str(tag)), 'source': "get_topia_termextract"})
+
+	responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
+        try:
+                print(responseOutput)
+        except:
+                pass
+        return responseOutput
+
 
 def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)
@@ -162,14 +184,17 @@ def get_Freebase_Meaning(term):
 		term = removeNonAscii(term)
 		url = "https://www.googleapis.com/freebase/v1/search?query=" + urllib.quote_plus(term)
 		jsonResult = json.loads(urllib2.urlopen(url).read())['result']
-		if jsonResult[0]['score']>100:
-			try:
-				return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': jsonResult[0]['id']}
-			except:
+		if jsonResult:
+			if jsonResult[0]['score']>100:
 				try:
-					return {'parentnode': '', 'wikilink': jsonResult[0]['id']}
+					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': jsonResult[0]['id']}
 				except:
-					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+					try:
+						return {'parentnode': '', 'wikilink': jsonResult[0]['id']}
+					except:
+						return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+			else:
+				return None
 		else:
 			return None
 	except Exception as e:
@@ -182,6 +207,10 @@ if __name__=="__main__":
 	categories = get_Text_Categories(text)
 	yahooapires = get_Content_Analysis(text)
 	calaisapires = get_Calais_Topics(text)
+	topiatermextract = get_topia_termextract(text)
+	nltkne = get_nltk_ne(text)
+	pythontagger = get_python_tagger(text)
+
 
 
 
