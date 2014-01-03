@@ -33,7 +33,7 @@ def get_python_tagger(text):
 	print(tags)
         for tag in tags:
 		try:
-	                responseOutput.append({'text': str(tag), 'freebase': get_Freebase_Meaning(str(tag)), 'source': "get_python_tagger"})
+	                responseOutput.append({'text': tag.string, 'freebase': get_Freebase_Meaning(tag.string), 'source': "get_python_tagger"})
 		except Exception as e:
 			print('Error in Python Tagger: ' + str(e))
 
@@ -179,7 +179,7 @@ def get_Calais_Topics(text):
 	return responseOutput
 
 def get_Freebase_Meaning(term):
-	
+
 	try:
 		term = removeNonAscii(term)
 		url = "https://www.googleapis.com/freebase/v1/search?query=" + urllib.quote_plus(term)
