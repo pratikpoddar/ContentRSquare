@@ -1,0 +1,145 @@
+-----
+http://www.nycgovparks.org/programs/snow-days
+Snow Days : NYC Parks
+{'tw': 142, 'fb': 806}
+
+-----
+https://ifttt.com/
+IFTTT / Put the internet to work for you.
+{'tw': 42496, 'fb': 0}
+
+-----
+http://mashable.com/2014/01/01/drawing-apps-online/
+12 Free Web Apps to Boost Your Drawing Skills
+{'tw': 1044, 'fb': 744}
+
+-----
+http://xkcd.com/1312/
+xkcd: Haskell
+{'tw': 759, 'fb': 2410}
+
+-----
+http://www.usatriathlon.org/events/usat/2014/05/long-course-duathlon-national-championships.aspx
+Long Course Duathlon National Championships - usatriathlon.org
+{'tw': 2, 'fb': 98}
+
+-----
+http://paper.li/ChristianMcM/1291138540
+CIO Daily
+{'tw': 1626, 'fb': 0}
+
+-----
+http://paper.li/pgiblett/executives
+The Executives Daily
+{'tw': 142, 'fb': 443}
+
+-----
+http://www.advicegoddess.com/archives/2014/01/03/crazythink_on_s.html
+Advice Goddess Blog
+{'tw': 13, 'fb': 2}
+
+-----
+http://paper.li/ctodashboard
+The #CTO Dashboard Daily via @cbcurran
+{'tw': 850, 'fb': 1}
+
+-----
+http://paper.li/ChristianMcM/1385632879
+Digital Leader Daily
+{'tw': 61, 'fb': 0}
+
+-----
+http://www.usatoday.com/story/tech/2013/12/30/samsung-sells-110-inch-ultra-hd-tv-for-150000/4247413/
+Samsung sells 110-inch ultra-HD TV for $150,000
+{'tw': 131, 'fb': 1272}
+
+-----
+http://paper.li/plake777/1368636586
+Heartstone Journey Daily
+{'tw': 237, 'fb': 18}
+
+-----
+http://www.ecommercetimes.com/rsstory/79710.html
+Surveillance Rights and Wrongs, Part 1: Begging the Questions | Privacy | E-Commerce Times
+{'tw': 22, 'fb': 2}
+
+-----
+http://musingsofjohn.com/2014/01/03/your-time-is-limited-so-dont-waste-it-living-someone-elses-life/
+Your time is limited, so dont waste it living someone elses life | Musings of John
+{'tw': 6, 'fb': 0}
+
+-----
+http://www.garygreenbergonline.com/w/?p=449
+Gary Greenberg | Author of The Book of Woe
+{'tw': 1073, 'fb': 1124}
+
+-----
+http://www.idahostatesman.com/2014/01/03/2955086/mw-has-few-big-wins-but-league.html
+Mountain West men's basketball has few big wins, but league still has depth | Boise State Basketball | Idahostatesman.com
+{'tw': 2, 'fb': 3}
+
+-----
+http://vimeo.com/82409560
+Amazon: Worlds Largest Media Company on Vimeo
+{'tw': 2, 'fb': 7}
+
+-----
+http://nationbuilder.com/churchbuzz
+ChurchBuzz - NationBuilder Architect
+{'tw': 4, 'fb': 1}
+
+-----
+http://digital-executive.blogspot.in/2014/01/understanding-impact-of-snowden-on.html
+The Digital Executive: Understanding the impact of Snowden on technology... in 2 minutes
+{'tw': 0, 'fb': 0}
+
+-----
+http://blogs.wsj.com/cio/2014/01/03/what-your-ceo-is-reading-50/
+What Your CEO Is Reading: Social Unrest in 2014 - The CIO Report - WSJ
+{'tw': 1, 'fb': 0}
+
+-----
+http://www.telecomstechnews.com/news/2014/jan/03/renaissance-things/
+The Renaissance of Things - Telecoms Tech
+{'tw': 13, 'fb': 3}
+
+-----
+http://www.jlcw.org/barry-university-acknowledges-security-breach/
+Barry University Acknowledges Security Breach
+{'tw': 2, 'fb': 1}
+
+-----
+http://www.harvest.org/devotional/archive/devotion/2014-01-03.html
+Today:  "Surrender at Gethsemane" ::: Daily Devotions ::: Harvest Ministries
+{'tw': 35, 'fb': 346}
+
+-----
+http://paper.li/NigelFenwick/1353177232
+SocialBizBuz
+{'tw': 614, 'fb': 11}
+
+-----
+http://bgr.com/2014/01/03/blackberry-ryan-seacret-lawsuit/
+BlackBerry finally takes on its biggest threat: Ryan Seacrest | BGR
+{'tw': 30, 'fb': 60}
+
+-----
+http://www.cio.co.uk/insight/strategy/digital-disruption-will-fundamentally-change-cio-role/
+Digital disruption will fundamentally change CIO role
+{'tw': 29, 'fb': 5}
+
+-----
+http://www.theverge.com/2014/1/3/5267360/intel-dual-os-pc-plus-android-windows-microsoft-objection
+Intel plans a CES coup: Android and Windows in the same computer | The Verge
+{'tw': 174, 'fb': 58}
+
+-----
+http://paper.li/Image_Mgmt/1308278535
+The Impressions Coaching Daily
+{'tw': 896, 'fb': 4}
+
+-----
+http://ovum.com/2014/01/02/sap-refines-big-data-strategy/
+SAP refines Big Data strategy Ovum
+{'tw': 12, 'fb': 0}
+

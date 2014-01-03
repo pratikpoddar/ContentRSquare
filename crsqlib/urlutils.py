@@ -5,7 +5,9 @@ from urlparse import parse_qs, urlsplit, urlunsplit
 from urllib import urlencode
 from cgi import escape
 import simplejson
+from functools32 import lru_cache
 
+@lru_cache(maxsize=512)
 def getCanonicalUrl(url):
     if not url:
 	return None
@@ -21,6 +23,7 @@ def getCanonicalUrl(url):
     res[4] = ''
     return norm(urlunsplit(res))
 
+@lru_cache(maxsize=1024)
 def getSocialShares(url):
 	
 	fb = 0
@@ -37,6 +40,7 @@ def getSocialShares(url):
 
 	return {'fb': fb, 'tw': tw}
 
+@lru_cache(maxsize=1024)
 def getCanonicalUrlTitle(url):
 	try:
 		#resp = urllib2.urlopen(url)

@@ -5,6 +5,11 @@ from time import sleep
 import sys
 import itertools
 from crsqlib import urlutils
+import gevent
+from gevent import monkey
+from gevent.pool import Pool
+import hashlib
+import pickledb
 
 consumer_key="nNRGguiHtC5AouxzUlZQ"
 consumer_secret="T3df1h6SIqitUs50mlPlbrTN9JrEMZzZK9h6ChYCGw"
@@ -16,19 +21,20 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-import gevent
-from gevent import monkey
-from gevent.pool import Pool
-
 monkey.patch_all(thread=False)
 
+maxiddb = pickledb.load('maxidsaveddata.db', False)
+
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+
+def is_url_an_article(url):
+        return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic']
 
 def print_status(status):
 	urls = map(lambda x: x['expanded_url'], status.entities['urls'])
 	printable = ""
         urltitles = filter(lambda x: is_url_an_article(x['url']), filter(lambda x: x, map(lambda x: urlutils.getCanonicalUrlTitle(x), urls)))
-
+	
 	if len(urltitles):
 		printable += "-----\n"
 		for ut in urltitles:
@@ -43,11 +49,18 @@ def print_status(status):
 				pass
 
 		print printable
+
 	return
 
 def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword, numlinks):
 
 	status_list = []
+
+	hashval = str(int(hashlib.md5(str(result_type)+str(lang)+str(loc)+str(fromperson)+str(filtertype)+str(keyword)+str(numlinks)).hexdigest(), 16))
+	if maxiddb.get(hashval)==None:
+		theSinceId = None
+	else:
+		theSinceId = int(maxiddb.get(hashval))
 
 	for tweet in tweepy.Cursor(api.search,
 			q=keyword+" filter:"+filtertype+" from:"+fromperson,
@@ -59,47 +72,59 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword, numl
 		status_list.append(tweet)
 		if len(status_list)>numlinks:
 			break
+		if tweet.id < theSinceId:
+			break
 
-        pool = Pool(len(status_list))
-        jobs = [pool.spawn(print_status , s) for s in status_list]
-        pool.join()
+	if status_list:
+	        pool = Pool(len(status_list))
+	        jobs = [pool.spawn(print_status , s) for s in status_list]
+	        pool.join(timeout=30)
+	
+		try:
+	        	maxiddb.set(hashval, status_list[0].id)
+	        	maxiddb.dump()
+		except:
+			pass
 
 	return
-
-def is_url_an_article(url):
-	return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic']
-
-def is_status_an_article(status):
-        urls = map(lambda x: x['expanded_url'], status.entities['urls'])
-        urls = filter(lambda url: is_url_an_article(url), urls)
-        if len(urls):
-                return True
-        else:
-                return False
-
 
 def get_list_timeline(owner, listname, numlinks):
 
 	status_list = [] # Create empty list to hold statuses
 
+        hashval = str(int(hashlib.md5(str(owner)+str(listname)+str(numlinks)).hexdigest(), 16))
+        if maxiddb.get(hashval)==None:
+                theSinceId = None
+        else:
+                theSinceId = int(maxiddb.get(hashval))
+
 	try:
-		statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1")
+		statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1", since_id=theSinceId)
 		while (statuses != []) and (len(status_list)<numlinks):
 		    for status in statuses:
-			if is_status_an_article(status):
-			        status_list.append(status)
+			status_list.append(status)
 		    
 		    # Get tweet id from last status in each page
 		    theMaxId = statuses[-1].id
 		    theMaxId = theMaxId - 1
 
-		    statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId)
-	except:
+		    statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1", max_id=theMaxId, since_id=theSinceId)
+	except Exception as e:
+		print e
 		pass
 
-        pool = Pool(len(status_list))
-        jobs = [pool.spawn(print_status , s) for s in status_list]
-        pool.join()
+	if status_list:
+	        pool = Pool(len(status_list))
+	        jobs = [pool.spawn(print_status , s) for s in status_list]
+	        pool.join(timeout=30)
+
+	        try:
+			maxiddb.set(hashval, status_list[0].id)
+			maxiddb.dump()	
+		except:
+			pass
+	
+	return
 
 #get_list_timeline("pratikpoddar", "startups", 100)
 if len(sys.argv)==3:
@@ -109,7 +134,5 @@ if len(sys.argv)==3:
 #search_twitter("popular", "en", "", "pratikpoddar","news","", 100)
 if len(sys.argv)==2:
 	search_twitter("recent", "en", "", "", "news", sys.argv[1], 100)
-
-	
 
 

@@ -12,6 +12,7 @@ import nltk
 from tagger import tagger
 import pickle
 from topia.termextract import extract
+from functools32 import lru_cache
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
@@ -178,6 +179,7 @@ def get_Calais_Topics(text):
 	print(responseOutput)
 	return responseOutput
 
+@lru_cache(maxsize=4096)
 def get_Freebase_Meaning(term):
 
 	try:
