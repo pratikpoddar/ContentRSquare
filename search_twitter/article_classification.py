@@ -5,8 +5,9 @@ import pickledb
 
 db = pickledb.load('url_cleaned_text.db', False) 
 
-def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+categories = ["Business_Finance", "Entertainment_Culture", "Environment_Weather", "Health_Medical_Pharma", "Hospitality_Recreation_Travel", "Humor_Fun", "Politics", "Religion_Social_Issues", "Sports", "Technology_Internet"]
 
+def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
 def get_clean_text(url):
 	if db.get(url):
