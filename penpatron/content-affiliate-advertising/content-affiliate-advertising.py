@@ -1,4 +1,4 @@
-from text_summarize.text_summarize import *
+from crsqlib.text_summarize.text_summarize import *
 from lxml import objectify
 import bottlenose
 import hashlib

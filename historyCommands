@@ -29,6 +29,7 @@ sudo apt-get install python-numpy python-scipy python-matplotlib
 >>> nltk.download('maxent_treebank_pos_tagger')
 >>> nltk.download('maxent_ne_chunker')
 >>> nltk.download('words')
+>>> nltk.download('stopwords')
 
 pip install jieba
 git clone https://github.com/grangier/python-goose.git
@@ -48,4 +49,10 @@ pip install -U textblob
 curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
 
 sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+
+Add parent folder to crsqlib
+PATH="${PATH}:/home/gauri/Desktop/ContentRSquare"
+export PATH
+PYTHONPATH="${PYTHONPATH}:/home/gauri/Desktop/ContentRSquare"
+export PYTHONPATH
 

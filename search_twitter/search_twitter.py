@@ -4,7 +4,7 @@ import jsonpickle
 from time import sleep
 import sys
 import itertools
-import urlutils
+from crsqlib import urlutils
 
 consumer_key="nNRGguiHtC5AouxzUlZQ"
 consumer_secret="T3df1h6SIqitUs50mlPlbrTN9JrEMZzZK9h6ChYCGw"
