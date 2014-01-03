@@ -23,7 +23,7 @@ api = tweepy.API(auth)
 
 monkey.patch_all(thread=False)
 
-maxiddb = pickledb.load('maxidsaveddata.db', False)
+sinceiddb = pickledb.load('sinceidsaveddata.db', False)
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
@@ -57,10 +57,10 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword, numl
 	status_list = []
 
 	hashval = str(int(hashlib.md5(str(result_type)+str(lang)+str(loc)+str(fromperson)+str(filtertype)+str(keyword)+str(numlinks)).hexdigest(), 16))
-	if maxiddb.get(hashval)==None:
+	if sinceiddb.get(hashval)==None:
 		theSinceId = None
 	else:
-		theSinceId = int(maxiddb.get(hashval))
+		theSinceId = int(sinceiddb.get(hashval))
 
 	for tweet in tweepy.Cursor(api.search,
 			q=keyword+" filter:"+filtertype+" from:"+fromperson,
@@ -81,8 +81,8 @@ def search_twitter(result_type, lang, loc, fromperson, filtertype, keyword, numl
 	        pool.join(timeout=30)
 	
 		try:
-	        	maxiddb.set(hashval, status_list[0].id)
-	        	maxiddb.dump()
+	        	sinceiddb.set(hashval, status_list[0].id)
+	        	sinceiddb.dump()
 		except:
 			pass
 
@@ -93,10 +93,10 @@ def get_list_timeline(owner, listname, numlinks):
 	status_list = [] # Create empty list to hold statuses
 
         hashval = str(int(hashlib.md5(str(owner)+str(listname)+str(numlinks)).hexdigest(), 16))
-        if maxiddb.get(hashval)==None:
+        if sinceiddb.get(hashval)==None:
                 theSinceId = None
         else:
-                theSinceId = int(maxiddb.get(hashval))
+                theSinceId = int(sinceiddb.get(hashval))
 
 	try:
 		statuses = api.list_timeline(count=50, owner_screen_name=owner, slug=listname, include_entities="1", since_id=theSinceId)
@@ -119,8 +119,8 @@ def get_list_timeline(owner, listname, numlinks):
 	        pool.join(timeout=30)
 
 	        try:
-			maxiddb.set(hashval, status_list[0].id)
-			maxiddb.dump()	
+			sinceiddb.set(hashval, status_list[0].id)
+			sinceiddb.dump()	
 		except:
 			pass
 	
