@@ -56,3 +56,11 @@ export PATH
 PYTHONPATH="${PYTHONPATH}:/home/gauri/Desktop/ContentRSquare"
 export PYTHONPATH
 
+git clone https://github.com/alexz-enwp/wikitools.git
+cd wikitools
+sudo python setup.py install
+cd ..
+rm -rf wikitools
+
+sudo pip install poster
+
