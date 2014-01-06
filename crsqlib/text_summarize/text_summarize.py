@@ -13,6 +13,8 @@ from tagger import tagger
 import pickle
 from topia.termextract import extract
 from functools32 import lru_cache
+import inspect
+import crsqlib
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
@@ -23,7 +25,7 @@ def get_python_tagger(text):
 
         print('')
         print ('## Python Tagger ##')
-	weights = pickle.load(open('text_summarize/tagger/data/dict.pkl', 'rb')) 
+	weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"data/dict.pkl", 'rb')) 
 	myreader = tagger.Reader()
 	mystemmer = tagger.Stemmer()
 	myrater = tagger.Rater(weights)
