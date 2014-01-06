@@ -21,8 +21,9 @@ def getSubCategories(category_id):
 
 	return result
 
-def getCategories(title):
-	return page.Page(site, title=title).getCategories()
+def get_wiki_categories(url):
+	return page.Page(site, title=url.replace('/en/','')).getCategories()
+ 
 
 	
 
