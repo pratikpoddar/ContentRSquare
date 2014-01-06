@@ -23,6 +23,7 @@ cd ..
 sudo rm -rf python-amazon-simple-product-api/
 
 pip install nltk
+easy_install stemming
 
 sudo apt-get install python-numpy python-scipy python-matplotlib
 

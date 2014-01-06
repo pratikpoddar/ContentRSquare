@@ -4,10 +4,21 @@ from lxml import objectify
 import bottlenose
 import hashlib
 import pickledb
+import collections
 
 import logging
 
 logging.basicConfig(filename='logger.log',level=logging.DEBUG, format='[ %(levelname)s ] [ %(asctime)s ] %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+def convert(d):
+    if isinstance(d, basestring):
+        return str(d)
+    elif isinstance(d, collections.Mapping):
+        return dict(map(convert, d.iteritems()))
+    elif isinstance(d, collections.Iterable):
+        return type(d)(map(convert, d))
+    else:
+        return d
 
 def content_affiliate(content, index):
 
@@ -20,17 +31,17 @@ def content_affiliate(content, index):
 			db.set(combined_hash, output)
 			db.dump()
 			logging.info('content_affiliate_returns ' + str(output))
-			return output
+			return convert(output)
 
 		else:
 			logging.info('content_affiliate_returns ' + str(db.get(combined_hash)))
-			return db.get(combined_hash)
+			return convert(db.get(combined_hash))
 	
 	except Exception as e:
 		logging.exception('content_affiliate_error ' + str(e))
 		output = get_Content_Affliate_Advertising(content, index)
 		logging.info('content_affiliate_returns ' + str(output))
-		return output
+		return convert(output)
 
 def get_Content_Affliate_Advertising(content, index):
 
