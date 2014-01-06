@@ -186,7 +186,7 @@ def get_Freebase_Meaning(term):
 
 	try:
 		term = removeNonAscii(term)
-		url = "https://www.googleapis.com/freebase/v1/search?query=" + urllib.quote_plus(term)
+		url = "https://www.googleapis.com/freebase/v1/search?key=AIzaSyCIeO8t4Su2hM0hm8t3aGCgiApBLu7MvGE&query=" + urllib.quote_plus(term)
 		jsonResult = json.loads(urllib2.urlopen(url).read())['result']
 		if jsonResult:
 			if jsonResult[0]['score']>100:

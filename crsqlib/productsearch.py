@@ -1,4 +1,5 @@
 from amazon.api import AmazonAPI
+import pickledb
 
 def getAmazonProducts(keywords, index):
 
