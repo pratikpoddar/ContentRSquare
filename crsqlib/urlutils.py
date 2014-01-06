@@ -46,14 +46,12 @@ def getCanonicalUrlTitle(url):
 		#resp = urllib2.urlopen(url)
 		resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
 		if resp.getcode() == 200:
-			try:
-				return {'url': getCanonicalUrl(resp.geturl()), 'title': BeautifulSoup(resp).title.string.replace('\t','').replace('\n','').strip()}
-			except Exception as e:
-				raise
+			return {'url': getCanonicalUrl(resp.geturl()), 'title': BeautifulSoup(resp).title.string.replace('\t','').replace('\n','').strip()}
 		else:
 			raise
 	except Exception as e:
-		return None
+		print str(e)
+		raise
 
 def getLongUrl(tinyurl):
         try:
@@ -63,8 +61,9 @@ def getLongUrl(tinyurl):
                         return resp.url
                 else:
                         return None
-        except:
-                return None
+        except Exception as e:
+		print str(e)
+		raise
 
 def isShortUrlPossibly(url):
 	domain = url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0]

@@ -39,6 +39,7 @@ def get_python_tagger(text):
 	                responseOutput.append({'text': tag.string, 'freebase': get_Freebase_Meaning(tag.string), 'source': "get_python_tagger"})
 		except Exception as e:
 			print('Error in Python Tagger: ' + str(e))
+			raise
 
         responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
         try:
@@ -110,7 +111,7 @@ def get_Text_Concepts(text):
 		return responseOutput
 	else:
 		print('Error in Alchemy concept tagging call: '+ response['statusInfo'])
-		return None
+		raise
 
 def get_Text_Categories(text):
 	response = alchemyapi.category('text',text)
@@ -127,7 +128,7 @@ def get_Text_Categories(text):
 		return responseOutput
 	else:
 		print('Error in Alchemy text categorization call: '+ response['statusInfo'])
-		return None
+		raise
 
 def get_Content_Analysis(text):
 	
@@ -153,6 +154,7 @@ def get_Content_Analysis(text):
 		return responseOutput
 	except Exception as e:
 		print('Error in Yahoo Content Analysis: ' + str(e))
+		raise
 		
 
 def get_Calais_Topics(text):
@@ -167,7 +169,7 @@ def get_Calais_Topics(text):
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_topics', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.topics)
 	except Exception as e:
 		print('Error in Calais Topics Extraction ' + str(e))
-		pass
+		raise
 
 	try:
 		print("Calais Entities")
@@ -175,7 +177,7 @@ def get_Calais_Topics(text):
 		responseOutput += map(lambda x: {'text': x['name'], 'source': 'calais_entities', 'freebase': get_Freebase_Meaning(x['name'])}, calais_result.entities)
 	except Exception as e:
 		print('Error in Calais Entities Extraction ' + str(e))
-		pass
+		raise
 	
 	#responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
 	print(responseOutput)

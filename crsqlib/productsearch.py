@@ -23,7 +23,7 @@ def getAmazonProducts(keywords, index):
 				amazonproddb.dump()
         	        except Exception as e:
                 	        print 'Amazon Products Error: ' + str(e)
-                        	pass
+                        	raise
 		else:
 			output.append({'keyword': kw, 'link': amazonproddb.get(kw+index)})
         return output
