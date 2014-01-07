@@ -23,7 +23,19 @@ def getSubCategories(category_id):
 
 def get_wiki_categories(url):
 	return page.Page(site, title=url.replace('/en/','')).getCategories()
- 
 
+def get_super_categories(url):
+	categories_list = []
+	categories = page.Page(site, title=url.replace('/en/','')).getCategories()
 	
+	while categories!=None:
+		categories_list.append(categories)
+		print categories
+		categories = map(lambda x: page.Page(site, title=x).getCategories(), categories)
+		categories = sum(categories,[])
+
+	return categories_list
+
+
+#get_super_categories('/en/Sachin_Tendulkar')	
 
