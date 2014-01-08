@@ -34,6 +34,7 @@ def get_python_tagger(text):
 
         responseOutput = []
 	print(tags)
+	tags = filter(lambda x: (x.string).replace(' ','').isalnum(), tags)
         for tag in tags:
 		try:
 	                responseOutput.append({'text': tag.string, 'freebase': get_Freebase_Meaning(tag.string), 'source': "get_python_tagger"})
@@ -64,6 +65,7 @@ def get_nltk_ne(text):
                         pass
 
         list_of_nes = filter(lambda x: len(x)>4, list_of_nes)
+	list_of_nes = filter(lambda x: x.replace(' ','').isalnum(), list_of_nes)
 
         responseOutput = []
 
@@ -84,7 +86,8 @@ def get_topia_termextract(text):
 	extractor = extract.TermExtractor()
 	tags = extractor(text)
 	tags = map(lambda x: x[0], filter(lambda x: len(x[0])>6, tags))
-
+	tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
+	
 	responseOutput = []
 
 	for tag in tags:
