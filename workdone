@@ -1,3 +1,13 @@
+----Similar Companies:
+Frrole
+newzsocial
+Vozeal
+Skimlinks
+Pugmarks
+Outbrain widget
+Roojoom
+
+----Done:
 Given a topic like "Technology" or a keyword like "Sachin Tendulkar", get what's the shared articles on twitter
 Given a link, get its canonical link
 Given a link, get its social power
@@ -12,33 +22,34 @@ Given an article link, identify categories and positioning on the wikipedia grap
 
 Given two articles, identify closeness by a metric on category graph
 
-To Do Video:
+----To Do Video Advertising:
 New Video id as a parameter
 multiple videos as a parameter
 what to do when its full screen?
 random errors
 
-Content-Affiliate-Advertising
+----To Do Content-Affiliate-Advertising
 Second bottleneck is amazon
 Testing
 
-To Do Search Twitter:
+----To Do Search Twitter:
+Make it relevant
 
-For Frrole:
+----To Do Frrole:
 Article Classification
 UI
 
-For related articles:
+----To Do - For related articles:
 Wiki Category Tree
 Wiki Category Representation of articles
 Search engine for articles
 
-Category Tree
-Search Engine
-Article Related - Gensim - Topic Modelingi
-
-To Do:
+----Pending:
 Search Engine for Articles
+Category Tree
+Article Related - Gensim - Topic Modeling
+
+----Errors:
 Wiki Category Extraction: A few freebase wiki links say that page does not exist. ftw!
 Wiki Category Tree: Will fail in internet Pain. Too slow. Need to cache.
 Social Power of a link: What if extra params are added
