@@ -86,7 +86,7 @@ try:
 	index = sys.argv[2]
 
 except Exception as e:
-	logging.exception("content-affilaite-advertising - error in input " + str(e))
+	logging.exception("content-affiliate-advertising - error in input - " + str(e))
 	pass
 
 output = content_affiliate(text, index)
