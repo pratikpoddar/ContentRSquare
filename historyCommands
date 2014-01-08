@@ -65,3 +65,18 @@ rm -rf wikitools
 
 sudo pip install poster
 
+as explained in
+http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/
+
+sudo apt-get install liblapack-dev
+sudo apt-get install gfortran
+sudo apt-get install libatlas-base-dev
+
+pip uninstall numpy
+pip uninstall scipy
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+pip install numpy
+pip install scipy
+
