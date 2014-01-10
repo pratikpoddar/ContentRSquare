@@ -1,0 +1,82 @@
+Download everything from http://bulbflow.com/download/
+Install http://pythonhosted.org/tweepy/html/
+sudo pip install tweepy
+sudo pip install jsonpickle
+pip install beautifulsoup4
+sudo apt-get install libevent-dev python-all-dev
+sudo pip install greenlet
+sudo pip install gevent 
+Download Alchemy API http://www.alchemyapi.com/developers/sdks/
+Download OpenCalais https://code.google.com/p/python-calais/downloads/detail?name=python-calais-1.4.tar.gz
+Download http://scrapy.org/download/
+Download http://scikit-learn.org/stable/install.html
+
+sudo apt-get install libxml2-dev libxslt-dev python-dev lib32z1-dev python-lxml
+pip install simplejson
+pip install bottlenose
+pip install -U urlnorm
+
+sudo git clone https://github.com/yoavaviram/python-amazon-simple-product-api.git
+cd python-amazon-simple-product-api/
+sudo python setup.py install
+cd ..
+sudo rm -rf python-amazon-simple-product-api/
+
+pip install nltk
+easy_install stemming
+
+sudo apt-get install python-numpy python-scipy python-matplotlib
+
+>>> nltk.download('maxent_treebank_pos_tagger')
+>>> nltk.download('maxent_ne_chunker')
+>>> nltk.download('words')
+>>> nltk.download('stopwords')
+
+pip install jieba
+git clone https://github.com/grangier/python-goose.git
+cd python-goose
+python setup.py install
+cd ..
+rm -rf python-goose
+
+wget https://pypi.python.org/packages/source/t/topia.termextract/topia.termextract-1.1.0.tar.gz
+tar -xzvf topia.termextract-1.1.0.tar.gz
+cd topia.termextract-1.1.0
+python setup.py install
+cd ..
+rm -rf topia.termextract-1.1.0*
+
+pip install -U textblob
+curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
+
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+
+Add parent folder to crsqlib
+PATH="${PATH}:/home/gauri/Desktop/ContentRSquare"
+export PATH
+PYTHONPATH="${PYTHONPATH}:/home/gauri/Desktop/ContentRSquare"
+export PYTHONPATH
+
+git clone https://github.com/alexz-enwp/wikitools.git
+cd wikitools
+sudo python setup.py install
+cd ..
+rm -rf wikitools
+
+sudo pip install poster
+
+as explained in
+http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/
+
+sudo apt-get install liblapack-dev
+sudo apt-get install gfortran
+sudo apt-get install libatlas-base-dev
+
+pip uninstall numpy
+pip uninstall scipy
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+pip install numpy
+pip install scipy
+

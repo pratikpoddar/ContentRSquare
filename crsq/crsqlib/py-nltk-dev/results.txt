@@ -1,0 +1,75 @@
+--------------------------------------------------------------------------------
+Original article:
+
+In the United Kingdomthe BBC has received in excess of twenty-one thousand complaints after Jeremy Clarksonthe presenter of BBC television programme Top Gearmade an appearance on the live BBC programme The One Show and made comments about the UK public sector workers on strikewhich British trade union UNISON subsequently called "appalling". The BBC and Jeremy Clarkson both apologised after the comments were made.
+ During the programmeClarkson commented on how the strikes on Wednesday were "fantastic" as they had left the British capital London "empty". It was "like being back in the 70s"according to Clarkson. He went on to caution that "we have to balance this thoughbecause this is the BBC" before saying of the striking public sector workers: "FranklyI'd have them all shot. I would take them outside and execute them in front of their families. I meanhow dare they go on strike when they have these gilt-edged pensions that are going to be guaranteed while the rest of us have to work for a living?" Immediately after the remarks were madeThe One Show presenters clarified that these comments was personal opinionto which Clarkson replied: "They're not. I've just given two views for you." Presenter Matt Baker apologised about the comments before the end of the broadcast.
+ In the aftermath of the broadcastby yesterday morning BBC Audience Services were contacted in relation to the matter 21,954 timeswith 619 comments and 21,335 complaints amongst them. Clarkson was supported in 314 messages. A spokesperson for the BBC confirmed that the The One Show episode would not be made available to view on BBC iPlayerthe BBC's on-demand servicebecause the episode generated so many complaints.
+ The British prime minister described the comments as "silly"while saying he was certain that Clarkson "didn't mean it". According to The GuardianClarkson had reportedly spoken with the production team before the live broadcast about using strike-related humor.
+ Thursdaythe BBC apologised for the commentsas "the item was not perfectly judged"the corporation admitted. In a statement the same dayClarkson said: "I didn't for a moment intend these remarks to be taken seriously  as I believe is clear if they're seen in context. If the BBC and I have caused any offenceI'm quite happy to apologise for it alongside them." The presenter also clarified to British newspaper the Daily Mirror: "I expressed two different views. Which one do I apologise for? I am just making fun of the BBC's need to be impartial. Not about strikers. I wasn't saying that strikers should be shot."
+ UNISONa trade union in the United Kingdomcalled the comments "appalling" and initially wished for the BBC to remove Clarkson from his position. Karen Jenningsthe deputy general secretary of the UNISONsubsequently told the BBC that the trade union "accepted the apology" before going on to say: "He's recognised that he went too far in saying what he said and what we're doing now is extending our hand to him to come and work with a healthcare assistant to see just how they work and the healthcare they deliver. I think he would enjoy that."
+--------------------------------------------------------------------------------
+Categories:
+
+In article: ['culture and entertainment', 'television', 'united kingdom', 'europe', 'politics and conflicts', 'england', 'london', 'labor']
+Top5: [['politics and conflicts', 587, 'A'], ['united states', 516, 'B'], ['north america', 482, 'C'], ['europe', 439, 'D'], ['crime and law', 376, 'E']]
+Present from Top5: ['A', 'D']
+--------------------------------------------------------------------------------
+I Summary:
+
+In the United Kingdomthe BBC has received in excess of twenty-one thousand complaints after Jeremy Clarksonthe presenter of BBC television programme Top Gearmade an appearance on the live BBC programme The One Show and made comments about the UK public sector workers on strikewhich British trade union UNISON subsequently called "appalling".  The BBC and Jeremy Clarkson both apologised after the comments were made.  During the programmeClarkson commented on how the strikes on Wednesday were "fantastic" as they had left the British capital London "empty".  He went on to caution that "we have to balance this thoughbecause this is the BBC" before saying of the striking public sector workers: "FranklyI'd have them all shot.  " Immediately after the remarks were madeThe One Show presenters clarified that these comments was personal opinionto which Clarkson replied: "They're not.  " Presenter Matt Baker apologised about the comments before the end of the broadcast.  In the aftermath of the broadcastby yesterday morning BBC Audience Services were contacted in relation to the matter 21,954 timeswith 619 comments and 21,335 complaints amongst them.  A spokesperson for the BBC confirmed that the The One Show episode would not be made available to view on BBC iPlayerthe BBC's on-demand servicebecause the episode generated so many complaints.  The British prime minister described the comments as "silly"while saying he was certain that Clarkson "didn't mean it".
+--------------------------------------------------------------------------------
+II Summary:
+
+In the United Kingdomthe BBC has received in excess. The BBC and Jeremy Clarkson both apologised after the comments were made. During the programmeClarkson commented on. It was. He went on. I would take them outside. I meanhow dare they go. " Immediately after the remarks were madeThe One Show. I ' ve just given two views. " Presenter Matt Baker apologised about the comments. In the aftermath of the broadcastby yesterday morning BBC Audience Services were contacted in relation. Clarkson was supported in 314 messages. A spokesperson for the BBC confirmed that the The One Show episode would not be made available to view. The British prime minister described the comments. According to The GuardianClarkson had reportedly spoken with the production team. Thursdaythe BBC apologised for the commentsas " the item was not perfectly judged " the corporation admitted. In a statement the same dayClarkson said :. If the BBC and I have caused any offenceI ' m. " The presenter also clarified to British newspaper the Daily Mirror :. Which one do I apologise. I am just making fun. Not about strikers. I wasn ' t saying. " UNISONa trade union in the United Kingdomcalled the comments " appalling. Karen Jenningsthe deputy general secretary of the UNISONsubsequently told the BBC. I think he would enjoy. .
+--------------------------------------------------------------------------------
+Multiclass classification:
+
+BayesClassifier class: C, is correct? False
+DecisionTreeClassifier class: MULTI, is correct? False
+--------------------------------------------------------------------------------
+Binary classification:
+
+BayesClassifier: {'A': 'yes', 'C': 'yes', 'B': 'yes', 'E': 'yes', 'D': 'yes', 'OTHER': 'yes'}, accuracy: 33%
+DecisionTreeClassifier: {'A': 'no', 'C': 'no', 'B': 'no', 'E': 'no', 'D': 'yes', 'OTHER': 'yes'}, accuracy: 66%
+--------------------------------------------------------------------------------
+People and their actions:
+
+[1] - Jeremy Clarksonthe = {'shortnames': ['Clarkson', 'Jeremy Clarkson'], 'fullname': 'Jeremy Clarksonthe', 'sentence': set([0, 1, 2, 3, 7, 11, 13, 14, 16, 23]), 'actions': set(['replied', 'apologised', 'made', 'was supported']), 'sex': 'male'}
+[2] - Karen Jenningsthe = {'shortnames': [], 'fullname': 'Karen Jenningsthe', 'sentence': set([24]), 'actions': set(['told']), 'sex': 'female'}
+--------------------------------------------------------------------------------
+Anaphoras:
+
+Sentence[5]: he - Jeremy Clarksonthe
+Sentence[5]: them - ?
+Sentence[6]: i - Jeremy Clarksonthe
+Sentence[6]: them - ?
+Sentence[6]: them - ?
+Sentence[7]: i - Jeremy Clarksonthe
+Sentence[9]: i - Jeremy Clarksonthe
+Sentence[9]: you - ?
+Sentence[11]: them - ?
+Sentence[14]: he - Jeremy Clarksonthe
+Sentence[17]: i - Jeremy Clarksonthe
+Sentence[17]: i - Jeremy Clarksonthe
+Sentence[18]: i - Jeremy Clarksonthe
+Sentence[18]: them - ?
+Sentence[19]: i - Jeremy Clarksonthe
+Sentence[20]: i - Jeremy Clarksonthe
+Sentence[21]: i - Jeremy Clarksonthe
+Sentence[23]: i - Jeremy Clarksonthe
+Sentence[24]: his - Jeremy Clarksonthe
+Sentence[25]: he - Jeremy Clarksonthe
+Sentence[25]: he - Jeremy Clarksonthe
+Sentence[25]: he - Jeremy Clarksonthe
+Sentence[25]: him - Jeremy Clarksonthe
+Sentence[26]: i - Jeremy Clarksonthe
+Sentence[26]: he - Jeremy Clarksonthe
+--------------------------------------------------------------------------------
+People interactions:
+
+[1]: Jeremy Clarksonthe(he),  Clarkson,  - described, saying, was certain
+[2]: Jeremy Clarksonthe(i),  Jeremy Clarksonthe(i),  - said, didn, to be taken seriously, believe is clear, ' re
+[3]: Clarkson,  Jeremy Clarksonthe(his),  - appalling, initially wished, to remove
+[4]: Karen Jenningsthe,  Jeremy Clarksonthe(he),  Jeremy Clarksonthe(he),  Jeremy Clarksonthe(he),  Jeremy Clarksonthe(our),  Jeremy Clarksonthe(him),  - told, accepted, going, to say, recognised, went too, saying, said, ' re doing now is extending, to come, work, to see just, work, deliver
+[5]: Jeremy Clarksonthe(i),  Jeremy Clarksonthe(he),  - think, would enjoy
+--------------------------------------------------------------------------------
