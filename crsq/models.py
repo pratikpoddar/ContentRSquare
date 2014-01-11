@@ -1,10 +1,9 @@
 from django.db import models
 from datetime import datetime
-from picklefield.fields import PickledObjectField
 
 class ContentAffiliate(models.Model):
-    contenthash = models.BigIntegerField(unique=True, db_index=True, null=False)
-    affiliate = PickledObjectField()
+    contenthash = models.CharField(max_length=100L, unique=True, db_index=True, null=False)
+    affiliate = models.TextField(null=False)
     content = models.CharField(max_length=100L, null=True)
     time= models.DateTimeField(auto_now_add=True, blank=True)
 

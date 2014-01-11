@@ -6,6 +6,7 @@ import hashlib
 import collections
 import sys
 import logging
+import pickle
 
 from crsq.models import ContentAffiliate
 
@@ -28,14 +29,14 @@ def content_affiliate(content, index):
 	content = removeNonAscii(content)
 	logger.debug('content_affiliate_advertising.py - content_affiliate - calls - ' + content[0:100]) 
 	try:
-		combined_hash = int(hashlib.md5(content.replace(' ','')+index.replace(' ','')).hexdigest(), 16)
-		affiliate_result = ContentAffiliate.objects.filter(contenthash=combined_hash).values('affiliate')
+		combined_hash = str(int(hashlib.md5(content.replace(' ','')+index.replace(' ','')).hexdigest(), 16))
+		affiliate_result = ContentAffiliate.objects.filter(contenthash=str(combined_hash)).values('affiliate')
 		if not affiliate_result:
 			output = get_Content_Affliate_Advertising(content, index)
 			try:
 				content_affiliate = ContentAffiliate()
-				content_affiliate.contenthash = combined_hash
-				content_affiliate.affiliate = output
+				content_affiliate.contenthash = str(combined_hash)
+				content_affiliate.affiliate = pickle.dumps(output)
 				content_affiliate.content = content[0:100]
 				content_affiliate.save()
 			except Exception as e:
@@ -44,8 +45,8 @@ def content_affiliate(content, index):
 			return convert(output)
 
 		else:
-			logger.debug('content_affiliate_advertising.py - content_affiliate - returns - ' + str(affiliate_result[0]['affiliate']))
-			return convert(affiliate_result[0]['affiliate'])
+			logger.debug('content_affiliate_advertising.py - content_affiliate - returns - ' + str(pickle.loads(affiliate_result[0]['affiliate'])))
+			return convert(pickle.loads(affiliate_result[0]['affiliate']))
 	
 	except Exception as e:
 		logger.exception('content_affiliate_advertising.py - content_affiliate - error - ' + str(e))

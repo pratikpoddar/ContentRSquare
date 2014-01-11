@@ -25,7 +25,6 @@ def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def get_python_tagger(text):
 
-        logger.debug('')
         logger.debug('## Python Tagger ##')
 	weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"data/dict.pkl", 'rb')) 
 	myreader = tagger.Reader()
@@ -54,7 +53,6 @@ def get_python_tagger(text):
 
 def get_nltk_ne(text):
 
-	logger.debug('')
 	logger.debug('## NLTK NE ##')
 	try:
 	        tags = nltk.pos_tag(nltk.word_tokenize(text))
@@ -85,7 +83,6 @@ def get_nltk_ne(text):
 
 def get_topia_termextract(text):
 
-        logger.debug('')
         logger.debug('## Topia Termextract ##')
 	try:
 		extractor = extract.TermExtractor()
@@ -111,7 +108,6 @@ def get_Text_Concepts(text):
 	response = alchemyapi.concepts('text', text)
 
 	if response['status'] == 'OK':
-		logger.debug('')
 		logger.debug('## Alchemy Concepts ##')
 		responseOutput = []
 		for concept in response['concepts']:
@@ -126,7 +122,6 @@ def get_Text_Categories(text):
 	response = alchemyapi.category('text',text)
 
 	if response['status'] == 'OK':
-		logger.debug('')
 		logger.debug('## Alchemy Category ##')
 		responseOutput = {}
 		logger.debug(removeNonAscii('text: '+ response['category'] + ' ' + response['score']))
@@ -146,7 +141,6 @@ def get_Content_Analysis(text):
 	try:
 		root = etree.fromstring(urllib2.urlopen(url).read())
 		relevantlist = root.getchildren()[1].getchildren()
-		logger.debug('')
 	        logger.debug('## Yahoo Content Analysis ##')
 		yresult = {}
 		responseOutput = []
@@ -169,7 +163,6 @@ def get_Content_Analysis(text):
 def get_Calais_Topics(text):
 	
 	calais_result = calais.analyze(text)
-	logger.debug('')
 	logger.debug('## Open Calais ##')
 	responseOutput = []
 	try:
