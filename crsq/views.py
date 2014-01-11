@@ -29,8 +29,8 @@ def caa(request):
 
         now = datetime.now()
         html = "<html><body>It is now %s.</body></html>" % now
-	#keywords = content_affiliate_advertising.content_affiliate(request.GET['text'], request.GET['index']) 
-	keywords = [{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]
+	keywords = content_affiliate_advertising.content_affiliate(request.GET['text'], request.GET['index']) 
+	#keywords = [{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]
 
         jsonresponse = request.GET['jsonp_callback'] + '({"keywords":' + str(keywords) + '})'
 	

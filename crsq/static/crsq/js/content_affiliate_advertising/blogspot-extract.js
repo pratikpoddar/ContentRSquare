@@ -1,18 +1,22 @@
 s = document.createElement('script');
 s.setAttribute('src', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
 document.getElementsByTagName('head')[0].appendChild(s);
+var jqueryloadchecker = window.setInterval(checkJquery, 3000);
+var functioncallchecker = 0;
 
 function jqueryLoaded() {
-	clearInterval(checker);
-	contentAffiliateAdvertising()
+	clearInterval(jqueryloadchecker);
+	if (functioncallchecker == 0) {
+		functioncallchecker = 1;
+		contentAffiliateAdvertising()
+	}
 }
  
 function checkJquery() {
-	if (window.jQuery) {jqueryLoaded();} else { checker = window.setInterval(checkJquery, 2000);}
+	clearInterval(jqueryloadchecker);
+	if (window.jQuery) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJquery, 3000);}
 }
  
-checkJquery();
-
 function contentAffiliateAdvertising() {
 	var totaltext = $($(".post-body").parent()).children(".post-body").text().replace(/[\r\n]/g,' ');
 	var options = {'maxaffiliatelinks': 8, 'maxwikilinks': 5};

@@ -50,7 +50,7 @@ SESSION_COOKIE_DOMAIN = '.crsq.com'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['crsq.com','www.crsq.com']
+ALLOWED_HOSTS = ['crsq.com','www.crsq.com', '54.254.100.216']
 
 USE_X_FORWARDED_HOST = True
 
@@ -160,8 +160,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'crsq',
-    'functools32',
-    'south'
+    'south',
+    'functools32'
 )
 
 LOG_DIR='/home/ubuntu/django_log'
@@ -183,15 +183,14 @@ LOGGING = {
         },
     },
     'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.CallbackFilter',
-	    'callback': lambda r: not DEBUG
-        }
+        #'require_debug_false': {
+        #    '()': 'django.utils.log.RequireDebugFalse',
+        #}
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            #'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
             'formatter': 'standard',
         },
