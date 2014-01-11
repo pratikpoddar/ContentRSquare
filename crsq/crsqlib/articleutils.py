@@ -1,7 +1,7 @@
 from goose import Goose
 import urllib2
-from crsqlib.text_summarize import text_summarize
-from crsqlib.wikianalytics import wikiutils
+from crsq.crsqlib.text_summarize import text_summarize
+from crsq.crsqlib.wikianalytics import wikiutils
 
 def getArticleProperties(html):
 

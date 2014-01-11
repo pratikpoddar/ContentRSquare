@@ -14,7 +14,8 @@ import pickle
 from topia.termextract import extract
 from functools32 import lru_cache
 import inspect
-import crsqlib
+from crsq import crsqlib
+
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")

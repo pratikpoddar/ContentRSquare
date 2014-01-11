@@ -1,5 +1,5 @@
-from crsqlib.text_summarize import text_summarize
-from crsqlib import productsearch
+from crsq.crsqlib.text_summarize import text_summarize
+from crsq.crsqlib import productsearch
 from lxml import objectify
 import bottlenose
 import hashlib
@@ -81,16 +81,16 @@ text = "Back in 2012 Id been to enough tech startup conferences in Europe over t
 
 index = "Books"
 
-try:
-	text = sys.argv[1]
-	index = sys.argv[2]
+#try:
+#	text = sys.argv[1]
+#	index = sys.argv[2]
 
-except Exception as e:
-	logging.exception("content-affiliate-advertising - error in input - " + str(e))
-	pass
+#except Exception as e:
+#	logging.exception("content-affiliate-advertising - error in input - " + str(e))
+#	pass
 
-output = content_affiliate(text, index)
+#output = content_affiliate(text, index)
 ##print "[{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]"
-print output
+#print output
 
 

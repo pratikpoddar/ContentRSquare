@@ -21,7 +21,7 @@ function contentAffiliateAdvertising() {
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
-	    url: "http://www.penpatron.com/content-affiliate-advertising/getContentAffiliateAdvertising.php",
+	    url: "http://54.254.100.216/content-affiliate-advertising",
 	    data: { text: totaltext, options: options, index: index },
 	    dataType: "jsonp",
 	    jsonp: 'jsonp_callback'
