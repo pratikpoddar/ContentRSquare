@@ -44,8 +44,8 @@ def content_affiliate(content, index):
 			return convert(output)
 
 		else:
-			logger.debug('content_affiliate_advertising.py - content_affiliate - returns - ' + str(affiliate_result[0]))
-			return convert(affiliate_result[0])
+			logger.debug('content_affiliate_advertising.py - content_affiliate - returns - ' + str(affiliate_result[0]['affiliate']))
+			return convert(affiliate_result[0]['affiliate'])
 	
 	except Exception as e:
 		logger.exception('content_affiliate_advertising.py - content_affiliate - error - ' + str(e))

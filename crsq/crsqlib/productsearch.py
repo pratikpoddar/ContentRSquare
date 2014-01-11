@@ -35,7 +35,7 @@ def getAmazonProducts(keywords, index):
                 	        logger.exception('productsearch.py - getAmazonProducts - Error: ' + str(e))
                         	raise
 		else:
-			output.append({'keyword': kw, 'link': amazonlink[0]})
+			output.append({'keyword': kw, 'link': amazonlink[0]['amazonlink']})
         return output
 
 
