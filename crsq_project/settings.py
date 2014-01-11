@@ -159,7 +159,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'meta',
     'crsq',
     'functools32',
     'south'
@@ -185,7 +184,8 @@ LOGGING = {
     },
     'filters': {
         'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
+            '()': 'django.utils.log.CallbackFilter',
+	    'callback': lambda r: not DEBUG
         }
     },
     'handlers': {

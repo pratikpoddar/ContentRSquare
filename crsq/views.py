@@ -20,7 +20,7 @@ from crsq.content_affiliate_advertising import content_affiliate_advertising
 
 logger = logging.getLogger(__name__)
 
-def default(request):
+def index(request):
 	now = datetime.now()
         html = "<html><body>It is now %s.</body></html>" % now
         return HttpResponse(html)
