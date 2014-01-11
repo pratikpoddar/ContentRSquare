@@ -1,20 +1,201 @@
-Download everything from http://bulbflow.com/download/
+#######
+Installation
+#######
+sudo apt-get install python
+sudo apt-get install python-setuptools 
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+sudo apt-get build-dep python-mysqldb    
+sudo easy_install virtualenv
+virtualenv crsq-virtualenv
+source crsq-virtualenv/bin/activate
+pip install django
+pip install django-meta
+pip install functools32
+pip install mysql-python
+pip install simplejson
+pip install gunicorn
+
+#######
+Setting server and db
+#######
+
+Instead of postgres, do steps for mysql
+Install postgres, ngix, gunicorn, supervisor
+http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
+
+mysql -u root -p
+
+CREATE USER 'crsq_user'@'localhost' IDENTIFIED BY '12345678';
+CREATE DATABASE crsq_db CHARACTER SET utf8;
+GRANT ALL PRIVILEGES ON crsq_db.* TO crsq_user@localhost;
+
+#######
+Supervisor Config File
+#######
+
+[program:crsq]
+command = /home/ubuntu/gunicorn_crsq_start 			      ; Command to start app
+user = ubuntu                                                         ; User to run as
+stdout_logfile = /home/ubuntu/gunicorn_crsq_supervisor.log      ; Where to write log messages
+redirect_stderr = true                                                ; Save stderr in the same log
+
+#######
+Mount MySQL
+#######
+
+Moving Mysql to the new mount:
+http://aws.amazon.com/articles/1663
+
+#######
+File /etc/nginx/sites-available/crsq
+#######
+
+upstream crsq {
+  # fail_timeout=0 means we always retry an upstream even if it failed
+  # to return a good HTTP response (in case the Unicorn master nukes a
+  # single worker for timing out).
+ 
+  server localhost:8000;
+}
+server {
+
+  listen 80 default;
+
+  access_log /home/ubuntu/crsq-access.log;
+  error_log /home/ubuntu/crsq-error.log error;
+
+# Make site accessible from http://localhost/
+server_name crsq;
+
+location @proxy_to_crsq_app {
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+    proxy_set_header X-Forwarded-Port $http_x_forwarded_port;
+    proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://crsq;
+  }
+
+location /robots.txt {
+       alias /home/ubuntu/crsq/crsq/robots.txt;
+   }
+
+location / {
+   	try_files $uri @proxy_to_crsq_app;
+  }
+
+  # No basic auth security on the heartbeat url, so that ELB can use it
+  location /heartbeat {
+    try_files $uri @proxy_to_crsq_app;
+  }
+location /static {
+   	alias /home/ubuntu/crsq/crsq/static;
+  }
+
+
+
+  # Forward to HTTPS if we're an HTTP request...
+  if ($http_x_forwarded_proto = "http") {
+    set $do_redirect "true";
+  }
+
+  # Run our actual redirect...
+  if ($do_redirect = "true") {
+    rewrite ^ https://$host$request_uri? permanent;
+  }	
+}
+
+#######
+Change File /etc/nginx/sites-enabled/crsq accordingly
+#######
+ln -s /etc/nginx/sites-available/crsq /etc/nginx/sites-enabled/crsq
+
+#######
+Change gunicorn_crsq_start as follows:
+#######
+#!/bin/bash
+
+NAME="crsq"                                  # Name of the application
+DJANGODIR=/home/ubuntu/crsq             # Django project directory
+USER=ubuntu                                       # the user to run as
+GROUP=ubuntu                                      # the group to run as
+NUM_WORKERS=3                                     # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE=crsq_project.settings             # which settings file should Django use
+ACCESSFILE=/home/ubuntu/gunicorn-access.log
+ERRORFILE=/home/ubuntu/gunicorn-error.log
+LOGFILE=/home/ubuntu/gunicorn-log.log
+REDIRLOGFILE=/home/ubuntu/gunicorn-redir-log.log
+REDIRERRORFILE=/home/ubuntu/gunicorn-redir-error.log
+
+echo "Starting $NAME"
+# Activate the virtual environment
+source /home/ubuntu/crsq-virtualenv/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+
+ 
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+gunicorn_django \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=debug \
+  --timeout=300 \
+  --access-logfile $ACCESSFILE \
+  --error-logfile $ERRORFILE \
+  --log-file $LOGFILE >> $REDIRLOGFILE 2>> $REDIRERRORFILE
+
+
+#######
+The file structure should be like
+#######
+
+(crsq-virtualenv)ubuntu@ip-10-134-145-102:~$ ls
+crsq             crsq-virtualenv  gunicorn-access.log           gunicorn-error.log        gunicorn-redir-log.log
+crsq-access.log  dead.letter      gunicorn_crsq_start           gunicorn-log.log          nltk_data
+crsq-error.log   django_log       gunicorn_crsq_supervisor.log  gunicorn-redir-error.log
+(crsq-virtualenv)ubuntu@ip-10-134-145-102:~$ ls crsq
+crsq  crsq_project  LICENSE  manage.py  README.md
+(crsq-virtualenv)ubuntu@ip-10-134-145-102:~$ ls crsq/crsq
+content_affiliate_advertising  historyCommands  migrations  penpatron                   search_twitter  tests.py  views.py
+crsqlib                        __init__.py      models.py   related_videos_advertising  static          urls.py   views.pyc
+data                           __init__.pyc     models.pyc  robots.txt                  templates       urls.pyc  workdone
+
+
+
 Install http://pythonhosted.org/tweepy/html/
+sudo apt-get install libevent-dev python-all-dev
+sudo apt-get install libxml2-dev libxslt-dev python-dev lib32z1-dev python-lxml
+sudo apt-get install python-numpy python-scipy python-matplotlib
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+sudo pip install poster
+sudo pip install greenlet
+sudo pip install gevent 
 sudo pip install tweepy
 sudo pip install jsonpickle
 pip install beautifulsoup4
-sudo apt-get install libevent-dev python-all-dev
-sudo pip install greenlet
-sudo pip install gevent 
+pip install simplejson
+pip install bottlenose
+pip install -U urlnorm
+pip install nltk
+nltk.download('maxent_treebank_pos_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+nltk.download('stopwords')
+pip install -U textblob
+curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
+easy_install stemming
+pip install jieba
+
 Download Alchemy API http://www.alchemyapi.com/developers/sdks/
 Download OpenCalais https://code.google.com/p/python-calais/downloads/detail?name=python-calais-1.4.tar.gz
 Download http://scrapy.org/download/
 Download http://scikit-learn.org/stable/install.html
 
-sudo apt-get install libxml2-dev libxslt-dev python-dev lib32z1-dev python-lxml
-pip install simplejson
-pip install bottlenose
-pip install -U urlnorm
+
 
 sudo git clone https://github.com/yoavaviram/python-amazon-simple-product-api.git
 cd python-amazon-simple-product-api/
@@ -22,17 +203,6 @@ sudo python setup.py install
 cd ..
 sudo rm -rf python-amazon-simple-product-api/
 
-pip install nltk
-easy_install stemming
-
-sudo apt-get install python-numpy python-scipy python-matplotlib
-
->>> nltk.download('maxent_treebank_pos_tagger')
->>> nltk.download('maxent_ne_chunker')
->>> nltk.download('words')
->>> nltk.download('stopwords')
-
-pip install jieba
 git clone https://github.com/grangier/python-goose.git
 cd python-goose
 python setup.py install
@@ -46,32 +216,17 @@ python setup.py install
 cd ..
 rm -rf topia.termextract-1.1.0*
 
-pip install -U textblob
-curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
-
-sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
-
-Add parent folder to crsqlib
-PATH="${PATH}:/home/gauri/Desktop/ContentRSquare"
-export PATH
-PYTHONPATH="${PYTHONPATH}:/home/gauri/Desktop/ContentRSquare"
-export PYTHONPATH
-
 git clone https://github.com/alexz-enwp/wikitools.git
 cd wikitools
 sudo python setup.py install
 cd ..
 rm -rf wikitools
 
-sudo pip install poster
-
 as explained in
 http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/
-
 sudo apt-get install liblapack-dev
 sudo apt-get install gfortran
 sudo apt-get install libatlas-base-dev
-
 pip uninstall numpy
 pip uninstall scipy
 export LAPACK=/usr/lib/liblapack.so
@@ -79,4 +234,7 @@ export ATLAS=/usr/lib/libatlas.so
 export BLAS=/usr/lib/libblas.so
 pip install numpy
 pip install scipy
+
+
+
 
