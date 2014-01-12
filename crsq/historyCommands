@@ -189,6 +189,9 @@ pip install -U textblob
 curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
 easy_install stemming
 pip install jieba
+pip install jsonpickle
+pip install tweepy
+pip install gevent
 
 Download Alchemy API http://www.alchemyapi.com/developers/sdks/
 Download OpenCalais https://code.google.com/p/python-calais/downloads/detail?name=python-calais-1.4.tar.gz

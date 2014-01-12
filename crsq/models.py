@@ -15,7 +15,7 @@ class AmazonProd(models.Model):
     class Meta:
         unique_together = (("text", "index"),)
 
-class TwitterLinks(models.Model):
+class TwitterListLinks(models.Model):
     sector = models.CharField(max_length=100L, null=False)
     twitteruser = models.CharField(max_length=100L, null=False)
     twitterlist = models.CharField(max_length=100L, null=False)
@@ -26,7 +26,15 @@ class TwitterLinks(models.Model):
     class Meta:
         unique_together = (("sector", "twitteruser", "twitterlist", "url", "tweetid"),)
 
-   
+class TwitterKeywordLinks(models.Model):
+    keyword = models.CharField(max_length=100L, null=False)
+    url = models.CharField(max_length=100L, null=False, db_index=True)
+    tweetid = models.BigIntegerField(null=False, db_index=True)
+    location = models.CharField(max_length=100L, default=None, null=True)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+    class Meta:
+        unique_together = (("keyword", "url", "tweetid"),)
+
 class ArticleInfo(models.Model):
     url = models.CharField(max_length=100L, null=False, db_index=True, unique=True)
     articletitle = models.CharField(max_length=100L)
