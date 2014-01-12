@@ -27,6 +27,8 @@ def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
 def search_twitter(keyword, numlinks):
 
+	logger.debug('twitter_newspaper - search_twitter - called for ' + keyword)
+
         ## Create empty list of hold statuses
         status_list = []
 
@@ -58,7 +60,11 @@ def search_twitter(keyword, numlinks):
 
         ## Processing the urls in the statuses and saving them
         for status in status_list:
-                urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+		try:
+	                urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+		except Exception as e:
+			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))
+			urls = []
                 urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
                 for url in urls:
                         twitterlink = TwitterKeywordLinks(keyword=keyword, url=url, tweetid=status.id, location=status.author.location)
@@ -71,6 +77,8 @@ def search_twitter(keyword, numlinks):
         return
 
 def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
+
+	logger.debug('twitter_newspaper - get_list_timeline - called for ' + sector + ' ' + twitteruser + ' ' + twitterlist)
 
 	## Create empty list of hold statuses
 	status_list = []
@@ -100,7 +108,11 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 
 	## Processing the urls in the statuses and saving them
 	for status in status_list:
-	        urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+		try:
+		        urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+		except Exception as e:
+			logger.exception('twitter_newspaper - get_list_timeline - error getting Long Urls ' + str(status.id) + ' ' + str(e))
+			urls = []
         	urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
 		for url in urls:
 			twitterlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, url=url, tweetid=status.id, location=status.author.location)
