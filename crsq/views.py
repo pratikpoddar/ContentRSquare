@@ -27,13 +27,10 @@ def index(request):
 
 def caa(request):
 
-	if (not request.GET['text']) or (not request.GET['index']) or (not request.GET['jsonp_callback']):
-		raise Http404
+	logger.debug(request.GET.keys())
 
-	try:
-		logger.debug('views.caa from url ' + request.get_full_path())
-	except:
-		pass
+	if filter(lambda x: x not in request.GET.keys(), ['text','index','jsonp_callback']):
+		return HttpResponse("<html><body>Content Affiliate Advertising - Wrong Input</body></html>")
 
 	keywords = content_affiliate_advertising.content_affiliate(request.GET['text'], request.GET['index']) 
 	#keywords = [{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]
