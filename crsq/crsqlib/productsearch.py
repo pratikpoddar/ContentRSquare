@@ -31,6 +31,7 @@ def getAmazonProducts(keywords, index):
 					amazonprod.save()
 				except Exception as e:
 					logger.exception('productsearch.py - getAmazonProducts - Error in saving to AmazonProd ' + str(e))
+					raise
         	        except Exception as e:
                 	        logger.exception('productsearch.py - getAmazonProducts - Error: ' + str(e))
                         	raise

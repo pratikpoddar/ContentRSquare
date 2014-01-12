@@ -134,6 +134,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.common.BrokenLinkEmailsMiddleware'
+    'crsq_project.middleware.error500Middleware',
    
 )
 

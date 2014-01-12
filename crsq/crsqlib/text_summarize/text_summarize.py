@@ -78,6 +78,7 @@ def get_nltk_ne(text):
 
 	except Exception as e:
 		logger.exception('text_summarize.py - get_nltk_ne - error - '+ str(e))
+		raise
 
         return responseOutput
 
@@ -100,6 +101,7 @@ def get_topia_termextract(text):
 	
 	except Exception as e:
                 logger.exception('text_summarize.py - get_topia_termextract - error - '+ str(e))
+		raise
 
         return responseOutput
 
@@ -182,7 +184,11 @@ def get_Calais_Topics(text):
 		raise
 	
 	#responseOutput = filter(lambda x: x['freebase'] != None, responseOutput)
-	logger.debug(responseOutput)
+	try:
+		logger.debug(responseOutput)
+	except:
+		pass
+
 	return responseOutput
 
 @lru_cache(maxsize=4096)
@@ -200,7 +206,10 @@ def get_Freebase_Meaning(term):
 					try:
 						return {'parentnode': '', 'wikilink': jsonResult[0]['id']}
 					except:
-						return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+						try:
+							return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+						except:
+							return None
 			else:
 				return None
 		else:

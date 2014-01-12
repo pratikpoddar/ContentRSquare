@@ -27,8 +27,11 @@ def index(request):
 
 def caa(request):
 
-        now = datetime.now()
-        html = "<html><body>It is now %s.</body></html>" % now
+	if (not request.GET['text']) or (not request.GET['index']) or (not request.GET['jsonp_callback']):
+		raise Http404
+
+	logger.debug('views.caa from url ' + request.META['HTTP_REFERER'])
+
 	keywords = content_affiliate_advertising.content_affiliate(request.GET['text'], request.GET['index']) 
 	#keywords = [{'keyword':'Columbia Business School', 'link':'http://www.cseblog.com'}]
 
