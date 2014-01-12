@@ -40,23 +40,9 @@ def getSocialShares(url):
 
 	return {'fb': fb, 'tw': tw}
 
-@lru_cache(maxsize=1024)
-def getCanonicalUrlTitle(url):
-	try:
-		#resp = urllib2.urlopen(url)
-		resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
-		if resp.getcode() == 200:
-			return {'url': getCanonicalUrl(resp.geturl()), 'title': BeautifulSoup(resp).title.string.replace('\t','').replace('\n','').strip()}
-		else:
-			raise
-	except Exception as e:
-		print str(e)
-		raise
-
-def getLongUrl(tinyurl):
+def getLongUrl(url):
         try:
                 resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
-                #resp = urllib2.urlopen(tinyurl)
                 if resp.getcode() == 200:
                         return resp.url
                 else:
@@ -86,4 +72,7 @@ def getLongUrlOptimized(url):
 	else:
 		return url
 
+
+def is_url_an_article(url):
+        return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic']
 

@@ -16,6 +16,7 @@ class Migration(SchemaMigration):
             ('twitterlist', self.gf('django.db.models.fields.CharField')(max_length=100L)),
             ('url', self.gf('django.db.models.fields.CharField')(max_length=100L, db_index=True)),
             ('tweetid', self.gf('django.db.models.fields.BigIntegerField')(db_index=True)),
+            ('location', self.gf('django.db.models.fields.CharField')(default=None, max_length=100L, null=True)),
             ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'crsq', ['TwitterLinks'])
@@ -24,9 +25,9 @@ class Migration(SchemaMigration):
         db.create_table(u'crsq_articleinfo', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('url', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100L, db_index=True)),
-            ('title', self.gf('django.db.models.fields.TextField')(max_length=100L, db_index=True)),
-            ('image', self.gf('django.db.models.fields.TextField')(max_length=100L)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
+            ('articletitle', self.gf('django.db.models.fields.CharField')(max_length=100L)),
+            ('articleimage', self.gf('django.db.models.fields.TextField')(max_length=100L)),
+            ('articlecontent', self.gf('django.db.models.fields.TextField')()),
             ('twitterpower', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('fbpower', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -53,12 +54,12 @@ class Migration(SchemaMigration):
         },
         u'crsq.articleinfo': {
             'Meta': {'object_name': 'ArticleInfo'},
-            'content': ('django.db.models.fields.TextField', [], {}),
+            'articlecontent': ('django.db.models.fields.TextField', [], {}),
+            'articleimage': ('django.db.models.fields.TextField', [], {'max_length': '100L'}),
+            'articletitle': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
             'fbpower': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.TextField', [], {'max_length': '100L'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.TextField', [], {'max_length': '100L', 'db_index': 'True'}),
             'twitterpower': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'url': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100L', 'db_index': 'True'})
         },
@@ -73,6 +74,7 @@ class Migration(SchemaMigration):
         u'crsq.twitterlinks': {
             'Meta': {'object_name': 'TwitterLinks'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'location': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '100L', 'null': 'True'}),
             'sector': ('django.db.models.fields.CharField', [], {'max_length': '100L'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'tweetid': ('django.db.models.fields.BigIntegerField', [], {'db_index': 'True'}),
