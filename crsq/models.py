@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from urlparse import urlparse
 
 class ContentAffiliate(models.Model):
     contenthash = models.CharField(max_length=100L, unique=True, db_index=True, null=False)
@@ -47,6 +48,8 @@ class ArticleInfo(models.Model):
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)
     time = models.DateTimeField(auto_now_add=True, blank=True)
+    def domainname(self):
+        return urlparse(self.url)[1]
 
 
 

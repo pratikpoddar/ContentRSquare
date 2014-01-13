@@ -62,8 +62,8 @@ def getArticlePropertiesFromUrl(url):
 
 	try:
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
-		if resp.getcode() == 200:
-			response = opener.open(url)
+		response = opener.open(url)
+		if response.getcode() == 200:
 			raw_html = response.read()
 		else:
 			raise

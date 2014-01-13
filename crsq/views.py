@@ -15,8 +15,9 @@ from datetime import date
 import pytz
 
 import logging
-
+import urlparse
 from crsq.content_affiliate_advertising import content_affiliate_advertising
+from crsq.models import ArticleInfo
 
 logger = logging.getLogger(__name__)
 
@@ -38,5 +39,13 @@ def caa(request):
         jsonresponse = request.GET['jsonp_callback'] + '({"keywords":' + str(keywords) + '})'
 	
         return HttpResponse(jsonresponse)
+
+def twitter_newspaper(request):
+
+	template = loader.get_template('crsq/twitter-newspaper/index.html')
+	context = RequestContext(request, {
+	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), ArticleInfo.objects.all().values('url', 'articletitle', 'articlecontent', 'articleimage', 'twitterpower', 'fbpower'))
+        })
+	return HttpResponse(template.render(context))	
 
 

@@ -147,6 +147,7 @@ def put_article_details(url):
 			articleinfo.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
+			raise
 	return
 
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)

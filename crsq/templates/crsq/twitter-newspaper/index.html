@@ -1,0 +1,98 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Twitter Newspaper</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "crsq/css/twitter-newspaper/bootstrap.css" %}" rel="stylesheet">
+    <!-- Add custom CSS here -->
+    <link href="{% static "crsq/css/twitter-newspaper/twitter-newspaper.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#home">Twitter Newspaper</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#"></a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <p class="lead">Popular Articles shared by "Technology" folks in "Mumbai, India"</p>
+          <div class="list-group">
+            <a href="#" class="list-group-item">Technology</a>
+            <a href="#" class="list-group-item">Politics</a>
+            <a href="#" class="list-group-item">Entertainment</a>
+            <a href="#" class="list-group-item">Sports</a>
+            <a href="#" class="list-group-item">Business</a>
+          </div>
+          <div class="list-group">
+            <a href="#" class="list-group-item">Mumbai, India</a>
+            <a href="#" class="list-group-item">Bangalore, India</a>
+            <a href="#" class="list-group-item">California, USA</a>
+            <a href="#" class="list-group-item">New York, USA</a>
+            <a href="#" class="list-group-item">London, UK</a>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="row">
+
+	    {% for article in article_list %}
+            <div class="col-sm-4 col-lg-4 col-md-4">
+              <div class="thumbnail">
+                <img src="{{ article.articleimage}}" alt="">
+                <div class="caption">
+                  <h4 class="pull-right"></h4>
+                  <h4><a target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
+                  <p>{{ article.articlecontent }}</p>
+                </div>
+                <div class="thumbnailfooter">
+                  <p class="ratings">{{ article.fbpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAYElEQVR42u3WsQ3AIBBD0dvsRssojOgRHBdRLlIKGiyRANJv/QooCJ1UUBwcru0aNyFBZ9MCh0qS8WwU0GrUA+S3gfdoPXMXwNmBGu61LNC/g/2KNvADAEYA97fFAEDlCdZMAHTJ2l1sAAAAAElFTkSuQmCC" style="width:10px;height:10px"> : {{ article.twitterpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAg0lEQVR42tWWQQ2AMAxF6wBJlVAJSEEKEpAwKUiYhNISkn8gnOiHbMlLdvrv8Nd0EseCHngx/cpGOEkizuR3QUtYAnN3SfJeLjjDIZhIAsAWgLvYeAJI2oAClG9jlMwYNP1asFULlqdi380B2HnPFKw8AWjBHGjBHIy50fhLX4nfFj0Ay1rp8QYEp9AAAAAASUVORK5CYII=" style="width:10px;height:10px"></p>
+		  <p class="domain">{{ article.domain }}</p>
+                </div>
+              </div>
+            </div>
+	    {% endfor %}
+
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- /.container -->    
+
+    <div class="container">
+      <hr>
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Pratik Poddar</p>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /.container -->
+
+    <!-- JavaScript -->
+    <script src="{% static "crsq/js/twitter-newspaper/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "crsq/js/twitter-newspaper/bootstrap.js" %}"></script>
+
+  </body>
+
+</html>
