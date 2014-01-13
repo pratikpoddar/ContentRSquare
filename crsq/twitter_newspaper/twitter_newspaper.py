@@ -9,7 +9,7 @@ import hashlib
 from django.db.models import Max
 import logging
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks
 
 logger = logging.getLogger(__name__)
 
@@ -66,13 +66,20 @@ def search_twitter(keyword, numlinks):
 			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
                 urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
-                for url in urls:
-                        twitterlink = TwitterKeywordLinks(keyword=keyword, url=url, tweetid=status.id, location=status.author.location)
-                        try:
-                                twitterlink.save()
-                        except Exception as e:
-                                logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
-                                pass
+		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
+		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
+	                for url in urls:
+				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
+	                        try:
+        	                        twitterlink.save()
+	                        except Exception as e:
+        	                        logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
+                	                pass
+		try:
+			twitterkeywordlink.save()
+		except Exception as e:
+			logger.exception('twitter_newspaper - search_twitter - error saving twitterkeywordlink - ' + keyword + ' - ' + str(e))
+
 
         return
 
@@ -114,13 +121,20 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 			logger.exception('twitter_newspaper - get_list_timeline - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
         	urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
-		for url in urls:
-			twitterlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, url=url, tweetid=status.id, location=status.author.location)
-			try:
-				twitterlink.save()
-			except:
-		                logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlink - ' + sector + ' ' + twitteruser + ' ' + twitterlist + ' ' + url + ' - ' + str(e))
-				pass
+                twitterlistlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
+		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
+	                for url in urls:
+        	                twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
+	                        try:
+        	                        twitterlink.save()
+	                        except Exception as e:
+        	                        logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
+                	                pass
+                try:
+                        twitterlistlink.save()
+                except Exception as e:
+			logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlistlink - ' + keyword + ' - ' + str(e))
+
 
 	return
 
