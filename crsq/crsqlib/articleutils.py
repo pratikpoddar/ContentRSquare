@@ -62,8 +62,11 @@ def getArticlePropertiesFromUrl(url):
 
 	try:
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
-		response = opener.open(url)
-		raw_html = response.read()
+		if resp.getcode() == 200:
+			response = opener.open(url)
+			raw_html = response.read()
+		else:
+			raise
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + url + ' - ' + str(e))
 		raise
