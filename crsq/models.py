@@ -18,8 +18,8 @@ class AmazonProd(models.Model):
 class TweetLinks(models.Model):
     tweetid = models.BigIntegerField(null=False, db_index=True)
     author = models.CharField(max_length=100L, null=False)
-    location = models.CharField(max_length=100L, default=None, null=True)
-    url = models.CharField(max_length=100L, null=False, db_index=True)
+    location = models.CharField(max_length=500L, default=None, null=True)
+    url = models.CharField(max_length=255L, null=False, db_index=True)
     class Meta:
         unique_together = (("tweetid", "url"),)
 
@@ -40,9 +40,9 @@ class TwitterKeywordLinks(models.Model):
         unique_together = (("keyword", "tweetid"),)
 
 class ArticleInfo(models.Model):
-    url = models.CharField(max_length=100L, null=False, db_index=True, unique=True)
-    articletitle = models.CharField(max_length=100L)
-    articleimage = models.TextField(max_length=100L)
+    url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    articletitle = models.CharField(max_length=1000L)
+    articleimage = models.TextField(max_length=1000L)
     articlecontent = models.TextField()
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)

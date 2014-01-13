@@ -4,12 +4,12 @@ import jsonpickle
 from time import sleep
 import sys
 import itertools
-from crsq.crsqlib import urlutils
+from crsq.crsqlib import urlutils, articleutils
 import hashlib
 from django.db.models import Max
 import logging
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo
 
 logger = logging.getLogger(__name__)
 
@@ -136,6 +136,17 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 			logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlistlink - ' + keyword + ' - ' + str(e))
 
 
+	return
+
+def put_article_details(url):
+	if ArticleInfo.objects.filter(url=url).count()==0:
+		try:
+			articledict = articleutils.getArticlePropertiesFromUrl(url)
+			socialpower = urlutils.getSocialShares(url)
+			articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
+			articleinfo.save()
+		except Exception as e:
+			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
 	return
 
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)
