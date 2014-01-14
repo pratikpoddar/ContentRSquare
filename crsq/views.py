@@ -17,9 +17,15 @@ import pytz
 import logging
 import urlparse
 from crsq.content_affiliate_advertising import content_affiliate_advertising
+from crsq.twitter_newspaper import twitter_newspaper
 from crsq.models import ArticleInfo
 
+
 logger = logging.getLogger(__name__)
+
+tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business", "Travel"]
+tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "Los Angeles, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India", "New Delhi, India", "Singapore"]
+
 
 def index(request):
 	now = datetime.now()
@@ -27,8 +33,6 @@ def index(request):
         return HttpResponse(html)
 
 def caa(request):
-
-	logger.debug(request.GET.keys())
 
 	if filter(lambda x: x not in request.GET.keys(), ['text','index','jsonp_callback']):
 		return HttpResponse("<html><body>Content Affiliate Advertising - Wrong Input</body></html>")
@@ -40,11 +44,21 @@ def caa(request):
 	
         return HttpResponse(jsonresponse)
 
-def twitter_newspaper(request):
+def tw_np(request, sector, location):
+
+	if (not filter(lambda x: slugify(x)==sector, tw_np_sector_list)) or (not filter(lambda x: slugify(x)==location, tw_np_location_list)):
+		return HttpResponse("<html><body>Twitter Newspaper - Wrong Input</body></html>")
 
 	template = loader.get_template('crsq/twitter-newspaper/index.html')
+	articles = twitter_newspaper.get_articles(sector, location)
 	context = RequestContext(request, {
-	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), ArticleInfo.objects.all().values('url', 'articletitle', 'articlecontent', 'articleimage', 'twitterpower', 'fbpower'))[0:10]
+	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), articles[0:10]),
+		'sector': sector,
+		'sectorname': filter(lambda x: slugify(x)==sector, tw_np_sector_list)[0],
+		'location': location,
+		'locationname': filter(lambda x: slugify(x)==location, tw_np_location_list)[0],
+		'sector_list': tw_np_sector_list,
+		'location_list': tw_np_location_list
         })
 	return HttpResponse(template.render(context))	
 

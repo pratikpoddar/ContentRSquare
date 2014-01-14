@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Twitter Newspaper</title>
+    <title>{{ sectorname }} news in {{ locationname }} - Twitter Newspaper</title>
     <!-- Bootstrap core CSS -->
     <link href="{% static "crsq/css/twitter-newspaper/bootstrap.css" %}" rel="stylesheet">
     <!-- Add custom CSS here -->
@@ -34,30 +34,16 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4 col-lg-4 col-md-4">
-          <p class="lead">Popular Articles shared by "Technology" folks in "Mumbai, India"</p>
+          <p class="lead">Popular Articles shared by "{{ sectorname }}" folks in "{{ locationname }}"</p>
           <div class="list-group">
-            <a href="#" class="list-group-item">Technology</a>
-            <a href="#" class="list-group-item">Politics</a>
-            <a href="#" class="list-group-item">Entertainment</a>
-            <a href="#" class="list-group-item">Sports</a>
-            <a href="#" class="list-group-item">Business</a>
-	    <a href="#" class="list-group-item">Travel</a>
+	    {% for s in sector_list %}
+            <a href="/twitter-newspaper/{{ s | slugify }}/{{ location }}" class="{% if sectorname == s %}active{% endif %} list-group-item">{{ s }}</a>
+	    {% endfor %}
           </div>
           <div class="list-group">
-	    <a href="#" class="list-group-item">World</a>
-	    <a href="#" class="list-group-item">United States</a>
-	    <a href="#" class="list-group-item">India</a>
-            <a href="#" class="list-group-item">San Francisco, USA</a>
-	    <a href="#" class="list-group-item">Los Angeles, USA</a>
-	    <a href="#" class="list-group-item">Washington D.C., USA</a>
-            <a href="#" class="list-group-item">New York, USA</a>
-	    <a href="#" class="list-group-item">Boston, USA</a>
-            <a href="#" class="list-group-item">London, UK</a>
-	    <a href="#" class="list-group-item">Berlin, Germany</a>
-            <a href="#" class="list-group-item">Mumbai, India</a>
-            <a href="#" class="list-group-item">Bangalore, India</a>
-	    <a href="#" class="list-group-item">New Delhi, India</a>
-	    <a href="#" class="list-group-item">Singapore</a>
+	    {% for l in location_list %}
+	    <a href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}" class="{% if locationname == l %}active{% endif %} list-group-item">{{ l }}</a>
+	    {% endfor %}
           </div>
         </div>
 

@@ -149,6 +149,12 @@ def put_article_details(url):
 			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
 	return
 
+def get_articles(sector, location):
+	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
+	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
+	return ArticleInfo.objects.filter(url__in=urls).values()
+
+
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)
 #search_twitter("sachin tendulkar", 100)
 

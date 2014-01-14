@@ -23,11 +23,11 @@ def run_twitter_newspaper(sector, tuser, tlist):
 
 toberun = int(datetime.now().hour) % 4
 if toberun == 0:
-	run_twitter_newspaper('Technology', 'pratikpoddar', 'startups')
+	run_twitter_newspaper('technology', 'pratikpoddar', 'startups')
 if toberun == 1:
-	run_twitter_newspaper('Technology', 'dkhare', 'india-tech-and-vc')
+	run_twitter_newspaper('technology', 'dkhare', 'india-tech-and-vc')
 if toberun == 2:
-	run_twitter_newspaper('Technology', 'Scobleizer', 'tech-news-people')
+	run_twitter_newspaper('technology', 'Scobleizer', 'tech-news-people')
 if toberun == 3:
-	run_twitter_newspaper('Entertainment', 'tellychakkar', 'celebs')
+	run_twitter_newspaper('entertainment', 'tellychakkar', 'celebs')
 
