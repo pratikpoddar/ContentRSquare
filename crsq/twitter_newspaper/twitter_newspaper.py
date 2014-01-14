@@ -56,7 +56,7 @@ def search_twitter(keyword, numlinks):
 
         except Exception as e:
                 logger.exception('twitter_newspaper - search_twitter - error getting twitter statuses - ' + keyword + ' - ' + str(e))
-                pass
+                raise
 
         ## Processing the urls in the statuses and saving them
         for status in status_list:
@@ -111,7 +111,7 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 		    statuses = api.list_timeline(count=50, owner_screen_name=twitteruser, slug=twitterlist, include_entities="1", max_id=theMaxId, since_id=theSinceId)
 	except Exception as e:
                 logger.exception('twitter_newspaper - get_list_timeline - error getting twitter statuses - ' + sector + ' ' + twitteruser + ' ' + twitterlist + ' - ' + str(e))
-		pass
+		raise
 
 	## Processing the urls in the statuses and saving them
 	for status in status_list:
