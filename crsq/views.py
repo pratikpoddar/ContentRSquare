@@ -62,4 +62,8 @@ def tw_np(request, sector, location):
         })
 	return HttpResponse(template.render(context))	
 
+def tw_np_redirect(request):
+	return redirect('/twitter-newspaper/technology/india')
+
+
 

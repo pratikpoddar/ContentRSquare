@@ -34,7 +34,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4 col-lg-4 col-md-4">
-          <p class="lead">Popular Articles shared by "{{ sectorname }}" folks in "{{ locationname }}"</p>
+          <p class="lead">Popular Articles shared by <i>{{ sectorname }}</i> folks in <i>{{ locationname }}</i></p>
           <div class="list-group">
 	    {% for s in sector_list %}
             <a href="/twitter-newspaper/{{ s | slugify }}/{{ location }}" class="{% if sectorname == s %}active{% endif %} list-group-item">{{ s }}</a>
