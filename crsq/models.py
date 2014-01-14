@@ -43,7 +43,7 @@ class TwitterKeywordLinks(models.Model):
 class ArticleInfo(models.Model):
     url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
     articletitle = models.CharField(max_length=1000L)
-    articleimage = models.TextField(max_length=1000L)
+    articleimage = models.TextField(max_length=1000L, null=True, default=None)
     articlecontent = models.TextField()
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)

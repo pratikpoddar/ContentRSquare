@@ -44,7 +44,7 @@ def twitter_newspaper(request):
 
 	template = loader.get_template('crsq/twitter-newspaper/index.html')
 	context = RequestContext(request, {
-	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), ArticleInfo.objects.all().values('url', 'articletitle', 'articlecontent', 'articleimage', 'twitterpower', 'fbpower'))
+	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), ArticleInfo.objects.all().values('url', 'articletitle', 'articlecontent', 'articleimage', 'twitterpower', 'fbpower'))[0:10]
         })
 	return HttpResponse(template.render(context))	
 

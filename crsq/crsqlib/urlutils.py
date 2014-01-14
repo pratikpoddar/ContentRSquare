@@ -37,21 +37,21 @@ def getSocialShares(url):
 	tw = 0
 	try:
 		fb = simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url))[url]['shares']
-	except:
-		logger.exception('urlutils - getSocialShares - ' + url + ' ' + str(e))
-		raise
+	except Exception as e:
+		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 	
 	try:
 		tw = simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url))['count']
-	except:
-		logger.exception('urlutils - getSocialShares - ' + url + ' ' + str(e))
-		raise
+	except Exception as e:
+		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 
 	return {'fb': fb, 'tw': tw}
 
 def getLongUrl(url):
         try:
-                resp = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url)
+                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
+		opener.addheaders = [('User-Agent', 'Mozilla/5.0'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
+		resp = opener.open(url)
                 if resp.getcode() == 200:
                         return resp.url
                 else:
@@ -66,6 +66,9 @@ def isShortUrlPossibly(url):
 		domain = url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0]
 		if len(domain)<=5:
 			return True
+		if domain in ["tinyurl"]:
+			return True
+
 		try:
 			tld=url.replace("http://","").replace("https://","").split("/")[0].split(".")[-1]
 			if tld in ["es", "co", "ly", "me"]:
@@ -75,7 +78,7 @@ def isShortUrlPossibly(url):
 			if tld in ["es", "co", "ly", "me"]:
 				return True
 		return False
-	except:
+	except Exception as e:
                 logger.exception('urlutils - isShortUrlPossibly - ' + url + ' ' + str(e))
 		raise
 
@@ -91,5 +94,12 @@ def getLongUrlOptimized(url):
 
 
 def is_url_an_article(url):
-        return url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] not in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic', 'paper', 'gaana', 'stackoverflow', 'github']
+
+        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic', 'paper', 'gaana', 'stackoverflow', 'github']:
+		return False
+	if url.replace("https//:","").replace("http://","").find("/") == -1:
+		return False
+
+	return True
+	
 

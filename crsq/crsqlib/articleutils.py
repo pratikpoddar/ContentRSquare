@@ -2,13 +2,21 @@ from goose import Goose
 import urllib2
 from crsq.crsqlib.text_summarize import text_summarize
 import logging
+from crsq.crsqlib import urlutils
 
 logger = logging.getLogger(__name__)
 
 def getArticleProperties(html):
 
-	g = Goose()
-	article = g.extract(raw_html=html)
+	try:
+		g = Goose()
+		article = g.extract(raw_html=html)
+	except:
+		try:
+			g = Goose({'enable_image_fetching':False})
+			article = g.extract(raw_html=html)
+		except:
+			raise	
 
 	articledict = {}
 	try:
@@ -61,7 +69,8 @@ def getArticleProperties(html):
 def getArticlePropertiesFromUrl(url):
 
 	try:
-		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
+                opener.addheaders = [('User-Agent', 'Mozilla/5.0'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
 		response = opener.open(url)
 		if response.getcode() == 200:
 			raw_html = response.read()
@@ -72,7 +81,7 @@ def getArticlePropertiesFromUrl(url):
 		raise
 	try:
 		articledict = getArticleProperties(raw_html)
-		articledict['url'] = url
+		articledict['url'] = urlutils.getCanonicalUrl(response.url)
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error extracting article properties - ' + url + ' - ' + str(e))
 		raise
