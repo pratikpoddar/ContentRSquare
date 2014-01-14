@@ -50,7 +50,7 @@ def getSocialShares(url):
 def getLongUrl(url):
         try:
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
-		opener.addheaders = [('User-Agent', 'Mozilla/5.0'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
+		opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
 		resp = opener.open(url)
                 if resp.getcode() == 200:
                         return resp.url
