@@ -152,7 +152,11 @@ def put_article_details(url):
 def get_articles(sector, location):
 	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
-	return ArticleInfo.objects.filter(url__in=urls).values()
+	return ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).exclude(articleimage='').values()
+
+
+def get_sharers(url):
+	return map(lambda x: x['author'], TweetLinks.objects.filter(url=url).values('author'))
 
 
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)

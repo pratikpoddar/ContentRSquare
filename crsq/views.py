@@ -52,7 +52,7 @@ def tw_np(request, sector, location):
 	template = loader.get_template('crsq/twitter-newspaper/index.html')
 	articles = twitter_newspaper.get_articles(sector, location)
 	context = RequestContext(request, {
-	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]} ), articles[0:10]),
+	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'author': twitter_newspaper.get_sharers(x['url'])} ), articles[0:10]),
 		'sector': sector,
 		'sectorname': filter(lambda x: slugify(x)==sector, tw_np_sector_list)[0],
 		'location': location,

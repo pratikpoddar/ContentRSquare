@@ -95,7 +95,7 @@ def getLongUrlOptimized(url):
 
 def is_url_an_article(url):
 
-        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm']:
+        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr']:
 		return False
 	if url.replace("https//:","").replace("http://","").find("/") == -1:
 		return False

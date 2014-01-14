@@ -42,10 +42,15 @@ body {
 }
 
 .domain {
-  color: #666;
   font-size: 90%;
   margin:0px;
 }
+
+.sharers {
+  font-size: 90%;
+  margin:0px;
+}
+
 
 .thumbnail {
   padding: 0;

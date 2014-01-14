@@ -59,6 +59,7 @@
                 <div class="thumbnailfooter">
                   <p class="ratings">{{ article.fbpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAYElEQVR42u3WsQ3AIBBD0dvsRssojOgRHBdRLlIKGiyRANJv/QooCJ1UUBwcru0aNyFBZ9MCh0qS8WwU0GrUA+S3gfdoPXMXwNmBGu61LNC/g/2KNvADAEYA97fFAEDlCdZMAHTJ2l1sAAAAAElFTkSuQmCC" style="width:10px;height:10px"> : {{ article.twitterpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAg0lEQVR42tWWQQ2AMAxF6wBJlVAJSEEKEpAwKUiYhNISkn8gnOiHbMlLdvrv8Nd0EseCHngx/cpGOEkizuR3QUtYAnN3SfJeLjjDIZhIAsAWgLvYeAJI2oAClG9jlMwYNP1asFULlqdi380B2HnPFKw8AWjBHGjBHIy50fhLX4nfFj0Ay1rp8QYEp9AAAAAASUVORK5CYII=" style="width:10px;height:10px"></p>
 		  <p class="domain">{{ article.domain }}</p>
+		  <p class="sharers">{% if article.author %} Shared by {% for author in article.author %}@{{ author }} {% endfor %}{% endif %}</p>
                 </div>
               </div>
             </div>
