@@ -162,10 +162,14 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'crsq',
     'south',
-    'functools32'
+    'django_cron'
 )
 
 LOG_DIR='/home/ubuntu/django_log'
+
+CRON_CLASSES = [
+    "crsq.twitter_newspaper.run_twitter_newspaper.getTwitterNewspaper",
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

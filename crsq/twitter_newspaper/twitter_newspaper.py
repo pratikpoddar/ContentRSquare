@@ -153,7 +153,7 @@ def get_articles(sector, location):
 	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).exclude(articleimage='').values()
-	return filter(lambda x: len(x['articlecontent'])>100, articles)
+	return filter(lambda x: len(x['articlecontent'])>300, articles)
 
 
 def get_sharers(url):
