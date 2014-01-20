@@ -238,6 +238,8 @@ export BLAS=/usr/lib/libblas.so
 pip install numpy
 pip install scipy
 
+pip install django_cron
+python manage.py migrate django_cron
 
 
 
