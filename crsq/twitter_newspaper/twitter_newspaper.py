@@ -128,12 +128,12 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 	                        try:
         	                        twitterlink.save()
 	                        except Exception as e:
-        	                        logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
+        	                        logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlink - ' + str(status.id) + ' ' + url + ' - ' + str(e))
                 	                pass
                 try:
                         twitterlistlink.save()
                 except Exception as e:
-			logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlistlink - ' + keyword + ' - ' + str(e))
+			logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlistlink - ' + str(status.id) + ' - ' + str(e))
 
 
 	return
@@ -152,7 +152,7 @@ def put_article_details(url):
 def get_articles(sector, location):
 	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).exclude(articleimage='').values()
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).exclude(articleimage='').order_by('-time').values()
 	return filter(lambda x: len(x['articlecontent'])>300, articles)
 
 
