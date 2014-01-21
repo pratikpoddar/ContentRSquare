@@ -57,4 +57,6 @@ Study Frrole and NewzSocial
 Getting Long Url and Article is stupidity really
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
+Twitter-Newspaper: See how many tweets have links that have not been expanded - make all links encode(utf-8)
+Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
 
