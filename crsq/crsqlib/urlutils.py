@@ -50,7 +50,7 @@ def getSocialShares(url):
 def getLongUrl(url):
         try:
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
-		opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
+		opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
 		resp = opener.open(url)
                 if resp.getcode() == 200:
                         return resp.url
@@ -95,7 +95,7 @@ def getLongUrlOptimized(url):
 
 def is_url_an_article(url):
 
-        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr']:
+        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine']:
 		return False
 	if url.replace("https//:","").replace("http://","").find("/") == -1:
 		return False

@@ -70,7 +70,7 @@ def getArticlePropertiesFromUrl(url):
 
 	try:
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
-                opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')]
+                opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
 		response = opener.open(url)
 		if response.getcode() == 200:
 			raw_html = response.read()
