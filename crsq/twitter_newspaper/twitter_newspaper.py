@@ -9,7 +9,7 @@ import hashlib
 from django.db.models import Max
 import logging
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics
 
 logger = logging.getLogger(__name__)
 
@@ -147,6 +147,21 @@ def put_article_details(url):
 			articleinfo.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
+	return
+
+def put_article_semantics(url):
+	if ArticleInfo.objects.filter(url=url).count()==0:
+		logger.exception('twitter_newspaper - put_article_semantics - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
+		return
+	if ArticleSemantics.objects.filter(url=url).count()==0:
+		try:
+			content = ArticleInfo.objects.filter(url=url).values('articlecontent')['articlecontent']
+			semantics_dict = articleutils.get_article_semantics(content)
+			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = semantics_dict['tags'], topic = semantics_dict['topic'])
+			semantics_row.save()
+		except Exception as e:
+			logger.exception('twitter_newspaper - put_article_semantics - error getting article semantics - ' + url + ' - ' + str(e))
+
 	return
 
 def get_articles(sector, location):

@@ -23,6 +23,57 @@ calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-s
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
+def get_text_tags(text):
+
+	output_tags = []
+
+	try:
+	        weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"data/dict.pkl", 'rb'))
+	        myreader = tagger.Reader()
+	        mystemmer = tagger.Stemmer()
+	        myrater = tagger.Rater(weights)
+	        mytagger = tagger.Tagger(myreader, mystemmer, myrater)
+	        tags = list(mytagger(text, 5))
+		tags = filter(lambda x: (x.string).replace(' ','').isalnum(), tags)
+		output_tags += tags
+	except Exception as e:
+		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
+		pass
+
+	try:
+	        extractor = extract.TermExtractor()
+	        tags = extractor(text)
+	        tags = map(lambda x: x[0], filter(lambda x: len(x[0])>6, tags))
+	        tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
+		output_tags += tags
+	except Exception as e:
+		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
+		pass
+
+	try:
+        	tags = nltk.pos_tag(nltk.word_tokenize(text))
+	        ne = nltk.ne_chunk(tags, binary=True)
+	        tags = []
+        	for i in range(len(ne)):
+	                try:
+        	                if (ne[i].node=="NE"):
+	                                tags.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+        	        except:
+                	        pass
+
+	        tags = filter(lambda x: len(x)>4, tags)
+	        tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
+		output_tags += tags
+	except Exception as e:
+		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
+		pass
+
+	return output_tags
+
+def get_text_summary(text):
+
+	return text
+
 def get_python_tagger(text):
 
         logger.debug('## Python Tagger ##')

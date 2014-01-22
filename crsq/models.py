@@ -51,6 +51,15 @@ class ArticleInfo(models.Model):
     def domainname(self):
         return urlparse(self.url)[1]
 
+class ArticleSemantics(models.Model):
+    url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    summary = models.TextField()
+    tags = models.TextField()
+    topic = models.CharField(max_length=1000L)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo, TweetLinks
+from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics
 from datetime import datetime
 import logging
 
@@ -14,6 +14,15 @@ def get_articles():
 
 	for l in tobeexpanded:
 		twitter_newspaper.put_article_details(l)
+	return
+
+def get_article_semantics():
+	ai = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
+	asi = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
+	tobeexpanded = list(set(ai)-set(asi))
+
+	for l in tobeexpanded:
+		twitter_newspaper.put_article_semantics(l)
 	return
 
 def run_twitter_newspaper(sector, tuser, tlist):
