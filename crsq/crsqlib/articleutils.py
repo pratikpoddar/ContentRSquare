@@ -95,5 +95,5 @@ def getArticleSemantics(text):
 	topic = text_summarize.get_text_topic(text)
 	summary = text_summarize.get_text_summary(text)
 
-	return {'tags': '...'.join(tags), 'topic': topic, 'summary':summary}
+	return {'tags': tags, 'topic': topic, 'summary':summary}
 
