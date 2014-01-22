@@ -27,7 +27,7 @@ def getCanonicalUrl(url):
 	    else:
 		    res = list(res)
 	    res[4] = ''
-	    return norm(urlunsplit(res))
+	    return norm(urlunsplit(res)).encode('utf-8')
     except Exception as e:
 	    logger.exception('urlutils - getCanonicalUrl - ' + url + ' ' + str(e))
 	    raise
@@ -56,7 +56,7 @@ def getLongUrl(url):
 		url = url.encode('utf-8')
 		resp = opener.open(url)
                 if resp.getcode() == 200:
-                        return resp.url
+                        return resp.url.encode('utf-8')
                 else:
 	                logger.exception('urlutils - getLongUrl - ' + url + ' ' + str(resp.getcode()))
                         raise
