@@ -89,11 +89,11 @@ def getArticlePropertiesFromUrl(url):
 
 	return articledict
 
-def getArticleSemantics(html):
+def getArticleSemantics(text):
 
-	tags = text_summarize.get_text_tags(html)
-	topic = "Technology"
-	summary = text_summarize.get_text_summary(html)
+	tags = text_summarize.get_text_tags(text)
+	topic = text_summarize.get_text_topic(text)
+	summary = text_summarize.get_text_summary(text)
 
-	return {'tags': tags, 'topic': topic, 'summary':summary}
+	return {'tags': '...'.join(tags), 'topic': topic, 'summary':summary}
 

@@ -73,6 +73,10 @@ def get_text_tags(text):
 def get_text_summary(text):
 
 	return text
+	
+def get_text_topic(text):
+	
+	return "Technology"
 
 def get_python_tagger(text):
 
