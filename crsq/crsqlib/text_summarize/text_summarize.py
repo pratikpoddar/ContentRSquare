@@ -16,6 +16,12 @@ import inspect
 from crsq import crsqlib
 import logging
 
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lsa import LsaSummarizer as Summarizer
+from sumy.nlp.stemmers import Stemmer
+from sumy.utils import get_stop_words
+
 logger = logging.getLogger(__name__)
 
 alchemyapi = AlchemyAPI()
@@ -68,12 +74,27 @@ def get_text_tags(text):
 		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
 		pass
 
-	return output_tags
+	return list(set(output_tags))
 
 def get_text_summary(text):
 
-	return text
-	
+	try:
+		summary = ""
+		LANGUAGE = "english"
+
+		parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
+		stemmer = Stemmer(LANGUAGE)
+		summarizer = Summarizer(stemmer)
+		summarizer.stop_words = get_stop_words(LANGUAGE)
+
+	    	for sentence in summarizer(parser.document, 4):
+        		summary += sentence._text + " "
+
+		return summary.strip()
+	except Exception as e:
+		logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
+		raise	
+
 def get_text_topic(text):
 	
 	return "Technology"
