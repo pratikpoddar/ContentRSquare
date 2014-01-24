@@ -76,7 +76,7 @@ def get_text_summary(text):
 
 def get_text_topic(text):
 	
-	return "Technology"
+	return None
 
 def get_python_tagger(text, tag_meaning=True):
 

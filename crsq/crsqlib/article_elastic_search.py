@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from crsq.models import ArticleInfo
+#from crsq.models import ArticleInfo
 
 es = Elasticsearch()
 
@@ -15,7 +15,7 @@ def indexdoc(articledict):
 
 
 def searchdoc(keyword):
-	res = es.search(index="article-index", body={"query": {"match_all": {keyword}}})
+	res = es.search(index="article-index", body={"query": {"match_all": {}}})
 	print("Got %d Hits:" % res['hits']['total'])
 	for hit in res['hits']['hits']:
 	    print("%(url)s: %(text)s" % hit["_source"])
