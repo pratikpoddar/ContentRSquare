@@ -172,7 +172,7 @@ def get_articles(sector, location):
 
 
 def get_sharers(url):
-	return list(set(map(lambda x: x['author'], TweetLinks.objects.filter(url=url).values('author'))))
+	return TweetLinks.objects.filter(url=url).values('author', 'tweetid')
 
 
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)
