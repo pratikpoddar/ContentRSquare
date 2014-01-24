@@ -155,8 +155,8 @@ def put_article_semantics(url):
 		return
 	if ArticleSemantics.objects.filter(url=url).count()==0:
 		try:
-			content = ArticleInfo.objects.filter(url=url).values('articlecontent')['articlecontent']
-			semantics_dict = articleutils.get_article_semantics(content)
+			content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
+			semantics_dict = articleutils.getArticleSemantics(content)
 			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = '---'.join(semantics_dict['tags']), topic = semantics_dict['topic'])
 			semantics_row.save()
 		except Exception as e:
