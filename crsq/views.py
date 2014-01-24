@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business", "Travel"]
 tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "Los Angeles, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India", "New Delhi, India", "Singapore"]
+tw_np_location_list = ["World"]
 
 
 def index(request):
@@ -67,7 +68,7 @@ def tw_np(request, sector, location, page=1):
 	return HttpResponse(template.render(context))	
 
 def tw_np_redirect(request):
-	return redirect('/twitter-newspaper/technology/india')
+	return redirect('/twitter-newspaper/technology/world')
 
 
 
