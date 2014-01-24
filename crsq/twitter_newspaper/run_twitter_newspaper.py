@@ -21,7 +21,7 @@ def get_article_semantics():
 	asi = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
 	tobeexpanded = list(set(tl)-set(asi))
 
-	for l in tobeexpanded[0:2]:
+	for l in tobeexpanded:
 		twitter_newspaper.put_article_semantics(l)
 	return
 
