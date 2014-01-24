@@ -6,9 +6,14 @@ from crsq.crsqlib import urlutils
 
 logger = logging.getLogger(__name__)
 
-def getArticleProperties(html):
+def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
-	html = html.encode('utf-8')
+def getArticleProperties(html):
+	
+	try:
+		html = html.encode('utf-8')
+	except:
+		html = removeNonAscii(html)
 	try:
 		g = Goose()
 		article = g.extract(raw_html=html)
