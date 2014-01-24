@@ -20,8 +20,8 @@ MANAGERS = ADMINS
 #DEFAULT_FROM_EMAIL = 'pratik.phodu@gmail.com'
 #SERVER_EMAIL = 'pratik.phodu@gmail.com'
 
-FAILED_RUNS_CRONJOB_EMAIL_PREFIX = "[Django - CRSq - Cron Job] "
-EMAIL_SUBJECT_PREFIX = "[Django - CRSq] "
+FAILED_RUNS_CRONJOB_EMAIL_PREFIX = "[CRSQ Django - Cron Job] "
+EMAIL_SUBJECT_PREFIX = "[CRSQ Django] "
 
 #DATABASES = {
 #    'default': {
