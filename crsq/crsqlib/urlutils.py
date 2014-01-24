@@ -104,7 +104,7 @@ def is_url_an_article(url):
 	if filter(lambda x: x in blocked_domains, urlparse(url)[1].split(".")):
 		return False
 	
-	if (urlparse(url)[2] + urlparse(url)[3] + urlparse(url)[4]).replace("/","").replace(" ",""):
+	if not (urlparse(url)[2] + urlparse(url)[3] + urlparse(url)[4]).replace("/","").replace(" ",""):
 		return False
 
 	return True
