@@ -10,7 +10,7 @@
 
     <title>{{ sectorname }} news in {{ locationname }} - Twitter Newspaper</title>
     <!-- Bootstrap core CSS -->
-    <link href="{% static "crsq/css/twitter-newspaper/bootstrap.journal.min.css" %}" rel="stylesheet">
+    <link href="{% static "crsq/css/twitter-newspaper/bootstrap.spacelab.min.css" %}" rel="stylesheet">
     <!-- Add custom CSS here -->
     <link href="{% static "crsq/css/twitter-newspaper/twitter-newspaper.css" %}" rel="stylesheet">
   </head>
@@ -53,13 +53,13 @@
                 <img src="{{ article.articleimage }}" alt="">
                 <div class="caption">
                   <h4 class="pull-right"></h4>
-                  <h4><a target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
+                  <h4><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
                   <p>{{ article.articlecontent }}</p>
                 </div>
                 <div class="thumbnailfooter">
-                  <p class="ratings">{{ article.fbpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAYElEQVR42u3WsQ3AIBBD0dvsRssojOgRHBdRLlIKGiyRANJv/QooCJ1UUBwcru0aNyFBZ9MCh0qS8WwU0GrUA+S3gfdoPXMXwNmBGu61LNC/g/2KNvADAEYA97fFAEDlCdZMAHTJ2l1sAAAAAElFTkSuQmCC" style="width:10px;height:10px"> : {{ article.twitterpower }} <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAg0lEQVR42tWWQQ2AMAxF6wBJlVAJSEEKEpAwKUiYhNISkn8gnOiHbMlLdvrv8Nd0EseCHngx/cpGOEkizuR3QUtYAnN3SfJeLjjDIZhIAsAWgLvYeAJI2oAClG9jlMwYNP1asFULlqdi380B2HnPFKw8AWjBHGjBHIy50fhLX4nfFj0Ay1rp8QYEp9AAAAAASUVORK5CYII=" style="width:10px;height:10px"></p>
+                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} retweets</p>
 		  <p class="domain">{{ article.domain }}</p>
-		  <p class="sharers">{% if article.author %} Shared by {% for author in article.author %}@{{ author }} {% endfor %}{% endif %}</p>
+		  <p class="sharers">{% if article.author %} Shared by {% for author in article.author %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ author }}">@{{ author }} </a>{% endfor %}{% endif %}</p>
                 </div>
               </div>
             </div>
