@@ -88,15 +88,16 @@ def get_python_tagger(text, tag_meaning=True):
 	mytagger = tagger.Tagger(myreader, mystemmer, myrater)
 	tags = list(mytagger(text, 5))
 
+	tags = map(lambda x: x.string, tags)
 	logger.debug(tags)
-	tags = filter(lambda x: (x.string).replace(' ','').isalnum(), tags)
+	tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
 	
 	if tag_meaning:
 
 		responseOutput = []
 	        for tag in tags:
 			try:
-	        	        responseOutput.append({'text': tag.string, 'freebase': get_Freebase_Meaning(tag.string), 'source': "get_python_tagger"})
+	        	        responseOutput.append({'text': tag, 'freebase': get_Freebase_Meaning(tag), 'source': "get_python_tagger"})
 			except Exception as e:
 				logger.exception('text_summarize.py - get_python_tagger - error - ' + str(e))
 				raise

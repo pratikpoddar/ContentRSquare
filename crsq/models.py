@@ -56,7 +56,7 @@ class ArticleSemantics(models.Model):
     url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
     summary = models.TextField()
     tags = models.TextField()
-    topic = models.CharField(max_length=1000L)
+    topic = models.CharField(max_length=1000L, null=True, default=None)
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
 
