@@ -106,6 +106,12 @@ def is_url_an_article(url):
 	
 	if not (urlparse(url)[2] + urlparse(url)[3] + urlparse(url)[4]).replace("/","").replace(" ",""):
 		return False
+	
+	try:
+		if urlparse(url)[2].split('.')[-1] in ['jpg', 'png', 'gif', 'pdf', 'mp3', 'wav', 'mp4', 'jpeg']:
+			return False
+	except:
+		pass
 
 	return True
 	
