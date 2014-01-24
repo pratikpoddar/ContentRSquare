@@ -19,9 +19,11 @@ Add a line of code and the videos in the page would have recommendations changed
 Add a line of code in the blog, and I can identify interesting words and link them to amazon products
 
 Given an article link, identify the key words in the article and the categories in which the article lie
-Given an article link, identify categories and positioning on the wikipedia graph and the wikipedia categoy graph
+Given an article link, identify categories and positioning on the wikipedia graph and the wikipedia category graph
 
 Given two articles, identify closeness by a metric on category graph
+
+Full Text Search engine for blogs
 
 ----To Do Video Advertising:
 New Video id as a parameter
@@ -31,13 +33,6 @@ random errors
 
 ----To Do Content-Affiliate-Advertising
 link click tracking in content-affiliate-advertising
-
-----To Do Search Twitter:
-Make it relevant
-
-----To Do Frrole:
-Article Classification
-UI
 
 ----To Do - For related articles:
 Wiki Category Tree
@@ -57,4 +52,5 @@ Getting Long Url and Article is stupidity really
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
 Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
+Images do not come in twitter-newspaper and height of image also fails
 
