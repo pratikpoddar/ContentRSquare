@@ -7,6 +7,7 @@ from cgi import escape
 import simplejson
 from functools32 import lru_cache
 import logging
+from urlparse import urlparse
 
 logger = logging.getLogger(__name__)
 
@@ -98,9 +99,12 @@ def getLongUrlOptimized(url):
 
 def is_url_an_article(url):
 
-        if url.replace("https:","").replace("http:","").replace("/","").replace("www.","").replace("www","").split(".")[0] in ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb']:
+	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps']
+
+	if filter(lambda x: x in blocked_domains, urlparse(url)[1].split(".")):
 		return False
-	if url.replace("https//:","").replace("http://","").find("/") == -1:
+	
+	if (urlparse(url)[2] + urlparse(url)[3] + urlparse(url)[4]).replace("/","").replace(" ",""):
 		return False
 
 	return True

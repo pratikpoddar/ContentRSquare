@@ -157,7 +157,7 @@ def put_article_semantics(url):
 		try:
 			content = ArticleInfo.objects.filter(url=url).values('articlecontent')['articlecontent']
 			semantics_dict = articleutils.get_article_semantics(content)
-			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = semantics_dict['tags'], topic = semantics_dict['topic'])
+			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = '---'.join(semantics_dict['tags']), topic = semantics_dict['topic'])
 			semantics_row.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_semantics - error getting article semantics - ' + url + ' - ' + str(e))
@@ -172,7 +172,7 @@ def get_articles(sector, location):
 
 
 def get_sharers(url):
-	return map(lambda x: x['author'], TweetLinks.objects.filter(url=url).values('author'))
+	return list(set(map(lambda x: x['author'], TweetLinks.objects.filter(url=url).values('author'))))
 
 
 #get_list_timeline("startups", "pratikpoddar", "startups", 100)

@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 def getArticleProperties(html):
 
+	html = html.encode('utf-8')
 	try:
 		g = Goose()
 		article = g.extract(raw_html=html)
@@ -95,5 +96,5 @@ def getArticleSemantics(text):
 	topic = text_summarize.get_text_topic(text)
 	summary = text_summarize.get_text_summary(text)
 
-	return {'tags': tags, 'topic': topic, 'summary':summary}
+	return {'tags': tags, 'topic': topic, 'summary':summary }
 
