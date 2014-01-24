@@ -17,9 +17,9 @@ def get_articles():
 	return
 
 def get_article_semantics():
-	ai = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
 	asi = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
-	tobeexpanded = list(set(ai)-set(asi))
+	tobeexpanded = list(set(tl)-set(asi))
 
 	for l in tobeexpanded:
 		twitter_newspaper.put_article_semantics(l)
@@ -30,6 +30,7 @@ def run_twitter_newspaper(sector, tuser, tlist):
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + sector + tuser + tlist)
 	twitter_newspaper.get_list_timeline(sector, tuser, tlist, 200)
 	get_articles()
+	get_article_semantics()
 	return
 
 def time_dependent_tw_np(toberun):
