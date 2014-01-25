@@ -264,6 +264,7 @@ We are simplifying the process of content creation &amp; distribution 
                                              <div id="MainResult" style="display: none;"><!-- retrive response Here --></div>
                                              <div id="MainContent">
                                                  <form id="MyContactForm" name="MyContactForm" method="post">
+						    {% csrf_token %}
                                                      <p class="name">
                                                          <input type="text" name="name" id="name" placeholder="Your Name ...">
                                                          <label for="name" id="nameLb"><span class="error" style="display: none;">*Name Field Required</span></label>
@@ -330,7 +331,7 @@ We are simplifying the process of content creation &amp; distribution 
                     </div><!--/.col-sm-6-->
                     <div class="col-sm-6">
                     	<ul class="soc-footer">
-                        	<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                             <li><a href="#"><i class="fa fa-pinterest"></i></a></li>

@@ -1,12 +1,14 @@
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
 from django.templatetags.static import static
 from django.db.models import Count
+
+from django.core.context_processors import csrf
 
 import urllib
 from datetime import datetime
@@ -18,7 +20,7 @@ import logging
 import urlparse
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo
+from crsq.models import ArticleInfo, PenPatronUser
 
 
 logger = logging.getLogger(__name__)
@@ -70,10 +72,27 @@ def tw_np(request, sector, location, page=1):
 def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
-
 def penp(request):
 
-	template = loader.get_template('crsq/penpatron/index.html')
-	return HttpResponse(template.render(RequestContext(request, {})))
+        template = loader.get_template('crsq/penpatron/index.html')
+        context = RequestContext(request, {})
+	return HttpResponse(template.render(context))
+
+def penpmessage(request):
+
+        if filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']):
+		logger.debug(request.GET.keys())
+		logger.debug(filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']))
+                return HttpResponse("<html><body>Pen Patron - Wrong Input</body></html>")
+
+	ppuser = PenPatronUser(name=request.GET['postName'], email = request.GET['postEmail'], phone = request.GET['postPhone'], college = request.GET['postCollege'], blog = request.GET['postBlog'], message = request.GET['postMessage'])
+	ppuser.save()
+
+	return HttpResponse("<html><meta http-equiv='refresh' content='4;URL=http://54.254.100.216/penpatron'><body>Pen Patron - Thanks - One of our teammates will reach out to you in sometime</body></html>")
+                
+
+
+	
+
 
 
