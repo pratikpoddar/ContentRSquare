@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,13 +44,13 @@
 		}
 
 		</style>
-        <link href="css/bootstrap.min.css?v=2" rel="stylesheet">
-        <link href="css/font-awesome.min.css?v=2" rel="stylesheet">
-        <link href="css/prettyPhoto.css?v=2" rel="stylesheet">
-        <link href="css/supersized.css?v=2" rel="stylesheet">
-        <link href="css/supersized.shutter.css?v=2" rel="stylesheet">
-        <link href="css/style.css?v=2" rel="stylesheet">
-        <link href='css/fonts.css?v=2' rel='stylesheet' type='text/css'>
+        <link href="{% static 'crsq/css/penpatron/bootstrap.min.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/font-awesome.min.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/prettyPhoto.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/supersized.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/supersized.shutter.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/style.css?v=2' %}" rel="stylesheet">
+        <link href="{% static 'crsq/css/penpatron/fonts.css?v=2' %}" rel="stylesheet" type="text/css">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -59,7 +61,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
-        <link rel="shortcut icon" href="images/favicon.png"><!--favicon image-->
+        <link rel="shortcut icon" href="{% static 'crsq/img/penpatron/favicon.png' %}"><!--favicon image-->
 
 	<body style="">
         <!-- Preloader -->
@@ -140,7 +142,7 @@
                 
                   <!--TAB CONTENT START-->
                   <div class="tab-pane active fade in active" id="history">
-                  	 <img src="./images/aboutus2bw.jpg" alt="about">
+                  	 <img src="{% static 'crsq/img/penpatron/aboutus2bw.jpg' %}" alt="about">
                      <div class="white-bg clearfix">
                          <div class="row clearfix">
                              <div class="col-md-4">
@@ -246,7 +248,7 @@ We are simplifying the process of content creation &amp; distribution 
                   
                   <!--TAB CONTENT START-->
                   <div class="tab-pane active fade in active" id="message-us">
-                  	 <img src="./images/contactus.jpg" alt="contact">
+                  	 <img src="{% static 'crsq/img/penpatron/contactus.jpg' %}" alt="contact">
                      <div class="white-bg clearfix">
                          <div class="row clearfix">
                              <div class="col-md-4">
@@ -341,7 +343,7 @@ We are simplifying the process of content creation &amp; distribution 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script src="./js/jquery.js"></script>
+	<script src="{% static 'crsq/js/penpatron/jquery.js' %}"></script>
     <script type="text/javascript">
         //<![CDATA[
             $(window).load(function() { // makes sure the whole site is loaded
@@ -350,18 +352,17 @@ We are simplifying the process of content creation &amp; distribution 
             })
         //]]>
     </script> 
-    <script src="./js/jquery.easing.js"></script>
-    <script type="text/javascript" src="./js/bootstrap.min.js?v=2"></script> 
-    <script type="text/javascript" src="./js/jquery.scrollTo.js?v=2"></script>
-    <script type="text/javascript" src="./js/jquery.nav.js?v=2"></script>
-    <script type="text/javascript" src="./js/contact.js?v=2"></script>
-    <script src="./js/jquery.prettyPhoto.js?v=2"></script> 
-    <script src="./js/main.js?v=2" type="text/javascript"></script>
-    <script type="text/javascript" src="./js/jquery.easing.js?v=2"></script>
-    <script type="text/javascript" src="./js/supersized.3.2.7.min.js?v=2"></script>
-    <script type="text/javascript" src="./js/supersized.shutter.js?v=2"></script>
-    <script type="text/javascript" src="./js/jquery.BlackAndWhite.min.js?v=2"></script>
-    <script type="text/javascript" src="./js/script.js?v=2"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/bootstrap.min.js?v=2' %}"></script> 
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/jquery.scrollTo.js?v=2' %}"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/jquery.nav.js?v=2' %}></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/contact.js?v=2' %}"></script>
+    <script src="{% static 'crsq/js/penpatron/jquery.prettyPhoto.js?v=2' %}"></script> 
+    <script src="{% static 'crsq/js/penpatron/main.js?v=2' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/jquery.easing.js?v=2' %}"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/supersized.3.2.7.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/supersized.shutter.js?v=2' %}"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/jquery.BlackAndWhite.min.js?v=2' %}"></script>
+    <script type="text/javascript" src="{% static 'crsq/js/penpatron/script.js' %}"></script>
 
 <script type="text/javascript">
 

@@ -71,4 +71,9 @@ def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
 
+def penp(request):
+
+	template = loader.get_template('crsq/penpatron/index.html')
+	return HttpResponse(template.render(RequestContext(request, {})))
+
 
