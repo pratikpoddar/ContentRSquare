@@ -104,6 +104,12 @@
 
 
                     	<div class="slider-content clearfix">
+				{% if notice %}
+                            <div class="title-caption" style="background-color: rgba(0,0,0,0.65);padding:5px;max-width:500px;margin:auto">
+                                <h5 style="color:white">{{ notice }}</h5>
+                            </div><br/>
+				{% endif %}
+
                             <!--SLIDER CAPTION START-->  
                             <div class="title-caption" style="background-color: rgba(0,0,0,0.65);padding:5px;max-width:500px;margin:auto">
                                 <h4 >Connecting Companies <br/> and Student Writers</h4>

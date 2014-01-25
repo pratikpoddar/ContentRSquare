@@ -72,23 +72,24 @@ def tw_np(request, sector, location, page=1):
 def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
-def penp(request):
+def penp(request, notice=None):
 
         template = loader.get_template('crsq/penpatron/index.html')
-        context = RequestContext(request, {})
+        context = RequestContext(request, {'notice': notice})
 	return HttpResponse(template.render(context))
 
 def penpmessage(request):
 
         if filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']):
-		logger.debug(request.GET.keys())
-		logger.debug(filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']))
-                return HttpResponse("<html><body>Pen Patron - Wrong Input</body></html>")
+		raise Http404
 
-	ppuser = PenPatronUser(name=request.GET['postName'], email = request.GET['postEmail'], phone = request.GET['postPhone'], college = request.GET['postCollege'], blog = request.GET['postBlog'], message = request.GET['postMessage'])
-	ppuser.save()
-
-	return HttpResponse("<html><meta http-equiv='refresh' content='4;URL=http://54.254.100.216/penpatron'><body>Pen Patron - Thanks - One of our teammates will reach out to you in sometime</body></html>")
+	try:
+		ppuser = PenPatronUser(name=request.GET['postName'], email = request.GET['postEmail'], phone = request.GET['postPhone'], college = request.GET['postCollege'], blog = request.GET['postBlog'], message = request.GET['postMessage'])
+		ppuser.save()
+	except Exception as e:
+		logger.exception('views.py - penpmessage - error saving user details - ' + str(e) + ' ' + str(request.GET))
+	
+	return penp(request, notice="Thanks for your interest. One of our teammates will reach out to you in sometime")
                 
 
 
