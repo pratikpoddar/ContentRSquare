@@ -16,10 +16,10 @@ jQuery(function ($) {
                 //title: '<div class="col-md-6" style="padding:15px;"><h2 style="line-height:38px;background-color: rgba(0,0,0,0.65);"><span style="font-size:40%">Student Writers:<br/> Get recognition, exposure, internship and money from Patrons by doing what you do best</span></h2></div><div class="col-md-6" style="padding:15px"><h2 style="line-height:38px;background-color: rgba(0,0,0,0.65);"><span style="font-size:40%">Company:<br/> Get Original Content<br/> and Patronage Targeted, Passionate and Opinionated Writers</span></h2></div>'
 		//title: '<h2 style="line-height:38px;background-color: rgba(0,0,0,0.65);max-width:500px;padding:10px;"><i class="fa fa-pencil"></i><br/><span style="font-size:40%">Student Writers:<br/> Get recognition, exposure, internship and money from Patrons by doing what you do best</span></h2>'
             //}, {
-                image: 'images/cococoslider1.jpg',
+                image: 'static/crsq/img/penpatron/cococoslider1.jpg',
                 title: '<h2 style="line-height:38px;background-color: rgba(0,0,0,0.65);max-width:500px;padding:10px;"><i class="fa fa-pencil"></i><br/><span style="font-size:40%">Student Writers:<br/> Get <u>recognition</u>, <u>exposure</u>, <br/><u>internship</u> and <u>money</u> from Patrons by doing what you do best</span></h2>'
             }, {
-                image: 'images/cococoslider3.jpg',
+                image: 'static/crsq/img/penpatron/cococoslider3.jpg',
                 title: '<h2 style="line-height:38px;background-color: rgba(0,0,0,0.65);max-width:500px;padding:10px;"><i class="fa fa-suitcase"></i><br/><span style="font-size:40%">Company:<br/> Get <u>Original Content</u><br/> and <u>Targeted, Passionate and Opinionated Writers</u> by being Patrons</span></h2>'
             },
         ]
