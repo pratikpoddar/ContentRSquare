@@ -1,12 +1,14 @@
 from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 
 from django.templatetags.static import static
 from django.db.models import Count
+
+from django.core.context_processors import csrf
 
 import urllib
 from datetime import datetime
@@ -18,7 +20,7 @@ import logging
 import urlparse
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo
+from crsq.models import ArticleInfo, PenPatronUser
 
 
 logger = logging.getLogger(__name__)
@@ -81,10 +83,28 @@ def tw_np_article(request):
 def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
+def penp(request, notice=None):
 
-def penp(request):
+        template = loader.get_template('crsq/penpatron/index.html')
+        context = RequestContext(request, {'notice': notice})
+	return HttpResponse(template.render(context))
 
-	template = loader.get_template('crsq/penpatron/index.html')
-	return HttpResponse(template.render(RequestContext(request, {})))
+def penpmessage(request):
+
+        if filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']):
+		raise Http404
+
+	try:
+		ppuser = PenPatronUser(name=request.GET['postName'], email = request.GET['postEmail'], phone = request.GET['postPhone'], college = request.GET['postCollege'], blog = request.GET['postBlog'], message = request.GET['postMessage'])
+		ppuser.save()
+	except Exception as e:
+		logger.exception('views.py - penpmessage - error saving user details - ' + str(e) + ' ' + str(request.GET))
+	
+	return penp(request, notice="Thanks for your interest. One of our teammates will reach out to you in sometime")
+                
+
+
+	
+
 
 

@@ -62,22 +62,6 @@ $(document).ready(function () {
         //let's put all data together
         var myData = 'postName=' + js_name + '&postEmail=' + js_email + '&postPhone=' + js_phone + '&postCollege=' + js_college + '&postBlog=' + js_blog + '&postMessage=' + js_message;
 
-        jQuery.ajax({
-            type: "POST",
-            url: "sendmessage.php",
-            dataType: "html",
-            data: myData,
-            success: function (response) {
-                $("#MainResult").html('<fieldset class="response">' + response + '</fieldset>');
-                $("#MainResult").slideDown("slow"); //show Result 
-                $("#MainContent").hide(); //hide form div slowly
-		$("#ErrResults").html("Message Sent. You will get a call from one of our teammates soon. Thanks a ton for your patience.");
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                $("#ErrResults").html(thrownError);
-            }
-        });
-        return false;
-    });
-
+	location.href = 'http://54.254.100.216/penpatron-message?' + myData
+	});
 });

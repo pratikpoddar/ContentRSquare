@@ -47,6 +47,7 @@ DATABASES = {
 }
 
 SESSION_COOKIE_DOMAIN = '.crsq.com'
+CSRF_COOKIE_DOMAIN = None
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
