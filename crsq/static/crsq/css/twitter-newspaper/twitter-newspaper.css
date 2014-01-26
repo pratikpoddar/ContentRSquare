@@ -15,7 +15,7 @@ body {
 }
 
 .caption {
-  height:200px;
+  height:217px;
   overflow: hidden;
 }
 
@@ -51,6 +51,15 @@ body {
   margin:0px;
 }
 
+.tags {
+  font-size: 90%;
+  margin:0px;
+}
+
+.topic {
+  font-size: 90%;
+  margin:0px;
+}
 
 .thumbnail {
   padding: 0;

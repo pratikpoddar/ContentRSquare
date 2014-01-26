@@ -97,7 +97,7 @@ def getArticlePropertiesFromUrl(url):
 
 def getArticleSemantics(text):
 
-	tags = text_summarize.get_text_tags(text)
+	tags = ', '.join(map(lambda x: str(x), text_summarize.get_text_tags(text)))
 	topic = text_summarize.get_text_topic(text)
 	summary = text_summarize.get_text_summary(text)
 
