@@ -27,7 +27,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
                 <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
                 <div class="caption">
                   <h4 class="pull-right"></h4>
-                  <h4><a rel="nofollow" target="_blank" href="/twitter-newspaper/article/crsq/{{ article.id }}">{{ article.articletitle }}</a></h4>
+                  <h4><a rel="nofollow" target="_blank" href="/twitter-newspaper/article/{{article.articletitle | slugify }}/{{ article.id }}">{{ article.articletitle }}</a></h4>
                   <p>{{ article.articlecontent }}</p>
                 </div>
                 <div class="thumbnailfooter">
