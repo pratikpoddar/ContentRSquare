@@ -67,6 +67,17 @@ def tw_np(request, sector, location, page=1):
         })
 	return HttpResponse(template.render(context))	
 
+def tw_np_article(request):
+
+        article = twitter_newspaper.get_articles("Technology", "World")[0]
+
+        template = loader.get_template('crsq/twitter-newspaper/article.html')
+
+        context = RequestContext(request, {
+		'article' : dict( article, **{'domain': urlparse.urlparse(article['url'])[1], 'sharers': twitter_newspaper.get_sharers(article['url'])} )
+        })
+        return HttpResponse(template.render(context))
+
 def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
