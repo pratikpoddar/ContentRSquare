@@ -35,7 +35,7 @@ def run_twitter_newspaper(sector, tuser, tlist):
 
 def time_dependent_tw_np(toberun):
 
-	toberun = toberun % 13
+	toberun = toberun % 15
 
 	if toberun == 0:
 		run_twitter_newspaper('technology', 'pratikpoddar', 'startups')
@@ -63,6 +63,10 @@ def time_dependent_tw_np(toberun):
 	        run_twitter_newspaper('entertainment', 'WSJ', 'fashion-week')
 	if toberun == 12:
         	run_twitter_newspaper('technology', 'WSJ', 'wsj-tech')
+	if toberun == 13:
+		run_twitter_newspaper('politics', 'theweek', 'politics')
+	if toberun == 14:
+		run_twitter_newspaper('politics', 'mattklewis', 'political-journalists')
 	return
 
 

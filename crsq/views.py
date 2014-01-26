@@ -25,7 +25,7 @@ from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics
 
 logger = logging.getLogger(__name__)
 
-tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business", "Travel"]
+tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business"]
 tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "Los Angeles, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India", "New Delhi, India", "Singapore"]
 tw_np_location_list = ["World"]
 
