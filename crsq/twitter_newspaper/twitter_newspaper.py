@@ -158,7 +158,8 @@ def put_article_semantics(url):
 			content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
 			semantics_dict = articleutils.getArticleSemantics(content)
 			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = str(semantics_dict['tags']), topic = semantics_dict['topic'])
-			semantics_row.save()
+			if ArticleSemantics.objects.filter(url=url).count()==0:
+				semantics_row.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_semantics - error getting article semantics - ' + url + ' - ' + str(e))
 

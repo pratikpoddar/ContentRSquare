@@ -30,7 +30,7 @@ def getArticleProperties(html):
 	except:
 		articledict['canonical_link'] = None
 	try:
-		articledict['cleaned_text'] = article.cleaned_text
+		articledict['cleaned_text'] = article.cleaned_text.encode('utf-8')
 	except:
 		articledict['cleaned_text'] = None
 	try:
@@ -97,6 +97,7 @@ def getArticlePropertiesFromUrl(url):
 
 def getArticleSemantics(text):
 
+	text = text.encode('utf-8')
 	tags = ', '.join(map(lambda x: str(x), text_summarize.get_text_tags(text)))
 	topic = text_summarize.get_text_topic(text)
 	summary = text_summarize.get_text_summary(text)
