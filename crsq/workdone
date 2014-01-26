@@ -54,6 +54,9 @@ Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
 Images do not come in twitter-newspaper and height of image also fails
 Twitter Newspaper - Article Title - Possible error
 Twitter Newspaper - Article Tags - Not searchable
+Twitter Newspaper - Manyarticles do not have summaries
+Article Utils - if Article Image does not have http, its as good as none
+Twitter Links, Article Info and ArticleSemantics - Duplicate Error
 
 ---Currently Working on
 read articles on text startups
