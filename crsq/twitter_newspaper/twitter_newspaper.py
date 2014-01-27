@@ -169,7 +169,7 @@ def put_article_semantics(url):
 def get_articles(sector, location):
 	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).filter(articleimage__contains='http').order_by('-time').values()
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-time').values()
 	return filter(lambda x: len(x['articlecontent'])>300, articles)
 
 

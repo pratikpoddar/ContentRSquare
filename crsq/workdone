@@ -51,15 +51,13 @@ Getting Long Url and Article is stupidity really
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
 Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
-Images do not come in twitter-newspaper and height of image also fails
 Twitter Newspaper - Article Title - Possible error
 Twitter Newspaper - Article Tags - Not searchable
-Twitter Newspaper - Manyarticles do not have summaries
-Article Utils - if Article Image does not have http, its as good as none
 Twitter Links, Article Info and ArticleSemantics - Duplicate Error
 
 ---Currently Working on
-read articles on text startups
+topic classification http://www.csie.ntu.edu.tw/~cjlin/libshorttext/
+tags are not searchable
 related videos advertising
 timeline
 
