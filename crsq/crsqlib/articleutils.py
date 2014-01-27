@@ -65,6 +65,8 @@ def getArticleProperties(html):
 
 	try:
 		articledict['image'] = article.top_image.src
+		if articledict['image'].find('http') != 0:
+			raise
 	except:
 		articledict['image'] = None
 

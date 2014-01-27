@@ -144,7 +144,8 @@ def put_article_details(url):
 			articledict = articleutils.getArticlePropertiesFromUrl(url)
 			socialpower = urlutils.getSocialShares(url)
 			articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], articledate = articledict['publish_date'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
-			articleinfo.save()
+			if len(articledict['cleaned_text'].strip())>1:
+				articleinfo.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
 	return
