@@ -245,6 +245,7 @@ python manage.py migrate django_cron
 pip install git+git://github.com/miso-belica/readability.py.git
 pip install sumy
 
+pip install pyteaser
 
 
 

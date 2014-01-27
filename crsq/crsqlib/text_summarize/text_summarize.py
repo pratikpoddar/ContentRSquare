@@ -20,6 +20,8 @@ from sumy.summarizers.lsa import LsaSummarizer as Summarizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 
+from pyteaser import Summarize
+
 from crsq import crsqlib
 
 import logging
@@ -55,24 +57,32 @@ def get_text_tags(text):
 
 	return list(set(output_tags))
 
-def get_text_summary(text):
+def get_text_summary(text, title = None, library="sumy"):
 
-	try:
-		summary = ""
-		LANGUAGE = "english"
+	if library == "sumy":
+		try:
+			summary = ""
+			LANGUAGE = "english"
 
-		parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
-		stemmer = Stemmer(LANGUAGE)
-		summarizer = Summarizer(stemmer)
-		summarizer.stop_words = get_stop_words(LANGUAGE)
+			parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
+			stemmer = Stemmer(LANGUAGE)
+			summarizer = Summarizer(stemmer)
+			summarizer.stop_words = get_stop_words(LANGUAGE)
 
-	    	for sentence in summarizer(parser.document, 4):
-        		summary += sentence._text + " "
+	    		for sentence in summarizer(parser.document, 4):
+        			summary += sentence._text + " "
 
-		return summary.strip()
-	except Exception as e:
-		logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
-		raise	
+			return summary.strip()
+		except Exception as e:
+			logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
+			raise	
+
+	if library == "pyteaser":
+		try:
+			return ' '.join(Summarize(title, text)[0:4]).strip()
+		except Exception as e:
+			logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
+			raise
 
 def get_text_topic(text):
 	
