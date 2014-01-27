@@ -66,6 +66,7 @@ def search_twitter(keyword, numlinks):
 			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
                 urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
+		urls = filter(lambda x: x.find('@') < 0, urls)
 		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 	                for url in urls:
