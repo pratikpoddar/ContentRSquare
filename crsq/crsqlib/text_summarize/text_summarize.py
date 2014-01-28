@@ -24,6 +24,8 @@ from pyteaser import Summarize
 
 from crsq import crsqlib
 
+from crsq.crsqlib.text_summarize import text_topic_brown
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -86,7 +88,7 @@ def get_text_summary(text, title = None, library="sumy"):
 
 def get_text_topic(text):
 	
-	return None
+	return text_topic_brown.get_text_topic(text)
 
 def get_python_tagger(text, tag_meaning=True):
 
