@@ -17,12 +17,14 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import NearestCentroid
 from sklearn.utils.extmath import density
 from nltk.corpus import brown
+import inspect
+from crsq.crsqlib import text_summarize
 
 import pickle
 
 def get_text_topic(text):
 	try:
-		with open('topic_classification_brown.pickle') as f:
+		with open(inspect.getfile(text_summarize).replace('__init__.pyc','')+'topic_classification_brown.pickle') as f:
 	        	[clf, vectorizer, target_names] = pickle.load(f)
 
 	except Exception as e:

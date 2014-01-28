@@ -87,8 +87,12 @@ def get_text_summary(text, title = None, library="sumy"):
 			raise
 
 def get_text_topic(text):
-	
-	return text_topic_brown.get_text_topic(text)
+
+	try:	
+		return text_topic_brown.get_text_topic(text)
+	except Exception as e:
+		logger.exception('text_summarize.py - get_text_topic - error - ' + str(e))
+		raise
 
 def get_python_tagger(text, tag_meaning=True):
 
