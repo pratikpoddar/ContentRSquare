@@ -9,7 +9,7 @@ import hashlib
 from django.db.models import Max
 import logging
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
 
 logger = logging.getLogger(__name__)
 
@@ -151,19 +151,23 @@ def put_article_details(url):
 			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
 	return
 
-def put_article_semantics(url):
+def put_article_semantics_tags(url):
 	if ArticleInfo.objects.filter(url=url).count()==0:
-		#logger.exception('twitter_newspaper - put_article_semantics - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
+		#logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
 		return
-	if ArticleSemantics.objects.filter(url=url).count()==0:
+	if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
 		try:
 			content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
-			semantics_dict = articleutils.getArticleSemantics(content)
-			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], tags = str(semantics_dict['tags']), topic = semantics_dict['topic'])
+			semantics_dict = articleutils.getArticleSemanticsTags(content)
+			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], topic = semantics_dict['topic'])
 			if ArticleSemantics.objects.filter(url=url).count()==0:
 				semantics_row.save()
+			if ArticleTags.objects.filter(url=url).count()==0:
+				for tag in semantics_dict['tags']:
+					tag_row = ArticleTags(url=url, tag=tag)
+					tag_row.save()
 		except Exception as e:
-			logger.exception('twitter_newspaper - put_article_semantics - error getting article semantics - ' + url + ' - ' + str(e))
+			logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article semantics / tags - ' + url + ' - ' + str(e))
 
 	return
 

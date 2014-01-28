@@ -20,7 +20,7 @@ import logging
 import urlparse
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics
+from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags
 
 
 logger = logging.getLogger(__name__)
@@ -80,12 +80,18 @@ def tw_np_article(request, articleid):
 	try:
 		articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values()[0]
 	except:
-		articlesemantics = {'summary': None, 'topic': None, 'tags': ""}
+		articlesemantics = {'summary': None, 'topic': None}
+
+	try:
+		articletags = ArticleTags.objects.filter(url=article['url']).values('url', 'tag')[0]
+		articletags = map(lambda x: x['tag'], articletags)
+	except:
+		articletags = []
 
         template = loader.get_template('crsq/twitter-newspaper/article.html')
 
         context = RequestContext(request, {
-		'article' : dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': ', '.join(map(lambda x: str(x).strip(), articlesemantics['tags'].split(',')))})
+		'article' : dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': ', '.join(articletags)})
         })
         return HttpResponse(template.render(context))
 

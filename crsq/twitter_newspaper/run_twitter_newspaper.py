@@ -1,5 +1,5 @@
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics
+from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags
 from datetime import datetime
 import logging
 
@@ -16,21 +16,22 @@ def get_articles():
 		twitter_newspaper.put_article_details(l)
 	return
 
-def get_article_semantics():
+def get_article_semantics_tags():
 	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
-	asi = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
-	tobeexpanded = list(set(tl)-set(asi))
+	as1 = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
+	as2 = map(lambda x: x['url'], ArticleTags.objects.all().values('url'))
+	tobeexpanded = list(set(list(set(tl)-set(as1)) + list(set(tl)-set(as2))))
 
 	for l in tobeexpanded:
-		twitter_newspaper.put_article_semantics(l)
+		twitter_newspaper.put_article_semantics_tags(l)
 	return
 
 def run_twitter_newspaper(sector, tuser, tlist):
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + sector + tuser + tlist)
 	twitter_newspaper.get_list_timeline(sector, tuser, tlist, 200)
 	get_articles()
-	get_article_semantics()
-	logger.exception('run_twitter_newspaper: ' + sector + ' ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
+	get_article_semantics_tags()
+	logger.exception('run_twitter_newspaper: ' + sector + ' ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count())' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
 def time_dependent_tw_np(toberun):
