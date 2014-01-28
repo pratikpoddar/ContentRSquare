@@ -53,14 +53,19 @@ def getSocialShares(url):
 def getLongUrl(url):
         try:
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
-		opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.1) Gecko/20100101 Firefox/10.0.1'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
 		url = url.encode('utf-8')
 		resp = opener.open(url)
                 if resp.getcode() == 200:
                         return resp.url.encode('utf-8')
-                else:
-	                logger.exception('urlutils - getLongUrl - ' + url + ' ' + str(resp.getcode()))
-                        raise
+		if resp.getcode() == 403:
+			opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
+			resp = opener.open(url)
+			if resp.getcode() == 200:
+				return resp.url.encode('utf-8')
+
+		logger.exception('urlutils - getLongUrl - ' + url + ' ' + str(resp.getcode()))
+		raise
+
         except Exception as e:
 		logger.exception('urlutils - getLongUrl - ' + url + ' ' + str(e))
 		raise
