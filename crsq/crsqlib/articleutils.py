@@ -39,7 +39,7 @@ def getArticleProperties(html):
 		articledict['domain'] = None
 
 	try:
-		articledict['final_url'] = articledict.final_url
+		articledict['final_url'] = article.final_url
 	except:
 		articledict['final_url'] = None
 
