@@ -79,18 +79,25 @@ def getArticlePropertiesFromUrl(url):
 	try:
 		raw_html = ''
 		respurl = ''
+
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
                 url = url.encode('utf-8')
-                resp = opener.open(url)
-                if resp.getcode() == 200:
-                        raw_html = resp.read()
-			respurl = resp.url
-                if resp.getcode() == 403:
-                        opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
+                try:
                         resp = opener.open(url)
                         if resp.getcode() == 200:
-                                raw_html = resp.read()
-				respurl = resp.url
+	                        raw_html = resp.read()
+        	                respurl = resp.url
+                except urllib2.HTTPError as err:
+                        if err.code == 403:
+                                opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
+                                resp = opener.open(url)
+                                if resp.getcode() == 200:
+					raw_html = resp.read()
+		                        respurl = resp.url
+			else:
+				raise
+		except Exception as e:
+			raise
 
 		if raw_html == '':
 			raise
