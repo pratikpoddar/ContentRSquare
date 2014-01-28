@@ -247,5 +247,6 @@ pip install sumy
 
 pip install pyteaser
 
-
+sudo apt-get install libopenblas-dev
+pip install -U scikit-learn
 

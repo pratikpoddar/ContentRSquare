@@ -49,7 +49,7 @@ def time_dependent_tw_np(toberun):
 	if toberun == 4:
 	        run_twitter_newspaper('technology', 'mashable', 'startups-nyc-24')
 	if toberun == 5:
-	        run_itwitter_newspaper('technology', 'mashable', 'tech')
+	        run_twitter_newspaper('technology', 'mashable', 'tech')
 	if toberun == 6:
 	        run_twitter_newspaper('entertainment', 'mashable', 'music')
 	if toberun == 7:

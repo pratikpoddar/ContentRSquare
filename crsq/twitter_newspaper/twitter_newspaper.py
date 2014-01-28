@@ -165,7 +165,8 @@ def put_article_semantics_tags(url):
 			if ArticleTags.objects.filter(url=url).count()==0:
 				for tag in semantics_dict['tags']:
 					tag_row = ArticleTags(url=url, tag=tag)
-					tag_row.save()
+					if ArticleTags.objects.filter(url=url, tag=tag).count()==0:
+						tag_row.save()
 		except Exception as e:
 			logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article semantics / tags - ' + url + ' - ' + str(e))
 

@@ -3,9 +3,7 @@ from __future__ import print_function
 import numpy as np
 import sys
 from time import time
-import pylab as pl
 
-from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 from sklearn.feature_selection import SelectKBest, chi2
