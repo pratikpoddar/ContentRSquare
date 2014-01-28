@@ -83,7 +83,7 @@ def tw_np_article(request, articleid):
 		articlesemantics = {'summary': None, 'topic': None}
 
 	try:
-		articletags = ArticleTags.objects.filter(url=article['url']).values('url', 'tag')[0]
+		articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
 		articletags = map(lambda x: x['tag'], articletags)
 	except:
 		articletags = []

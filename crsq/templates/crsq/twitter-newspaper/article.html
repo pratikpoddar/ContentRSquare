@@ -26,7 +26,7 @@
                   <p class="domain">{{ article.domain }}</p>
                   <p class="sharers">{% if article.sharers %} Shared by {% for sharer in article.sharers %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ sharer.author }}/status/{{ sharer.tweetid }}">@{{ sharer.author }} </a>{% endfor %}{% endif %}</p>
 		  <p class="tags">{% if article.tags %} Tagged as {{ article.tags }} {% endif %}</p>
-		  <p class="topic">{% if article.topic %} {{ article.topic }} {% endif %}</p>
+		  <p class="topic">{% if article.topic %} {{ article.topic | title }} {% endif %}</p>
                 </div>
               </div>
 

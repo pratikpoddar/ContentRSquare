@@ -79,20 +79,16 @@ def getLongUrl(url):
 
 def isShortUrlPossibly(url):
 	try:
-		domain = url.replace("http","").replace(":","").replace("/","").replace("www.","").replace("www","").split(".")[0]
-		if len(domain)<=5:
+		domain = urlparse(url)[1].replace('www.','')
+		if len(domain)<=7:
 			return True
-		if domain in ["tinyurl"]:
+		if "tinyurl" in domain.split("."):
 			return True
 
-		try:
-			tld=url.replace("http://","").replace("https://","").split("/")[0].split(".")[-1]
-			if tld in ["es", "co", "ly", "me"]:
-				return True
-		except:
-			tld=url.replace("http://","").replace("https://","").split(".")[-1]
-			if tld in ["es", "co", "ly", "me"]:
-				return True
+		tld=urlparse(url)[1].split(".")[-1]
+		if tld in ["es", "co", "ly", "me"]:
+			return True
+		
 		return False
 	except Exception as e:
                 logger.exception('urlutils - isShortUrlPossibly - ' + url + ' ' + str(e))
@@ -120,7 +116,7 @@ def is_url_an_article(url):
 		return False
 	
 	try:
-		if urlparse(url)[2].split('.')[-1].lower() in ['jpg', 'png', 'gif', 'pdf', 'mp3', 'wav', 'mp4', 'jpeg']:
+		if urlparse(url)[2].split('.')[-1].lower() in ['jpg', 'png', 'gif', 'pdf', 'mp3', 'wav', 'mp4', 'jpeg', 'xml']:
 			return False
 	except:
 		pass

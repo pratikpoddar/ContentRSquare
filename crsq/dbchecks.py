@@ -1,4 +1,5 @@
 from crsq.models import *
+from crsq.crsqlib import urlutils
 
 l1 = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 l2 = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
@@ -16,8 +17,18 @@ print "Links in ArticleTags but not in ArticleInfo"
 print set(l4)-set(l1)
 print "Average Number of Tags for a Link"
 print len(l4) / len(set(l4))
-
-
+print "Links in ArticleInfo that are not articles"
+l5 = filter(lambda x: not urlutils.is_url_an_article(x), list(set(l1)))
+print l5
+print "Links in TweetLinks that are not articles"
+l6 = filter(lambda x: not urlutils.is_url_an_article(x), list(set(l2)))
+print l6
+print "Links in ArticleInfo that are short links"
+l7 = filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l1)))
+print l7
+print "Links in TweetLinks that are short links"
+l8 = filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l2)))
+print l8
 
 
 
