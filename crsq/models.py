@@ -59,7 +59,7 @@ class ArticleSemantics(models.Model):
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
 class ArticleTags(models.Model):
-    url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    url = models.CharField(max_length=255L, null=False, db_index=True)
     tag = models.CharField(max_length=255L, null=False, db_index=True)
     class Meta:
         unique_together = (("url", "tag"),)

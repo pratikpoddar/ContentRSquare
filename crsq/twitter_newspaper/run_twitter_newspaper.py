@@ -31,7 +31,7 @@ def run_twitter_newspaper(sector, tuser, tlist):
 	twitter_newspaper.get_list_timeline(sector, tuser, tlist, 200)
 	get_articles()
 	get_article_semantics_tags()
-	logger.exception('run_twitter_newspaper: ' + sector + ' ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count())' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
+	logger.exception('run_twitter_newspaper: ' + sector + ' ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
 def time_dependent_tw_np(toberun):
