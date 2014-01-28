@@ -11,6 +11,7 @@ from django.db.models import Count
 from django.core.context_processors import csrf
 
 import urllib
+import urllib2
 from datetime import datetime
 from datetime import timedelta
 from datetime import date
@@ -121,7 +122,7 @@ def penpmessage(request):
 def timenews(request):
 	
 	template = loader.get_template('crsq/timeline-news/timeline.html')
-        context = RequestContext(request, {'json': json.loads('static/crsq/template1.json')})
+        context = RequestContext(request, {})
         return HttpResponse(template.render(context))
 
 

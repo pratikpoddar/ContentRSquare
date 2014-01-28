@@ -1,0 +1,114 @@
+{
+    "timeline":
+    {
+        "headline":"The Main Timeline Headline",
+        "type":"default",
+        "text":"<p>Intro body text for the timeline, can add HTML as well</p>",
+        "asset": {
+            "media":"",
+            "credit":"Credit Name Goes Here - Pratik Poddar",
+            "caption":"Caption text goes here - I am awesome"
+        },
+        "date": [
+            {
+                "startDate":"2011,12,10",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            },
+            {
+                "startDate":"2011,12,11",
+		"endDate":"2011,12,12",
+                "headline":"Headline Goes Here 2",
+                "text":"<p>Body text goes here, can add HTML as well 2</p>",
+                "tag":"This is Optional 2",
+                "classname":"",
+                "asset": {
+                    "media":"<blockquote>Experimentation is good</blockquote>",
+                    "credit":"Credit Name Goes Here - 2",
+                    "caption":"Caption text goes here - 2"
+                }
+            },
+            {
+                "startDate":"2011,12,15",
+		"endDate":"2011,12,18",
+                "headline":"Headline Goes Here 3",
+                "text":"<p>Body text goes here, can add HTML as well 3</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 3",
+                    "caption":"Caption text goes here - 3"
+                }
+            },
+            {
+                "startDate":"2011,12,19",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            },
+            {
+                "startDate":"2011,12,21",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            },
+            {
+                "startDate":"2011,12,22",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            },
+            {
+                "startDate":"2011,12,23",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            },
+            {
+                "startDate":"2011,12,24",
+                "headline":"Headline Goes Here 1",
+                "text":"<p>Body text goes here, can add HTML as well 1</p>",
+                "tag":"This is Optional 1",
+                "classname":"",
+                "asset": {
+                    "media":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/260px-YellowLabradorLooking_new.jpg",
+                    "credit":"Credit Name Goes Here - 1",
+                    "caption":"Caption text goes here - 1"
+                }
+            }
+
+        ]
+    }
+}
