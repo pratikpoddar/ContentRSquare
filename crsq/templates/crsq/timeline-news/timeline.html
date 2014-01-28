@@ -1,0 +1,28 @@
+{% extends "crsq/timeline-news/base.html" %}
+{% load staticfiles %}
+
+{% block bodycontent %}
+
+	<div style="text-align:center;padding-bottom:55px">
+	    <span style="position:absolute;font-family:'Pacifico',Georgia,serif;font-size:36px;left:20px;top:10px">Time Glider</span>
+	</div>
+
+
+	<script type="text/javascript" src="{% static 'crsq/js/timeline-news/storyjs-embed.js' %}"></script>
+	<script>
+	    var json = {{ json }};
+	    $(document).ready(function() {
+	        createStoryJS({
+	            type:       'timeline',
+	            width:      '100%',
+	            height:     '600',
+	            source:     json,
+	            font:       '',
+	            embed_id:   'news-timeline'
+        	});
+	    });
+	</script>
+
+	<div id="news-timeline"></div>
+
+{% endblock %}

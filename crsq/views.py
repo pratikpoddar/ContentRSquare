@@ -18,6 +18,7 @@ import pytz
 
 import logging
 import urlparse
+import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags
@@ -117,6 +118,11 @@ def penpmessage(request):
 	
 	return penp(request, notice="Thanks for your interest. One of our teammates will reach out to you in sometime")
                 
+def timenews(request):
+	
+	template = loader.get_template('crsq/timeline-news/timeline.html')
+        context = RequestContext(request, {'json': json.loads('static/crsq/template1.json')})
+        return HttpResponse(template.render(context))
 
 
 	

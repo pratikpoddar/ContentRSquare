@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 	url(r'^twitter-newspaper/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([0-9]+)/?$', views.tw_np, name='tw_np'),
 	url(r'^twitter-newspaper', views.tw_np_redirect, name='tw_np_redirect'),
 
+	url(r'^timeline-news/?$', views.timenews, name='timenews'),
+
 	url(r'^penpatron/?$', views.penp, name='penp'),
 	url(r'^penpatron-message/?$', views.penpmessage, name='penpmessage'),
 
