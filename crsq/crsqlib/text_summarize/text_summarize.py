@@ -105,8 +105,8 @@ def get_python_tagger(text, tag_meaning=True):
 	tags = list(mytagger(text, 5))
 
 	tags = map(lambda x: x.string, tags)
-	logger.debug(tags)
 	tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
+	logger.debug(tags)
 	
 	if tag_meaning:
 
@@ -144,6 +144,7 @@ def get_nltk_ne(text, tag_meaning=True):
 
 	        tags = filter(lambda x: len(x)>4, tags)
 		tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
+		logger.debug(tags)
 
 		if tag_meaning:
 			responseOutput = []
@@ -168,7 +169,8 @@ def get_topia_termextract(text, tag_meaning=True):
 		tags = extractor(text)
 		tags = map(lambda x: x[0], filter(lambda x: len(x[0])>6, tags))
 		tags = filter(lambda x: x.replace(' ','').isalnum(), tags)
-	
+		logger.debug(tags)
+
 		if tag_meaning:
 			responseOutput = []
 	

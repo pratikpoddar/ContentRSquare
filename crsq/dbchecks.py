@@ -14,6 +14,8 @@ print "Links in ArticleSemantics but not in ArticleInfo"
 print set(l3)-set(l1)
 print "Links in ArticleTags but not in ArticleInfo"
 print set(l4)-set(l1)
+print "Average Number of Tags for a Link"
+print len(l4) / len(set(l4))
 
 
 
