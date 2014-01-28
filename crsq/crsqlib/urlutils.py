@@ -63,7 +63,7 @@ def getLongUrl(url):
 			if resp.getcode() == 200:
 				return resp.url.encode('utf-8')
 
-		logger.exception('urlutils - getLongUrl - ' + url + ' ' + str(resp.getcode()))
+		logger.exception('urlutils - getLongUrl - ' + url)
 		raise
 
         except Exception as e:
