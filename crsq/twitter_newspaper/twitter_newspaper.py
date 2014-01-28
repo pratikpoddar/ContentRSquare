@@ -152,7 +152,7 @@ def put_article_details(url):
 
 def put_article_semantics(url):
 	if ArticleInfo.objects.filter(url=url).count()==0:
-		logger.exception('twitter_newspaper - put_article_semantics - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
+		#logger.exception('twitter_newspaper - put_article_semantics - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
 		return
 	if ArticleSemantics.objects.filter(url=url).count()==0:
 		try:
