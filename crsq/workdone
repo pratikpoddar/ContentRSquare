@@ -54,8 +54,17 @@ Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
 Twitter Newspaper - Article Title - Possible error
 Twitter Links, Article Info and ArticleSemantics - Duplicate Error
 Text-topic-brown - Check correctness
+Make sure all input text ecoding and all urls everywhere are canonicalized
+Error to get Article Content:
+http://www.fastcompany.com/3025459/leadership-now/why-i-turned-down-apple-for-a-startup
+http://ibnlive.in.com/news/ibnlive-movie-awards-nominees-for-best-independent-film/447902-8-66.html
 
 ---Currently Working on
 related videos advertising
 timeline
+
+-- 
+Search engine
+date extraction from goose
+
 

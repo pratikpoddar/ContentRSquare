@@ -76,6 +76,7 @@ def getArticleProperties(html):
 
 def getArticlePropertiesFromUrl(url):
 
+	url = urlutils.getCanonicalUrl(url)
 	try:
 		raw_html = ''
 		respurl = ''
