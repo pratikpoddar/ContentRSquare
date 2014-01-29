@@ -119,10 +119,10 @@ def penpmessage(request):
 	
 	return penp(request, notice="Thanks for your interest. One of our teammates will reach out to you in sometime")
                 
-def timenews(request):
+def timenews(request, timeline_news_name):
 	
 	template = loader.get_template('crsq/timeline-news/timeline.html')
-        context = RequestContext(request, {})
+        context = RequestContext(request, {'timeline_name': timeline_news_name})
         return HttpResponse(template.render(context))
 
 

@@ -3,7 +3,7 @@
 
 {% block bodycontent %}
 
-	<div id="news-timeline" style="margin-top:60px!important"></div>
+	<div id="news-timeline" style="margin-top:60px!important;padding-top:20px!important"></div>
 	
 
 {% endblock %}
@@ -12,7 +12,7 @@
 
 	<script type="text/javascript" src="{% static 'crsq/js/timeline-news/storyjs-embed.js' %}"></script>
 	<script>
-	    var json = $.getJSON("http://54.254.100.216/static/crsq/data/timeline-news/template3.json", function(data){
+	    var json = $.getJSON("http://54.254.100.216/static/crsq/data/timeline-news/{{ timeline_name }}.json", function(data){
 	    	$(document).ready(function() {
 		        createStoryJS({
 		            type:       'timeline',
