@@ -24,9 +24,9 @@ import hashlib
 import os
 import urllib2
 from PIL import Image
-from goose.utils.encoding import smart_str
-from goose.images.image import ImageDetails
-from goose.images.image import LocallyStoredImage
+from crsq.crsqlib.goose.utils.encoding import smart_str
+from crsq.crsqlib.goose.images.image import ImageDetails
+from crsq.crsqlib.goose.images.image import LocallyStoredImage
 
 
 class ImageUtils(object):

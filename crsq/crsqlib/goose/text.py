@@ -23,10 +23,10 @@ limitations under the License.
 import os
 import re
 import string
-from goose.utils import FileHelper
-from goose.utils.encoding import smart_unicode
-from goose.utils.encoding import smart_str
-from goose.utils.encoding import DjangoUnicodeDecodeError
+from crsq.crsqlib.goose.utils import FileHelper
+from crsq.crsqlib.goose.utils.encoding import smart_unicode
+from crsq.crsqlib.goose.utils.encoding import smart_str
+from crsq.crsqlib.goose.utils.encoding import DjangoUnicodeDecodeError
 
 TABSSPACE = re.compile(r'[\s\t]+')
 

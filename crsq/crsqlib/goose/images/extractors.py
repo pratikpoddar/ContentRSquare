@@ -23,9 +23,9 @@ limitations under the License.
 import re
 import os
 from urlparse import urlparse, urljoin
-from goose.utils import FileHelper
-from goose.images.image import Image
-from goose.images.utils import ImageUtils
+from crsq.crsqlib.goose.utils import FileHelper
+from crsq.crsqlib.goose.images.image import Image
+from crsq.crsqlib.goose.images.utils import ImageUtils
 
 KNOWN_IMG_DOM_NAMES = [
     "yn-story-related-media",

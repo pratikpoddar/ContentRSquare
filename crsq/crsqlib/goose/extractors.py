@@ -23,9 +23,12 @@ limitations under the License.
 import re
 from copy import deepcopy
 from urlparse import urlparse, urljoin
-from goose.utils import StringSplitter
-from goose.utils import StringReplacement
-from goose.utils import ReplaceSequence
+from crsq.crsqlib.goose.utils import StringSplitter
+from crsq.crsqlib.goose.utils import StringReplacement
+from crsq.crsqlib.goose.utils import ReplaceSequence
+from crsq.crsqlib.goose.parsedatetime import parsedatetime as pdt
+import datetime
+from bs4 import BeautifulSoup
 
 MOTLEY_REPLACEMENT = StringReplacement("&#65533;", "")
 ESCAPED_FRAGMENT_REPLACEMENT = StringReplacement(u"#!", u"?_escaped_fragment_=")
@@ -101,6 +104,56 @@ class ContentExtractor(object):
 
         title = MOTLEY_REPLACEMENT.replaceAll(title_text)
         return title
+
+    def get_publish_date(self, article):
+
+	bs = BeautifulSoup(article.raw_html)
+	cal = pdt.Calendar()
+	dow = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'fri', 'sat', 'sun']
+
+	try:
+		pd = bs.find('meta', attrs={'http-equiv': 'Last-Modified'})['content'].lower()
+		for d in dow:
+			pd = pd.replace(d,'')
+		t = cal.parse(pd)
+		
+		if t:
+			return datetime.date(t[0][0], t[0][1], t[0][2])
+		else:
+			raise
+	except:
+		pass
+
+        try:
+                pd = bs.find(attrs={'class': re.compile(r'time|date')}).text.lower()
+                for d in dow:
+                        pd = pd.replace(d,'')
+		t = cal.parse(pd)
+		if t:
+			return datetime.date(t[0][0], t[0][1], t[0][2])
+		else:
+			raise
+        except:
+                pass
+	
+	def is_the_only_string_within_a_tag(s):
+	    """Return True if this string is the only child of its parent tag."""
+	    return (s == s.parent.string)
+
+	try:
+		pds = bs.find_all(text=is_the_only_string_within_a_tag)
+		for pd in pds:
+			pd = pd.lower()
+	                for d in dow:
+        	                pd = pd.replace(d,'')
+			t = cal.parse(pd)
+			if t:
+				return datetime.date(t[0][0], t[0][1], t[0][2])
+		raise 
+	except:
+		pass
+
+	return None
 
     def split_title(self, title, splitter):
         """\

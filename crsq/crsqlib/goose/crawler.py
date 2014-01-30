@@ -23,15 +23,14 @@ limitations under the License.
 import os
 import glob
 from copy import deepcopy
-from goose.article import Article
-from goose.utils import URLHelper, RawHelper
-from goose.extractors import StandardContentExtractor
-from goose.cleaners import StandardDocumentCleaner
-from goose.outputformatters import StandardOutputFormatter
-from goose.images.extractors import UpgradedImageIExtractor
-from goose.videos.extractors import VideoExtractor
-from goose.publishdate.extractors import PublishDateExtractor
-from goose.network import HtmlFetcher
+from crsq.crsqlib.goose.article import Article
+from crsq.crsqlib.goose.utils import URLHelper, RawHelper
+from crsq.crsqlib.goose.extractors import StandardContentExtractor
+from crsq.crsqlib.goose.cleaners import StandardDocumentCleaner
+from crsq.crsqlib.goose.outputformatters import StandardOutputFormatter
+from crsq.crsqlib.goose.images.extractors import UpgradedImageIExtractor
+from crsq.crsqlib.goose.videos.extractors import VideoExtractor
+from crsq.crsqlib.goose.network import HtmlFetcher
 
 
 class CrawlCandidate(object):
@@ -74,7 +73,7 @@ class Crawler(object):
         article.doc = doc
         article.raw_doc = deepcopy(doc)
         article.title = extractor.get_title(article)
-        article.publish_date = config.publishDateExtractor.extract(doc)
+        article.publish_date = extractor.get_publish_date(article)
         # article.additional_data = config.get_additionaldata_extractor.extract(doc)
         article.meta_lang = extractor.get_meta_lang(article)
         article.meta_favicon = extractor.get_favicon(article)

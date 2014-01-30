@@ -24,8 +24,8 @@ import lxml.html
 from lxml.html import soupparser
 from lxml import etree
 from copy import deepcopy
-from goose.text import innerTrim
-from goose.text import encodeValue
+from crsq.crsqlib.goose.text import innerTrim
+from crsq.crsqlib.goose.text import encodeValue
 
 
 class Parser(object):

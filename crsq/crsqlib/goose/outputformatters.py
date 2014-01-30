@@ -21,7 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from HTMLParser import HTMLParser
-from goose.text import innerTrim
+from crsq.crsqlib.goose.text import innerTrim
 
 
 class OutputFormatter(object):

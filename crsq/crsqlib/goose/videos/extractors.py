@@ -21,7 +21,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from goose.videos.videos import Video
+from crsq.crsqlib.goose.videos.videos import Video
 
 VIDEOS_TAGS = ['iframe', 'embed', 'object', 'video']
 VIDEO_PROVIDERS = ['youtube', 'vimeo', 'dailymotion', 'kewego']
