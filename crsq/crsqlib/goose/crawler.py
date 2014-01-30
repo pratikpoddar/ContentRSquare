@@ -30,6 +30,7 @@ from goose.cleaners import StandardDocumentCleaner
 from goose.outputformatters import StandardOutputFormatter
 from goose.images.extractors import UpgradedImageIExtractor
 from goose.videos.extractors import VideoExtractor
+from goose.publishdate.extractors import PublishDateExtractor
 from goose.network import HtmlFetcher
 
 
@@ -73,8 +74,7 @@ class Crawler(object):
         article.doc = doc
         article.raw_doc = deepcopy(doc)
         article.title = extractor.get_title(article)
-        # TODO
-        # article.publish_date = config.publishDateExtractor.extract(doc)
+        article.publish_date = config.publishDateExtractor.extract(doc)
         # article.additional_data = config.get_additionaldata_extractor.extract(doc)
         article.meta_lang = extractor.get_meta_lang(article)
         article.meta_favicon = extractor.get_favicon(article)
