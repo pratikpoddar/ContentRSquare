@@ -11,11 +11,11 @@ def indexdoc(articledict):
 		'url': articledict['url']
 	}
 	
-	res = es.index(index="article-index", doc_type='article', body=doc)
+	res = es.index(index="article-index", doc_type='article', body=doc, id=articledict['url'])
 
 
 def searchdoc(keywordstr):
-	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr}}})
+	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title"]}}})
 	print("Got %d Hits:" % res['hits']['total'])
 	for hit in res['hits']['hits']:
 	    print("%(url)s: %(text)s" % hit["_source"])
