@@ -46,25 +46,32 @@ Category Tree
 ----Errors:
 Wiki Category Extraction: A few freebase wiki links say that page does not exist. ftw!
 Wiki Category Tree: Will fail in internet Pain. Too slow. Need to cache.
+
 Social Power of a link: What if extra params are added
 Getting Long Url and Article is stupidity really
+
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
-Twitter-Newspaper: See if there are "Almost" same artiles in ArticleInfo
+
 Twitter Newspaper - Article Title - Possible error
+
 Twitter Links, Article Info and ArticleSemantics - Duplicate Error
-Text-topic-brown - Check correctness
+Check Correctness:
+Text-topic-brown
+Date
+Image
+Summary
+
 Make sure all input text ecoding and all urls everywhere are canonicalized
+
 Error to get Article Content:
 http://www.fastcompany.com/3025459/leadership-now/why-i-turned-down-apple-for-a-startup
 http://ibnlive.in.com/news/ibnlive-movie-awards-nominees-for-best-independent-film/447902-8-66.html
+mashable articles
 
----Currently Working on
-related videos advertising
-timeline
-
+Work on
 -- 
-Search engine
-date extraction from goose
+twitter newspaper
+timeline
 
 
