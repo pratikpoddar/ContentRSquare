@@ -4,7 +4,7 @@ from urlparse import urlparse
 import json
 from crsq.crsqlib import urlutils, articleutils
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +15,12 @@ def get_article_json(url):
 		articlesemantics = ArticleSemantics.objects.filter(url=url).values()[0]
 		json_object = {}
 		try:
-			json_object['startDate'] = str(article['publish_date'].year) + "," + str(article['publish_date'].month) + "," + str(article['publish_date'].date)
+			json_object['startDate'] = str(article['articledate'].year) + "," + str(article['articledate'].month) + "," + str(article['articledate'].day)
 		except:
-			json_object['startDate'] = "2012,5,5"
+			json_object['startDate'] = "2010,1,1"
 		try:
-			json_object['endDate'] = article['publish_date']+datetime.timedelta(days=1)
+			enddate = article['articledate']+ timedelta(days=1)
+			json_object['endDate'] = str(enddate.year) + "," + str(enddate.month) + "," + str(enddate.day)
 		except:
 			pass
 		json_object['headline'] = article['articletitle']
@@ -87,8 +88,10 @@ def put_article_semantics_tags(url):
                         logger.exception('timeline_news - put_article_semantics_tags - error getting article semantics / tags - ' + url + ' - ' + str(e))
 
         return
-	
-create_timeline_json("Arvind Kejriwal in recent times", "Arvind Kejriwal is not the Chief Minister of Delhi and he has been acting a bit wierd lately. Some recent developments since he became CM" , ["http://articles.economictimes.indiatimes.com/2014-01-14/news/46185342_1_fdi-arvind-kejriwal-delhi-polls", "http://indianexpress.com/article/india/politics/asserting-delhi-needs-jobs-arvind-kejriwal-scraps-nod-to-fdi-in-retail/", "http://www.financialexpress.com/news/cm-arvind-kejriwal-axes-sheila-dikshit-policy-rescinds-congress-approval-to-fdi-in-multibrand-retail-in-delhi/1218039/"])
+
+urllist = ["http://articles.economictimes.indiatimes.com/2014-01-14/news/46185342_1_fdi-arvind-kejriwal-delhi-polls", "http://indianexpress.com/article/india/politics/asserting-delhi-needs-jobs-arvind-kejriwal-scraps-nod-to-fdi-in-retail/", "http://www.financialexpress.com/news/cm-arvind-kejriwal-axes-sheila-dikshit-policy-rescinds-congress-approval-to-fdi-in-multibrand-retail-in-delhi/1218039/"]
+ArticleInfo.objects.filter(url__in=urllist).delete()
+create_timeline_json("Arvind Kejriwal in recent times", "Arvind Kejriwal is not the Chief Minister of Delhi and he has been acting a bit wierd lately. Some recent developments since he became CM" , urllist)
 
 
 

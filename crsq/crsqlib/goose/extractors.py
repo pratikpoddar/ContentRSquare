@@ -112,7 +112,7 @@ class ContentExtractor(object):
 	dow = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'fri', 'sat', 'sun']
 
 	try:
-		pd = bs.find('meta', attrs={'http-equiv': 'Last-Modified'})['content'].lower()
+		pd = bs.find('meta', attrs={'http-equiv': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
 		for d in dow:
 			pd = pd.replace(d,'')
 		t = cal.parse(pd)
@@ -124,6 +124,20 @@ class ContentExtractor(object):
 			raise
 	except:
 		pass
+
+        try:
+                pd = bs.find('meta', attrs={'name': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
+                for d in dow:
+                        pd = pd.replace(d,'')
+                t = cal.parse(pd)
+
+                if t:
+                        if t[1] in [0,1,3]:
+                                return datetime.date(t[0][0], t[0][1], t[0][2])
+                else:
+                        raise
+        except:
+                pass
 
         try:
 

@@ -11,7 +11,8 @@
         "date": [
             {
                 "headline": "FDI in retail would add to widespread unemployment: Arvind Kejriwal", 
-                "startDate": "2012,12,11", 
+                "startDate": "2014,1,31", 
+                "endDate": "2014,2,1", 
                 "asset": {
                     "media": "http://economictimes.indiatimes.com/photo/28801353.cms", 
                     "caption": "", 
@@ -21,7 +22,8 @@
             }, 
             {
                 "headline": "Claiming Delhi needs jobs, Kejriwal scraps nod to FDI in retail", 
-                "startDate": "2012,12,11", 
+                "startDate": "2014,1,14", 
+                "endDate": "2014,1,15", 
                 "asset": {
                     "media": "http://indianexpressonline.files.wordpress.com/2013/01/arvindkejriwal480.jpg", 
                     "caption": "", 
@@ -31,7 +33,8 @@
             }, 
             {
                 "headline": "CM Arvind Kejriwal invokes Wal-Mart, Tesco, axes Sheila Dikshit nod to FDI in multi-brand retail in Delhi", 
-                "startDate": "2012,12,11", 
+                "startDate": "2014,1,13", 
+                "endDate": "2014,1,14", 
                 "asset": {
                     "media": "http://static.financialexpress.com/pic/uploadedImages/mediumImages//M_Id_456737_Arvind_Kejriwal.jpg", 
                     "caption": "", 
