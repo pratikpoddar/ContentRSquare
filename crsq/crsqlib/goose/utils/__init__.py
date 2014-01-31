@@ -26,6 +26,7 @@ import re
 import os
 import codecs
 import urlparse
+from crsq import crsqlib
 
 
 class BuildURL(object):
@@ -64,11 +65,11 @@ class FileHelper(object):
 
     @classmethod
     def loadResourceFile(self, filename):
-        #if not os.path.isabs('filename'):
-            #dirpath = os.path.dirname(goose.__file__)
-            #path = os.path.join(dirpath, 'resources', filename)
-        #else:
-        path = filename
+        if not os.path.isabs('filename'):
+            dirpath = os.path.dirname(crsqlib.__file__)
+            path = os.path.join(dirpath, 'goose/resources', filename)
+        else:
+        	path = filename
         try:
             f = codecs.open(path, 'r', 'utf-8')
             content = f.read()
