@@ -4,6 +4,7 @@ from urlparse import urlparse
 import json
 from crsq.crsqlib import urlutils, articleutils
 import logging
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -14,11 +15,11 @@ def get_article_json(url):
 		articlesemantics = ArticleSemantics.objects.filter(url=url).values()[0]
 		json_object = {}
 		try:
-			json_object['startDate'] = article['publish_date']
+			json_object['startDate'] = str(article['publish_date'].year) + "," + str(article['publish_date'].month) + "," + str(article['publish_date'].date)
 		except:
-			json_object['startDate'] = "2012,12,11"
+			json_object['startDate'] = "2012,5,5"
 		try:
-			json_object['endDate'] = article['publish_date']+1
+			json_object['endDate'] = article['publish_date']+datetime.timedelta(days=1)
 		except:
 			pass
 		json_object['headline'] = article['articletitle']

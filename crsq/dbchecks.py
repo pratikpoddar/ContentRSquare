@@ -29,6 +29,13 @@ print l7
 print "Links in TweetLinks that are short links"
 l8 = filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l2)))
 print l8
+print "Links in ArticleInfo that do not have date"
+l9 = map(lambda x: x['url'], ArticleInfo.objects.filter(articledate=None).filter(articledate='').values('url'))
+print l9
+print "All Domains in TweetLinks"
+l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
+print l10
+
 
 
 
