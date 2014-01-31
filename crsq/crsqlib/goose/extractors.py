@@ -142,7 +142,7 @@ class ContentExtractor(object):
 
         try:
 
-                pds = bs.find_all(attrs={'class': re.compile(r'publish')})
+                pds = bs.find_all(attrs={'class': re.compile(r'publish|Publish|PUBLISH')})
                 for pd in pds:
                         pd = pd.text.lower()
                         for d in dow:
@@ -157,7 +157,7 @@ class ContentExtractor(object):
 
         try:
 
-                pds = bs.find_all(attrs={re.compile(r''): re.compile(r'time|date|Time|Date|TIME|DATE')})
+                pds = bs.find_all(attrs={'itemprop': re.compile(r'time|date|publish|Time|Date|Publish|TIME|DATE|PUBLISH')})
                 for pd in pds:
                         pd = pd.text.lower()
                         for d in dow:
