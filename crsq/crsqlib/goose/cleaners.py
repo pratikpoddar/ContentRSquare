@@ -31,13 +31,13 @@ class DocumentCleaner(object):
         self.parser = self.config.get_parser()
         self.remove_nodes_re = (
         "^side$|combx|retweet|mediaarticlerelated|menucontainer|navbar"
-        "|comment|PopularQuestions|contact|foot|footer|Footer|footnote"
-        "|cnn_strycaptiontxt|cnn_html_slideshow|cnn_strylftcntnt|links|meta$|scroll|shoutbox|sponsor"
+        "|comment|PopularQuestions|contact|^foot|^footer|^Footer|^footnote"
+        "|cnn_strycaptiontxt|cnn_html_slideshow|cnn_strylftcntnt|links|meta$|shoutbox|sponsor"
         "|tags|socialnetworking|socialNetworking|cnnStryHghLght"
         "|cnn_stryspcvbx|^inset$|pagetools|post-attributes"
         "|welcome_form|contentTools2|the_answers"
         "|communitypromo|runaroundLeft|subscribe|vcard|articleheadings"
-        "|date|^print$|popup|author-dropdown|tools|socialtools|byline"
+        "|date|^print$|popup|author-dropdown|socialtools|byline"
         "|konafilter|KonaFilter|breadcrumbs|^fn$|wp-caption-text"
         "|legende|ajoutVideo|timestamp|js_replies"
         )
