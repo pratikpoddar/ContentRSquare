@@ -1,4 +1,4 @@
-from goose import Goose
+from crsq.crsqlib.goose import Goose
 import urllib2
 from crsq.crsqlib.text_summarize import text_summarize
 import logging

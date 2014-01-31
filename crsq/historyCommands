@@ -206,13 +206,6 @@ sudo python setup.py install
 cd ..
 sudo rm -rf python-amazon-simple-product-api/
 
-git clone https://github.com/grangier/python-goose.git
-cd python-goose
-pip install -r requirements.txt
-python setup.py install
-cd ..
-rm -rf python-goose
-
 wget https://pypi.python.org/packages/source/t/topia.termextract/topia.termextract-1.1.0.tar.gz
 tar -xzvf topia.termextract-1.1.0.tar.gz
 cd topia.termextract-1.1.0
