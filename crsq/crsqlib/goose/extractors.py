@@ -155,6 +155,20 @@ class ContentExtractor(object):
         except:
                 pass
 
+        try:
+
+                pds = bs.find_all(attrs={re.compile(r''): re.compile(r'time|date|Time|Date|TIME|DATE')})
+                for pd in pds:
+                        pd = pd.text.lower()
+                        for d in dow:
+                                pd = pd.replace(d,'')
+                        t = cal.parse(pd)
+                        if t:
+                                if t[1] in [0,1,3]:
+                                        return datetime.date(t[0][0], t[0][1], t[0][2])
+                raise
+        except:
+                pass
 	
 	def is_the_only_string_within_a_tag(s):
 	    """Return True if this string is the only child of its parent tag."""
