@@ -280,7 +280,7 @@ class Calendar:
         log.debug('_buildTime: [%s][%s][%s]' % (quantity, modifier, units))
 
         if source is None:
-            source = None
+            source = time.localtime()
 
         if quantity is None:
             quantity = ''
@@ -349,7 +349,7 @@ class Calendar:
         @return: calculated C{struct_time} value of dateString
         """
         if sourceTime is None:
-            yr, mth, dy, hr, mn, sec, wd, yd, isdst = None
+            yr, mth, dy, hr, mn, sec, wd, yd, isdst = time.localtime()
         else:
             yr, mth, dy, hr, mn, sec, wd, yd, isdst = sourceTime
 
@@ -429,7 +429,7 @@ class Calendar:
         @return: calculated C{struct_time} value of dateString
         """
         if sourceTime is None:
-            yr, mth, dy, hr, mn, sec, wd, yd, isdst = None
+            yr, mth, dy, hr, mn, sec, wd, yd, isdst = time.localtime()
         else:
             yr, mth, dy, hr, mn, sec, wd, yd, isdst = sourceTime
 
@@ -463,6 +463,7 @@ class Calendar:
         if dy > 0 and dy <= self.ptc.daysInMonth(mth, yr):
             sourceTime = (yr, mth, dy, hr, mn, sec, wd, yd, isdst)
         else:
+            # Return current time if date string is invalid
             self.dateFlag = 0
             self.timeFlag = 0
             sourceTime    = None
@@ -630,7 +631,7 @@ class Calendar:
                 return (startDate, endDate, 1)
         else:
             # if range is not found
-            sourceTime = None
+            sourceTime = time.localtime()
 
             return (sourceTime, sourceTime, 0)
 
@@ -753,7 +754,7 @@ class Calendar:
         if sourceTime is not None:
             (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
         else:
-            (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = None
+            (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = time.localtime()
 
         # capture the units after the modifier and the remaining
         # string after the unit
@@ -1085,7 +1086,7 @@ class Calendar:
         # Given string is in the format HH:MM(:SS)(am/pm)
         if self.meridianFlag:
             if sourceTime is None:
-                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = None
+                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = now
             else:
                 (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
 
@@ -1115,7 +1116,7 @@ class Calendar:
 
               # invalid time
             if hr > 24 or mn > 59 or sec > 59:
-                sourceTime    = None
+                sourceTime    = now
                 self.dateFlag = 0
                 self.timeFlag = 0
 
@@ -1124,7 +1125,7 @@ class Calendar:
         # Given string is in the format HH:MM(:SS)
         if self.timeStdFlag:
             if sourceTime is None:
-                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = None
+                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = now
             else:
                 (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
 
@@ -1136,7 +1137,7 @@ class Calendar:
 
             if hr > 24 or mn > 59 or sec > 59:
                 # invalid time
-                sourceTime    = None
+                sourceTime    = now
                 self.dateFlag = 0
                 self.timeFlag = 0
             else:
@@ -1159,7 +1160,7 @@ class Calendar:
         # Given string is a weekday
         if self.weekdyFlag:
             if sourceTime is None:
-                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = None
+                (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = now
             else:
                 (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
 
@@ -1185,14 +1186,14 @@ class Calendar:
         # lunch, midnight, etc
         if self.timeStrFlag:
             if s in self.ptc.re_values['now']:
-                sourceTime = None
+                sourceTime = now
             else:
                 sources = self.ptc.buildSources(sourceTime)
 
                 if s in sources:
                     sourceTime = sources[s]
                 else:
-                    sourceTime    = None
+                    sourceTime    = now
                     self.dateFlag = 0
                     self.timeFlag = 0
 
@@ -1201,7 +1202,7 @@ class Calendar:
         # Given string is a natural language date string like today, tomorrow..
         if self.dayStrFlag:
             if sourceTime is None:
-                sourceTime = None
+                sourceTime = now
 
             (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
 
@@ -1221,7 +1222,7 @@ class Calendar:
             modifier = ''  # TODO
 
             if sourceTime is None:
-                sourceTime = None
+                sourceTime = now
 
             m = self.ptc.CRE_UNITS.search(s)
             if m is not None:
@@ -1236,7 +1237,7 @@ class Calendar:
             modifier = ''  # TODO
 
             if sourceTime is None:
-                sourceTime = None
+                sourceTime = now
 
             m = self.ptc.CRE_QUNITS.search(s)
             if m is not None:
@@ -1248,7 +1249,7 @@ class Calendar:
 
           # Given string does not match anything
         if sourceTime is None:
-            sourceTime    = None
+            sourceTime    = now
             self.dateFlag = 0
             self.timeFlag = 0
 
@@ -1323,7 +1324,7 @@ class Calendar:
             if sourceTime is not None:
                 return (sourceTime, self.dateFlag + self.timeFlag)
             else:
-                return (None, 0)
+                return (time.localtime(), 0)
 
         self.timeFlag = 0
         self.dateFlag = 0
@@ -2405,7 +2406,7 @@ class Constants(object):
         and the generated dictionary is returned.
         """
         if sourceTime is None:
-            (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = None
+            (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = time.localtime()
         else:
             (yr, mth, dy, hr, mn, sec, wd, yd, isdst) = sourceTime
 
