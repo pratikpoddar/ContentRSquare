@@ -183,6 +183,21 @@ class ContentExtractor(object):
                 raise
         except:
                 pass
+
+        try:
+                pds = bs.find_all('abbr')
+                for pd in pds:
+                        pd = pd.text.lower()
+                        for d in dow:
+                                pd = pd.replace(d,'')
+                        t = cal.parse(pd)
+                        if t:
+                                if t[1] in [0,1,3]:
+                                        return datetime.date(t[0][0], t[0][1], t[0][2])
+                raise
+        except:
+                pass
+
 	
 	def is_the_only_string_within_a_tag(s):
 	    """Return True if this string is the only child of its parent tag."""
@@ -201,6 +216,29 @@ class ContentExtractor(object):
 		raise 
 	except:
 		pass
+
+        def is_total_string_with_nothing_else(s):
+	    try:
+		if s.children:
+			return False
+		else:
+			raise
+	    except:
+		return True
+        try:
+                pds = bs.find_all(text=is_total_string_with_nothing_else)
+                for pd in pds:
+                        pd = pd.lower()
+                        for d in dow:
+                                pd = pd.replace(d,'')
+                        t = cal.parse(pd)
+                        if t:
+                                if t[1] in [0,1,3]:
+                                        return datetime.date(t[0][0], t[0][1], t[0][2])
+                raise
+        except:
+                pass
+
 
 	return None
 
