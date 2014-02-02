@@ -60,7 +60,7 @@ def getLongUrl(url):
         	                return resp.url.encode('utf-8')
 		except urllib2.HTTPError as err:
 			if err.code == 403:
-				opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8')]
+				opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'utf-8'), ('Accept-Encoding','gzip,deflate,sdch')]
 				resp = opener.open(url)
 				if resp.getcode() == 200:
 					return resp.url.encode('utf-8')

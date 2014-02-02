@@ -8,6 +8,7 @@ from crsq.crsqlib import urlutils, articleutils
 import hashlib
 from django.db.models import Max
 import logging
+from urlparse import urlparse
 
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
 
@@ -22,6 +23,8 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+
+twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com']
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
@@ -59,22 +62,23 @@ def search_twitter(keyword, numlinks):
                 raise
 
         ## Processing the urls in the statuses and saving them
-        for status in status_list:
+	for status in status_list:
 		try:
-	                urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+			urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
 		except Exception as e:
 			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
-                urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
+		urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
 		urls = filter(lambda x: x.find('@') < 0, urls)
+                urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
 		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
-		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
-	                for url in urls:
+		if TweetLinks.objects.filter(tweetid=status.id).count() == 0):
+			for url in urls:
 				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
-	                        try:
-        	                        twitterlink.save()
-	                        except Exception as e:
-        	                        logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
+				try:
+					twitterlink.save()
+				except Exception as e:
+					logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
                 	                pass
 		try:
 			twitterkeywordlink.save()
@@ -122,6 +126,8 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 			logger.exception('twitter_newspaper - get_list_timeline - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
         	urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
+		urls = filter(lambda x: x.find('@') < 0, urls)
+		urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
                 twitterlistlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 	                for url in urls:
