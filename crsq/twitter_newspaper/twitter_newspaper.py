@@ -24,7 +24,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com']
+twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com', 'wsj.com', 'blog.wsj.com']
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
@@ -130,9 +130,9 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 		urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
                 twitterlistlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
-	                for url in urls:
-        	                twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
-	                        try:
+			for url in urls:
+				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
+				try:
         	                        twitterlink.save()
 	                        except Exception as e:
         	                        logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlink - ' + str(status.id) + ' ' + url + ' - ' + str(e))
