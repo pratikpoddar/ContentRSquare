@@ -72,7 +72,7 @@ def search_twitter(keyword, numlinks):
 		urls = filter(lambda x: x.find('@') < 0, urls)
                 urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
 		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
-		if TweetLinks.objects.filter(tweetid=status.id).count() == 0):
+		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 			for url in urls:
 				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
 				try:
