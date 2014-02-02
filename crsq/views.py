@@ -125,6 +125,31 @@ def timenews(request, timeline_news_name):
         context = RequestContext(request, {'timeline_name': timeline_news_name})
         return HttpResponse(template.render(context))
 
+def timenews_article(request, articleid):
+
+        article = ArticleInfo.objects.filter(id=int(articleid)).values()[0]
+        if not article:
+                raise Http404
+
+        domain = urlparse.urlparse(article['url'])[1]
+        sharers = twitter_newspaper.get_sharers(article['url'])
+        try:
+                articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values()[0]
+        except:
+                articlesemantics = {'summary': None, 'topic': None}
+
+        try:
+                articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
+                articletags = map(lambda x: x['tag'], articletags)
+        except:
+                articletags = []
+
+        template = loader.get_template('crsq/timeline-news/article.html')
+
+        context = RequestContext(request, {
+                'article' : dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': ', '.join(articletags)})
+        })
+        return HttpResponse(template.render(context))
 
 	
 
