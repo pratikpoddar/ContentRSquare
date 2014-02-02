@@ -31,6 +31,7 @@ class DocumentCleaner(object):
         self.parser = self.config.get_parser()
         self.remove_nodes_re = (
         "^side$|combx|retweet|mediaarticlerelated|menucontainer|navbar"
+	"|storytopbar-bucket|utility-bar|inline-share-tools"
         "|comment|PopularQuestions|contact|^foot|^footer|^Footer|^footnote"
         "|cnn_strycaptiontxt|cnn_html_slideshow|cnn_strylftcntnt|links|meta$|shoutbox|sponsor"
         "|tags|socialnetworking|socialNetworking|cnnStryHghLght"
@@ -60,6 +61,7 @@ class DocumentCleaner(object):
     def clean(self, article):
 
         doc_to_clean = article.doc
+        doc_to_clean = self.clean_body_classes(doc_to_clean)
         doc_to_clean = self.clean_article_tags(doc_to_clean)
         doc_to_clean = self.clean_em_tags(doc_to_clean)
         doc_to_clean = self.remove_drop_caps(doc_to_clean)
@@ -75,6 +77,14 @@ class DocumentCleaner(object):
         doc_to_clean = self.div_to_para(doc_to_clean, 'div')
         doc_to_clean = self.div_to_para(doc_to_clean, 'span')
         return doc_to_clean
+
+    def clean_body_classes(self, doc):
+        # we don't need body classes
+        # in case it matches an unwanted class all the document
+        # will be empty
+        elements = self.parser.getElementsByTag(doc, tag="body")
+        self.parser.delAttribute(elements[0], attr="class")
+        return doc
 
     def clean_article_tags(self, doc):
         articles = self.parser.getElementsByTag(doc, tag='article')
