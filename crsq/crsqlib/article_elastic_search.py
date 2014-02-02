@@ -3,6 +3,33 @@ from crsq.models import ArticleInfo
 
 es = Elasticsearch()
 
+def createarticleindex():
+
+	client.indices.create(
+		index="article-index",
+        	body={
+          		'settings': {
+				'analysis': {
+					'analyzer': {
+						'my_ngram_analyzer' : {
+ 					               	'tokenizer' : 'my_ngram_tokenizer'
+ 	  					}
+              				},
+	        			'tokenizer' : {
+						'my_ngram_tokenizer' : {
+					                'type' : 'nGram',
+							'min_gram' : '1',
+							'max_gram' : '50'
+            					}
+        				}
+            			}
+          		}
+        	},
+        	# ignore already existing index
+        	ignore=400
+    	)
+	return
+
 def indexdoc(articledict):
 
 	doc = {
@@ -11,6 +38,7 @@ def indexdoc(articledict):
 		'url': articledict['url']
 	}
 	
+	createarticleindex()
 	res = es.index(index="article-index", doc_type='article', body=doc, id=articledict['url'])
 
 
