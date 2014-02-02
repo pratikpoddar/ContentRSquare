@@ -3,6 +3,7 @@ import urllib2
 from crsq.crsqlib.text_summarize import text_summarize
 import logging
 from crsq.crsqlib import urlutils
+from cookielib import CookieJar
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +82,9 @@ def getArticlePropertiesFromUrl(url):
 		raw_html = ''
 		respurl = ''
 
-                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
+                cj = CookieJar()
+                cj.clear()
+                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
                 url = url.encode('utf-8')
                 try:
                         resp = opener.open(url)

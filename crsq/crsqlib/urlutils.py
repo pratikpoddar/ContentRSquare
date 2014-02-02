@@ -8,6 +8,7 @@ import simplejson
 from functools32 import lru_cache
 import logging
 from urlparse import urlparse
+from cookielib import CookieJar
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +53,9 @@ def getSocialShares(url):
 
 def getLongUrl(url):
         try:
-                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor)
+		cj = CookieJar()
+		cj.clear()
+                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 		url = url.encode('utf-8')
 		try:
 			resp = opener.open(url)
