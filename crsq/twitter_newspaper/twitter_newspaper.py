@@ -64,7 +64,11 @@ def search_twitter(keyword, numlinks):
         ## Processing the urls in the statuses and saving them
 	for status in status_list:
 		try:
-			urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+                        urls = map(lambda x: x['expanded_url'], status.entities['urls'])
+                        urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
+                        urls = filter(lambda x: x.find('@') < 0, urls)
+                        urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
+                        urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x)), urls)
 		except Exception as e:
 			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
@@ -121,7 +125,11 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 	## Processing the urls in the statuses and saving them
 	for status in status_list:
 		try:
-		        urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x['expanded_url'])), status.entities['urls'])
+			urls = map(lambda x: x['expanded_url'], status.entities['urls'])
+			urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
+			urls = filter(lambda x: x.find('@') < 0, urls)
+			urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
+		        urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x)), urls)
 		except Exception as e:
 			logger.exception('twitter_newspaper - get_list_timeline - error getting Long Urls ' + str(status.id) + ' ' + str(e))
 			urls = []
