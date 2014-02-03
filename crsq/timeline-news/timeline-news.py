@@ -24,7 +24,7 @@ def get_article_json(url):
 		#except:
 			#pass
 		json_object['headline'] = article['articletitle']
-		json_object['text'] = articlesemantics['summary'][0:200] + " <a href='/timeline-news/article/"+slugify(article['articletitle'])+"/"+str(article['id'])+"' target='_blank'> .. more ..</a>"
+		json_object['text'] = articlesemantics['summary'][0:360] + " <a href='/timeline-news/article/"+slugify(article['articletitle'])+"/"+str(article['id'])+"' target='_blank'> .. more ..</a>"
 		json_object['asset'] = { "media": article['articleimage'], "credit": urlparse(url)[1], "caption":""}
 
 		return json_object
