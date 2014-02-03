@@ -18,11 +18,11 @@ def get_article_json(url):
 			json_object['startDate'] = str(article['articledate'].year) + "," + str(article['articledate'].month) + "," + str(article['articledate'].day)
 		except:
 			json_object['startDate'] = "2010,1,1"
-		try:
-			enddate = article['articledate']+ timedelta(days=1)
-			json_object['endDate'] = str(enddate.year) + "," + str(enddate.month) + "," + str(enddate.day)
-		except:
-			pass
+		#try:
+			#enddate = article['articledate']+ timedelta(days=1)
+			#json_object['endDate'] = str(enddate.year) + "," + str(enddate.month) + "," + str(enddate.day)
+		#except:
+			#pass
 		json_object['headline'] = article['articletitle']
 		json_object['text'] = articlesemantics['summary'][0:200] + " <a href='/timeline-news/article/"+slugify(article['articletitle'])+"/"+str(article['id'])+"' target='_blank'> .. more ..</a>"
 		json_object['asset'] = { "media": article['articleimage'], "credit": urlparse(url)[1], "caption":""}
