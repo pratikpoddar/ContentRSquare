@@ -40,7 +40,6 @@ Wiki Category Representation of articles
 Search engine for articles
 
 ----Pending:
-Search Engine for Articles
 Category Tree
 
 ----Errors:
@@ -52,8 +51,6 @@ Getting Long Url and Article is stupidity really
 
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
-
-Twitter Newspaper - Article Title - Possible error
 
 Twitter Links, Article Info and ArticleSemantics - Duplicate Error
 Check Correctness:
@@ -67,25 +64,11 @@ Make sure all input text ecoding and all urls everywhere are canonicalized
 Error to get Article Content:
 http://www.fastcompany.com/3025459/leadership-now/why-i-turned-down-apple-for-a-startup
 http://ibnlive.in.com/news/ibnlive-movie-awards-nominees-for-best-independent-film/447902-8-66.html
-http://www.ngahr.com/blog/industry’s-hr-trends-2014-part-3-ever-evolving-global-workforce
-http://www.ncbi.nlm.nih.gov/pubmed/23401563
 http://www.vccircle.com/news/banking/2014/01/29/sughosh-moharikar-quits-deutsche-bank’s-india-ma-advisory-head-join-mape
 http://www.quora.com/Norway/Why-do-some-people-consider-Norway-boring/answer/Eivind-Kjørstad
 http://timesofindia.indiatimes.com/business/india-business/Indias-popular-small-cars-fail-crash-tests-Report/articleshow/29651713.cms
 http://news.sky.com/story/1204154/game-of-thrones-season-4-photos-released
 http://www.huffingtonpost.com/dan-solin/investing-secrets-of-wealthy_b_3401901.html
-http://on.wsj.com
-http://ibnlive.in.com/news/indianamericans-extend-support-to-kejriwals-aam-aadmi-party/392801-37.html
-http://ibnlive.in.com/news/aam-aadmi-party-gets-broom-as-election-symbol/410942-37.html
-http://ibnlive.in.com/news/delhi-aap-promises-700-litres-of-free-water-cheap-power-jan-lokpal/435206-80-258.html
-
-Error to get Date:
 http://www.theguardian.com/money/2013/nov/28/christmas-delivery-dates-2013-mail-post
 http://articles.economictimes.indiatimes.com/2014-01-14/news/46185342_1_fdi-arvind-kejriwal-delhi-polls
-
-Work on
--- 
-twitter newspaper
-timeline
-
 
