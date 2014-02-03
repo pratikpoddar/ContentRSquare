@@ -85,7 +85,7 @@ def getArticlePropertiesFromUrl(url):
                 cj = CookieJar()
                 cj.clear()
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-                url = url.encode('utf-8')
+                url = urlutils.getCanonicalUrl(url.encode('utf-8'))
                 try:
                         resp = opener.open(url)
                         if resp.getcode() == 200:

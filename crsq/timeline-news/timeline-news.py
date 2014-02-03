@@ -57,6 +57,7 @@ def create_timeline_json(headline, text, urllist):
 	return
 
 def put_article_details(url):
+	url = urlutils.getCanonicalUrl(url)
         if ArticleInfo.objects.filter(url=url).count()==0:
                 try:
                         articledict = articleutils.getArticlePropertiesFromUrl(url)
@@ -69,6 +70,7 @@ def put_article_details(url):
         return
 
 def put_article_semantics_tags(url):
+	url = urlutils.getCanonicalUrl(url)
         if ArticleInfo.objects.filter(url=url).count()==0:
                 #logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
                 return
