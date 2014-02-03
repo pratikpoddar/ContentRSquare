@@ -39,7 +39,7 @@ def search_twitter(keyword, numlinks):
         try:
                 theSinceId = TwitterKeywordLinks.objects.filter(keyword=keyword).aggregate(Max('tweetid'))['tweetid__max']
         except Exception as e:
-                logger.exception('twitter_newspaper - search_twitter - getSinceId for ' + keyword + ' - ' + str(e))
+                logger.exception('twitter_newspaper - search_twitter - getSinceId for ' + removeNonAscii(keyword) + ' - ' + str(e))
                 theSinceId = None
 
         ## Get all the statuses
@@ -58,7 +58,7 @@ def search_twitter(keyword, numlinks):
         	                break
 
         except Exception as e:
-                logger.exception('twitter_newspaper - search_twitter - error getting twitter statuses - ' + keyword + ' - ' + str(e))
+                logger.exception('twitter_newspaper - search_twitter - error getting twitter statuses - ' + removeNonAscii(keyword) + ' - ' + str(e))
                 raise
 
         ## Processing the urls in the statuses and saving them
@@ -82,12 +82,12 @@ def search_twitter(keyword, numlinks):
 				try:
 					twitterlink.save()
 				except Exception as e:
-					logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + keyword + ' ' + url + ' - ' + str(e))
+					logger.exception('twitter_newspaper - search_twitter - error saving twitterlink - ' + removeNonAscii(keyword) + ' ' + url + ' - ' + str(e))
                 	                pass
 		try:
 			twitterkeywordlink.save()
 		except Exception as e:
-			logger.exception('twitter_newspaper - search_twitter - error saving twitterkeywordlink - ' + keyword + ' - ' + str(e))
+			logger.exception('twitter_newspaper - search_twitter - error saving twitterkeywordlink - ' + removeNonAscii(keyword) + ' - ' + str(e))
 
 
         return
@@ -163,7 +163,7 @@ def put_article_details(url):
 			if len(articledict['cleaned_text'].strip())>1:
 				articleinfo.save()
 		except Exception as e:
-			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + url + ' - ' + str(e))
+			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
 	return
 
 def put_article_semantics_tags(url):
@@ -184,7 +184,7 @@ def put_article_semantics_tags(url):
 					if ArticleTags.objects.filter(url=url, tag=tag).count()==0:
 						tag_row.save()
 		except Exception as e:
-			logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article semantics / tags - ' + url + ' - ' + str(e))
+			logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article semantics / tags - ' + removeNonAscii(url) + ' - ' + str(e))
 
 	return
 

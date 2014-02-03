@@ -107,7 +107,7 @@ def getArticlePropertiesFromUrl(url):
 			raise
 
 	except Exception as e:
-		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + url + ' - ' + str(e))
+		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
 		raise
 	try:
 		articledict = getArticleProperties(raw_html)
