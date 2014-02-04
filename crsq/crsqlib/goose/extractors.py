@@ -140,6 +140,34 @@ class ContentExtractor(object):
                 pass
 
         try:
+                pd = bs.find('meta', attrs={'property': re.compile(r'published_time', re.IGNORECASE)})['content'].lower()
+                for d in dow:
+                        pd = pd.replace(d,'')
+                t = cal.parse(pd)
+
+                if t:
+                        if t[1] in [0,1,3]:
+                                return datetime.date(t[0][0], t[0][1], t[0][2])
+                else:
+                        raise
+        except:
+                pass
+
+        try:
+                pd = bs.find('meta', attrs={'property': re.compile(r'modified_time', re.IGNORECASE)})['content'].lower()
+                for d in dow:
+                        pd = pd.replace(d,'')
+                t = cal.parse(pd)
+                
+                if t:   
+                        if t[1] in [0,1,3]:
+                                return datetime.date(t[0][0], t[0][1], t[0][2])
+                else:
+                        raise
+        except:
+                pass
+
+        try:
 
                 pds = bs.find_all(attrs={'class': re.compile(r'time|date|Time|Date|TIME|DATE')})
                 for pd in pds:
