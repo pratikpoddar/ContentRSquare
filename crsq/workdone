@@ -1,29 +1,32 @@
 ----Similar Companies:
-Frrole
-newzsocial
-Vozeal
-Skimlinks
-Pugmarks
-Outbrain widget
-Roojoom
-Scoop.it
+    a) news.frrole.com
+    b) newzsocial
+    c) skimlinks, infolinks
+    d) pugmarks.me
+    e) roojoom, scoop.it
+    f) timehop
+    g) pulse, flipboard
+    h) www.tapinfluence.com
+    i) contently.com, written.com
+    j) storify.com
+    k) vozeal.com
 
 ----Done:
+
 Given a topic like "Technology" or a keyword like "Sachin Tendulkar", get what's the shared articles on twitter
 Given a link, get its canonical link
 Given a link, get its social power
-Given a article link, get its long form content, title, image, etc
 
-Add a line of code and the videos in the page would have recommendations changed
-
-Add a line of code in the blog, and I can identify interesting words and link them to amazon products
-
+Given a article link, get its long form content, title, image, date etc
 Given an article link, identify the key words in the article and the categories in which the article lie
 Given an article link, identify categories and positioning on the wikipedia graph and the wikipedia category graph
-
+Given an article link, summarize the article
 Given two articles, identify closeness by a metric on category graph
 
 Full Text Search engine for blogs
+
+Add a line of code and the videos in the page would have recommendations changed
+Add a line of code in the blog, and I can identify interesting words and link them to amazon products
 
 ----To Do Video Advertising:
 New Video id as a parameter
@@ -71,4 +74,7 @@ http://news.sky.com/story/1204154/game-of-thrones-season-4-photos-released
 http://www.huffingtonpost.com/dan-solin/investing-secrets-of-wealthy_b_3401901.html
 http://www.theguardian.com/money/2013/nov/28/christmas-delivery-dates-2013-mail-post
 http://articles.economictimes.indiatimes.com/2014-01-14/news/46185342_1_fdi-arvind-kejriwal-delhi-polls
-
+http://timesofindia.indiatimes.com/business/india-business/Indias-popular-small-cars-fail-crash-tests-Report/articleshow/29651713.cms
+http://youngturks.in.com/showstory.php?category=startup&amp;id=1469
+http://smarturl.it/CRTFYvid?IQid=tw
+http://www.indiainfoline.com/Markets/News/Power2SME-and-TiE-announce-Spirit-of-Manufacturing-Awards/5857348651
