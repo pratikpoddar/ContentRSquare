@@ -14,14 +14,14 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 	  <a href="{{ article.url }}" class="list-group-item" target="iframe_listbook">
             <h4 class="list-group-item-heading">{{ article.articletitle }}</h4>
 	    <p class="list-group-item-text">{{ article.domain }}</p>
-	    <p class="list-group-item-text">{{ article.articlecontent }}</p>
+	    <p class="list-group-item-text">{{ article.articlecontent | truncatechars: 60}}</p>
 	  </a>
 	  {% endfor %}
      </div>
      </div>
 
-     <div class="col-sm-8 col-lg-8 col-md-8" height="4096px">
-	<iframe src="demo_iframe.htm" width="100%" height="100%" name="iframe_listbook"></iframe>
+     <div class="col-sm-8 col-lg-8 col-md-8" style="height:4096px">
+	<iframe src="demo_iframe.htm" style="width:100%;height=100%;" name="iframe_listbook"></iframe>
      </div>
      
      </div>
