@@ -226,6 +226,22 @@ class ContentExtractor(object):
         except:
                 pass
 
+
+        try:
+                pds = bs.find_all('time')
+                for pd in pds:
+                        pd = pd['datetime'].lower()
+                        for d in dow:
+                                pd = pd.replace(d,'')
+                        t = cal.parse(pd)
+                        if t:
+                                if t[1] in [0,1,3]:
+                                        return datetime.date(t[0][0], t[0][1], t[0][2])
+                raise
+        except:
+                pass
+
+
         try:
                 pds = bs.find_all('abbr')
                 for pd in pds:
