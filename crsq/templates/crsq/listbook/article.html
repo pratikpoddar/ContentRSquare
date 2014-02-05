@@ -1,0 +1,50 @@
+{% extends "crsq/twitter-newspaper/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+{{ article.articletitle }} - Twitter Newspaper
+{% endblock %}
+
+{% block bodycontent %}
+
+        <div class="row">
+        <div class="col-sm-3 col-lg-3 col-md-3">
+        </div>
+
+        <div class="col-sm-6 col-lg-6 col-md-6">
+
+              <div class="thumbnail" style="height:auto">
+                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
+                <div class="caption" style="height:auto">
+                  <h4 class="pull-right"></h4>
+                  <h4><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
+                  <p><i>Summary:</i> {% if article.articlesummary %}{{ article.articlesummary }} {% else %} Summary Not Available {% endif %}</p>
+		  <p><i>Full Article: </i>  {{ article.articlecontent }}</p>
+                </div>
+                <div class="thumbnailfooter">
+		  <p class="articledate">{% if article.articledate %} {{ article.articledate | date:"D d M Y" }} {% endif %}</p>
+                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
+                  <p class="domain">{{ article.domain }}</p>
+                  <p class="sharers">{% if article.sharers %} Shared by {% for sharer in article.sharers %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ sharer.author }}/status/{{ sharer.tweetid }}">@{{ sharer.author }} </a>{% endfor %}{% endif %}</p>
+		  <p class="tags">{% if article.tags %} Tagged as {{ article.tags }} {% endif %}</p>
+		  <p class="topic">{% if article.topic %} {{ article.topic | title }} {% endif %}</p>
+                </div>
+              </div>
+
+        </div>
+
+        <div class="col-sm-3 col-lg-3 col-md-3">
+        </div>
+
+        </div>
+
+{% endblock %}
+{% block jscontent %}
+    <script>
+	$(window).load(function() { 
+            $('.articleimage').imageloader();
+          });
+    </script>
+
+{% endblock %}
+

@@ -69,7 +69,26 @@ def tw_np(request, sector, location, page=1):
 		'page': int(page),
 		'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+5)
         })
-	return HttpResponse(template.render(context))	
+	return HttpResponse(template.render(context))
+
+def list_book(request, sector="technology", location="world", page=1):
+        articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
+
+        template = loader.get_template('crsq/listbook/index.html')
+
+        context = RequestContext(request, {
+                'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'sharers': twitter_newspaper.get_sharers(x['url'])} ), articles),
+                'sector': sector,
+                'sectorname': filter(lambda x: slugify(x)==sector, tw_np_sector_list)[0],
+                'location': location,
+                'locationname': filter(lambda x: slugify(x)==location, tw_np_location_list)[0],
+                'sector_list': tw_np_sector_list,
+                'location_list': tw_np_location_list,
+                'page': int(page),
+                'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+5)
+        })
+        return HttpResponse(template.render(context))
+	
 
 def tw_np_article(request, articleid):
 	

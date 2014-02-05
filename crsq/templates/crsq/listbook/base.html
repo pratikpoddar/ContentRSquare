@@ -1,0 +1,58 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Twitter Newspaper{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "crsq/css/twitter-newspaper/bootstrap.simplex.min.css" %}" rel="stylesheet">
+    <!-- Add custom CSS here -->
+    <link href="{% static "crsq/css/twitter-newspaper/twitter-newspaper.css" %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#home">Twitter Newspaper</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#"></a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+
+    <div class="container">
+	{% block bodycontent %}
+	{% endblock %}
+    </div><!-- /.container -->    
+
+    <div class="container">
+      <hr>
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Pratik Poddar</p>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /.container -->
+
+    <!-- JavaScript -->
+    <script src="{% static "crsq/js/twitter-newspaper/jquery-1.10.2.js" %}"></script>
+    <script src="{% static "crsq/js/twitter-newspaper/bootstrap.js" %}"></script>
+    <script src="{% static "crsq/js/twitter-newspaper/jquery.imageloader.js" %}"></script>
+	{% block jscontent %}
+	{% endblock %}
+  </body>
+
+</html>
