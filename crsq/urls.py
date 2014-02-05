@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 	url(r'^penpatron/?$', views.penp, name='penp'),
 	url(r'^penpatron-message/?$', views.penpmessage, name='penpmessage'),
 
-        url(r'^linkbook/?$', views.linkbook, name='linkbook'),
+        url(r'^linkbook/?$', views.linkbook_view, name='linkbook'),
 )
 
 

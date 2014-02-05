@@ -72,7 +72,10 @@ def tw_np(request, sector, location, page=1):
         })
 	return HttpResponse(template.render(context))
 
-def linkbook(request):
+def linkbook_view(request):
+
+	sharer="Zlemma Inc"
+	topic = "Tech Fuck"
 
         articles = linkbook.get_linkbook_articles(sharer, topic)
 

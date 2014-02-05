@@ -88,13 +88,13 @@ def getArticlePreloads(html):
 	preload['js'] = []
 	preload['css'] = []
 	preload['img'] = []
-        jss = bs.find_all(name = 'script', attrs = { 'src': re.compile('\.+') })
+        jss = bs.find_all(name = 'script', attrs = { 'src': re.compile('^http:|^https:') })
 	for js in jss:
 		preload['js'].append(js['src'])
-        csss = bs.find_all(name = 'link', attrs = { 'type': 'text/css', 'href': re.compile('\.+') })
+        csss = bs.find_all(name = 'link', attrs = { 'type': 'text/css', 'href': re.compile('^http:|^https:') })
 	for css in csss:
 		preload['css'].append(css['href'])
-        imgs = bs.find_all(name = 'img', attrs = { 'src': re.compile('\.+')})
+        imgs = bs.find_all(name = 'img', attrs = { 'src': re.compile('^http:|^https:')})
 	for img in imgs:
 		preload['img'].append(img['src'])
 	

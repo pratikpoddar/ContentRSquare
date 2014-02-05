@@ -7,7 +7,7 @@ from crsq.crsqlib import urlutils, articleutils
 import hashlib
 from django.db.models import Max
 import logging
-from urlparse import urlparse
+import urlparse
 from bs4 import BeautifulSoup
 
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
