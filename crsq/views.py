@@ -71,10 +71,10 @@ def tw_np(request, sector, location, page=1):
         })
 	return HttpResponse(template.render(context))
 
-def list_book(request, sector="technology", location="world", page=1):
+def linkbook(request, sector="technology", location="world", page=1):
         articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
 
-        template = loader.get_template('crsq/listbook/index.html')
+        template = loader.get_template('crsq/linkbook/index.html')
 
         context = RequestContext(request, {
                 'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'sharers': twitter_newspaper.get_sharers(x['url'])} ), articles),
