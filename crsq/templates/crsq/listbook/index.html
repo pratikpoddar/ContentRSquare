@@ -7,62 +7,28 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 
 {% block bodycontent %}
 
-      <div class="list-group">
-	  <a href="#" class="list-group-item active">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-	    <p class="list-group-item-text">...</p>
+     <div class="row">
+     <div class="col-sm-4 col-lg-4 col-md-4">
+     <div class="list-group">
+  	  {% for article in article_list %}
+	  <a href="{{ article.url }}" class="list-group-item active" target="iframe_listbook">
+            <h4 class="list-group-item-heading">{{ article.articletitle }}</h4>
+	    <p class="list-group-item-text">{{ article.domain }}</p>
+	    <p class="list-group-item-text">{{ article.articlecontent }}</p>
 	  </a>
+	  {% endfor %}
+     </div>
      </div>
 
-      <div class="row">
-        <div class="col-sm-4 col-lg-4 col-md-4">
-          <p class="lead">Popular Articles shared by <i>{{ sectorname }}</i> folks in <i>{{ locationname }}</i></p>
-          <div class="list-group">
-	    {% for s in sector_list %}
-            <a href="/twitter-newspaper/{{ s | slugify }}/{{ location }}" class="{% if sectorname == s %}active{% endif %} list-group-item">{{ s }}</a>
-	    {% endfor %}
-          </div>
-          <div class="list-group">
-	    {% for l in location_list %}
-	    <a href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}" class="{% if locationname == l %}active{% endif %} list-group-item">{{ l }}</a>
-	    {% endfor %}
-          </div>
-        </div>
-
-	    {% for article in article_list %}
-            <div class="col-sm-4 col-lg-4 col-md-4">
-              <div class="thumbnail">
-                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
-                <div class="caption">
-                  <h4 class="pull-right"></h4>
-                  <h4><a rel="nofollow" target="_blank" href="/twitter-newspaper/article/{{article.articletitle | slugify }}/{{ article.id }}">{{ article.articletitle }}</a></h4>
-                  <p>{{ article.articlecontent }}</p>
-                </div>
-                <div class="thumbnailfooter">
-                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
-		  <p class="domain">{{ article.domain }}</p>
-		  <p class="sharers">{% if article.sharers %} Shared by {% for sharer in article.sharers %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ sharer.author }}/status/{{ sharer.tweetid }}">@{{ sharer.author }} </a>{% endfor %}{% endif %}</p>
-                </div>
-              </div>
-            </div>
-	    {% endfor %}
-	</div>
-	<div class="row" style="text-align:center">
-	    <ul class="pagination pagination-sm">
-		{% for pagei in pagerange %}
-                <li class="{% if pagei == page %}active{% endif %}"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ pagei }}">{{ pagei }}</a></li>
-		{% endfor %}
-            </ul>
-      </div>
+     <div class="col-sm-8 col-lg-8 col-md-8">
+	<iframe src="demo_iframe.htm" width="100%" name="iframe_listbook"></iframe>
+     </div>
+     
+     </div>
 
 {% endblock %}
 
 {% block jscontent %}
-    <script>
-	$(window).load(function() { 
-            $('.articleimage').imageloader();
-          });
-    </script>
 
 {% endblock %}
 
