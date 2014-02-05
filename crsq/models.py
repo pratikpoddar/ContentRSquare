@@ -45,6 +45,7 @@ class ArticleInfo(models.Model):
     articletitle = models.CharField(max_length=1000L)
     articleimage = models.TextField(max_length=1000L, null=True, default=None)
     articlecontent = models.TextField()
+    articlehtml = models.TextField()
     articledate = models.DateField(null=True)
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)

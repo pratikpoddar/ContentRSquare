@@ -159,7 +159,7 @@ def put_article_details(url):
 		try:
 			articledict = articleutils.getArticlePropertiesFromUrl(url)
 			socialpower = urlutils.getSocialShares(url)
-			articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], articledate = articledict['publish_date'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
+			articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], articledate = articledict['publish_date'], articlehtml = articledict['raw_html'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
 			if len(articledict['cleaned_text'].strip())>1:
 				articleinfo.save()
 		except Exception as e:

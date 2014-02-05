@@ -36,5 +36,11 @@
 
 {% block jscontent %}
 
+{% for article in article_list %}
+	{% for pl in article.preloads %}
+		<link rel="prefetch" href="{{ pl }}">
+	{% endfor %}
+{% endfor %}
+
 {% endblock %}
 

@@ -22,6 +22,7 @@ import urlparse
 import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
+from crsq.linkbook import linkbook
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags
 
 
@@ -73,12 +74,12 @@ def tw_np(request, sector, location, page=1):
 
 def linkbook(request):
 
-        articles = twitter_newspaper.get_articles("technology", "world")[:10]
+        articles = linkbook.get_linkbook_articles(sharer, topic)
 
         template = loader.get_template('crsq/linkbook/index.html')
 
         context = RequestContext(request, {
-                'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'sharers': twitter_newspaper.get_sharers(x['url'])} ), articles),
+                'article_list': articles,
 		'sharername': "Zlemma Inc",
 		'sharerlink': "http://www.zlemma.com",
 		'sharertopic': "Technology Articles",

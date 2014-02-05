@@ -4,6 +4,8 @@ from crsq.crsqlib.text_summarize import text_summarize
 import logging
 from crsq.crsqlib import urlutils
 from cookielib import CookieJar
+from bs4 import BeautifulSoup
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -71,9 +73,32 @@ def getArticleProperties(html):
 	except:
 		articledict['image'] = None
 
+	try:
+		articledict['raw_html'] = article.raw_html
+	except:
+		articledict['raw_html'] = None
+
 	articledict['url'] = None
 
 	return articledict
+
+def getArticlePreloads(html):
+        bs = BeautifulSoup(html)
+	preload = {}
+	preload['js'] = []
+	preload['css'] = []
+	preload['img'] = []
+        jss = bs.find_all(name = 'script', attrs = { 'src': re.compile('\.+') })
+	for js in jss:
+		preload['js'].append(js['src'])
+        csss = bs.find_all(name = 'link', attrs = { 'type': 'text/css', 'href': re.compile('\.+') })
+	for css in csss:
+		preload['css'].append(css['href'])
+        imgs = bs.find_all(name = 'img', attrs = { 'src': re.compile('\.+')})
+	for img in imgs:
+		preload['img'].append(img['src'])
+	
+	return preload
 
 def getArticlePropertiesFromUrl(url):
 
