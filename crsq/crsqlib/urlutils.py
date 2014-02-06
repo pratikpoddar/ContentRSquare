@@ -88,8 +88,16 @@ def isShortUrlPossibly(url):
 		if "tinyurl" in domain.split("."):
 			return True
 
+		topdomain = '.'.join(urlparse(url)[1].split(".")[-2:])
+		if len(topdomain)<=7:
+			return True
+
 		tld=urlparse(url)[1].split(".")[-1]
 		if tld in ["es", "co", "ly", "me"]:
+			return True
+	
+		subdomain=urlparse(url)[1].split(".")[0]
+		if subdomain in ["on"]:
 			return True
 		
 		return False
