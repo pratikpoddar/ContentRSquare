@@ -74,20 +74,22 @@ def tw_np(request, sector, location, page=1):
 
 def linkbook_view(request):
 
-	sharer="Zlemma Inc"
-	topic = "Tech Fuck"
+	sharer= {'name': "Zlemma Inc", 'link': "http://www.zlemma.com", 'image': "http://www.zlemma.com/static/common/img/logo.png"}
+	topic = "Recruting Industry is Changing"
+	quote = "Recruiting industry is evolving rapidly. We are moving towards technical recruitment. Recruiting market is being disrupted using algorithms and big data."
+	links = ["http://blogs.hbr.org/2012/10/digital-staffing-the-future-of/", "http://www.forbes.com/sites/georgeanders/2013/04/10/who-should-you-hire-linkedin-says-try-our-algorithm/", "http://www.nytimes.com/2013/04/28/technology/how-big-data-is-playing-recruiter-for-specialized-workers.html", "http://knowledge.wharton.upenn.edu/article/mind-your-social-presence-big-data-recruiting-has-arrived/", "http://www.nytimes.com/2007/01/03/technology/03google.html", "http://www.hackdiary.com/2010/02/10/algorithmic-recruitment-with-github/", "http://proofcommunication.com/proof-to-help-zlemma-the-latest-in-stem-talent-identification/1251"]
 
-        articles = linkbook.get_linkbook_articles(sharer, topic)
+        articles = linkbook.get_linkbook_articles(links)
 
         template = loader.get_template('crsq/linkbook/index.html')
 
         context = RequestContext(request, {
                 'article_list': articles,
-		'sharername': "Zlemma Inc",
-		'sharerlink': "http://www.zlemma.com",
-		'sharertopic': "Technology Articles",
-		'sharerquote': "Technology is changing and you know it. Lets change with it. F. G. H. I.",
-		'sharerimage': "http://www.zlemma.com/static/common/img/logo.png"
+		'sharername': sharer['name'],
+		'sharerlink': sharer['link'],
+		'sharertopic': topic,
+		'sharerquote': quote,
+		'sharerimage': sharer['image']
         })
         return HttpResponse(template.render(context))
 	

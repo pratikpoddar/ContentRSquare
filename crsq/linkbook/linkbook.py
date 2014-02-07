@@ -14,13 +14,10 @@ from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, Artic
 
 logger = logging.getLogger(__name__)
 
-def get_articles(sector, location):
-	articles = ArticleInfo.objects.exclude(articlehtml=None).exclude(articlehtml='').order_by('-time').values()
-	return filter(lambda x: len(x['articlecontent'])>300, articles)
+def get_linkbook_articles(links):
 
-def get_linkbook_articles(sharer, topic):
-
-        articles = get_articles("technology", "world")[:10]
+	articles = ArticleInfo.objects.filter(url__in=links).exclude(articlehtml=None).exclude(articlehtml='').values()
+	articles = filter(lambda x: len(x['articlecontent'])>300, articles)
 	articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1]}), articles)
 	articles = map(lambda x: dict( x, **{'preloads': sum(articleutils.getArticlePreloads(x['articlehtml']).values(),[]) }), articles)
 	return articles
