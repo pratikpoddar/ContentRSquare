@@ -13,3 +13,13 @@ body {
 footer {
   margin: 50px 0;
 }
+
+.linkbook_frame {
+	height: 1086px;
+	overflow: scroll;
+}
+
+.linkbook_list {
+	height: 800px;
+	overflow: scroll;
+}
