@@ -24,7 +24,7 @@
      <div class="list-group linkbook_list">
 	  <a href="#" class="list-group-item active" style="display:none"></a>
   	  {% for article in article_list %}
-	  <a href="#" onclick="openlinkinframe('{{ article.url }}');$('.list-group-item').removeClass('active');$(this).toggleClass('active');" class="list-group-item">
+	  <a href="#" onclick="openlinkinframe('{{ article.url }}');$('.list-group-item').removeClass('active');$(this).toggleClass('active');" class="list-group-item" dataurl="{{ article.url }}">
             <h4 class="list-group-item-heading">{{ article.articletitle }}</h4>
 	    <p class="list-group-item-text">{{ article.domain }}</p>
 	    <p class="list-group-item-text">{{ article.articlecontent|truncatechars:90}}</p>
@@ -52,13 +52,16 @@
 		    }
 		    if ((e.keyCode || e.which) == 39)
 		    {
-			$('.linkbook_list .list-group-item.active').next().click()
-		    }   
+			if $('.linkbook_list .list-group-item.active').next().length > 0:
+				$('.linkbook_list .list-group-item.active').next().click()
+				$(window).prefetch($('.linkbook_list .list-group-item.active').next()[0].dataurl)
+			if if $('.linkbook_list .list-group-item.active').next().next().length > 0:
+				$(window).prefetch($('.linkbook_list .list-group-item.active').next().next()[0].dataurl)
+		    }
 		});
 	})
 
 {% for article in article_list %}
-	$(window).prefetch('{{ article.url }}');
 	{% for pl in article.preloads %}
 		$(window).prefetch('{{ pl }}');
 	{% endfor %}
