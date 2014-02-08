@@ -3,6 +3,12 @@
 
 {% block bodycontent %}
 
+      <script type="text/javascript">
+        function openlinkinframe(link) {
+              document.getElementById('iframe_listbook').src = link;
+        }
+     </script>
+
      <div class="row">
      <div class="col-sm-3 col-lg-3 col-md-3">
 
@@ -15,9 +21,10 @@
               </div>
      </div>
 
-     <div class="list-group">
+     <div class="list-group linkbook_list">
+	  <a href="#" class="list-group-item active" style="display:none"></a>
   	  {% for article in article_list %}
-	  <a href="{{ article.url }}" class="list-group-item" target="iframe_listbook">
+	  <a href="#" onclick="openlinkinframe('{{ article.url }}');$('.list-group-item').removeClass('active');$(this).toggleClass('active');" class="list-group-item">
             <h4 class="list-group-item-heading">{{ article.articletitle }}</h4>
 	    <p class="list-group-item-text">{{ article.domain }}</p>
 	    <p class="list-group-item-text">{{ article.articlecontent|truncatechars:90}}</p>
@@ -26,8 +33,8 @@
      </div>
      </div>
 
-     <div class="col-sm-9 col-lg-9 col-md-9" style="height:4096px">
-	<iframe src="{{ sharerlink }}" style="width:100%;height:100%;" name="iframe_listbook"></iframe>
+     <div class="col-sm-9 col-lg-9 col-md-9" style="height:2048px">
+	<iframe src="{{ sharerlink }}" style="width:100%;height:100%;" name="iframe_listbook" id="iframe_listbook"></iframe>
      </div>
      
      </div>
@@ -35,6 +42,22 @@
 {% endblock %}
 
 {% block jscontent %}
+
+<script type="text/javascript">
+	$(window).load(function() {
+		$("body").keydown(function(e){
+		    if ((e.keyCode || e.which) == 37)
+		    {  
+			$('.linkbook_list .list-group-item.active').prev().click() 
+		    }
+		    if ((e.keyCode || e.which) == 39)
+		    {
+			$('.linkbook_list .list-group-item.active').next().click()
+		    }   
+		});
+	})
+
+</script>
 
 {% for article in article_list %}
 	<link rel="prefetch" href="{{ article.url }}">
