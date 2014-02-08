@@ -90,15 +90,15 @@ def getArticlePreloads(html):
 	preload['img'] = []
         jss = bs.find_all(name = 'script', attrs = { 'src': re.compile('^http:|^https:') })
 	for js in jss:
-		if js['src'].find('ad.doubleclick') == -1:
+		if js['src'].find('doubleclick') == -1:
 			preload['js'].append(js['src'])
         csss = bs.find_all(name = 'link', attrs = { 'type': 'text/css', 'href': re.compile('^http:|^https:') })
 	for css in csss:
-		if css['href'].find('ad.doubleclick') == -1:
+		if css['href'].find('doubleclick') == -1:
 			preload['css'].append(css['href'])
         imgs = bs.find_all(name = 'img', attrs = { 'src': re.compile('^http:|^https:')})
 	for img in imgs:
-		if img['src'].find('ad.doubleclick') == -1:
+		if img['src'].find('doubleclick') == -1:
 			preload['img'].append(img['src'])
 	
 	return preload
