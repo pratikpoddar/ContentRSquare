@@ -52,11 +52,13 @@
 		    }
 		    if ((e.keyCode || e.which) == 39)
 		    {
-			if $('.linkbook_list .list-group-item.active').next().length > 0:
-				$('.linkbook_list .list-group-item.active').next().click()
-				$(window).prefetch($('.linkbook_list .list-group-item.active').next()[0].dataurl)
-			if if $('.linkbook_list .list-group-item.active').next().next().length > 0:
-				$(window).prefetch($('.linkbook_list .list-group-item.active').next().next()[0].dataurl)
+			if ($('.linkbook_list .list-group-item.active').next().length > 0) {
+				$('.linkbook_list .list-group-item.active').next().click();
+				$(window).prefetch($('.linkbook_list .list-group-item.active').next()[0].dataurl);
+			}
+			if ($('.linkbook_list .list-group-item.active').next().next().length > 0) {
+				$(window).prefetch($('.linkbook_list .list-group-item.active').next().next()[0].dataurl);
+			}
 		    }
 		});
 	})
