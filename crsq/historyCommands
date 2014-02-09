@@ -249,3 +249,8 @@ pip install pyteaser
 sudo apt-get install libopenblas-dev
 pip install -U scikit-learn
 
+git clone https://code.google.com/p/feedparser/
+cd feedparser
+python setup.py install
+
+
