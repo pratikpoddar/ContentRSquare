@@ -22,8 +22,18 @@ def put_article_details(entry):
 	        if ArticleInfo.objects.filter(url=url).count()==0:
         	        try:
                 	        socialpower = urlutils.getSocialShares(url)
-				d = entry['published_parsed']
-        	                articleinfo = ArticleInfo(url=url, articletitle = entry['title'], articleimage = entry['media_thumbnail'][0]['url'], articlecontent = BeautifulSoup(removeNonAscii(entry['content'][0]['value'])).text, articledate = datetime.date(d[0], d[1], d[2]), articlehtml = removeNonAscii(entry['content'][0]['value']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
+				try:
+					d = entry['published_parsed']
+					articledate = datetime.date(d[0], d[1], d[2])
+				except:
+					articledate = None
+
+				try:
+					articleimage = entry['media_thumbnail'][0]['url']
+				except:
+					articleimage = None
+
+        	                articleinfo = ArticleInfo(url=url, articletitle = entry['title'], articleimage = articleimage, articlecontent = BeautifulSoup(removeNonAscii(entry['content'][0]['value'])).text, articledate = articledate, articlehtml = removeNonAscii(entry['content'][0]['value']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
 				articleinfo.save()
 	                except Exception as e:
         	                logger.exception('feedanalyzer - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
