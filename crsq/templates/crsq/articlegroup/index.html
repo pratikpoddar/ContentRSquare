@@ -1,0 +1,31 @@
+{% extends "crsq/twitter-newspaper/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Real-time news related to {{ tag }}
+{% endblock %}
+
+{% block bodycontent %}
+      <div class="row">
+	    {% for article in articles %}
+		<div class="well">
+		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
+                  <h4><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
+                  <p>{{ article.articlecontent }}</p>
+                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
+		  <p class="domain">{{ article.domain }}</p>
+                </div>
+	    {% endfor %}
+      </div>
+
+{% endblock %}
+
+{% block jscontent %}
+    <script>
+	$(window).load(function() { 
+            $('.articleimage').imageloader();
+          });
+    </script>
+
+{% endblock %}
+
