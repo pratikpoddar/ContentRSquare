@@ -31,7 +31,7 @@ def put_article_details(entry):
 
 
 
-load_rss_in_details("http://feeds.feedburner.com/TechCrunch/")
+load_rss_in_table("http://feeds.feedburner.com/TechCrunch/")
 
 
 
