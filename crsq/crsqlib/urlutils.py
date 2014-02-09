@@ -58,13 +58,13 @@ def getLongUrl(url):
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 		url = url.encode('utf-8')
 		try:
-			resp = opener.open(url)
+			resp = opener.open(url, timeout=5)
 	                if resp.getcode() == 200:
         	                return resp.url.encode('utf-8')
 		except urllib2.HTTPError as err:
 			if err.code == 403:
 				opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'), ('Accept-Encoding','gzip,deflate,sdch'), ('Connection', 'keep-alive')]
-				resp = opener.open(url)
+				resp = opener.open(url, timeout=5)
 				if resp.getcode() == 200:
 					return resp.url.encode('utf-8')
 			else:
