@@ -1,9 +1,12 @@
 import feedparser
 from bs4 import BeautifulSoup
-from crsq.models import ArticleInfo
-from crsq.crsqlib import urlutils
+from crsq.models import ArticleInfo, ArticleTags, ArticleSemantics
+from crsq.crsqlib import urlutils, articleutils
 import datetime
 import logging
+import json
+import jsonpickle
+import hashlib
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +17,9 @@ def load_rss_in_table(rss_url):
 	try:
 		feed = feedparser.parse(rss_url)
 		for entry in feed['items']:
-			put_article_details(entry)
-			put_article_semantics_tags(entry['feedburner_origlink'])
+			if 'feedburner_origlink' in entry.keys():
+				put_article_details(entry)
+				put_article_semantics_tags(entry['feedburner_origlink'])
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
