@@ -170,6 +170,7 @@ LOG_DIR='/home/ubuntu/django_log'
 
 CRON_CLASSES = [
     "crsq.twitter_newspaper.run_twitter_newspaper.getTwitterNewspaper",
+    "crsq.feedanalyzer.run_feedanalyzer.getFeedAnalyzer"
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

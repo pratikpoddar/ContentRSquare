@@ -10,10 +10,14 @@ logger = logging.getLogger(__name__)
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def load_rss_in_table(rss_url):
-	feed = feedparser.parse(rss_url)
-	for entry in feed['items']:
-		put_article_details(entry)
-
+	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
+	try:
+		feed = feedparser.parse(rss_url)
+		for entry in feed['items']:
+			put_article_details(entry)
+			put_article_semantics_tags(entry['feedburner_origlink'])
+	except Exception as e:
+		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
 	
 def put_article_details(entry):
@@ -39,9 +43,25 @@ def put_article_details(entry):
         	                logger.exception('feedanalyzer - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
         return
 
+def put_article_semantics_tags(url):
+        url = urlutils.getCanonicalUrl(url)
+        if ArticleInfo.objects.filter(url=url).count()==0:
+                return
+        if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
+                try:
+                        content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
+                        semantics_dict = articleutils.getArticleSemanticsTags(content)
+                        semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], topic = semantics_dict['topic'])
+                        if ArticleSemantics.objects.filter(url=url).count()==0:
+                                semantics_row.save()
+                        if ArticleTags.objects.filter(url=url).count()==0:
+                                for tag in semantics_dict['tags']:
+                                        tag_row = ArticleTags(url=url, tag=tag)
+                                        if ArticleTags.objects.filter(url=url, tag=tag).count()==0:
+                                                tag_row.save()
+                except Exception as e:
+                        logger.exception('feedanalyzer - put_article_semantics_tags - error getting article semantics / tags - ' + removeNonAscii(url) + ' - ' + str(e))
 
-
-load_rss_in_table("http://feeds.feedburner.com/TechCrunch/")
-
+        return
 
 
