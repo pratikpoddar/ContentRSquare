@@ -177,7 +177,7 @@ def timenews_article(request, articleid):
 def articlegroup(request, tag):
 
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).order_by('articledate')
+	articles = ArticleInfo.objects.filter(url__in=urls).order_by('articledate').values()
 
 	article_list = []
 	
