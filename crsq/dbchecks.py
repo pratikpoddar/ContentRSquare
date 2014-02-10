@@ -1,6 +1,8 @@
 from crsq.models import *
 from crsq.crsqlib import urlutils
 from urlparse import urlparse
+import pickle
+from django.db.models import Count
 
 l1 = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 l2 = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
@@ -36,7 +38,10 @@ print l8
 #print "All Domains in TweetLinks"
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
-
+top500tags = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:500])
+tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/top500tags.txt', 'w')
+pickle.dump(top500tags, tagfile)
+tagfile.close()
 
 
 

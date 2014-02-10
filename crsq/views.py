@@ -16,7 +16,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import date
 import pytz
-
+import pickle
 import logging
 import urlparse
 import json
@@ -179,6 +179,8 @@ def articlegroup(request, tag):
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('articledate').values()
 
+	tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/top500tags.txt', 'r')
+	top500tags = pickle.load(tagfile)
 	article_list = []
 	
 	for article in articles:
@@ -192,6 +194,7 @@ def articlegroup(request, tag):
 	        try:
         	        articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
                 	articletags = map(lambda x: x['tag'], articletags)
+			articletags = filter(lambda x: x in top500tags, articletags)
 	        except:
         	        articletags = []
 		
