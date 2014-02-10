@@ -169,8 +169,8 @@ INSTALLED_APPS = (
 LOG_DIR='/home/ubuntu/django_log'
 
 CRON_CLASSES = [
+    "crsq.feedanalyzer.run_feedanalyzer.getFeedAnalyzer",
     "crsq.twitter_newspaper.run_twitter_newspaper.getTwitterNewspaper",
-    "crsq.feedanalyzer.run_feedanalyzer.getFeedAnalyzer"
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
