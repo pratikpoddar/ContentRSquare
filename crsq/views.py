@@ -201,7 +201,7 @@ def articlegroup(request, tag):
 		article_list.append(dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
 
-	template = loader.get_template('crsq/articlegroup/index.html')
+	template = loader.get_template('crsq/articlegroup/tagpage.html')
         context = RequestContext(request, {
                 'articles' : article_list,
 		'tag': tag
@@ -209,6 +209,17 @@ def articlegroup(request, tag):
 
         return HttpResponse(template.render(context))
 	
+def articlegroupwelcome(request):
+
+        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/top500tags.txt', 'r')
+        top500tags = pickle.load(tagfile)
+
+        template = loader.get_template('crsq/articlegroup/welcome.html')
+        context = RequestContext(request, {
+                'taglist': top500tags
+        })
+
+        return HttpResponse(template.render(context))
 	
 	
 	

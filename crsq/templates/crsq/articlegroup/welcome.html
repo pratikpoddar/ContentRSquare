@@ -1,0 +1,20 @@
+{% extends "crsq/articlegroup/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Real-time news on Popular Topics
+{% endblock %}
+
+{% block bodycontent %}
+	<div class="page-header">
+	  <h2>Real-time news on Popular Topics</h2>
+	</div>
+	<div class="row">
+	    {% for tag in taglist %}
+		  <div class="col-sm-3 col-lg-3 col-md-3">
+			<a href="/articlegroup/{{ tag | slugify }}" target="_blank">{{ tag | title }}</a>
+		  </div>
+	    {% endfor %}
+	</div>
+{% endblock %}
+
