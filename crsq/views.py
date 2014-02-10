@@ -195,7 +195,7 @@ def articlegroup(request, tag):
 	        except:
         	        articletags = []
 		
-		article_list.append(dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': ', '.join(articletags)}))
+		article_list.append(dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
 
 	template = loader.get_template('crsq/articlegroup/index.html')

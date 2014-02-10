@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 
         url(r'^linkbook/?$', views.linkbook_view, name='linkbook'),
 
-	url(r'^articlegroup/([a-zA-Z0-9]+)/?$', views.articlegroup, name='ag'),
+	url(r'^articlegroup/([a-zA-Z0-9-]+)/?$', views.articlegroup, name='ag'),
 )
 
 

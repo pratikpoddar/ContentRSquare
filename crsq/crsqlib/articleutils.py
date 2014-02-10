@@ -6,6 +6,7 @@ from crsq.crsqlib import urlutils
 from cookielib import CookieJar
 from bs4 import BeautifulSoup
 import re
+from django.template.defaultfilters import slugify
 
 logger = logging.getLogger(__name__)
 
@@ -149,7 +150,7 @@ def getArticlePropertiesFromUrl(url):
 def getArticleSemanticsTags(text):
 
 	text = text.encode('utf-8')
-	tags = text_summarize.get_text_tags(text)
+	tags = map(lambda x: slugify(x), text_summarize.get_text_tags(text))
 	topic = text_summarize.get_text_topic(text)
 	summary = text_summarize.get_text_summary(text)
 
