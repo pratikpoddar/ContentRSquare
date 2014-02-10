@@ -74,3 +74,6 @@ Make sure all input text encoding and all urls everywhere are canonicalized and 
 
 Imageloading fails sometimes in jquery.imageloader
 
+How important a news piece is?
+How relevant is it to the keyword?
+
