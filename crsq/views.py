@@ -177,7 +177,7 @@ def timenews_article(request, articleid):
 def articlegroup(request, tag):
 
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('articledate').values()
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:25]
 
 	tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
 	toptags = pickle.load(tagfile)
