@@ -179,8 +179,8 @@ def articlegroup(request, tag):
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('articledate').values()
 
-	tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/top500tags.txt', 'r')
-	top500tags = pickle.load(tagfile)
+	tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
+	toptags = pickle.load(tagfile)
 	article_list = []
 	
 	for article in articles:
@@ -194,7 +194,7 @@ def articlegroup(request, tag):
 	        try:
         	        articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
                 	articletags = map(lambda x: x['tag'], articletags)
-			articletags = filter(lambda x: x in top500tags, articletags)
+			articletags = filter(lambda x: x in toptags, articletags)
 	        except:
         	        articletags = []
 		
@@ -211,12 +211,12 @@ def articlegroup(request, tag):
 	
 def articlegroupwelcome(request):
 
-        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/top500tags.txt', 'r')
-        top500tags = pickle.load(tagfile)
+        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
+        toptags = pickle.load(tagfile)
 
         template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
-                'taglist': top500tags
+                'taglist': toptags
         })
 
         return HttpResponse(template.render(context))
