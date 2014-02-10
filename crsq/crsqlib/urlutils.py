@@ -9,6 +9,7 @@ from functools32 import lru_cache
 import logging
 from urlparse import urlparse
 from cookielib import CookieJar
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ def getCanonicalUrl(url):
 	    if res.query:
 		    qdict = parse_qs(res.query)
 		    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
+		    map(lambda key: qdict.pop(key), filter(lambda key: re.match('^tu[0-9]+$',key), qdict.keys()))
 		    res = list(res)
 		    res[3] = escape(urlencode(qdict, doseq=1))
 	    else:
