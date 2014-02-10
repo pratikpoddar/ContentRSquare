@@ -15,6 +15,7 @@ def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def load_rss_in_table(rss_url):
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
+		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
 		for entry in feed['items']:
 			if 'feedburner_origlink' in entry.keys():
@@ -26,6 +27,7 @@ def load_rss_in_table(rss_url):
 	
 def put_article_details(entry):
 	url = entry['feedburner_origlink']
+	url = urlutils.getCanonicalUrl(url)
 	if url:
 	        if ArticleInfo.objects.filter(url=url).count()==0:
         	        try:
