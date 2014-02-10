@@ -10,6 +10,10 @@ body {
   font-family: 'Open Sans', Arial, sans-serif;
 }
 
+h2 {
+  font-family: 'Alegreya Sans', 'Open Sans', Arial, sans-serif;
+}
+
 footer {
   margin: 50px 0;
 }

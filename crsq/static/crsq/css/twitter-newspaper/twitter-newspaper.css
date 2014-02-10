@@ -3,6 +3,10 @@ body {
   font-family: 'Open Sans', Arial, sans-serif;
 }
 
+h2 {
+  font-family: 'Alegreya Sans', 'Open Sans', Arial, sans-serif;
+}
+
 .slide-image {
   width: 100%;
 }
