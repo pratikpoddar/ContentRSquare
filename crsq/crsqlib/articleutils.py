@@ -139,6 +139,7 @@ def getArticlePropertiesFromUrl(url):
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
 		raise
 	try:
+		raw_html = raw_html.replace('&nbsp;', ' ')
 		articledict = getArticleProperties(raw_html)
 		articledict['url'] = urlutils.getCanonicalUrl(respurl)
 	except Exception as e:
