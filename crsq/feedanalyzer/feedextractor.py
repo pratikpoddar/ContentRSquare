@@ -21,12 +21,19 @@ def load_rss_in_table(rss_url):
 			if 'feedburner_origlink' in entry.keys():
 				put_article_details(entry)
 				put_article_semantics_tags(entry['feedburner_origlink'])
+			if 'link' in entry.keys():
+				put_article_details(entry)
+				put_article_semantics_tags(entry['link'])
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
 	
 def put_article_details(entry):
-	url = entry['feedburner_origlink']
+	if 'feedburner_origlink' in entry.keys():
+		url = entry['feedburner_origlink']
+	if 'link' in entry.keys():
+		url = entry['link']
+	
 	url = urlutils.getCanonicalUrl(url)
 	if url:
 	        if ArticleInfo.objects.filter(url=url).count()==0:
