@@ -56,6 +56,7 @@ class Crawler(object):
 
         parse_candidate = self.get_parse_candidate(crawl_candidate)
         raw_html = self.get_html(crawl_candidate, parse_candidate)
+	raw_html = raw_html.replace('&nbsp;',' ')
 
         if raw_html is None:
             return article
