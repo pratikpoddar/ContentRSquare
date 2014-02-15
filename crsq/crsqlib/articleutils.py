@@ -140,6 +140,7 @@ def getArticlePropertiesFromUrl(url):
 		raise
 	try:
 		raw_html = raw_html.replace('&nbsp;', ' ')
+		raw_html = raw_html.replace('\xc2\xa0', ' ')
 		articledict = getArticleProperties(raw_html)
 		articledict['url'] = urlutils.getCanonicalUrl(respurl)
 	except Exception as e:

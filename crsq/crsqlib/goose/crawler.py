@@ -40,7 +40,6 @@ class CrawlCandidate(object):
         # parser
         self.parser = self.config.get_parser()
         self.url = url
-	raw_html = raw_html.replace('&nbsp;',' ')
         self.raw_html = raw_html
 
 class Crawler(object):
@@ -56,8 +55,6 @@ class Crawler(object):
 
         parse_candidate = self.get_parse_candidate(crawl_candidate)
         raw_html = self.get_html(crawl_candidate, parse_candidate)
-
-	raw_html = raw_html.replace('&nbsp;',' ')
 
         if raw_html is None:
             return article
@@ -114,11 +111,9 @@ class Crawler(object):
 
     def get_html(self, crawl_candidate, parsing_candidate):
         if crawl_candidate.raw_html:
-	    crawl_candidate.raw_html = crawl_candidate.raw_html.replace('&nbsp;',' ')
             return crawl_candidate.raw_html
         # fetch HTML
         html = HtmlFetcher().get_html(self.config, parsing_candidate.url)
-	html = html.replace('&nbsp;',' ')
         return html
 
     def get_image_extractor(self, article):
