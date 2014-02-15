@@ -1,0 +1,4 @@
+(lp0
+S'Sachin Tendulkar'
+p1
+a.

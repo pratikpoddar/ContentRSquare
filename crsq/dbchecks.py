@@ -42,7 +42,7 @@ print l8
 toptagshelp = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1000])
 toptags = []
 for t in toptagshelp:
-	fm = text_summarize.get_Freebase_Meaning(t)
+	fm = text_summarize.get_Freebase_Meaning(t.replace('-',' '))
 	try:
 		if fm['wikilink']:
 			toptags.append(t)
