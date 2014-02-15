@@ -10,7 +10,7 @@ Real-time news related to "{{ tag | title }}"
 	    {% for article in articles %}
 		  <div class="row" style="margin-top:35px;">
 		  <div class="col-sm-3 col-lg-3 col-md-3">
-		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="" style="width:100%;">
+		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="" style="width:100%;">
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
@@ -28,7 +28,7 @@ Real-time news related to "{{ tag | title }}"
 {% block jscontent %}
     <script>
 	$(window).load(function() { 
-            $('.articleimage').imageloader();
+            $('.articleimage').lazyload();
           });
     </script>
 

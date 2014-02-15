@@ -14,7 +14,7 @@
         <div class="col-sm-6 col-lg-6 col-md-6">
 
               <div class="thumbnail" style="height:auto">
-                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
+                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="">
                 <div class="caption" style="height:auto">
                   <h4 class="pull-right"></h4>
                   <h4><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}</a></h4>
@@ -42,7 +42,7 @@
 {% block jscontent %}
     <script>
 	$(window).load(function() { 
-            $('.articleimage').imageloader();
+            $('.articleimage').lazyload();
           });
     </script>
 
