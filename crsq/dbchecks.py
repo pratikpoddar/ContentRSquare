@@ -1,5 +1,6 @@
 from crsq.models import *
 from crsq.crsqlib import urlutils
+from crsq.crsqlib.text_summarize import text_summarize
 from urlparse import urlparse
 import pickle
 from django.db.models import Count
@@ -38,7 +39,15 @@ print l8
 #print "All Domains in TweetLinks"
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
-toptags = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:500])
+toptagshelp = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1000])
+toptags = []
+for t in toptagshelp:
+	fm = text_summarize.get_Freebase_Meaning(t)
+	try:
+		if fm['wikilink']:
+			toptags.append(t)
+	except:
+		pass	
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
 pickle.dump(toptags, tagfile)
 tagfile.close()
