@@ -21,7 +21,7 @@ def load_rss_in_table(rss_url):
 			if 'feedburner_origlink' in entry.keys():
 				put_article_details(entry)
 				put_article_semantics_tags(entry['feedburner_origlink'])
-			if 'link' in entry.keys():
+			elif 'link' in entry.keys():
 				put_article_details(entry)
 				put_article_semantics_tags(entry['link'])
 	except Exception as e:
@@ -31,7 +31,7 @@ def load_rss_in_table(rss_url):
 def put_article_details(entry):
 	if 'feedburner_origlink' in entry.keys():
 		url = entry['feedburner_origlink']
-	if 'link' in entry.keys():
+	elif 'link' in entry.keys():
 		url = entry['link']
 	
 	url = urlutils.getCanonicalUrl(url)
