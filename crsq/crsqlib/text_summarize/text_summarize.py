@@ -46,6 +46,19 @@ def get_text_tags(text):
 		pass
 
 	try:
+		if output_tags:
+			## adding to the list of nltk ne tags
+		        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nlt_ne_tags.txt', 'r')
+		        nltk_ne_tags = pickle.load(tagfile)
+			nltk_ne_tags += output_tags
+			nltk_ne_tags = list(set(nltk_ne_tags))
+		        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'w')
+			pickle.dump(nltk_ne_tags, tagfile)
+			tagfile.close()
+	except:
+		pass
+	
+	try:
 		output_tags += get_python_tagger(text, tag_meaning=False)
 	except Exception as e:
 		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))

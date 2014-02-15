@@ -51,6 +51,12 @@ for t in toptagshelp:
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
 pickle.dump(toptags, tagfile)
 tagfile.close()
-
+tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'r')
+nltk_ne_tags = pickle.load(tagfile)
+tagfile.close()
+relevant_tags = nltk_ne_tags + toptags
+tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'w')
+pickle.dump(relevanttags, tagfile)
+tagfile.close()
 
 
