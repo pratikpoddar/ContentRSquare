@@ -24,7 +24,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 	    {% for article in article_list %}
             <div class="col-sm-4 col-lg-4 col-md-4">
               <div class="thumbnail">
-                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="">
+                <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="">
                 <div class="caption">
                   <h4 class="pull-right"></h4>
                   <h4><a rel="nofollow" target="_blank" href="/twitter-newspaper/article/{{article.articletitle | slugify }}/{{ article.id }}">{{ article.articletitle }}</a></h4>
@@ -52,7 +52,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 {% block jscontent %}
     <script>
 	$(window).load(function() { 
-            $('.articleimage').imageloader();
+            $('.articleimage').lazyload();
           });
     </script>
 
