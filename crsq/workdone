@@ -67,12 +67,9 @@ Twitter Links, Article Info and ArticleSemantics - Duplicate Error
 Check Correctness:
 Text-topic-brown
 Date
-Image
 Summary
 
 Make sure all input text encoding and all urls everywhere are canonicalized and made long
-
-Imageloading fails sometimes in jquery.imageloader
 
 How important a news piece is?
 How relevant is it to the keyword?
