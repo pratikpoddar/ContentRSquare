@@ -95,7 +95,7 @@ def isShortUrlPossibly(url):
 			return True
 
 		tld=urlparse(url)[1].split(".")[-1]
-		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai"]:
+		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai", "sh"]:
 			return True
 	
 		subdomain=urlparse(url)[1].split(".")[0]
