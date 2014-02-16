@@ -211,12 +211,16 @@ def articlegroup(request, tag):
 	
 def articlegroupwelcome(request):
 
+	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
+	google_trends = pickle.load(googletrendsfile)
+
         tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'r')
         relevanttags = pickle.load(tagfile)
 
         template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
-                'taglist': relevanttags
+                'taglist': relevanttags,
+		'google_trends': google_trends
         })
 
         return HttpResponse(template.render(context))

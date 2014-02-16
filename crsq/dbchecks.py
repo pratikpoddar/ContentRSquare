@@ -40,27 +40,3 @@ print l8
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
 
-#toptagshelp = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1000])
-#toptags = []
-#for t in toptagshelp:
-#	fm = text_summarize.get_Freebase_Meaning(t.replace('-',' '))
-#	try:
-#		if fm['wikilink']:
-#			toptags.append(t)
-#	except:
-#		pass	
-#tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
-#pickle.dump(toptags, tagfile)
-#tagfile.close()
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
-toptags = pickle.load(tagfile)
-tagfile.close()
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'r')
-nltk_ne_tags = pickle.load(tagfile)
-tagfile.close()
-relevant_tags = nltk_ne_tags + toptags
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'w')
-pickle.dump(relevant_tags, tagfile)
-tagfile.close()
-
-
