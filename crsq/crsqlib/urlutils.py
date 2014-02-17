@@ -2,7 +2,7 @@ import urllib2
 from bs4 import BeautifulSoup
 from urlnorm import norm
 from urlparse import parse_qs, urlsplit, urlunsplit
-from urllib import urlencode
+from urllib import urldecode
 from cgi import escape
 import simplejson
 from functools32 import lru_cache
@@ -21,18 +21,18 @@ def getCanonicalUrl(url):
 	    if not url:
 		return None
 	
-	    url = url.encode('utf-8')
+	    url = url.decode('utf-8')
 	    res = urlsplit(url)
 	    if res.query:
 		    qdict = parse_qs(res.query)
 		    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
 		    map(lambda key: qdict.pop(key), filter(lambda key: re.match('^tu[0-9]+$',key), qdict.keys()))
 		    res = list(res)
-		    res[3] = escape(urlencode(qdict, doseq=1))
+		    res[3] = escape(urldecode(qdict, doseq=1))
 	    else:
 		    res = list(res)
 	    res[4] = ''
-	    return norm(urlunsplit(res)).encode('utf-8')
+	    return norm(urlunsplit(res)).decode('utf-8')
     except Exception as e:
 	    logger.exception('urlutils - getCanonicalUrl - ' + url + ' ' + str(e))
 	    raise
@@ -40,7 +40,7 @@ def getCanonicalUrl(url):
 @lru_cache(maxsize=1024)
 def getSocialShares(url):
 
-	url = url.encode('utf-8')	
+	url = url.decode('utf-8')	
 	fb = 0
 	tw = 0
 	try:
@@ -60,17 +60,17 @@ def getLongUrl(url):
 		cj = CookieJar()
 		cj.clear()
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-		url = url.encode('utf-8')
+		url = url.decode('utf-8')
 		try:
 			resp = opener.open(url, timeout=5)
 	                if resp.getcode() == 200:
-        	                return resp.url.encode('utf-8')
+        	                return resp.url.decode('utf-8')
 		except urllib2.HTTPError as err:
 			if err.code == 403:
 				opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'), ('Accept-Encoding','gzip,deflate,sdch'), ('Connection', 'keep-alive')]
 				resp = opener.open(url, timeout=5)
 				if resp.getcode() == 200:
-					return resp.url.encode('utf-8')
+					return resp.url.decode('utf-8')
 			else:
 				raise
 		except Exception as e:
@@ -86,7 +86,7 @@ def getLongUrl(url):
 
 def isShortUrlPossibly(url):
 	try:
-		url = url.encode('utf-8')
+		url = url.decode('utf-8')
 		domain = urlparse(url)[1].replace('www.','')
 		if len(domain)<=7:
 			return True
@@ -114,16 +114,16 @@ def getLongUrlOptimized(url):
 	try:
 		if isShortUrlPossibly(url):
 			longurl = getLongUrl(url)
-			return longurl.encode('utf-8')
+			return longurl.decode('utf-8')
 		else:
-			return url.encode('utf-8')
+			return url.decode('utf-8')
 	except:
 		raise
 
 
 def is_url_an_article(url):
 	
-	url = url.encode('utf-8')
+	url = url.decode('utf-8')
 
 	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator']
 
