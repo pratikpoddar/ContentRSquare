@@ -39,8 +39,17 @@ print l8
 #print "All Domains in TweetLinks"
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
-c1 = map(lambda x: x['articlecontent'], ArticleInfo.objects.all().values('articlecontent'))
+co = map(lambda x: x['articlecontent'], ArticleInfo.objects.all().values('articlecontent'))
 import collections
-duplicate_c1 = [x for x, y in collections.Counter(c1).items() if y > 1]
+dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
+urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(articlecontent=co).values('url')), dup_co)
+tobedelete=[]
+for urlgroup in urlgroups:
+    for url1 in urlgroup:
+        for url2 in urlgroup:
+            if url1.find(url2)>=0:
+		tobedeleted.append(url1)
+
+
 
 
