@@ -219,7 +219,7 @@ def articlegroupwelcome(request):
 
         template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
-                'taglist': relevanttags,
+                'taglist': sorted(list(set(relevanttags))),
 		'google_trends': google_trends
         })
 
