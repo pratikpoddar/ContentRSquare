@@ -13,13 +13,14 @@ for t in toptagshelp:
 		if fm['wikilink']:
 			toptags.append(t)
 	except:
-		pass	
+		pass
+toptags = list(set(toptags))
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
 pickle.dump(toptags, tagfile)
 tagfile.close()
 
-alltags = map(lambda x: x['tag'], ArticleTags.objects.values('tag'))
-top3000tags = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1500])
+alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag'))))
+top3000tags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1500])))
 
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
 toptags = pickle.load(tagfile)
@@ -36,10 +37,10 @@ tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.tx
 pickle.dump(google_trends, tagfile)
 tagfile.close()
 
-google_trends_tags = sum(google_trends.values(), [])
+google_trends_tags = list(set(sum(google_trends.values(), [])))
 nltk_ne_tags = filter(lambda x: x in top3000tags, nltk_ne_tags)
 
-relevant_tags = nltk_ne_tags + google_trends_tags
+relevant_tags = list(set(nltk_ne_tags + google_trends_tags))
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'w')
 pickle.dump(relevant_tags, tagfile)
 tagfile.close()
