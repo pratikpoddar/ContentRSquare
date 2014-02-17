@@ -49,7 +49,9 @@ for urlgroup in urlgroups:
         for url2 in urlgroup:
             if url1.find(url2)>=0:
 		tobedeleted.append(url1)
-
+l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").values('url'))
+print "ArticleInfo Links which are almost surely there by mistake"
+print l11
 
 
 
