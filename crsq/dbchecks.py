@@ -43,7 +43,7 @@ co = map(lambda x: x['articlecontent'], ArticleInfo.objects.all().values('articl
 import collections
 dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
 urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(articlecontent=co).values('url')), dup_co)
-tobedelete=[]
+tobedeleted=[]
 for urlgroup in urlgroups:
     for url1 in urlgroup:
         for url2 in urlgroup:
