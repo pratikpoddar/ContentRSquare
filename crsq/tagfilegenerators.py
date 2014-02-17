@@ -37,7 +37,7 @@ def check_if_googlesearch_is_a_tag(googlesearch):
 		return googlesearch
 	
 	try:
-		freebase_meaning = text_summarize.get_Freebase_Meaning(t.replace('-',' '))
+		freebase_meaning = text_summarize.get_Freebase_Meaning(googlesearch.replace('-',' '))
 		if freebase_meaning['wikilink']:
 			if slugify(freebase_meaning['title']) in alltags:
 				return slugify(freebase_meaning['title']) 
