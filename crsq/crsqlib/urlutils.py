@@ -15,13 +15,23 @@ logger = logging.getLogger(__name__)
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
+def crsq_unicode(s):
+
+        if s  == None:
+                return s
+
+        if isinstance(s, unicode):
+                return s
+        else:
+                return s.decode('utf-8')
+
 @lru_cache(maxsize=512)
 def getCanonicalUrl(url):
     try:
 	    if not url:
 		return None
 	
-	    url = url.decode('utf-8')
+	    url = crsq_unicode(url)
 	    res = urlsplit(url)
 	    if res.query:
 		    qdict = parse_qs(res.query)
@@ -32,7 +42,7 @@ def getCanonicalUrl(url):
 	    else:
 		    res = list(res)
 	    res[4] = ''
-	    return norm(urlunsplit(res)).decode('utf-8')
+	    return crsq_unicode(norm(urlunsplit(res)))
     except Exception as e:
 	    logger.exception('urlutils - getCanonicalUrl - ' + url + ' ' + str(e))
 	    raise
@@ -40,7 +50,7 @@ def getCanonicalUrl(url):
 @lru_cache(maxsize=1024)
 def getSocialShares(url):
 
-	url = url.decode('utf-8')	
+	url = crsq_unicode(url)
 	fb = 0
 	tw = 0
 	try:
@@ -60,17 +70,17 @@ def getLongUrl(url):
 		cj = CookieJar()
 		cj.clear()
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-		url = url.decode('utf-8')
+		url = crsq_unicode(url)
 		try:
 			resp = opener.open(url, timeout=5)
 	                if resp.getcode() == 200:
-        	                return resp.url.decode('utf-8')
+        	                return crsq_unicode(resp.url)
 		except urllib2.HTTPError as err:
 			if err.code == 403:
 				opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'), ('Accept-Encoding','gzip,deflate,sdch'), ('Connection', 'keep-alive')]
 				resp = opener.open(url, timeout=5)
 				if resp.getcode() == 200:
-					return resp.url.decode('utf-8')
+					return crsq_unicode(resp.url)
 			else:
 				raise
 		except Exception as e:
@@ -86,7 +96,7 @@ def getLongUrl(url):
 
 def isShortUrlPossibly(url):
 	try:
-		url = url.decode('utf-8')
+		url = crsq_unicode(url)
 		domain = urlparse(url)[1].replace('www.','')
 		if len(domain)<=7:
 			return True
@@ -114,16 +124,16 @@ def getLongUrlOptimized(url):
 	try:
 		if isShortUrlPossibly(url):
 			longurl = getLongUrl(url)
-			return longurl.decode('utf-8')
+			return crsq_unicode(longurl)
 		else:
-			return url.decode('utf-8')
+			return crsq_unicode(url)
 	except:
 		raise
 
 
 def is_url_an_article(url):
 	
-	url = url.decode('utf-8')
+	url = crsq_unicode(url)
 
 	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator']
 

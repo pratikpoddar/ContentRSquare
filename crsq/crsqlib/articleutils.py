@@ -10,11 +10,21 @@ from django.template.defaultfilters import slugify
 
 logger = logging.getLogger(__name__)
 
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+
+def crsq_unicode(s):
+	
+	if s  == None:
+		return s
+
+        if isinstance(s, unicode):
+                return s
+        else:
+                return s.decode('utf-8')
 
 def getArticleProperties(html):
 	
-	html = html.decode('utf-8')
+	html = crsq_unicode(html)
 	
 	try:
 		g = Goose()
@@ -28,47 +38,47 @@ def getArticleProperties(html):
 
 	articledict = {}
 	try:
-		articledict['canonical_link'] = article.canonical_link.decode('utf-8')
+		articledict['canonical_link'] = crsq_unicode(article.canonical_link)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['canonical_link'] = None
 	try:
-		articledict['cleaned_text'] = article.cleaned_text.decode('utf-8')
+		articledict['cleaned_text'] = crsq_unicode(article.cleaned_text)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['cleaned_text'] = None
 	try:
-		articledict['domain'] = article.domain.decode('utf-8')
+		articledict['domain'] = crsq_unicode(article.domain)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['domain'] = None
 
 	try:
-		articledict['final_url'] = article.final_url.decode('utf-8')
+		articledict['final_url'] = crsq_unicode(article.final_url)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['final_url'] = None
 
 	try:
-		articledict['meta_description'] = article.meta_description.decode('utf-8')
+		articledict['meta_description'] = crsq_unicode(article.meta_description)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_description'] = None
 
 	try:
-		articledict['meta_keywords'] = article.meta_keywords.decode('utf-8')
+		articledict['meta_keywords'] = crsq_unicode(article.meta_keywords)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_keywords'] = None
 
 	try:
-		articledict['publish_date'] = article.publish_date.decode('utf-8')
+		articledict['publish_date'] = crsq_unicode(article.publish_date)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['publish_date'] = None
 	
 	try:
-		articledict['title'] = article.title.decode('utf-8')
+		articledict['title'] = crsq_unicode(article.title)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['title'] = None
@@ -81,7 +91,7 @@ def getArticleProperties(html):
 		articledict['image'] = None
 
 	try:
-		articledict['raw_html'] = article.raw_html.decode('utf-8')
+		articledict['raw_html'] = crsq_unicode(article.raw_html)
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['raw_html'] = None
@@ -92,7 +102,7 @@ def getArticleProperties(html):
 
 def getArticlePreloads(html):
 	
-	html = html.decode('utf-8')
+	html = crsq_unicode(html)
         bs = BeautifulSoup(html)
 	preload = {}
 	preload['js'] = []
@@ -116,13 +126,13 @@ def getArticlePreloads(html):
 def getArticlePropertiesFromUrl(url):
 
 	try:
-		raw_html = ''.decode('utf-8')
-		respurl = ''.decode('utf-8')
+		raw_html = crsq_unicode('')
+		respurl = crsq_unicode('')
 
                 cj = CookieJar()
                 cj.clear()
                 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-                url = urlutils.getCanonicalUrl(url.decode('utf-8'))
+                url = urlutils.getCanonicalUrl(crsq_unicode(url))
                 try:
                         resp = opener.open(url, timeout=5)
                         if resp.getcode() == 200:
@@ -147,10 +157,10 @@ def getArticlePropertiesFromUrl(url):
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
 		raise
 	try:
-		raw_html = raw_html.decode('utf-8').replace('&nbsp;', ' ')
-		raw_html = raw_html.decode('utf-8').replace('\xc2\xa0', ' ')
+		raw_html = crsq_unicode(raw_html).replace('&nbsp;', ' ')
+		raw_html = crsq_unicode(raw_html).replace('\xc2\xa0', ' ')
 		articledict = getArticleProperties(raw_html)
-		articledict['url'] = urlutils.getCanonicalUrl(respurl.decode('utf-8'))
+		articledict['url'] = urlutils.getCanonicalUrl(crsq_unicode(respurl))
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error extracting article properties - ' + url + ' - ' + str(e))
 		raise
@@ -159,10 +169,10 @@ def getArticlePropertiesFromUrl(url):
 
 def getArticleSemanticsTags(text):
 
-	text = text.decode('utf-8')
-	tags = map(lambda x: slugify(x).decode('utf-8'), text_summarize.get_text_tags(text))
-	topic = text_summarize.get_text_topic(text).decode('utf-8')
-	summary = text_summarize.get_text_summary(text).decode('utf-8')
+	text = crsq_unicode(text)
+	tags = map(lambda x: crsq_unicode(slugify(x)), text_summarize.get_text_tags(text))
+	topic = crsq_unicode(text_summarize.get_text_topic(text))
+	summary = crsq_unicode(text_summarize.get_text_summary(text))
 
 	return {'tags': tags, 'topic': topic, 'summary':summary }
 
