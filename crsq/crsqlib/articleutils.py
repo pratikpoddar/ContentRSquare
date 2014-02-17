@@ -29,47 +29,47 @@ def getArticleProperties(html):
 	articledict = {}
 	try:
 		articledict['canonical_link'] = article.canonical_link.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['canonical_link'] = None
 	try:
 		articledict['cleaned_text'] = article.cleaned_text.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['cleaned_text'] = None
 	try:
 		articledict['domain'] = article.domain.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['domain'] = None
 
 	try:
 		articledict['final_url'] = article.final_url.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['final_url'] = None
 
 	try:
 		articledict['meta_description'] = article.meta_description.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_description'] = None
 
 	try:
 		articledict['meta_keywords'] = article.meta_keywords.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_keywords'] = None
 
 	try:
 		articledict['publish_date'] = article.publish_date.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['publish_date'] = None
 	
 	try:
 		articledict['title'] = article.title.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['title'] = None
 
@@ -82,7 +82,7 @@ def getArticleProperties(html):
 
 	try:
 		articledict['raw_html'] = article.raw_html.encode('utf-8')
-	except:
+	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['raw_html'] = None
 
