@@ -66,13 +66,13 @@ def getArticleProperties(html):
 		articledict['meta_description'] = None
 
 	try:
-		articledict['meta_keywords'] = crsq_unicode(article.meta_keywords)
+		articledict['meta_keywords'] = None
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_keywords'] = None
 
 	try:
-		articledict['publish_date'] = crsq_unicode(article.publish_date)
+		articledict['publish_date'] = article.publish_date
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['publish_date'] = None
@@ -157,8 +157,8 @@ def getArticlePropertiesFromUrl(url):
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
 		raise
 	try:
-		raw_html = crsq_unicode(raw_html).replace('&nbsp;', ' ')
-		raw_html = crsq_unicode(raw_html).replace('\xc2\xa0', ' ')
+		raw_html = crsq_unicode(raw_html).replace(crsq_unicode('&nbsp;'), crsq_unicode(' '))
+		raw_html = crsq_unicode(raw_html).replace(crsq_unicode('\xc2\xa0'), crsq_unicode(' '))
 		articledict = getArticleProperties(raw_html)
 		articledict['url'] = urlutils.getCanonicalUrl(crsq_unicode(respurl))
 	except Exception as e:

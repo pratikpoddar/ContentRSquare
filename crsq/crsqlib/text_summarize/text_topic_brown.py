@@ -22,9 +22,22 @@ from crsq.crsqlib import text_summarize
 
 import pickle
 
+def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+
+def crsq_unicode(s):
+
+        if s  == None:
+                return s
+
+        if isinstance(s, unicode):
+                return s
+        else:
+                return s.decode('utf-8')
+
+
 def get_text_topic(text):
 	
-	text = text.decode('utf-8')
+	text = crsq_unicode(text)
 
 	try:
 		with open(inspect.getfile(text_summarize).replace('__init__.pyc','')+'topic_classification_brown.pickle') as f:
@@ -61,7 +74,7 @@ def get_text_topic(text):
 
 	X_test = vectorizer.transform(text_data)
 	res = clf.predict(X_test)
-	return target_names[res]
+	return crsq_unicode(target_names[res])
 	
 
 
