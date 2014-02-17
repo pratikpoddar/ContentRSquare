@@ -19,8 +19,9 @@ tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
 pickle.dump(toptags, tagfile)
 tagfile.close()
 
-alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag'))))
-top3000tags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:1500])))
+allurls = list(set(map(lambda x: x['url'], ArticleInfo.objects.exclude(articlecontent=None).exclude(articlecontent='').exclude(articleimage='').exclude(articleimage=None).values('url'))))
+alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.filter(url__in=allurls).values('tag'))))
+top3000tags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:3000])))
 
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
 toptags = pickle.load(tagfile)
