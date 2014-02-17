@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-Real-time news related to "{{ tag | title }}"
+Real-time news related to "{{ tag | crsq_unslugify }}"
 {% endblock %}
 
 {% block bodycontent %}

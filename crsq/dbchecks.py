@@ -13,9 +13,9 @@ print "Links in TweetLinks but not in ArticleInfo"
 print set(l2)-set(l1)
 print "Links in ArticleInfo but not in ArticleSemantics"
 print set(l1)-set(l3)
-print "Links in ArticleInfo but not in ArticleTags"
-print set(l1)-set(l4)
-print "Links in ArticleSemantics but not in ArticleInfo"
+#print "Links in ArticleInfo but not in ArticleTags"
+#print set(l1)-set(l4)
+#print "Links in ArticleSemantics but not in ArticleInfo"
 print set(l3)-set(l1)
 print "Links in ArticleTags but not in ArticleInfo"
 print set(l4)-set(l1)
@@ -27,11 +27,11 @@ print l5
 print "Links in TweetLinks that are not articles"
 l6 = filter(lambda x: not urlutils.is_url_an_article(x), list(set(l2)))
 print l6
-#print "Links in ArticleInfo that are short links"
-#l7 = filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l1)))
-#print l7
+print "Links in ArticleInfo that are short links"
+l7 = filter(lambda x: len(x)<30, filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l1))))
+print l7
 print "Links in TweetLinks that are short links"
-l8 = filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l2)))
+l8 = filter(lambda x: len(x)<30, filter(lambda x: urlutils.isShortUrlPossibly(x), list(set(l2))))
 print l8
 #print "Links in ArticleInfo that do not have date"
 #l9 = map(lambda x: x['url'], ArticleInfo.objects.filter(articledate=None).values('url'))
@@ -39,4 +39,8 @@ print l8
 #print "All Domains in TweetLinks"
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
+c1 = map(lambda x: x['articlecontent'], ArticleInfo.objects.all().values('articlecontent'))
+import collections
+duplicate_c1 = [x for x, y in collections.Counter(c1).items() if y > 1]
+
 
