@@ -304,13 +304,13 @@ def get_Freebase_Meaning(term):
 		if jsonResult:
 			if jsonResult[0]['score']>100:
 				try:
-					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': jsonResult[0]['id']}
+					return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': jsonResult[0]['id'], 'title': jsonResult[0]['name']}
 				except:
 					try:
-						return {'parentnode': '', 'wikilink': jsonResult[0]['id']}
+						return {'parentnode': '', 'wikilink': jsonResult[0]['id'], 'title': jsonResult[0]['name']}
 					except:
 						try:
-							return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': ''}
+							return {'parentnode': jsonResult[0]['notable']['name'], 'wikilink': '', 'title': ''}
 						except:
 							return None
 			else:

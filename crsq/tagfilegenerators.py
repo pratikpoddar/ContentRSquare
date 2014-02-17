@@ -32,7 +32,21 @@ tagfile.close()
 
 from crsq.google_trends.gt import *
 google_trends = get_all_google_trends()
-google_trends = {k: list(set(filter(lambda x: x in alltags, v))) for k, v in google_trends.items()}
+def check_if_googlesearch_is_a_tag(googlesearch):
+	if googlesearch in alltags:
+		return googlesearch
+	
+	try:
+		freebase_meaning = text_summarize.get_Freebase_Meaning(t.replace('-',' '))
+		if freebase_meaning['wikilink']:
+			if slugify(freebase_meaning['title']) in alltags:
+				return slugify(freebase_meaning['title']) 
+	except:
+		pass
+
+	return None
+
+google_trends = {k: filter(lambda y: y, list(set(map(lambda x: check_if_googlesearch_is_a_tag(x), v)))) for k, v in google_trends.items()}
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'w')
 pickle.dump(google_trends, tagfile)
 tagfile.close()
