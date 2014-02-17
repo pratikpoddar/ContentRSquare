@@ -216,11 +216,16 @@ def articlegroupwelcome(request):
 
         tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'r')
         relevanttags = pickle.load(tagfile)
+	relevanttags = sorted(list(set(relevanttags)))
+	alphabets = sorted(list(set(map(lambda x:x[0], relevanttags))))
+	tagdict = {}
+	for alphabet in alphabets:
+		tagdict[alphabet] = filter(lambda x: x[0]==alphabet, relevanttags)
 
         template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
-                'taglist': sorted(list(set(relevanttags))),
-		'google_trends': google_trends
+                'tagdict': sorted(tagdict.items()),
+		'google_trends': sorted(google_trends.items())
         })
 
         return HttpResponse(template.render(context))

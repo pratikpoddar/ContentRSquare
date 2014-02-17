@@ -7,29 +7,86 @@ Real-time news on Popular Topics
 {% endblock %}
 
 {% block bodycontent %}
-	<h2>Real-time news on Popular Topics</h2>
-	<br/>
-	    <h4>Trending Topics on Google Search:</h4>
-	    {% for country, listofsearch in google_trends.items %}
-		<div class="row">
-			<div class="col-sm-2 col-lg-2 col-md-2">
-				{{ country }}:
-			</div>
-			{% for s in listofsearch %}
-			<div class="col-sm-2 col-lg-2 col-md-2">
-				<a href="/articlegroup/{{ s | slugify }}" target="_blank">{{ s | crsq_unslugify }}</a>
-			</div>
-			{% endfor %}
+	<div class="jumbotron">
+	  <h1>Short News!</h1>
+	  <p>Hate reading full page long articles? Want quick 4 sentence summary of articles? Want a comprehensive list of articles by topic?</p>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6 col-lg-6 col-md-6">
+			<h4>Recent Articles</h4>
+			<div class="list-group">
+				{% for c in "ssd"|make_list %}
+  	 			<div class="list-group-item">
+			   	<a href="#"><h4 class="list-group-item-heading">Digital Staffing: The Future of Recruitment-by-Algorithm</h4></a>
+				<p class="list-group-item-text">blogs.hbr.org</p>
+				<p class="list-group-item-text">blogs.hbr.org</p>
+	  			</div>
+				{% endfor %}
+			</div>  
 		</div>
-	    {% endfor %}
-	<br/>
-	    <h4>Popular News Topics:</h4>
-	    <div class="row">
-	    {% for tag in taglist %}
-		  <div class="col-sm-2 col-lg-2 col-md-2">
-			<a href="/articlegroup/{{ tag | slugify }}" target="_blank">{{ tag | crsq_unslugify }}</a>
-		  </div>
-	    {% endfor %}
-	    </div>
+		<div class="col-sm-6 col-lg-6 col-md-6">
+			<h4>Popular Articles</h4>
+                        <div class="list-group">
+                                {% for c in "ssd"|make_list %}
+                                <div class="list-group-item">
+                                <a href="#"><h4 class="list-group-item-heading">Digital Staffing: The Future of Recruitment-by-Algorithm</h4></a>
+                                <p class="list-group-item-text">blogs.hbr.org</p>
+                                <p class="list-group-item-text">blogs.hbr.org</p>
+                                </div>
+                                {% endfor %}
+                        </div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 col-lg-12 col-md-12">
+			<h4>Trending Topics on Google Search:</h4>
+		</div>
+	</div>
+	<div class="row">
+		    {% for country, listofsearch in google_trends %}
+			<div class="col-sm-3 col-lg-3 col-md-3">
+	                        <div class="list-group">
+                                	<div class="list-group-item">
+                                		<h4 class="list-group-item-heading">{{country}} News</h4>
+	                                </div>
+
+					{% for s in listofsearch %}
+                                        <div class="list-group-item">
+                                                <a href="/articlegroup/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                        </div>
+					{% endfor %}
+				</div>
+			</div>
+		    {% endfor %}
+		<br/>
+	</div>
+
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                        <h4>Popular News Topics:</h4>
+                </div>
+        </div>
+        <div class="row">
+                    {% for alphabet, listoftags in tagdict %}
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="list-group">
+                                        <div class="list-group-item">
+                                                <h4 class="list-group-item-heading">{{ alphabet }}</h4>
+                                        </div>
+
+                                        {% for s in listoftags %}
+                                        <div class="list-group-item">
+                                                <a href="/articlegroup/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                        </div>
+                                        {% endfor %}
+                                </div>
+                        </div>
+                    {% endfor %}
+                <br/>
+        </div>
+
+
 {% endblock %}
 
