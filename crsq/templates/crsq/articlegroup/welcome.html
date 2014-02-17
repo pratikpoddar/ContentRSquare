@@ -1,5 +1,6 @@
 {% extends "crsq/articlegroup/base.html" %}
 {% load staticfiles %}
+{% load tagfilter %}
 
 {% block title %}
 Real-time news on Popular Topics
@@ -16,7 +17,7 @@ Real-time news on Popular Topics
 			</div>
 			{% for s in listofsearch %}
 			<div class="col-sm-2 col-lg-2 col-md-2">
-				<a href="/articlegroup/{{ s | slugify }}" target="_blank">{{ s | title }}</a>
+				<a href="/articlegroup/{{ s | slugify }}" target="_blank">{{ s | crsq_unslugify }}</a>
 			</div>
 			{% endfor %}
 		</div>
@@ -26,7 +27,7 @@ Real-time news on Popular Topics
 	    <div class="row">
 	    {% for tag in taglist %}
 		  <div class="col-sm-2 col-lg-2 col-md-2">
-			<a href="/articlegroup/{{ tag | slugify }}" target="_blank">{{ tag | title }}</a>
+			<a href="/articlegroup/{{ tag | slugify }}" target="_blank">{{ tag | crsq_unslugify }}</a>
 		  </div>
 	    {% endfor %}
 	    </div>
