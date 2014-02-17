@@ -55,7 +55,7 @@ def getArticleProperties(html):
 		articledict['domain'] = None
 
 	try:
-		articledict['final_url'] = crsq_unicode(article.final_url)
+		articledict['final_url'] = urlutils.getCanonicalUrl(crsq_unicode(article.final_url))
 	except Exception as e:
 		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['final_url'] = None
@@ -127,14 +127,14 @@ def getArticlePreloads(html):
 def getArticlePropertiesFromUrl(url):
 
 	try:
-                url = crsq_unicode(url)
+                url = urlutils.getCanonicalUrl(crsq_unicode(url))
                 r = requests.get(url)
 		raw_html = crsq_unicode(r.text)
 		respurl = urlutils.getCanonicalUrl(crsq_unicode(r.url))
 		raw_html = raw_html.replace(crsq_unicode('&nbsp;'), crsq_unicode(' '))
 		raw_html = raw_html.replace(crsq_unicode('\xc2\xa0'), crsq_unicode(' '))
 		articledict = getArticleProperties(raw_html)
-		articledict['url'] = respurl
+		articledict['url'] = urlutils.getCanonicalUrl(respurl)
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error extracting article properties - ' + url + ' - ' + str(e))
 		raise

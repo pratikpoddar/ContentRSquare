@@ -70,7 +70,7 @@ def getLongUrl(url):
         try:
 		url = crsq_unicode(url)
 		r = requests.get(url)
-		return crsq_unicode(r.url)
+		return getCanonicalUrl(crsq_unicode(r.url))
 		#cj = CookieJar()
 		#cj.clear()
                 #opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
@@ -99,7 +99,7 @@ def getLongUrl(url):
 
 def isShortUrlPossibly(url):
 	try:
-		url = crsq_unicode(url)
+		url = getCanonicalUrl(crsq_unicode(url))
 		domain = urlparse(url)[1].replace('www.','')
 		if len(domain)<=7:
 			return True
@@ -127,9 +127,9 @@ def getLongUrlOptimized(url):
 	try:
 		if isShortUrlPossibly(url):
 			longurl = getLongUrl(url)
-			return crsq_unicode(longurl)
+			return getCanonicalUrl(longurl)
 		else:
-			return crsq_unicode(url)
+			return getCanonicalUrl(url)
 	except:
 		raise
 

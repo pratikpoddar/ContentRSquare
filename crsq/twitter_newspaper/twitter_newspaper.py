@@ -9,7 +9,7 @@ import hashlib
 from django.db.models import Max
 import logging
 from urlparse import urlparse
-
+from crsq.crsqlib.articleutilsdb import put_article_details, put_article_semantics_tags
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
 
 logger = logging.getLogger(__name__)
@@ -150,41 +150,6 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
                 except Exception as e:
 			logger.exception('twitter_newspaper - get_list_timeline - error saving twitterlistlink - ' + str(status.id) + ' - ' + str(e))
 
-
-	return
-
-def put_article_details(url):
-	url = urlutils.getCanonicalUrl(url)
-	if ArticleInfo.objects.filter(url=url).count()==0:
-		try:
-			articledict = articleutils.getArticlePropertiesFromUrl(url)
-			socialpower = urlutils.getSocialShares(url)
-			articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], articledate = articledict['publish_date'], articlehtml = articledict['raw_html'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
-			if len(articledict['cleaned_text'].strip())>1:
-				articleinfo.save()
-		except Exception as e:
-			logger.exception('twitter_newspaper - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
-	return
-
-def put_article_semantics_tags(url):
-	url = urlutils.getCanonicalUrl(url)
-	if ArticleInfo.objects.filter(url=url).count()==0:
-		#logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
-		return
-	if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
-		try:
-			content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
-			semantics_dict = articleutils.getArticleSemanticsTags(content)
-			semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], topic = semantics_dict['topic'])
-			if ArticleSemantics.objects.filter(url=url).count()==0:
-				semantics_row.save()
-			if ArticleTags.objects.filter(url=url).count()==0:
-				for tag in semantics_dict['tags']:
-					tag_row = ArticleTags(url=url, tag=tag)
-					if ArticleTags.objects.filter(url=url, tag=tag).count()==0:
-						tag_row.save()
-		except Exception as e:
-			logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article semantics / tags - ' + removeNonAscii(url) + ' - ' + str(e))
 
 	return
 

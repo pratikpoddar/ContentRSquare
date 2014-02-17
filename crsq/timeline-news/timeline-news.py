@@ -5,7 +5,7 @@ import json
 from crsq.crsqlib import urlutils, articleutils
 import logging
 from datetime import datetime, timedelta
-
+from crsq.crsqlib.articleutilsdb import put_article_details, put_article_semantics_tags
 logger = logging.getLogger(__name__)
 
 def get_article_json(url):
@@ -55,41 +55,6 @@ def create_timeline_json(headline, text, urllist):
 	print >> f, j
 	f.close()
 	return
-
-def put_article_details(url):
-	url = urlutils.getCanonicalUrl(url)
-        if ArticleInfo.objects.filter(url=url).count()==0:
-                try:
-                        articledict = articleutils.getArticlePropertiesFromUrl(url)
-                        socialpower = urlutils.getSocialShares(url)
-                        articleinfo = ArticleInfo(url=url, articletitle = articledict['title'], articleimage = articledict['image'], articlecontent = articledict['cleaned_text'], articledate = articledict['publish_date'], articlehtml = articledict['raw_html'], twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
-                        if len(articledict['cleaned_text'].strip())>1:
-                                articleinfo.save()
-                except Exception as e:
-                        logger.exception('timeline_news - put_article_details - error saving article - ' + url + ' - ' + str(e))
-        return
-
-def put_article_semantics_tags(url):
-	url = urlutils.getCanonicalUrl(url)
-        if ArticleInfo.objects.filter(url=url).count()==0:
-                #logger.exception('twitter_newspaper - put_article_semantics_tags - error getting article content - ' + url + ' - ' + 'No content in ArticleInfo')
-                return
-        if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
-                try:
-                        content = ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent']
-                        semantics_dict = articleutils.getArticleSemanticsTags(content)
-                        semantics_row = ArticleSemantics(url=url, summary = semantics_dict['summary'], topic = semantics_dict['topic'])
-                        if ArticleSemantics.objects.filter(url=url).count()==0:
-                                semantics_row.save()
-                        if ArticleTags.objects.filter(url=url).count()==0:
-                                for tag in semantics_dict['tags']:
-                                        tag_row = ArticleTags(url=url, tag=tag)
-                                        if ArticleTags.objects.filter(url=url, tag=tag).count()==0:
-                                                tag_row.save()
-                except Exception as e:
-                        logger.exception('timeline_news - put_article_semantics_tags - error getting article semantics / tags - ' + url + ' - ' + str(e))
-
-        return
 
 urllist1 = ["http://articles.economictimes.indiatimes.com/2014-01-14/news/46185342_1_fdi-arvind-kejriwal-delhi-polls", "http://indianexpress.com/article/india/politics/asserting-delhi-needs-jobs-arvind-kejriwal-scraps-nod-to-fdi-in-retail/", "http://www.financialexpress.com/news/cm-arvind-kejriwal-axes-sheila-dikshit-policy-rescinds-congress-approval-to-fdi-in-multibrand-retail-in-delhi/1218039/"]
 ArticleInfo.objects.filter(url__in=urllist1).delete()
