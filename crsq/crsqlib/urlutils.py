@@ -21,6 +21,7 @@ def getCanonicalUrl(url):
 	    if not url:
 		return None
 	
+	    url = url.encode('utf-8')
 	    res = urlsplit(url)
 	    if res.query:
 		    qdict = parse_qs(res.query)
@@ -38,16 +39,17 @@ def getCanonicalUrl(url):
 
 @lru_cache(maxsize=1024)
 def getSocialShares(url):
-	
+
+	url = url.encode('utf-8')	
 	fb = 0
 	tw = 0
 	try:
-		fb = simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url))[url]['shares']
+		fb = int(simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url))[url]['shares'])
 	except Exception as e:
 		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 	
 	try:
-		tw = simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url))['count']
+		tw = int(simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url))['count'])
 	except Exception as e:
 		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 
@@ -84,6 +86,7 @@ def getLongUrl(url):
 
 def isShortUrlPossibly(url):
 	try:
+		url = url.encode('utf-8')
 		domain = urlparse(url)[1].replace('www.','')
 		if len(domain)<=7:
 			return True
@@ -111,14 +114,16 @@ def getLongUrlOptimized(url):
 	try:
 		if isShortUrlPossibly(url):
 			longurl = getLongUrl(url)
-			return longurl
+			return longurl.encode('utf-8')
 		else:
-			return url
+			return url.encode('utf-8')
 	except:
 		raise
 
 
 def is_url_an_article(url):
+	
+	url = url.encode('utf-8')
 
 	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator']
 

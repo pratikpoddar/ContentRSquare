@@ -23,6 +23,9 @@ from crsq.crsqlib import text_summarize
 import pickle
 
 def get_text_topic(text):
+	
+	text = text.encode('utf-8')
+
 	try:
 		with open(inspect.getfile(text_summarize).replace('__init__.pyc','')+'topic_classification_brown.pickle') as f:
 	        	[clf, vectorizer, target_names] = pickle.load(f)

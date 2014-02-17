@@ -40,6 +40,7 @@ def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def get_text_tags(text):
 
 	output_tags = []
+	text = text.encode('utf-8')
 
 	try:
 		output_tags += get_nltk_ne(text, tag_meaning=False)
@@ -78,6 +79,7 @@ def get_text_tags(text):
 
 def get_text_summary(text, title = None, library="sumy"):
 
+	text = text.encode('utf-8')
 	if library == "sumy":
 		try:
 			summary = ""
@@ -105,14 +107,16 @@ def get_text_summary(text, title = None, library="sumy"):
 
 def get_text_topic(text):
 
+	text = text.encode('utf-8')
 	try:	
-		return text_topic_brown.get_text_topic(text)
+		return text_topic_brown.get_text_topic(text).encode('utf-8')
 	except Exception as e:
 		logger.exception('text_summarize.py - get_text_topic - error - ' + str(e))
 		raise
 
 def get_python_tagger(text, tag_meaning=True):
 
+	text = text.encode('utf-8')
         logger.debug('## Python Tagger ##')
 	weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"data/dict.pkl", 'rb')) 
 	myreader = tagger.Reader()
@@ -148,6 +152,7 @@ def get_python_tagger(text, tag_meaning=True):
 
 def get_nltk_ne(text, tag_meaning=True):
 
+	text = text.encode('utf-8')
 	logger.debug('## NLTK NE ##')
 	try:
 	        pos_tags = nltk.pos_tag(nltk.word_tokenize(text))
@@ -182,6 +187,7 @@ def get_nltk_ne(text, tag_meaning=True):
 
 def get_topia_termextract(text, tag_meaning=True):
 
+	text = text.encode('utf-8')
         logger.debug('## Topia Termextract ##')
 	try:
 		extractor = extract.TermExtractor()
@@ -210,6 +216,8 @@ def get_topia_termextract(text, tag_meaning=True):
 
 
 def get_Text_Concepts(text):
+
+	text = text.encode('utf-8')
 	response = alchemyapi.concepts('text', text)
 
 	if response['status'] == 'OK':
@@ -224,6 +232,8 @@ def get_Text_Concepts(text):
 		raise
 
 def get_Text_Categories(text):
+
+	text = text.encode('utf-8')
 	response = alchemyapi.category('text',text)
 
 	if response['status'] == 'OK':
@@ -241,6 +251,7 @@ def get_Text_Categories(text):
 
 def get_Content_Analysis(text):
 	
+	text = text.encode('utf-8')
 	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20contentanalysis.analyze%20where%20text%3D%22" + urllib.quote_plus(re.compile('\W+').sub(' ', text).strip()) + "%22&diagnostics=true"
 
 	try:
@@ -267,6 +278,7 @@ def get_Content_Analysis(text):
 
 def get_Calais_Topics(text):
 	
+	text = text.encode('utf-8')
 	calais_result = calais.analyze(text)
 	logger.debug('## Open Calais ##')
 	responseOutput = []
@@ -298,7 +310,7 @@ def get_Calais_Topics(text):
 def get_Freebase_Meaning(term):
 
 	try:
-		term = removeNonAscii(term)
+		term = term.encode('utf-8')
 		url = "https://www.googleapis.com/freebase/v1/search?key=AIzaSyCIeO8t4Su2hM0hm8t3aGCgiApBLu7MvGE&query=" + urllib.quote_plus(term)
 		jsonResult = json.loads(urllib2.urlopen(url).read())['result']
 		if jsonResult:

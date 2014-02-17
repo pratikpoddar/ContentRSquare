@@ -14,10 +14,8 @@ def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def getArticleProperties(html):
 	
-	try:
-		html = html.encode('utf-8')
-	except:
-		html = removeNonAscii(html)
+	html = html.encode('utf-8')
+	
 	try:
 		g = Goose()
 		article = g.extract(raw_html=html)
@@ -30,41 +28,49 @@ def getArticleProperties(html):
 
 	articledict = {}
 	try:
-		articledict['canonical_link'] = article.canonical_link
+		articledict['canonical_link'] = article.canonical_link.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['canonical_link'] = None
 	try:
 		articledict['cleaned_text'] = article.cleaned_text.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['cleaned_text'] = None
 	try:
-		articledict['domain'] = article.domain
+		articledict['domain'] = article.domain.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['domain'] = None
 
 	try:
-		articledict['final_url'] = article.final_url
+		articledict['final_url'] = article.final_url.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['final_url'] = None
 
 	try:
-		articledict['meta_description'] = article.meta_description
+		articledict['meta_description'] = article.meta_description.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_description'] = None
 
 	try:
-		articledict['meta_keywords'] = article.meta_keywords
+		articledict['meta_keywords'] = article.meta_keywords.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['meta_keywords'] = None
 
 	try:
-		articledict['publish_date'] = article.publish_date
+		articledict['publish_date'] = article.publish_date.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['publish_date'] = None
 	
 	try:
-		articledict['title'] = article.title
+		articledict['title'] = article.title.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['title'] = None
 
 	try:
@@ -75,8 +81,9 @@ def getArticleProperties(html):
 		articledict['image'] = None
 
 	try:
-		articledict['raw_html'] = article.raw_html
+		articledict['raw_html'] = article.raw_html.encode('utf-8')
 	except:
+		logger.exception('articleutils - getArticleProperties - error getting article - ' + removeNonAscii(html) + ' - ' + str(e))
 		articledict['raw_html'] = None
 
 	articledict['url'] = None
@@ -84,6 +91,8 @@ def getArticleProperties(html):
 	return articledict
 
 def getArticlePreloads(html):
+	
+	html = html.encode('utf-8')
         bs = BeautifulSoup(html)
 	preload = {}
 	preload['js'] = []
@@ -106,10 +115,9 @@ def getArticlePreloads(html):
 
 def getArticlePropertiesFromUrl(url):
 
-	url = urlutils.getCanonicalUrl(url)
 	try:
-		raw_html = ''
-		respurl = ''
+		raw_html = ''.encode('utf-8')
+		respurl = ''.encode('utf-8')
 
                 cj = CookieJar()
                 cj.clear()
@@ -139,10 +147,10 @@ def getArticlePropertiesFromUrl(url):
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
 		raise
 	try:
-		raw_html = raw_html.replace('&nbsp;', ' ')
-		raw_html = raw_html.replace('\xc2\xa0', ' ')
+		raw_html = raw_html.encode('utf-8').replace('&nbsp;', ' ')
+		raw_html = raw_html.encode('utf-8').replace('\xc2\xa0', ' ')
 		articledict = getArticleProperties(raw_html)
-		articledict['url'] = urlutils.getCanonicalUrl(respurl)
+		articledict['url'] = urlutils.getCanonicalUrl(respurl.encode('utf-8'))
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error extracting article properties - ' + url + ' - ' + str(e))
 		raise
@@ -152,9 +160,9 @@ def getArticlePropertiesFromUrl(url):
 def getArticleSemanticsTags(text):
 
 	text = text.encode('utf-8')
-	tags = map(lambda x: slugify(x), text_summarize.get_text_tags(text))
-	topic = text_summarize.get_text_topic(text)
-	summary = text_summarize.get_text_summary(text)
+	tags = map(lambda x: slugify(x).encode('utf-8'), text_summarize.get_text_tags(text))
+	topic = text_summarize.get_text_topic(text).encode('utf-8')
+	summary = text_summarize.get_text_summary(text).encode('utf-8')
 
 	return {'tags': tags, 'topic': topic, 'summary':summary }
 
