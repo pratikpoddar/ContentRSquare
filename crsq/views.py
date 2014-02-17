@@ -221,11 +221,25 @@ def articlegroupwelcome(request):
 	tagdict = {}
 	for alphabet in alphabets:
 		tagdict[alphabet] = filter(lambda x: x[0]==alphabet, relevanttags)
+	
+	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:5]
+	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[5:10]
+	
+	def summary(url):
+		try:
+			return ArticleSemantics.objects.filter(url=url).values('summary')[0]['summary']
+		except:
+			return None
 
-        template = loader.get_template('crsq/articlegroup/welcome.html')
+	recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
+	popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
+
+	template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
                 'tagdict': sorted(tagdict.items()),
-		'google_trends': sorted(google_trends.items())
+		'google_trends': sorted(google_trends.items()),
+		'recent_articles': recent_articles,
+		'popular_articles':  popular_articles
         })
 
         return HttpResponse(template.render(context))
