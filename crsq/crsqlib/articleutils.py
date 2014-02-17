@@ -7,6 +7,7 @@ from cookielib import CookieJar
 from bs4 import BeautifulSoup
 import re
 from django.template.defaultfilters import slugify
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -126,41 +127,14 @@ def getArticlePreloads(html):
 def getArticlePropertiesFromUrl(url):
 
 	try:
-		raw_html = crsq_unicode('')
-		respurl = crsq_unicode('')
-
-                cj = CookieJar()
-                cj.clear()
-                opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-                url = urlutils.getCanonicalUrl(crsq_unicode(url))
-                try:
-                        resp = opener.open(url, timeout=5)
-                        if resp.getcode() == 200:
-	                        raw_html = resp.read()
-        	                respurl = resp.url
-                except urllib2.HTTPError as err:
-                        if err.code == 403:
-                                opener.addheaders = [('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11 Chrome/32.0.1700.77 Safari/537.36'), ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'), ('Accept-Encoding','gzip,deflate,sdch'), ('Connection', 'keep-alive')]
-                                resp = opener.open(url, timeout=5)
-                                if resp.getcode() == 200:
-					raw_html = resp.read()
-		                        respurl = resp.url
-			else:
-				raise
-		except Exception as e:
-			raise
-
-		if raw_html == '':
-			raise
-
-	except Exception as e:
-		logger.exception('articleutils - getArticlePropertiesFromUrl - error getting article - ' + removeNonAscii(url) + ' - ' + str(e))
-		raise
-	try:
-		raw_html = crsq_unicode(raw_html).replace(crsq_unicode('&nbsp;'), crsq_unicode(' '))
-		raw_html = crsq_unicode(raw_html).replace(crsq_unicode('\xc2\xa0'), crsq_unicode(' '))
+                url = crsq_unicode(url)
+                r = requests.get(url)
+		raw_html = crsq_unicode(r.text)
+		respurl = urlutils.getCanonicalUrl(crsq_unicode(r.url))
+		raw_html = raw_html.replace(crsq_unicode('&nbsp;'), crsq_unicode(' '))
+		raw_html = raw_html.replace(crsq_unicode('\xc2\xa0'), crsq_unicode(' '))
 		articledict = getArticleProperties(raw_html)
-		articledict['url'] = urlutils.getCanonicalUrl(crsq_unicode(respurl))
+		articledict['url'] = respurl
 	except Exception as e:
 		logger.exception('articleutils - getArticlePropertiesFromUrl - error extracting article properties - ' + url + ' - ' + str(e))
 		raise
