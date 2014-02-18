@@ -19,7 +19,7 @@ Real-time news on Popular Topics
 				{% for article in recent_articles %}
   	 			<div class="list-group-item">
 			   	<a rel="nofollow" href="{{ article.url }}" target="_blank"><h4 class="list-group-item-heading">{{ article.articletitle }}</h4></a>
-				<p class="list-group-item-text">{{ article.domain }}</p>
+				<p class="list-group-item-text"><i>{{ article.domain }}</i></p>
 				<p class="list-group-item-text">{{ article.summary }}</p>
 	  			</div>
 				{% endfor %}
@@ -31,7 +31,7 @@ Real-time news on Popular Topics
                                 {% for article in popular_articles %}
                                 <div class="list-group-item">
                                 <a rel="nofollow" href="{{ article.url }}" target="_blank"><h4 class="list-group-item-heading">{{ article.articletitle }}</h4></a>
-                                <p class="list-group-item-text">{{ article.domain }}</p>
+                                <p class="list-group-item-text"><i>{{ article.domain }}</i></p>
                                 <p class="list-group-item-text">{{ article.summary }}</p>
                                 </div>
                                 {% endfor %}
