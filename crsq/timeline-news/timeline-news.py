@@ -47,7 +47,7 @@ def get_timeline_json(headline, text, urllist):
 def create_timeline_json(headline, text, urllist):
 
 	for url in urllist:
-		put_article_details(url)
+		put_article_details(url, source='timeline-news')
 		put_article_semantics_tags(url)
 	d = get_timeline_json(headline, text, urllist)
 	j = json.dumps(d, indent=4)

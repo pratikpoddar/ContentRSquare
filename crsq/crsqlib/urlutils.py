@@ -39,7 +39,7 @@ def getCanonicalUrl(url):
 		    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
 		    map(lambda key: qdict.pop(key), filter(lambda key: re.match('^tu[0-9]+$',key), qdict.keys()))
 		    res = list(res)
-		    res[3] = escape(urlencode(qdict, doseq=1))
+		    res[3] = urlencode(qdict, doseq=1)
 	    else:
 		    res = list(res)
 	    res[4] = ''
