@@ -38,8 +38,10 @@ def getCanonicalUrl(url):
 		    qdict = parse_qs(res.query)
 		    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
 		    map(lambda key: qdict.pop(key), filter(lambda key: re.match('^tu[0-9]+$',key), qdict.keys()))
+		    qtuple = map(lambda t: (t[0], t[1][0]), qdict.items())
+		    qtuple.sort(key=lambda x: x[0])
 		    res = list(res)
-		    res[3] = urlencode(qdict, doseq=1)
+		    res[3] = urlencode(qtuple, doseq=1)
 	    else:
 		    res = list(res)
 	    res[4] = ''
