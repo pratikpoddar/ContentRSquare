@@ -49,6 +49,7 @@ class ArticleInfo(models.Model):
     articledate = models.DateField(null=True)
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)
+    source = models.CharField(max_length=300L, null=True, blank=True, default=None)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def domainname(self):
         return urlparse(self.url)[1]

@@ -23,13 +23,13 @@ def crsq_unicode(s):
                 return s.decode('utf-8')
 
 
-def put_article_details(url):
+def put_article_details(url, source=None):
 	url = urlutils.getCanonicalUrl(url)
 	if ArticleInfo.objects.filter(url=url).count()==0:
 		try:
 			articledict = articleutils.getArticlePropertiesFromUrl(url)
 			socialpower = urlutils.getSocialShares(url)
-			articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(articledict['title']), articleimage = crsq_unicode(articledict['image']), articlecontent = crsq_unicode(articledict['cleaned_text']), articledate = articledict['publish_date'], articlehtml = crsq_unicode(articledict['raw_html']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'])
+			articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(articledict['title']), articleimage = crsq_unicode(articledict['image']), articlecontent = crsq_unicode(articledict['cleaned_text']), articledate = articledict['publish_date'], articlehtml = crsq_unicode(articledict['raw_html']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source=source)
 			if len(articledict['cleaned_text'].strip())>1:
 				articleinfo.save()
 		except Exception as e:

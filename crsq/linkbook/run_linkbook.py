@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def create_linkbook(urllist):
 
 	for url in urllist:
-		put_article_details(url)
+		put_article_details(url, source='linkbook')
 		put_article_semantics_tags(url)
 	return
 

@@ -13,7 +13,7 @@ def get_articles():
 	tobeexpanded = list(set(tl)-set(ai))
 
 	for l in tobeexpanded:
-		twitter_newspaper.put_article_details(l)
+		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
 	return
 
 def get_article_semantics_tags():
