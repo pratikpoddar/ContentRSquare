@@ -28,12 +28,13 @@ def load_rss_in_table(rss_url):
 		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
 		for entry in feed['items']:
-			if 'feedburner_origlink' in entry.keys():
-				put_article_details(entry)
-				put_article_semantics_tags(urlutils.getCanonicalUrl(entry['feedburner_origlink']))
-			elif 'link' in entry.keys():
-				put_article_details(entry)
-				put_article_semantics_tags(urlutils.getCanonicalUrl(entry['link']))
+			if 'content' in entry.keys() and 'title' in entry.keys():
+				if 'feedburner_origlink' in entry.keys():
+					put_article_details(entry)
+					put_article_semantics_tags(urlutils.getCanonicalUrl(entry['feedburner_origlink']))
+				elif 'link' in entry.keys():
+					put_article_details(entry)
+					put_article_semantics_tags(urlutils.getCanonicalUrl(entry['link']))
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
