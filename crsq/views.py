@@ -222,8 +222,8 @@ def articlegroupwelcome(request):
 	for alphabet in alphabets:
 		tagdict[alphabet] = filter(lambda x: x[0]==alphabet, relevanttags)
 	
-	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:5]
-	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[5:10]
+	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:3]
+	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[5:8]
 	
 	def summary(url):
 		try:
