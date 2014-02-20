@@ -29,10 +29,10 @@ def load_rss_in_table(rss_url, extractor):
 		feed = feedparser.parse(rss_url)
 		for entry in feed['items']:
 			if 'content' in entry.keys() and 'title' in entry.keys():
-				if 'feedburner_origlink' in entry.keys():
-					url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
-				elif 'link' in entry.keys():
+				if 'link' in entry.keys():
 					url = urlutils.getCanonicalUrl(entry['link'])
+                                elif 'feedburner_origlink' in entry.keys():
+                                        url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
 
 				if extractor=="feed":
 					feedanalyzer_put_article_details(entry)
@@ -46,11 +46,12 @@ def load_rss_in_table(rss_url, extractor):
 	return
 	
 def feedanalyzer_put_article_details(entry):
-	if 'feedburner_origlink' in entry.keys():
-		url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
-	elif 'link' in entry.keys():
-		url = urlutils.getCanonicalUrl(entry['link'])
-	
+
+	if 'link' in entry.keys():
+        	url = urlutils.getCanonicalUrl(entry['link'])
+        elif 'feedburner_origlink' in entry.keys():
+        	url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+
 	url = urlutils.getCanonicalUrl(url)
 	if url:
 	        if ArticleInfo.objects.filter(url=url).count()==0:
