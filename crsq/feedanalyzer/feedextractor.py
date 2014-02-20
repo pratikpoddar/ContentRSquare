@@ -22,7 +22,7 @@ def crsq_unicode(s):
         else:
                 return s.decode('utf-8')
 
-def pick_appropriate_url(rss_entry):
+def pick_appropriate_url(entry):
 	url = ""
 
 	if 'link' in entry.keys():
