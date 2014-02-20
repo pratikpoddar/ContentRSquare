@@ -219,8 +219,8 @@ def articlegroupwelcome(request):
 
 	tagdict = dbcache.getRelevantTagDict()
 
-	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
-	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
+	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[1:4].values()
+	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[4:7].values()
 	#recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
 	#popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
 	
