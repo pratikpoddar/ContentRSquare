@@ -22,6 +22,29 @@ def crsq_unicode(s):
         else:
                 return s.decode('utf-8')
 
+def pick_appropriate_url(rss_entry):
+	url = ""
+
+	if 'link' in entry.keys():
+        	urlcheck = urlutils.getCanonicalUrl(entry['link'])
+		if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1):
+			url = urlcheck
+			return url
+			
+	if 'feedburner_origlink' in entry.keys():
+		urlcheck = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+                if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1):
+			url = urlcheck
+			return url
+
+	if 'link' in entry.keys():
+		return urlutils.getCanonicalUrl(entry['link'])
+
+	if 'feedburner_origlink' in entry.keys():
+		return urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+		
+	return None	
+	
 def load_rss_in_table(rss_url, extractor):
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
@@ -29,10 +52,8 @@ def load_rss_in_table(rss_url, extractor):
 		feed = feedparser.parse(rss_url)
 		for entry in feed['items']:
 			if 'content' in entry.keys() and 'title' in entry.keys():
-				if 'link' in entry.keys():
-					url = urlutils.getCanonicalUrl(entry['link'])
-                                elif 'feedburner_origlink' in entry.keys():
-                                        url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+
+				url = pick_appropriate_url(entry)
 
 				if extractor=="feed":
 					feedanalyzer_put_article_details(entry)
@@ -47,11 +68,7 @@ def load_rss_in_table(rss_url, extractor):
 	
 def feedanalyzer_put_article_details(entry):
 
-	if 'link' in entry.keys():
-        	url = urlutils.getCanonicalUrl(entry['link'])
-        elif 'feedburner_origlink' in entry.keys():
-        	url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
-
+	url = pick_appropriate_url(entry)
 	url = urlutils.getCanonicalUrl(url)
 	if url:
 	        if ArticleInfo.objects.filter(url=url).count()==0:
