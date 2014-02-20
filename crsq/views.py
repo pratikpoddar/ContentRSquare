@@ -23,7 +23,7 @@ import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq.linkbook import linkbook
-from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags
+from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags
 
 
 logger = logging.getLogger(__name__)

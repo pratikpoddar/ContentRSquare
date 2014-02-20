@@ -15,10 +15,11 @@ for t in toptagshelp:
 	except:
 		pass
 toptags = list(set(toptags))
-ImportantTags.filter(source="top_tag").delete()
-if ImportantTags.filter(tag=tag, source="top_tag").count()==0:
-	imptag = ImportantTags(tag=tag, source="top_tag")
-        imptag.save()
+ImportantTags.objects.filter(source="top_tag").delete()
+for tag in toptags:
+	if ImportantTags.objects.filter(tag=tag, source="top_tag").count()==0:
+		imptag = ImportantTags(tag=tag, source="top_tag")
+	        imptag.save()
 
 allurls = list(set(map(lambda x: x['url'], ArticleInfo.objects.exclude(articlecontent=None).exclude(articlecontent='').exclude(articleimage='').exclude(articleimage=None).values('url'))))
 alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.filter(url__in=allurls).values('tag'))))
@@ -47,7 +48,7 @@ tagfile.close()
 
 for country in google_trends.keys():
 	for tag in google_trends[country]:
-		if ImportantTags.filter(tag=tag, source="google_trend:"+country).count()==0:
+		if ImportantTags.objects.filter(tag=tag, source="google_trend:"+country).count()==0:
 		        imptag = ImportantTags(tag=tag, source="google_trend:"+country)
 		        imptag.save()
 
