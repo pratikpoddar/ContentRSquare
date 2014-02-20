@@ -1,7 +1,7 @@
 import feedparser
 from bs4 import BeautifulSoup
 from crsq.models import ArticleInfo, ArticleTags, ArticleSemantics
-from crsq.crsqlib import urlutils, articleutils
+from crsq.crsqlib import urlutils, articleutils, articleutilsdb
 import datetime
 import logging
 import json
@@ -22,7 +22,7 @@ def crsq_unicode(s):
         else:
                 return s.decode('utf-8')
 
-def load_rss_in_table(rss_url):
+def load_rss_in_table(rss_url, extractor):
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
@@ -30,16 +30,22 @@ def load_rss_in_table(rss_url):
 		for entry in feed['items']:
 			if 'content' in entry.keys() and 'title' in entry.keys():
 				if 'feedburner_origlink' in entry.keys():
-					put_article_details(entry)
-					put_article_semantics_tags(urlutils.getCanonicalUrl(entry['feedburner_origlink']))
+					url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
 				elif 'link' in entry.keys():
-					put_article_details(entry)
-					put_article_semantics_tags(urlutils.getCanonicalUrl(entry['link']))
+					url = urlutils.getCanonicalUrl(entry['link'])
+
+				if extractor=="feed":
+					feedanalyzer_put_article_details(entry)
+				if extractor=="fromscratch":
+					articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
+
+				if extractor in ["feed", "fromscratch"]:
+					articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
 	
-def put_article_details(entry):
+def feedanalyzer_put_article_details(entry):
 	if 'feedburner_origlink' in entry.keys():
 		url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
 	elif 'link' in entry.keys():
@@ -64,28 +70,6 @@ def put_article_details(entry):
         	                articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(entry['title']), articleimage = articleimage, articlecontent = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), articledate = articledate, articlehtml = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source='feedanalyzer')
 				articleinfo.save()
 	                except Exception as e:
-        	                logger.exception('feedanalyzer - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
+        	                logger.exception('feedanalyzer - feedanalyzer_put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
         return
-
-def put_article_semantics_tags(url):
-        url = urlutils.getCanonicalUrl(url)
-        if ArticleInfo.objects.filter(url=url).count()==0:
-                return
-        if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
-                try:
-                        content = crsq_unicode(ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent'])
-                        semantics_dict = articleutils.getArticleSemanticsTags(content)
-                        semantics_row = ArticleSemantics(url=urlutils.getCanonicalUrl(url), summary = crsq_unicode(semantics_dict['summary']), topic = crsq_unicode(semantics_dict['topic']))
-                        if ArticleSemantics.objects.filter(url=url).count()==0:
-                                semantics_row.save()
-                        if ArticleTags.objects.filter(url=url).count()==0:
-                                for tag in semantics_dict['tags']:
-                                        tag_row = ArticleTags(url=url, tag=crsq_unicode(tag))
-                                        if ArticleTags.objects.filter(url=url, tag=crsq_unicode(tag)).count()==0:
-                                                tag_row.save()
-                except Exception as e:
-                        logger.exception('feedanalyzer - put_article_semantics_tags - error getting article semantics / tags - ' + removeNonAscii(url) + ' - ' + str(e))
-
-        return
-
 

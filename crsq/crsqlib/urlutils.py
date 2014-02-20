@@ -34,6 +34,13 @@ def getCanonicalUrl(url):
 	
 	    url = crsq_unicode(url)
 	    res = urlsplit(url)
+
+	    # if google news article
+	    if res.query:
+		    qdict = parse_qs(res.query)
+		    if (res[1] == 'news.google.com') and (res[2] == '/news/url') and ('url' in qdict.keys()):
+			return getCanonicalUrl(qdict['url'][0])
+	
 	    if res.query:
 		    qdict = parse_qs(res.query)
 		    map(lambda key: qdict.pop(key), filter(lambda key: key.startswith('utm_'), qdict.keys()))
