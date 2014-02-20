@@ -1369,9 +1369,7 @@ class Calendar:
                 m = self.ptc.CRE_UNITS.search(s)
                 if m is not None:
                     #log.debug('CRE_UNITS matched')
-                    if self._UnitsTrapped(s, m, 'units'):
-                        #log.debug('day suffix trapped by unit match')
-                    else:
+                    if not self._UnitsTrapped(s, m, 'units'):
                         self.unitsFlag = True
                         if (m.group('qty') != s):
                             # capture remaining string
@@ -1393,9 +1391,7 @@ class Calendar:
                 m = self.ptc.CRE_QUNITS.search(s)
                 if m is not None:
                     #log.debug('CRE_QUNITS matched')
-                    if self._UnitsTrapped(s, m, 'qunits'):
-                        #log.debug('day suffix trapped by qunit match')
-                    else:
+                    if not self._UnitsTrapped(s, m, 'qunits'):
                         self.qunitsFlag = True
 
                         if (m.group('qty') != s):
@@ -1728,9 +1724,7 @@ class Calendar:
             m = self.ptc.CRE_UNITS.search(inputString[startpos:])
             if m is not None:
                 #log.debug('CRE_UNITS matched')
-                if self._UnitsTrapped(inputString[startpos:], m, 'units'):
-                    #log.debug('day suffix trapped by unit match')
-                else:
+                if not self._UnitsTrapped(inputString[startpos:], m, 'units'):
 
                     if leftmost_match[1] == 0 or leftmost_match[0] > m.start('qty') + startpos:
                         leftmost_match[0] = m.start('qty') + startpos
@@ -1747,9 +1741,7 @@ class Calendar:
             m = self.ptc.CRE_QUNITS.search(inputString[startpos:])
             if m is not None:
                 #log.debug('CRE_QUNITS matched')
-                if self._UnitsTrapped(inputString[startpos:], m, 'qunits'):
-                    #log.debug('day suffix trapped by qunit match')
-                else:
+                if not self._UnitsTrapped(inputString[startpos:], m, 'qunits'):
                     if leftmost_match[1] == 0 or leftmost_match[0] > m.start('qty') + startpos:
                         leftmost_match[0] = m.start('qty') + startpos
                         leftmost_match[1] = m.end('qty') + startpos

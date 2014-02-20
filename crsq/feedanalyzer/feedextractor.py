@@ -59,19 +59,15 @@ def load_rss_in_table(rss_url, extractor):
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
-		print "---"
-		print rss_url
 		for entry in feed['items']:
 			url = pick_appropriate_url(entry)
 
 			if extractor=="feed":
 				if 'content' in entry.keys() and 'title' in entry.keys():
-					print url
 					feedanalyzer_put_article_details(entry)
 					articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
 
 			if extractor=="fromscratch":
-				print urlutils.getCanonicalUrl(url)
 				articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
 				articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
 

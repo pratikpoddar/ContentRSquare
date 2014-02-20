@@ -180,7 +180,7 @@ def timenews_article(request, articleid):
 def articlegroup(request, tag):
 
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:25]
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values()[:25]
 
 	relevanttags = dbcache.getRelevantTags()
 
@@ -214,21 +214,10 @@ def articlegroup(request, tag):
 	
 def articlegroupwelcome(request):
 
-	import datetime
-
-	logger.debug("1")
-	logger.debug(datetime.datetime.now())
-
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
 
-        logger.debug("2")
-        logger.debug(datetime.datetime.now())
-
 	tagdict = dbcache.getRelevantTagDict()
-
-        logger.debug("3")
-        logger.debug(datetime.datetime.now())
 
 	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
 	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
@@ -241,14 +230,8 @@ def articlegroupwelcome(request):
 		except:
 			return None
 
-        logger.debug("4")
-        logger.debug(datetime.datetime.now())
-
 	recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
 	popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
-
-        logger.debug("5")
-        logger.debug(datetime.datetime.now())
 
 	template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
