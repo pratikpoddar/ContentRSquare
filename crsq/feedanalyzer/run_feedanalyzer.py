@@ -23,14 +23,13 @@ def fa():
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1006", "feed")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1004", "feed")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1014", "feed")
-	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1021", "feed")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1008", "feed")
 	feedextractor.load_rss_in_table("http://rss1.smashingmagazine.com/feed/", "feed")
-	feedextractor.load_rss_in_table("http://feeds.wired.com/GearFactor", "feed")
-	feedextractor.load_rss_in_table("http://feeds.boingboing.net/boingboing/iBag", "feed")
+	feedextractor.load_rss_in_table("http://feeds.wired.com/GearFactor", "fromscratch")
+	#feedextractor.load_rss_in_table("http://feeds.boingboing.net/boingboing/iBag", "feed")
 	feedextractor.load_rss_in_table("http://www.ducttapemarketing.com/blog/feed/", "feed")
-	feedextractor.load_rss_in_table("http://www.engadget.com/rss.xml", "feed")
-	feedextractor.load_rss_in_table("http://www.tmz.com/rss.xml", "feed")
+	feedextractor.load_rss_in_table("http://www.engadget.com/rss.xml", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.tmz.com/rss.xml", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/fastcompany", "feed")
 	feedextractor.load_rss_in_table("http://feeds.huffingtonpost.com/huffingtonpost/raw_feed", "feed")
 	feedextractor.load_rss_in_table("http://timesofindia.feedsportal.com/c/33039/f/533965/index.rss", "fromscratch")
@@ -66,7 +65,7 @@ def fa():
 	feedextractor.load_rss_in_table("http://holykaw.alltop.com/feed", "fromscratch")
 	nytlist = ["HomePage.xml", "AsiaPacific.xml", "Europe.xml", "MiddleEast.xml", "Africa.xml", "Americas.xml", "World.xml", "US.xml", "Politics.xml", "NYRegion.xml", "Business.xml", "EnergyEnvironment.xml", "MediaandAdvertising.xml", "Economy.xml", "Technology.xml", "PersonalTech.xml", "Health.xml", "Nutrition.xml", "Sports.xml", "Baseball.xml", "InternationalSports.xml", "Arts.xml", "ArtandDesign.xml", "Movies.xml", "Dance.xml", "Television.xml", "Music.xml", "FashionandStyle.xml", "DiningandWine.xml", "Travel.xml", "InternationalOpinion.xml"]
 	for ny in nytlist:
-		fedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
+		feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
 	logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
 	return
 

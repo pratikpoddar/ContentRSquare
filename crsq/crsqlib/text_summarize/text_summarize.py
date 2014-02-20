@@ -125,7 +125,7 @@ def get_python_tagger(text, tag_meaning=True):
 
 	text = crsq_unicode(text)
         logger.debug('## Python Tagger ##')
-	weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"data/dict.pkl", 'rb')) 
+	weights = pickle.load(open(inspect.getfile(tagger)[0:-10]+"/data/dict.pkl", 'rb')) 
 	myreader = tagger.Reader()
 	mystemmer = tagger.Stemmer()
 	myrater = tagger.Rater(weights)

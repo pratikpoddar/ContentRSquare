@@ -179,7 +179,7 @@ def articlegroup(request, tag):
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:25]
 
-	relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend")) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time')[:1000])))
+	relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
 
 	article_list = []
 	
@@ -215,7 +215,7 @@ def articlegroupwelcome(request):
 	google_trends = pickle.load(googletrendsfile)
 
 
-        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend")) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time')[:1000])))
+        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
 
 	relevanttags = sorted(list(set(relevanttags)))
 	alphabets = sorted(list(set(map(lambda x:x[0], relevanttags))))

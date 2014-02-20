@@ -64,7 +64,7 @@ def get_text_topic(text):
 		X_train = vectorizer.fit_transform(data_train)
 		clf = SGDClassifier(alpha=.0001, n_iter=50, penalty="l2")
 		clf.fit(X_train, y_train)
-        	with open('topic_classification_brown.pickle', 'w') as f:
+        	with open(inspect.getfile(text_summarize).replace('__init__.pyc','')+'topic_classification_brown.pickle') as f:
 			pickle.dump([clf, vectorizer, target_names], f)
 
 	if text == None:

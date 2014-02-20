@@ -27,15 +27,24 @@ def pick_appropriate_url(entry):
 
 	if 'link' in entry.keys():
         	urlcheck = urlutils.getCanonicalUrl(entry['link'])
-		if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1):
+		if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
 			url = urlcheck
 			return url
 			
 	if 'feedburner_origlink' in entry.keys():
 		urlcheck = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
-                if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1):
+                if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
 			url = urlcheck
 			return url
+
+        if 'id' in entry.keys():
+		try:
+	                urlcheck = urlutils.getCanonicalUrl(entry['id'])
+        	        if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
+                	        url = urlcheck
+	                        return url
+		except:
+			pass
 
 	if 'link' in entry.keys():
 		return urlutils.getCanonicalUrl(entry['link'])
@@ -50,18 +59,22 @@ def load_rss_in_table(rss_url, extractor):
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
+		print "---"
+		print rss_url
 		for entry in feed['items']:
-			if 'content' in entry.keys() and 'title' in entry.keys():
+			url = pick_appropriate_url(entry)
 
-				url = pick_appropriate_url(entry)
-
-				if extractor=="feed":
+			if extractor=="feed":
+				if 'content' in entry.keys() and 'title' in entry.keys():
+					print url
 					feedanalyzer_put_article_details(entry)
-				if extractor=="fromscratch":
-					articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
-
-				if extractor in ["feed", "fromscratch"]:
 					articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
+
+			if extractor=="fromscratch":
+				print urlutils.getCanonicalUrl(url)
+				articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
+				articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
+
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
