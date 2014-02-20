@@ -23,8 +23,11 @@ import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq.linkbook import linkbook
+from crsq import dbcache
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags
 
+
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -179,7 +182,7 @@ def articlegroup(request, tag):
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:25]
 
-	relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
+	relevanttags = dbcache.getRelevantTags()
 
 	article_list = []
 	
@@ -211,20 +214,26 @@ def articlegroup(request, tag):
 	
 def articlegroupwelcome(request):
 
+	import datetime
+
+	logger.debug("1")
+	logger.debug(datetime.datetime.now())
+
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
 
+        logger.debug("2")
+        logger.debug(datetime.datetime.now())
 
-        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
+	tagdict = dbcache.getRelevantTagDict()
 
-	relevanttags = sorted(list(set(relevanttags)))
-	alphabets = sorted(list(set(map(lambda x:x[0], relevanttags))))
-	tagdict = {}
-	for alphabet in alphabets:
-		tagdict[alphabet] = filter(lambda x: x[0]==alphabet, relevanttags)
-	
-	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:3]
-	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[5:8]
+        logger.debug("3")
+        logger.debug(datetime.datetime.now())
+
+	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
+	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[:3].values()
+	#recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
+	#popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
 	
 	def summary(url):
 		try:
@@ -232,8 +241,14 @@ def articlegroupwelcome(request):
 		except:
 			return None
 
+        logger.debug("4")
+        logger.debug(datetime.datetime.now())
+
 	recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
 	popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
+
+        logger.debug("5")
+        logger.debug(datetime.datetime.now())
 
 	template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {

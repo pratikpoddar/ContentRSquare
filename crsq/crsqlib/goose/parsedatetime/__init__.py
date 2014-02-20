@@ -277,7 +277,7 @@ class Calendar:
         @rtype:  struct_time
         @return: C{struct_time} of the calculated time
         """
-        log.debug('_buildTime: [%s][%s][%s]' % (quantity, modifier, units))
+        #log.debug('_buildTime: [%s][%s][%s]' % (quantity, modifier, units))
 
         if source is None:
             source = time.localtime()
@@ -308,7 +308,7 @@ class Calendar:
                 realunit = key
                 break
 
-        log.debug('units %s --> realunit %s' % (units, realunit))
+        #log.debug('units %s --> realunit %s' % (units, realunit))
 
         if realunit == 'years':
             target        = self.inc(start, year=qty)
@@ -401,7 +401,7 @@ class Calendar:
         elif yr < 100:
             yr += 1900
 
-        log.debug('parseDate: %s %s %s %s' % (yr, mth, dy, self.ptc.daysInMonth(mth, yr)))
+        #log.debug('parseDate: %s %s %s %s' % (yr, mth, dy, self.ptc.daysInMonth(mth, yr)))
 
         if (mth > 0 and mth <= 12) and \
            (dy > 0 and dy <= self.ptc.daysInMonth(mth, yr)):
@@ -524,7 +524,7 @@ class Calendar:
                                 if m is not None:
                                     rangeFlag = 6
 
-        log.debug('evalRanges: rangeFlag = %s [%s]' % (rangeFlag, s))
+        #log.debug('evalRanges: rangeFlag = %s [%s]' % (rangeFlag, s))
 
         if m is not None:
             if (m.group() != s):
@@ -702,7 +702,7 @@ class Calendar:
                 # occurance of the DOW in the current week is calculated
                 diff = wkdy - wd
 
-        log.debug("wd %s, wkdy %s, offset %d, style %d" % (wd, wkdy, offset, style))
+        #log.debug("wd %s, wkdy %s, offset %d, style %d" % (wd, wkdy, offset, style))
 
         return diff
 
@@ -769,7 +769,7 @@ class Calendar:
 
         flag = False
 
-        log.debug("modifier [%s] chunk1 [%s] chunk2 [%s] unit [%s] flag %s" % (modifier, chunk1, chunk2, unit, flag))
+        #log.debug("modifier [%s] chunk1 [%s] chunk2 [%s] unit [%s] flag %s" % (modifier, chunk1, chunk2, unit, flag))
 
         if unit == 'month' or \
            unit == 'mth' or \
@@ -872,7 +872,7 @@ class Calendar:
         if not flag:
             m = self.ptc.CRE_WEEKDAY.match(unit)
             if m is not None:
-                log.debug('CRE_WEEKDAY matched')
+                #log.debug('CRE_WEEKDAY matched')
                 wkdy          = m.group()
                 self.dateFlag = 1
 
@@ -900,7 +900,7 @@ class Calendar:
         if not flag:
             m = self.ptc.CRE_TIME.match(unit)
             if m is not None:
-                log.debug('CRE_TIME matched')
+                #log.debug('CRE_TIME matched')
                 self.modifierFlag = False
                 (yr, mth, dy, hr, mn, sec, wd, yd, isdst), _ = self.parse(unit)
 
@@ -911,23 +911,23 @@ class Calendar:
             else:
                 self.modifierFlag = False
 
-                log.debug('check for modifications to source time')
+                #log.debug('check for modifications to source time')
 
                 # check if the remaining text is parsable and if so,
                 # use it as the base time for the modifier source time
                 t, flag2 = self.parse('%s %s' % (chunk1, unit), sourceTime)
 
-                log.debug('flag2 = %s t = %s' % (flag2, t))
+                #log.debug('flag2 = %s t = %s' % (flag2, t))
 
                 if flag2 != 0:
                     sourceTime = t
 
                 sources = self.ptc.buildSources(sourceTime)
 
-                log.debug('looking for %s in %s' % (modifier, sources))
+                #log.debug('looking for %s in %s' % (modifier, sources))
 
                 if modifier in sources:
-                    log.debug('modifier found in sources')
+                    #log.debug('modifier found in sources')
                     sourceTime    = sources[modifier]
                     flag          = True
                     self.timeFlag = 2
@@ -944,7 +944,7 @@ class Calendar:
 
         self.modifierFlag = False
 
-        log.debug('returning chunk = "%s" and sourceTime = %s' % (chunk2, sourceTime))
+        #log.debug('returning chunk = "%s" and sourceTime = %s' % (chunk2, sourceTime))
 
         #return '%s %s' % (chunk1, chunk2), sourceTime
         return '%s' % chunk2, sourceTime
@@ -971,7 +971,7 @@ class Calendar:
         offset = self.ptc.Modifiers[modifier]
 
         self.modifier2Flag = False
-        log.debug("modifier2 [%s] chunk1 [%s] chunk2 [%s] sourceTime %s" % (modifier, chunk1, chunk2, sourceTime))
+        #log.debug("modifier2 [%s] chunk1 [%s] chunk2 [%s] sourceTime %s" % (modifier, chunk1, chunk2, sourceTime))
 
         # If the string after the negative modifier starts with digits,
         # then it is likely that the string is similar to ' before 3 days'
@@ -1056,12 +1056,12 @@ class Calendar:
         s   = datetimeString.strip()
         now = time.localtime()
 
-        log.debug('_evalString(%s, %s)' % (datetimeString, sourceTime))
+        #log.debug('_evalString(%s, %s)' % (datetimeString, sourceTime))
 
         # Given string date is a RFC822 date
         if sourceTime is None:
             sourceTime = _parse_date_rfc822(s)
-            log.debug('attempt to parse as rfc822 - %s' % str(sourceTime))
+            #log.debug('attempt to parse as rfc822 - %s' % str(sourceTime))
 
             if sourceTime is not None:
                 (yr, mth, dy, hr, mn, sec, wd, yd, isdst, _) = sourceTime
@@ -1152,9 +1152,9 @@ class Calendar:
 
         # Given string is in the format  "May 23rd, 2005"
         if self.dateStrFlag:
-            log.debug('checking for MMM DD YYYY')
+            #log.debug('checking for MMM DD YYYY')
             sourceTime       = self.parseDateText(s, sourceTime)
-            log.debug('parseDateText(%s) returned %s' % (s, sourceTime))
+            #log.debug('parseDateText(%s) returned %s' % (s, sourceTime))
             self.dateStrFlag = False
 
         # Given string is a weekday
@@ -1309,7 +1309,7 @@ class Calendar:
 
         if sourceTime:
             if isinstance(sourceTime, datetime.datetime):
-                log.debug('coercing datetime to timetuple')
+                #log.debug('coercing datetime to timetuple')
                 sourceTime = sourceTime.timetuple()
             else:
                 if not isinstance(sourceTime, time.struct_time) and \
@@ -1334,7 +1334,7 @@ class Calendar:
             chunk1 = ''
             chunk2 = ''
 
-            log.debug('parse (top of loop): [%s][%s]' % (s, parseStr))
+            #log.debug('parse (top of loop): [%s][%s]' % (s, parseStr))
 
             if parseStr == '':
                 # Modifier like next\prev..
@@ -1368,9 +1368,9 @@ class Calendar:
                 # Quantity + Units
                 m = self.ptc.CRE_UNITS.search(s)
                 if m is not None:
-                    log.debug('CRE_UNITS matched')
+                    #log.debug('CRE_UNITS matched')
                     if self._UnitsTrapped(s, m, 'units'):
-                        log.debug('day suffix trapped by unit match')
+                        #log.debug('day suffix trapped by unit match')
                     else:
                         self.unitsFlag = True
                         if (m.group('qty') != s):
@@ -1392,9 +1392,9 @@ class Calendar:
                 # Quantity + Units
                 m = self.ptc.CRE_QUNITS.search(s)
                 if m is not None:
-                    log.debug('CRE_QUNITS matched')
+                    #log.debug('CRE_QUNITS matched')
                     if self._UnitsTrapped(s, m, 'qunits'):
-                        log.debug('day suffix trapped by qunit match')
+                        #log.debug('day suffix trapped by qunit match')
                     else:
                         self.qunitsFlag = True
 
@@ -1556,11 +1556,11 @@ class Calendar:
             if not flag:
                 s = ''
 
-            log.debug('parse (bottom) [%s][%s][%s][%s]' % (s, parseStr, chunk1, chunk2))
-            log.debug('weekday %s, dateStd %s, dateStr %s, time %s, timeStr %s, meridian %s' % \
-                      (self.weekdyFlag, self.dateStdFlag, self.dateStrFlag, self.timeStdFlag, self.timeStrFlag, self.meridianFlag))
-            log.debug('dayStr %s, modifier %s, modifier2 %s, units %s, qunits %s' % \
-                      (self.dayStrFlag, self.modifierFlag, self.modifier2Flag, self.unitsFlag, self.qunitsFlag))
+            #log.debug('parse (bottom) [%s][%s][%s][%s]' % (s, parseStr, chunk1, chunk2))
+            #log.debug('weekday %s, dateStd %s, dateStr %s, time %s, timeStr %s, meridian %s' % \
+            #          (self.weekdyFlag, self.dateStdFlag, self.dateStrFlag, self.timeStdFlag, self.timeStrFlag, self.meridianFlag))
+            #log.debug('dayStr %s, modifier %s, modifier2 %s, units %s, qunits %s' % \
+            #          (self.dayStrFlag, self.modifierFlag, self.modifier2Flag, self.unitsFlag, self.qunitsFlag))
 
             # evaluate the matched string
 
@@ -1580,10 +1580,10 @@ class Calendar:
                             self.timeFlag = tempTimeFlag
                             self.dateFlag = tempDateFlag
 
-                            log.debug('return 1')
+                            #log.debug('return 1')
                             return (totalTime, self.dateFlag + self.timeFlag)
                         else:
-                            log.debug('return 2')
+                            #log.debug('return 2')
                             return (totalTime2, self.dateFlag + self.timeFlag)
 
                 elif self.modifier2Flag == True:
@@ -1601,7 +1601,7 @@ class Calendar:
             totalTime     = None
             self.dateFlag = 0
             self.timeFlag = 0
-        log.debug('return')
+        #log.debug('return')
         return (totalTime, self.dateFlag + self.timeFlag)
 
 
@@ -1727,9 +1727,9 @@ class Calendar:
             # Quantity + Units
             m = self.ptc.CRE_UNITS.search(inputString[startpos:])
             if m is not None:
-                log.debug('CRE_UNITS matched')
+                #log.debug('CRE_UNITS matched')
                 if self._UnitsTrapped(inputString[startpos:], m, 'units'):
-                    log.debug('day suffix trapped by unit match')
+                    #log.debug('day suffix trapped by unit match')
                 else:
 
                     if leftmost_match[1] == 0 or leftmost_match[0] > m.start('qty') + startpos:
@@ -1746,9 +1746,9 @@ class Calendar:
             # Quantity + Units
             m = self.ptc.CRE_QUNITS.search(inputString[startpos:])
             if m is not None:
-                log.debug('CRE_QUNITS matched')
+                #log.debug('CRE_QUNITS matched')
                 if self._UnitsTrapped(inputString[startpos:], m, 'qunits'):
-                    log.debug('day suffix trapped by qunit match')
+                    #log.debug('day suffix trapped by qunit match')
                 else:
                     if leftmost_match[1] == 0 or leftmost_match[0] > m.start('qty') + startpos:
                         leftmost_match[0] = m.start('qty') + startpos
@@ -2382,7 +2382,7 @@ class Constants(object):
         the number of days in the month adjusting for leap year as needed
         """
         result = None
-        log.debug('daysInMonth(%s, %s)' % (month, year))
+        #log.debug('daysInMonth(%s, %s)' % (month, year))
         if month > 0 and month <= 12:
             result = self._DaysInMonthList[month - 1]
 

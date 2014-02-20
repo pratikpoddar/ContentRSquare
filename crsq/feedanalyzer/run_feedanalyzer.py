@@ -54,7 +54,7 @@ def fa():
 	feedextractor.load_rss_in_table("http://timesofindia.indiatimes.com/rssfeeds/7098551.cms", "fromscratch")
 	feedextractor.load_rss_in_table("http://blogs.timesofindia.indiatimes.com/main/feed/entries/rss", "fromscratch")
 	feedextractor.load_rss_in_table("http://blogs.economictimes.indiatimes.com/main/feed/entries/rss", "fromscratch")
-	htlist = ["HT-HomePage-TopStories", "HT-Dontmiss", "HT-India", "HT-World", "HT-Entertainment", "HT-Bollywood", "HT-Fashion", "HT-Sexandrelationships", "HT-Wellness", "HT-ArtNews", "HT-Travel", "HT-Entertainment", "HT-Gadgets-updates", "HT-Apps-updates", "HT-Sport", "HT-cricket", "HT-Football", "HT-Business", "HT-Wellness", "HT-Mumbai-News", "HT-New-Delhi", "HT-Business"]
+	htlist = ["HT-Dontmiss", "HT-India", "HT-World", "HT-Entertainment", "HT-Bollywood", "HT-Fashion", "HT-Sexandrelationships", "HT-Wellness", "HT-ArtNews", "HT-Travel", "HT-Entertainment", "HT-Gadgets-updates", "HT-Apps-updates", "HT-Sport", "HT-cricket", "HT-Football", "HT-Business", "HT-Wellness", "HT-Mumbai-News", "HT-New-Delhi", "HT-Business"]
 	for ht in htlist:
 		feedextractor.load_rss_in_table("http://feeds.hindustantimes.com/"+ht, "fromscratch")
 	countrylist = ["in", "us"]
