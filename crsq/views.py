@@ -179,8 +179,8 @@ def articlegroup(request, tag):
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-articledate').values()[:25]
 
-	tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'r')
-	relevanttags = pickle.load(tagfile)
+	relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend")) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time')[:1000])))
+
 	article_list = []
 	
 	for article in articles:
@@ -214,8 +214,9 @@ def articlegroupwelcome(request):
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
 
-        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'r')
-        relevanttags = pickle.load(tagfile)
+
+        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend")) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time')[:1000])))
+
 	relevanttags = sorted(list(set(relevanttags)))
 	alphabets = sorted(list(set(map(lambda x:x[0], relevanttags))))
 	tagdict = {}

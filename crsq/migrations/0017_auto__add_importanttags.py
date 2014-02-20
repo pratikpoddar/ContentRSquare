@@ -8,15 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'ArticleInfo.source'
-        db.add_column(u'crsq_articleinfo', 'source',
-                      self.gf('django.db.models.fields.CharField')(default=None, max_length=300L, null=True, blank=True),
-                      keep_default=False)
+        # Adding model 'ImportantTags'
+        db.create_table(u'crsq_importanttags', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('tag', self.gf('django.db.models.fields.CharField')(max_length=255L)),
+            ('source', self.gf('django.db.models.fields.CharField')(max_length=255L)),
+            ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+        ))
+        db.send_create_signal(u'crsq', ['ImportantTags'])
 
 
     def backwards(self, orm):
-        # Deleting field 'ArticleInfo.source'
-        db.delete_column(u'crsq_articleinfo', 'source')
+        # Deleting model 'ImportantTags'
+        db.delete_table(u'crsq_importanttags')
 
 
     models = {
@@ -62,6 +66,13 @@ class Migration(SchemaMigration):
             'content': ('django.db.models.fields.CharField', [], {'max_length': '100L', 'null': 'True'}),
             'contenthash': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100L', 'db_index': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+        },
+        u'crsq.importanttags': {
+            'Meta': {'object_name': 'ImportantTags'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'source': ('django.db.models.fields.CharField', [], {'max_length': '255L'}),
+            'tag': ('django.db.models.fields.CharField', [], {'max_length': '255L'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
         u'crsq.penpatronuser': {

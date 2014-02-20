@@ -66,6 +66,11 @@ class ArticleTags(models.Model):
     class Meta:
         unique_together = (("url", "tag"),)
 
+class ImportantTags(models.Model):
+    tag = models.CharField(max_length=255L, null=False)
+    source = models.CharField(max_length=255L, null=False)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+    
 class PenPatronUser(models.Model):
     name = models.CharField(max_length=255L, null=False)
     email = models.CharField(max_length=255L, null=False)

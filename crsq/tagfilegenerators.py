@@ -15,21 +15,13 @@ for t in toptagshelp:
 	except:
 		pass
 toptags = list(set(toptags))
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'w')
-pickle.dump(toptags, tagfile)
-tagfile.close()
+ImportantTags.filter(source="top_tag").delete()
+if ImportantTags.filter(tag=tag, source="top_tag").count()==0:
+	imptag = ImportantTags(tag=tag, source="top_tag")
+        imptag.save()
 
 allurls = list(set(map(lambda x: x['url'], ArticleInfo.objects.exclude(articlecontent=None).exclude(articlecontent='').exclude(articleimage='').exclude(articleimage=None).values('url'))))
 alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.filter(url__in=allurls).values('tag'))))
-top3000tags = list(set(map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:3000])))
-
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/toptags.txt', 'r')
-toptags = pickle.load(tagfile)
-tagfile.close()
-
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'r')
-nltk_ne_tags = pickle.load(tagfile)
-tagfile.close()
 
 from crsq.google_trends.gt import *
 google_trends = get_all_google_trends()
@@ -52,12 +44,10 @@ tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.tx
 pickle.dump(google_trends, tagfile)
 tagfile.close()
 
-google_trends_tags = list(set(sum(google_trends.values(), [])))
-nltk_ne_tags = filter(lambda x: x in top3000tags, nltk_ne_tags)
 
-relevant_tags = list(set(nltk_ne_tags + google_trends_tags))
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/relevanttags.txt', 'w')
-pickle.dump(relevant_tags, tagfile)
-tagfile.close()
-
+for country in google_trends.keys():
+	for tag in google_trends[country]:
+		if ImportantTags.filter(tag=tag, source="google_trend:"+country).count()==0:
+		        imptag = ImportantTags(tag=tag, source="google_trend:"+country)
+		        imptag.save()
 

@@ -23,6 +23,7 @@ from sumy.utils import get_stop_words
 from pyteaser import Summarize
 
 from crsq import crsqlib
+from crsq.models import *
 
 from crsq.crsqlib.text_summarize import text_topic_brown
 
@@ -61,14 +62,10 @@ def get_text_tags(text):
 	try:
 		if output_tags:
 			## adding to the list of nltk ne tags
-		        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'r')
-		        nltk_ne_tags = pickle.load(tagfile)
-			nltk_ne_tags += map(lambda x: slugify(x), output_tags)
-			nltk_ne_tags = list(set(nltk_ne_tags))
-			nltk_ne_tags = map(lambda x: slugify(x), nltk_ne_tags)
-		        tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/nltk_ne_tags.txt', 'w')
-			pickle.dump(nltk_ne_tags, tagfile)
-			tagfile.close()
+			for tag in list(set(map(lambda x: slugify(x), output_tags))):
+				if ImportantTags.filter(tag=tag, source="nltk_ne_tag").count()==0:
+					imptag = ImportantTags(tag=tag, source="nltk_ne_tag")
+					imptag.save()	
 	except Exception as e:
 		logger.exception('text_summarize.py - get_text_tags - adding to nltk_ne_tags - error - ' + str(e))
 		pass
