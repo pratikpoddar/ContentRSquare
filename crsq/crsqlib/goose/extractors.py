@@ -27,6 +27,7 @@ from crsq.crsqlib.goose.utils import StringSplitter
 from crsq.crsqlib.goose.utils import StringReplacement
 from crsq.crsqlib.goose.utils import ReplaceSequence
 from crsq.crsqlib.goose.parsedatetime import parsedatetime as pdt
+import dateutil
 import datetime
 from bs4 import BeautifulSoup
 
@@ -115,6 +116,12 @@ class ContentExtractor(object):
 		pd = bs.find('meta', attrs={'http-equiv': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
 		for d in dow:
 			pd = pd.replace(d,'')
+
+		try:
+			return dateutil.parser.parse(pd)
+		except:
+			pass
+
 		t = cal.parse(pd)
 		
 		if t:
@@ -129,6 +136,12 @@ class ContentExtractor(object):
                 pd = bs.find('meta', attrs={'name': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
                 for d in dow:
                         pd = pd.replace(d,'')
+
+                try:
+                        return dateutil.parser.parse(pd)
+                except:
+                        pass
+
                 t = cal.parse(pd)
 
                 if t:
@@ -143,6 +156,12 @@ class ContentExtractor(object):
                 pd = bs.find('meta', attrs={'property': re.compile(r'published_time', re.IGNORECASE)})['content'].lower()
                 for d in dow:
                         pd = pd.replace(d,'')
+
+                try:
+                        return dateutil.parser.parse(pd)
+                except:
+                        pass
+
                 t = cal.parse(pd)
 
                 if t:
@@ -157,6 +176,12 @@ class ContentExtractor(object):
                 pd = bs.find('meta', attrs={'property': re.compile(r'modified_time', re.IGNORECASE)})['content'].lower()
                 for d in dow:
                         pd = pd.replace(d,'')
+
+                try:
+                        return dateutil.parser.parse(pd)
+                except:
+                        pass
+
                 t = cal.parse(pd)
                 
                 if t:   
@@ -171,6 +196,13 @@ class ContentExtractor(object):
                 pd = bs.find('meta', attrs={'name': re.compile(r'sailthru.date', re.IGNORECASE)})['content'].lower()
                 for d in dow:
                         pd = pd.replace(d,'')
+
+                try:
+                        return dateutil.parser.parse(pd)
+                except:
+                        pass
+
+
                 t = cal.parse(pd)
 
                 if t:
@@ -188,6 +220,12 @@ class ContentExtractor(object):
                         pd = pd.text.lower()
                         for d in dow:
                                 pd = pd.replace(d,'')
+
+		   	try:
+                		return dateutil.parser.parse(pd)
+		     	except:
+		        	pass
+			
                         t = cal.parse(pd)
                         if t:
 				if t[1] in [0,1,3]: 
@@ -203,6 +241,12 @@ class ContentExtractor(object):
                         pd = pd.text.lower()
                         for d in dow:
                                 pd = pd.replace(d,'')
+
+        	        try:
+	                        return dateutil.parser.parse(pd)
+	                except:
+	                        pass
+
                         t = cal.parse(pd)
                         if t:
                                 if t[1] in [0,1,3]:
@@ -218,6 +262,12 @@ class ContentExtractor(object):
                         pd = pd.text.lower()
                         for d in dow:
                                 pd = pd.replace(d,'')
+
+        	        try:
+	                        return dateutil.parser.parse(pd)
+	                except:
+	                        pass
+
                         t = cal.parse(pd)
                         if t:
                                 if t[1] in [0,1,3]:
@@ -233,6 +283,12 @@ class ContentExtractor(object):
                         pd = pd['datetime'].lower()
                         for d in dow:
                                 pd = pd.replace(d,'')
+
+	                try:
+        	                return dateutil.parser.parse(pd)
+	                except:
+	                        pass
+
                         t = cal.parse(pd)
                         if t:
                                 if t[1] in [0,1,3]:
@@ -248,6 +304,12 @@ class ContentExtractor(object):
                         pd = pd.text.lower()
                         for d in dow:
                                 pd = pd.replace(d,'')
+
+	                try:
+        	                return dateutil.parser.parse(pd)
+	                except:
+	                        pass
+
                         t = cal.parse(pd)
                         if t:
                                 if t[1] in [0,1,3]:
