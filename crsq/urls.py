@@ -23,6 +23,8 @@ urlpatterns = patterns('',
 	url(r'^articlegroup/?$', views.articlegroupwelcome, name='agw'),
 	url(r'^articlegroup/crsqsearch/([a-zA-Z0-9-]+)/?$', views.articlegrouptaglist, name='agtl'),
 	url(r'^articlegroup/([a-zA-Z0-9-]+)/?$', views.articlegroup, name='ag'),
+
+	url(r'^datechecker/([0-9]+)/?$', views.datechecker, name='dbsummarydatechecker')
 )
 
 

@@ -256,10 +256,23 @@ def articlegroupwelcome(request):
 
         return HttpResponse(template.render(context))
 	
-	
-	
-	
-		
+def datechecker(request, startingpoint=0):
 
+	startingpoint = int(startingpoint)
+
+	articledates = ArticleInfo.objects.all().order_by('-id')[startingpoint:startingpoint+100].values('url', 'articledate')
+	
+	context = RequestContext(request, {
+		'articledates': articledates
+	})
+
+	html = "<html><body><table>"
+
+	for ad in articledates:
+		if ad['articledate']:
+			html+= "<tr><td style='width:70%'><a href='" + ad['url']+ "'>"+ad['url']+"</a></td><td style='width:30%'>"+ad['articledate'].strftime("%B %d, %Y") + "</td></tr>"
+
+	html += "</table></body></html>"
+        return HttpResponse(html)
 
 

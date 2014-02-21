@@ -80,7 +80,7 @@ def feedanalyzer_put_article_details(entry):
 	url = pick_appropriate_url(entry)
 	url = urlutils.getCanonicalUrl(url)
 	if url:
-	        if ArticleInfo.objects.filter(url=url).count()==0:
+	        if (ArticleInfo.objects.filter(url=url).count()==0) and (urlutils.is_url_an_article(url)):
         	        try:
                 	        socialpower = urlutils.getSocialShares(url)
 				try:
