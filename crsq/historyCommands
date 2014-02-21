@@ -82,7 +82,7 @@ location /robots.txt {
    }
 
 location / {
-   	try_files $uri @proxy_to_crsq_app;
+        try_files $uri @proxy_to_crsq_app;
   }
 
   # No basic auth security on the heartbeat url, so that ELB can use it
@@ -90,20 +90,20 @@ location / {
     try_files $uri @proxy_to_crsq_app;
   }
 location /static {
-   	alias /home/ubuntu/crsq/crsq/static;
+
+        gzip             on;
+        gzip_http_version 1.1;
+        gzip_vary on;
+        gzip_comp_level 6;
+        gzip_proxied any;
+        gzip_types text/css text/javascript application/json application/javascript application/x-javascript text/xml application/xml application/rss+xml application/atom+xml application/rdf+xml;
+        gzip_buffers 128 4k;
+        gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
+        alias /home/ubuntu/crsq/crsq/static;
   }
 
 
-
-  # Forward to HTTPS if we're an HTTP request...
-  if ($http_x_forwarded_proto = "http") {
-    set $do_redirect "true";
-  }
-
-  # Run our actual redirect...
-  if ($do_redirect = "true") {
-    rewrite ^ https://$host$request_uri? permanent;
-  }	
 }
 
 #######

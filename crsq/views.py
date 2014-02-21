@@ -188,7 +188,6 @@ def articlegroup(request, tag):
 	
 	for article in articles:
 		domain = urlparse.urlparse(article['url'])[1]
-	        sharers = twitter_newspaper.get_sharers(article['url'])
 		try:
                 	articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values()[0]
 		except:
@@ -201,7 +200,7 @@ def articlegroup(request, tag):
 	        except:
         	        articletags = []
 		
-		article_list.append(dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
+		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
 
 	template = loader.get_template('crsq/articlegroup/tagpage.html')
