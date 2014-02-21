@@ -114,13 +114,19 @@ def isShortUrlPossibly(url):
 			return True
 		if "tinyurl" in domain.split("."):
 			return True
+		if "feedly" in domain.split("."):
+			return True
+		if "bitly" in domain.split("."):
+			return True
+		if "mklnd" in domain.split("."):
+			return True
 
 		topdomain = '.'.join(urlparse(url)[1].split(".")[-2:])
 		if len(topdomain)<=7:
 			return True
 
 		tld=urlparse(url)[1].split(".")[-1]
-		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai", "sh", "nl"]:
+		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai", "sh", "nl", "at", "in", "asia", "de", "tl", "cc", "us", "ie", "ms", "ws", "ch", "mn", "ps"]:
 			return True
 	
 		subdomain=urlparse(url)[1].split(".")[0]
@@ -147,7 +153,7 @@ def is_url_an_article(url):
 	
 	url = crsq_unicode(url)
 
-	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator', 'wikipedia']
+	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator', 'wikipedia', 'tv', 'email', 'jobvite', 'google', 'theresumator']
 
 	if filter(lambda x: x in blocked_domains, urlparse(url)[1].split(".")):
 		return False
@@ -160,6 +166,9 @@ def is_url_an_article(url):
 			return False
 	except:
 		pass
+
+	if (url.find("/signup")>-1) or (url.find("/login")>-1):
+		return False
 
 	return True
 	

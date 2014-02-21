@@ -260,7 +260,7 @@ def datechecker(request, startingpoint=0):
 
 	startingpoint = int(startingpoint)
 
-	articledates = ArticleInfo.objects.all().order_by('-id')[startingpoint:startingpoint+100].values('url', 'articledate')
+	articledates = ArticleInfo.objects.all().order_by('-id')[startingpoint*200:startingpoint*200+200].values('url', 'articledate')
 	
 	context = RequestContext(request, {
 		'articledates': articledates
