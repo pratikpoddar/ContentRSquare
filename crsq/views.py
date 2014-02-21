@@ -210,6 +210,19 @@ def articlegroup(request, tag):
         })
 
         return HttpResponse(template.render(context))
+
+def articlegrouptaglist(request, tagsearch):
+
+	taglist = filter(lambda x: x.find(tagsearch)==0, dbcache.getRelevantTags())
+        template = loader.get_template('crsq/articlegroup/taglist.html')
+        context = RequestContext(request, {
+                'taglist': sorted(taglist),
+		'tagsearch': tagsearch
+        })
+
+        return HttpResponse(template.render(context))
+
+
 	
 def articlegroupwelcome(request):
 
