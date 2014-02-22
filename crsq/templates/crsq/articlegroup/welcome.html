@@ -28,7 +28,7 @@ Real-time news on Popular Topics
                                           <ul class="list-group">
                                                 {% for s in listofsearch %}
                                                         <li class="list-group-item">
-                                                                <a href="/articlegroup/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                <a href="/articlegroup/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                         </li>
                                                 {% endfor %}
                                           </ul>
