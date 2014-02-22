@@ -26,6 +26,7 @@ from crsq.linkbook import linkbook
 from crsq import dbcache
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags
 
+import collections
 
 import random
 
@@ -179,39 +180,35 @@ def timenews_article(request, articleid):
 
 def articlegroup(request, tag):
 
-	import datetime
-
-	logger.log(datetime.datetime.now())
-
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values()[:25]
-
-	logger.log(datetime.datetime.now())
-
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values()[:15]
+	urls = map(lambda x: x['url'], articles)
 	relevanttags = dbcache.getRelevantTags()
 
-	logger.log(datetime.datetime.now())
+	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 
+	articletagsdump2 = collections.defaultdict(list)
+	for article in articletagsdump:
+		articletagsdump2[article['url']].append(article['tag'])
+	
 	article_list = []
 	
 	for article in articles:
+
 		domain = urlparse.urlparse(article['url'])[1]
 		try:
-                	articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values()[0]
+                	articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values('summary', 'topic')[0]
 		except:
                 	articlesemantics = {'summary': None, 'topic': None}
 
 	        try:
-        	        articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
-                	articletags = map(lambda x: x['tag'], articletags)
-			articletags = filter(lambda x: x in relevanttags, articletags)
+			articletags = filter(lambda x: x in relevanttags, articletagsdump2[article['url']])
+        	        #articletags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=article['url']).values('tag'))
+			#articletags = filter(lambda x: x in relevanttags, articletags)
 	        except:
         	        articletags = []
-		
+
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
-
-
-	logger.log(datetime.datetime.now())
 
 	template = loader.get_template('crsq/articlegroup/tagpage.html')
         context = RequestContext(request, {
