@@ -9,7 +9,7 @@ Real-time news on Popular Topics
 {% block bodycontent %}
 	<div class="jumbotron">
 	  <h1>Pocket News</h1>
-		<p>Hate reading full page long articles? Want quick 4 sentence summary of articles? Want a comprehensive list of articles by topic? You are at the right place!</p>
+		<p style="text-align:justify">Hate reading full page long articles? Want quick four sentence summary of articles? Want a comprehensive list of articles by topic? You are at the right place!</p>
 		<p style="font-size:100%">Coming Soon on<br/><img src="{% static 'crsq/img/articlegroup/gplay.png' %}"/><img src="{% static 'crsq/img/articlegroup/ios.png' %}"/></p>
 	</div>
 
@@ -39,6 +39,7 @@ Real-time news on Popular Topics
                 <br/>
         </div>
 
+	{% comment %}
 	<div class="row">
 		<div class="col-sm-6 col-lg-6 col-md-6">
 			<h4>Recent Articles</h4>
@@ -65,6 +66,7 @@ Real-time news on Popular Topics
                         </div>
 		</div>
 	</div>
+	{% endcomment %}
 	
 	{% comment %}
         <div class="row">

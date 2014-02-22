@@ -239,10 +239,10 @@ def articlegroupwelcome(request):
 	#tagdict = {}
 	#tagdict = dbcache.getRelevantTagDict()
 
-	recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[1:4].values()
-	popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[4:7].values()
-	#recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
-	#popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
+	#recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[1:4].values()
+	#popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[4:7].values()
+	##recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
+	##popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
 
 	def summary(url):
 		try:
@@ -250,15 +250,15 @@ def articlegroupwelcome(request):
 		except:
 			return None
 
-	recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
-	popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
+	#recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
+	#popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
 
 	template = loader.get_template('crsq/articlegroup/welcome.html')
         context = RequestContext(request, {
                 #'tagdict': sorted(tagdict.items()),
 		'google_trends': sorted(google_trends.items()),
-		'recent_articles': recent_articles,
-		'popular_articles':  popular_articles
+		#'recent_articles': recent_articles,
+		#'popular_articles':  popular_articles
         })
 
         return HttpResponse(template.render(context))
