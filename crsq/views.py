@@ -179,10 +179,18 @@ def timenews_article(request, articleid):
 
 def articlegroup(request, tag):
 
+	import datetime
+
+	logger.log(datetime.datetime.now())
+
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values()[:25]
 
+	logger.log(datetime.datetime.now())
+
 	relevanttags = dbcache.getRelevantTags()
+
+	logger.log(datetime.datetime.now())
 
 	article_list = []
 	
@@ -202,6 +210,8 @@ def articlegroup(request, tag):
 		
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
+
+	logger.log(datetime.datetime.now())
 
 	template = loader.get_template('crsq/articlegroup/tagpage.html')
         context = RequestContext(request, {
