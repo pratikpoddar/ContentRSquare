@@ -266,21 +266,21 @@ def articlegroupwelcome(request):
 
         return HttpResponse(template.render(context))
 	
-def datechecker(request, startingpoint=0):
+def dbchecker(request, startingpoint=0):
 
 	startingpoint = int(startingpoint)
 
-	articledates = ArticleInfo.objects.all().order_by('-id')[startingpoint*200:startingpoint*200+200].values('url', 'articledate')
+	articleurldates = ArticleInfo.objects.all().order_by('-id')[startingpoint*200:startingpoint*200+200].values('url', 'articledate')
 	
 	context = RequestContext(request, {
-		'articledates': articledates
+		'articleurldates': articleurldates
 	})
 
 	html = "<html><body><table>"
 
-	for ad in articledates:
-		if ad['articledate']:
-			html+= "<tr><td style='width:70%'><a href='" + ad['url']+ "'>"+ad['url']+"</a></td><td style='width:30%'>"+ad['articledate'].strftime("%B %d, %Y") + "</td></tr>"
+	for aud in articleurldates:
+		if aud['articledate']:
+			html+= "<tr><td style='width:70%'><a href='" + aud['url']+ "'>"+aud['url']+"</a></td><td style='width:30%'>"+aud['articledate'].strftime("%B %d, %Y") + "</td></tr>"
 
 	html += "</table></body></html>"
         return HttpResponse(html)
