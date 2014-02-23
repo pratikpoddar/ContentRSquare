@@ -266,23 +266,32 @@ def articlegroupwelcome(request):
 
         return HttpResponse(template.render(context))
 	
-def dbchecker(request, startingpoint=0):
+def dbchecker(request, extraparam=0):
 
-	startingpoint = int(startingpoint)
+	if extraparam.isdigit():
+		startingpoint = int(extraparam)
 
-	articleurldates = ArticleInfo.objects.all().order_by('-id')[startingpoint*200:startingpoint*200+200].values('url', 'articledate')
+		articleurldates = ArticleInfo.objects.all().order_by('-id')[startingpoint*200:startingpoint*200+200].values('url', 'articledate')
 	
-	context = RequestContext(request, {
-		'articleurldates': articleurldates
-	})
+		context = RequestContext(request, {
+			'articleurldates': articleurldates
+		})
 
-	html = "<html><body><table>"
+		html = "<html><body><table>"
 
-	for aud in articleurldates:
-		if aud['articledate']:
-			html+= "<tr><td style='width:70%'><a href='" + aud['url']+ "'>"+aud['url']+"</a></td><td style='width:30%'>"+aud['articledate'].strftime("%B %d, %Y") + "</td></tr>"
+		for aud in articleurldates:
+			if aud['articledate']:
+				html+= "<tr><td style='width:70%'><a href='" + aud['url']+ "'>"+aud['url']+"</a></td><td style='width:30%'>"+aud['articledate'].strftime("%B %d, %Y") + "</td></tr>"
 
-	html += "</table></body></html>"
+		html += "</table></body></html>"
+
+	if extraparam == "doga":
+		articles = ArticleInfo.objects.filter(url__contains="techcrunch.com").values('url', 'articleimage', 'articletitle')
+		html = "<html><body>"
+		for article in articles:
+			html += "<pre>"+str(article)+"</pre><br/>"
+		html += "</body></html>"
+
         return HttpResponse(html)
 
 

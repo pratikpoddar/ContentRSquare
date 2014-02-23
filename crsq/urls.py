@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 	url(r'^articlegroup/crsqsearch/([a-zA-Z0-9-]+)/?$', views.articlegrouptaglist, name='agtl'),
 	url(r'^articlegroup/([a-zA-Z0-9-]+)/?$', views.articlegroup, name='ag'),
 
-	url(r'^dbchecker/([0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
+	url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
 )
 
 
