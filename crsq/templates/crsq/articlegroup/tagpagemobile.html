@@ -25,7 +25,7 @@ Real-time news related to "{{ tag | crsq_unslugify }}"
 {% endblock %}
 
 {% block jscontent %}
-    <script type="text/javascript" src="http://labs.skinkers.com/content/touchSwipe/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="{% static "crsq/js/articlegroup/jquery.touchSwipe.min.js" %}"></script>
     <script>
 	$(window).load(function() { 
             $('.articleimage').lazyload();
