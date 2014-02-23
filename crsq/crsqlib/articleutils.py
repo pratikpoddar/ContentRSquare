@@ -146,7 +146,10 @@ def getArticleSemanticsTags(text):
 	text = crsq_unicode(text)
 	tags = map(lambda x: crsq_unicode(slugify(x)), text_summarize.get_text_tags(text))
 	topic = crsq_unicode(text_summarize.get_text_topic(text))
-	summary = crsq_unicode(text_summarize.get_text_summary(text))
+	try:
+		summary = crsq_unicode(text_summarize.get_text_summary(text))
+	except:
+		summary = ''
 
 	return {'tags': tags, 'topic': topic, 'summary':summary }
 
