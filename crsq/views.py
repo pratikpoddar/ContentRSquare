@@ -210,7 +210,10 @@ def articlegroup(request, tag):
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
-	template = loader.get_template('crsq/articlegroup/tagpage.html')
+	if request.mobile:
+		template = loader.get_template('crsq/articlegroup/tagpagemobile.html')
+	else:
+		template = loader.get_template('crsq/articlegroup/tagpage.html')
         context = RequestContext(request, {
                 'articles' : article_list,
 		'tag': tag

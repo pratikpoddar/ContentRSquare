@@ -1,0 +1,52 @@
+{% extends "crsq/articlegroup/base.html" %}
+{% load staticfiles %}
+{% load tagfilter %}
+
+{% block title %}
+Real-time news related to "{{ tag | crsq_unslugify }}"
+{% endblock %}
+
+{% block bodycontent %}
+	    <h2>Real-time news related to "{{ tag | crsq_unslugify }}"</h2>
+	    {% for article in articles %}
+		  <div class="row swipeenabled" style="margin-top:35px;display:none" >
+		  <div class="col-sm-3 col-lg-3 col-md-3">
+		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
+		  </div>
+		  <div class="col-sm-9 col-lg-9 col-md-9">
+		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+                  <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p><br/><br/>
+                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
+		  <p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/articlegroup/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+		  </div>
+		  </div>
+	    {% endfor %}
+{% endblock %}
+
+{% block jscontent %}
+    <script type="text/javascript" src="http://labs.skinkers.com/content/touchSwipe/jquery.touchSwipe.min.js"></script>
+    <script>
+	$(window).load(function() { 
+            $('.articleimage').lazyload();
+	    $('.swipeenabled').first().css('display', 'block');
+	    $('.swipeenabled').swipe({
+		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			    if ($(this).next('.swipeenabled').length > 0) {
+				    $(this).css('display', 'none');
+				    $(this).next().css('display', 'block');
+			    }
+		  },
+		  swipeRight:function(event, direction, distance, duration, fingerCount) {
+			   if ($(this).prev('.swipeenabled').length > 0) {
+				   $(this).css('display', 'none');
+				   $(this).prev().css('display', 'block');
+			   }
+		  }
+	     });
+          });
+
+    </script>
+
+{% endblock %}
+

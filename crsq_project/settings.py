@@ -136,6 +136,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'django.middleware.common.BrokenLinkEmailsMiddleware'
     'crsq_project.middleware.error500Middleware',
+    'crsq.crsqlib.minidetector.Middleware'
    
 )
 
