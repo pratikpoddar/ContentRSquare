@@ -181,24 +181,16 @@ def timenews_article(request, articleid):
 
 def articlegroup(request, tag):
 
-	logger.debug(datetime.now())
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	logger.debug(datetime.now())
 	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
-	logger.debug(datetime.now())
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values('url')
-	logger.debug(datetime.now())
-
 
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
-	logger.debug(datetime.now())
-
 	articletagsdump2 = collections.defaultdict(list)
 	for article in articletagsdump:
 		articletagsdump2[article['url']].append(article['tag'])
 	
 	article_list = []
-	logger.debug(datetime.now())
 	
 	for article in articles:
 
@@ -216,8 +208,6 @@ def articlegroup(request, tag):
         	        articletags = []
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
-
-	logger.debug(datetime.now())
 
 	if request.mobile:
 		template = loader.get_template('crsq/articlegroup/tagpagemobile.html')
