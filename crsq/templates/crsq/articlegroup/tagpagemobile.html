@@ -11,9 +11,10 @@ Pocket News - {{ tag | crsq_unslugify }}
 {% endblock %}
 
 {% block bodycontent %}
+
 	    {% comment %}<h2>Real-time news related to "{{ tag | crsq_unslugify }}"</h2>{% endcomment %}
 	    {% for article in articles %}
-		  <div class="row swipeenabled" style="margin-top:35px;display:none" >
+		  <div class="row swipeenabled" style="margin-top:35px; display:none;" >
 		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
 		  <div style="width:100%;height:180px;position:relative;overflow:hidden;">
 		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;"/>
@@ -30,8 +31,13 @@ Pocket News - {{ tag | crsq_unslugify }}
 	    {% endfor %}
 {% endblock %}
 
+{% block footercontent %}
+{% endblock %}
+
+
 {% block jscontent %}
     <script type="text/javascript" src="{% static "crsq/js/articlegroup/jquery.touchSwipe.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/articlegroup/jquery-ui.js" %}"></script>
     <script>
 	$(document).ready(function() { 
             $('.articleimage').jail({loadHiddenImages : true});
@@ -40,13 +46,13 @@ Pocket News - {{ tag | crsq_unslugify }}
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			    if ($(this).next('.swipeenabled').length > 0) {
 				    $(this).css('display', 'none');
-				    $(this).next().css('display', 'block');
+				    $(this).next().show("slide", { direction: "right" }, 500);
 			    }
 		  },
 		  swipeRight:function(event, direction, distance, duration, fingerCount) {
 			   if ($(this).prev('.swipeenabled').length > 0) {
 				   $(this).css('display', 'none');
-				   $(this).prev().css('display', 'block');
+				   $(this).prev().show("slide", { direction: "left" }, 1000);
 			   }
 		  }
 	     });
