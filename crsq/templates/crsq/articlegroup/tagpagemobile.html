@@ -6,12 +6,17 @@
 Real-time news related to "{{ tag | crsq_unslugify }}"
 {% endblock %}
 
+{% block navbartitle %}
+Pocket News - {{ tag | crsq_unslugify }}
+{% endblock %}
+
 {% block bodycontent %}
-	    <h2>Real-time news related to "{{ tag | crsq_unslugify }}"</h2>
+	    {% comment %}<h2>Real-time news related to "{{ tag | crsq_unslugify }}"</h2>{% endcomment %}
 	    {% for article in articles %}
 		  <div class="row swipeenabled" style="margin-top:35px;display:none" >
-		  <div class="col-sm-3 col-lg-3 col-md-3">
-		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
+		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
+		  <div style="width:100%;height:200px;position:relative;overflow:hidden;">
+		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0"></div>
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
@@ -27,8 +32,8 @@ Real-time news related to "{{ tag | crsq_unslugify }}"
 {% block jscontent %}
     <script type="text/javascript" src="{% static "crsq/js/articlegroup/jquery.touchSwipe.min.js" %}"></script>
     <script>
-	$(window).load(function() { 
-            $('.articleimage').lazyload();
+	$(document).ready(function() { 
+            $('.articleimage').lazyload({skip_invisible : false});
 	    $('.swipeenabled').first().css('display', 'block');
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {

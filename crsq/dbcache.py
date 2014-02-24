@@ -5,7 +5,9 @@ from functools32 import lru_cache
 @lru_cache(maxsize=1024)
 def getRelevantTagDict():
 
-        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
+        #relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
+
+        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:2000])))
 
         relevanttags = sorted(list(set(relevanttags)))
         alphabets = sorted(list(set(map(lambda x:x[0], relevanttags))))
@@ -19,7 +21,7 @@ def getRelevantTagDict():
 @lru_cache(maxsize=1024)
 def getRelevantTags():
 
-        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source="nltk_ne_tag").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:1000])))
+        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:2000])))
 
         relevanttags = sorted(list(set(relevanttags)))
 
