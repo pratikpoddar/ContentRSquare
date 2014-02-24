@@ -11,7 +11,7 @@ Real-time news related to "{{ tag | crsq_unslugify }}"
 	    {% for article in articles %}
 		  <div class="row" style="margin-top:35px;">
 		  <div class="col-sm-3 col-lg-3 col-md-3">
-		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-original="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
+		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
@@ -29,7 +29,7 @@ Real-time news related to "{{ tag | crsq_unslugify }}"
 {% block jscontent %}
     <script>
 	$(window).load(function() { 
-            $('.articleimage').lazyload();
+	    $('.articleimage').jail({loadHiddenImages : true});
           });
     </script>
 

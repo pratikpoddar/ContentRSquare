@@ -183,7 +183,7 @@ def articlegroup(request, tag):
 
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
-	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values('url')
+	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
 
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 	articletagsdump2 = collections.defaultdict(list)
@@ -209,14 +209,15 @@ def articlegroup(request, tag):
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
 
+        context = RequestContext(request, {
+                'articles' : article_list,
+                'tag': tag
+        })
+
 	if request.mobile:
 		template = loader.get_template('crsq/articlegroup/tagpagemobile.html')
 	else:
 		template = loader.get_template('crsq/articlegroup/tagpage.html')
-        context = RequestContext(request, {
-                'articles' : article_list,
-		'tag': tag
-        })
 
         return HttpResponse(template.render(context))
 
