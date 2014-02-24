@@ -7,8 +7,11 @@ import logging
 import json
 import jsonpickle
 import hashlib
+from urlparse import urlparse
 
 logger = logging.getLogger(__name__)
+
+feedanalyzer_blocked_domains= ['guardianlv.com']
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
@@ -80,7 +83,7 @@ def feedanalyzer_put_article_details(entry):
 	url = pick_appropriate_url(entry)
 	url = urlutils.getCanonicalUrl(url)
 	if url:
-	        if (ArticleInfo.objects.filter(url=url).count()==0) and (urlutils.is_url_an_article(url)):
+	        if (ArticleInfo.objects.filter(url=url).count()==0) and (urlutils.is_url_an_article(url)) and ((urlparse(url)[1]) not in feedanalyzer_blocked_domains):
         	        try:
                 	        socialpower = urlutils.getSocialShares(url)
 				try:
