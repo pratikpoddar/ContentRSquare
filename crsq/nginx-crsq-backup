@@ -87,9 +87,17 @@ server {
        alias /home/ubuntu/crsq/crsq/robots.txt;
    }
 
-  location / {
+   location ~ /zippednewsapp(.*) {
+	   return 301 http://www.zippednews.com$1;
+   }
+
+   location ~ /penpatron(.*) {
+           return 301 http://www.penpatron.com$1;
+   }
+
+   location / {
             proxy_pass http://localhost:8000/;
-  }
+   }
 
   location /static {
 
