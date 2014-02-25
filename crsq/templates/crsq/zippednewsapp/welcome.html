@@ -28,7 +28,7 @@ ZippedNews: Real-time news on Popular Topics
                                           <ul class="list-group">
                                                 {% for s in listofsearch %}
                                                         <li class="list-group-item">
-                                                                <a href="/zippednewsapp/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                         </li>
                                                 {% endfor %}
                                           </ul>
@@ -86,7 +86,7 @@ ZippedNews: Real-time news on Popular Topics
 			  <ul class="dropdown-menu" role="menu" aria-labelledby="articletopic-{{ alphabet }}">
 	                          {% for s in listoftags %}
         	                          <li role="presentation">
-                	                          <a role="menuitem" tabindex="-1" href="/zippednewsapp/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                	                          <a role="menuitem" tabindex="-1" href="/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                           </li>
                                   {% endfor %}
 			  </ul>

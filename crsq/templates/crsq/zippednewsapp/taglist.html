@@ -22,7 +22,7 @@ ZippedNews: Real-time news on Popular Topics
         <div class="row">
                     {% for tag in taglist %}
                         <div class="col-sm-3 col-lg-3 col-md-3">
-                        	<a href="/zippednewsapp/{{ tag | slugify }}" target="_blank"><p class="list-group-item-text">{{ tag | crsq_unslugify }}</p></a>
+                        	<a href="/{{ tag | slugify }}" target="_blank"><p class="list-group-item-text">{{ tag | crsq_unslugify }}</p></a>
                         </div>
                     {% endfor %}
                 <br/>

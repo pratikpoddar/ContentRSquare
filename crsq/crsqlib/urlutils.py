@@ -170,9 +170,6 @@ def is_url_an_article(url):
 	if (url.find("/signup")>-1) or (url.find("/login")>-1):
 		return False
 	
-	if len(url) > 250:
-		return False
-
 	return True
 	
 
