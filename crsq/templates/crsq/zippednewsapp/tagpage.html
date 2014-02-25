@@ -1,9 +1,9 @@
-{% extends "crsq/articlegroup/base.html" %}
+{% extends "crsq/zippednewsapp/base.html" %}
 {% load staticfiles %}
 {% load tagfilter %}
 
 {% block title %}
-Real-time news related to "{{ tag | crsq_unslugify }}"
+ZippedNews: Real-time news related to "{{ tag | crsq_unslugify }}"
 {% endblock %}
 
 {% block bodycontent %}
@@ -17,7 +17,7 @@ Real-time news related to "{{ tag | crsq_unslugify }}"
 		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p><br/><br/>
                   <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
-		  <p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/articlegroup/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+		  <p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/zippednewsapp/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 
 		  </div>
 		  </div>

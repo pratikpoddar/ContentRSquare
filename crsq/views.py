@@ -179,7 +179,7 @@ def timenews_article(request, articleid):
         })
         return HttpResponse(template.render(context))
 
-def articlegroup(request, tag):
+def zippednewsapp(request, tag):
 
 	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
@@ -215,16 +215,16 @@ def articlegroup(request, tag):
         })
 
 	if request.mobile:
-		template = loader.get_template('crsq/articlegroup/tagpagemobile.html')
+		template = loader.get_template('crsq/zippednewsapp/tagpagemobile.html')
 	else:
-		template = loader.get_template('crsq/articlegroup/tagpage.html')
+		template = loader.get_template('crsq/zippednewsapp/tagpage.html')
 
         return HttpResponse(template.render(context))
 
-def articlegrouptaglist(request, tagsearch):
+def zippednewsapptaglist(request, tagsearch):
 
 	taglist = filter(lambda x: x.find(tagsearch)==0, dbcache.getRelevantTags())
-        template = loader.get_template('crsq/articlegroup/taglist.html')
+        template = loader.get_template('crsq/zippednewsapp/taglist.html')
         context = RequestContext(request, {
                 'taglist': sorted(taglist),
 		'tagsearch': tagsearch
@@ -234,7 +234,7 @@ def articlegrouptaglist(request, tagsearch):
 
 
 	
-def articlegroupwelcome(request):
+def zippednewsappwelcome(request):
 
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
@@ -256,7 +256,7 @@ def articlegroupwelcome(request):
 	#recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
 	#popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
 
-	template = loader.get_template('crsq/articlegroup/welcome.html')
+	template = loader.get_template('crsq/zippednewsapp/welcome.html')
         context = RequestContext(request, {
                 #'tagdict': sorted(tagdict.items()),
 		'google_trends': sorted(google_trends.items()),

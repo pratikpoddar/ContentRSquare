@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}Pocket News{% endblock %}</title>
+    <title>{% block title %}ZippedNews{% endblock %}</title>
     <!-- Bootstrap core CSS -->
-    <link href="{% static "crsq/css/articlegroup/bootstrap.lumen.min.css" %}" rel="stylesheet">
+    <link href="{% static "crsq/css/zippednewsapp/bootstrap.lumen.min.css" %}" rel="stylesheet">
     <!-- Add custom CSS here -->
-    <link href="{% static "crsq/css/articlegroup/articlegroup.css" %}" rel="stylesheet">
+    <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet">
   </head>
 
   <body>
@@ -21,7 +21,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/articlegroup">{% block navbartitle %}Pocket News{% endblock %}</a>
+          <a class="navbar-brand" href="/zippednewsapp">{% block navbartitle %}ZippedNews{% endblock %}</a>
         </div>
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -45,7 +45,7 @@
 		<div class="col-lg-12">
 		Topics starting with 
 		{% for alphabet in "abcdefghijklmnopqrstuvwxyz0123456789" %}
-			<a href="/articlegroup/crsqsearch/{{alphabet }}">{{ alphabet }}</a>&nbsp;
+			<a href="/zippednewsapp/crsqsearch/{{alphabet }}">{{ alphabet }}</a>&nbsp;
 		{% endfor %} 
 		</div>
 	</div>
@@ -59,9 +59,9 @@
     {% endblock %}
 
     <!-- JavaScript -->
-    <script type="text/javascript" src="{% static "crsq/js/articlegroup/jquery-1.10.2.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/articlegroup/bootstrap.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/articlegroup/jail.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jail.js" %}"></script>
 	{% block jscontent %}
 	{% endblock %}
   </body>

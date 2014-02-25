@@ -1,16 +1,16 @@
-{% extends "crsq/articlegroup/base.html" %}
+{% extends "crsq/zippednewsapp/base.html" %}
 {% load staticfiles %}
 {% load tagfilter %}
 
 {% block title %}
-Real-time news on Popular Topics
+ZippedNews: Real-time news on Popular Topics
 {% endblock %}
 
 {% block bodycontent %}
 	<div class="jumbotron">
-	  <h1>Pocket News</h1>
+	  <h1>ZippedNews</h1>
 		<p style="text-align:justify">Hate reading full page long articles? Want quick four sentence summary of articles? Want a comprehensive list of articles by topic? You are at the right place!</p>
-		<p style="font-size:100%">Coming Soon on<br/><img src="{% static 'crsq/img/articlegroup/gplay.png' %}"/><img src="{% static 'crsq/img/articlegroup/ios.png' %}"/></p>
+		<p style="font-size:100%">Coming Soon on<br/><img src="{% static 'crsq/img/zippednewsapp/gplay.png' %}"/><img src="{% static 'crsq/img/zippednewsapp/ios.png' %}"/></p>
 	</div>
 
 
@@ -28,7 +28,7 @@ Real-time news on Popular Topics
                                           <ul class="list-group">
                                                 {% for s in listofsearch %}
                                                         <li class="list-group-item">
-                                                                <a href="/articlegroup/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                <a href="/zippednewsapp/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                         </li>
                                                 {% endfor %}
                                           </ul>
@@ -86,7 +86,7 @@ Real-time news on Popular Topics
 			  <ul class="dropdown-menu" role="menu" aria-labelledby="articletopic-{{ alphabet }}">
 	                          {% for s in listoftags %}
         	                          <li role="presentation">
-                	                          <a role="menuitem" tabindex="-1" href="/articlegroup/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                	                          <a role="menuitem" tabindex="-1" href="/zippednewsapp/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                           </li>
                                   {% endfor %}
 			  </ul>

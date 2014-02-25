@@ -20,9 +20,9 @@ urlpatterns = patterns('',
 
         url(r'^linkbook/?$', views.linkbook_view, name='linkbook'),
 
-	url(r'^articlegroup/?$', views.articlegroupwelcome, name='agw'),
-	url(r'^articlegroup/crsqsearch/([a-zA-Z0-9-]+)/?$', views.articlegrouptaglist, name='agtl'),
-	url(r'^articlegroup/([a-zA-Z0-9-]+)/?$', views.articlegroup, name='ag'),
+	url(r'^zippednewsapp/?$', views.zippednewsappwelcome, name='znw'),
+	url(r'^zippednewsapp/crsqsearch/([a-zA-Z0-9-]+)/?$', views.zippednewsapptaglist, name='zntl'),
+	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
 
 	url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
 )
