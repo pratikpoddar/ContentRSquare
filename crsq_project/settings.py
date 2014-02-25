@@ -51,7 +51,7 @@ CSRF_COOKIE_DOMAIN = None
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['crsq.com','www.crsq.com', '54.254.100.216']
+ALLOWED_HOSTS = ['crsq.com','www.crsq.com', '54.254.100.216', '*zippednews*', '*']
 
 USE_X_FORWARDED_HOST = True
 
