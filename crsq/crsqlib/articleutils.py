@@ -128,7 +128,7 @@ def getArticlePropertiesFromUrl(url):
 
 	try:
                 url = urlutils.getCanonicalUrl(crsq_unicode(url))
-                r = requests.get(url)
+                r = requests.get(url, timeout=5)
 		raw_html = crsq_unicode(r.text)
 		respurl = urlutils.getCanonicalUrl(crsq_unicode(r.url))
 		raw_html = raw_html.replace(crsq_unicode('&nbsp;'), crsq_unicode(' '))

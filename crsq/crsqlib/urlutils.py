@@ -78,7 +78,7 @@ def getSocialShares(url):
 def getLongUrl(url):
         try:
 		url = crsq_unicode(url)
-		r = requests.get(url)
+		r = requests.get(url, timeout=5)
 		return getCanonicalUrl(crsq_unicode(r.url))
 		#cj = CookieJar()
 		#cj.clear()

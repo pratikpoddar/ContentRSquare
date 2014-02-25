@@ -68,11 +68,13 @@ def load_rss_in_table(rss_url, extractor):
 			if extractor=="feed":
 				if 'content' in entry.keys() and 'title' in entry.keys():
 					feedanalyzer_put_article_details(entry)
-					articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
+				else:
+	                                articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
 
 			if extractor=="fromscratch":
 				articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
-				articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
+
+			articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
 
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
