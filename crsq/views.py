@@ -62,7 +62,6 @@ def tw_np(request, sector, location, page=1):
 
 	articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
 
-
         article_list = []
 
         for article in articles:

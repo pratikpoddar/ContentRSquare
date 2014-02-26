@@ -8,18 +8,35 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 
 {% block bodycontent %}
 
-          <h2>Popular Articles shared by <i>{{ sectorname }}</i> folks in <i>{{ locationname }}</i></h2>
+          <h2>Popular Articles shared by
 
-          <div class="list-group">
-            {% for s in sector_list %}
-            <a href="/twitter-newspaper/{{ s | slugify }}/{{ location }}" class="{% if sectorname == s %}active{% endif %} list-group-item">{{ s }}</a>
-            {% endfor %}
-          </div>
-          <div class="list-group">
-            {% for l in location_list %}
-            <a href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}" class="{% if locationname == l %}active{% endif %} list-group-item">{{ l }}</a>
-            {% endfor %}
-          </div>
+		<span class="dropdown">
+		  <button class="btn dropdown-toggle" type="button" id="sectordropdown" data-toggle="dropdown">
+			    {{ sectorname }}
+		  </button>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="sectordropdown">
+		  {% for s in sector_list %}
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="/twitter-newspaper/{{ s | slugify }}/{{ location }}">{{ s }}</a></li>
+        	  {% endfor %}
+		  </ul>
+		</span>
+
+		folks in 
+		
+                <span class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="locationdropdown" data-toggle="dropdown">
+                            {{ locationname }}
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="locationdropdown">
+                  {% for s in location_list %}
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
+                  {% endfor %}
+                  </ul>
+                </span>
+
+
+
+	</h2>
 
             {% for article in article_list %}
                   <div class="row" style="margin-top:35px;">

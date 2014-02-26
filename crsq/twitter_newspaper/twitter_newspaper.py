@@ -11,6 +11,7 @@ import logging
 from urlparse import urlparse
 from crsq.crsqlib.articleutilsdb import put_article_details, put_article_semantics_tags
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
+from functools32 import lru_cache
 
 logger = logging.getLogger(__name__)
 
@@ -153,9 +154,10 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 
 	return
 
+@lru_cache(maxsize=1024)
 def get_articles(sector, location):
-	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).values('tweetid'))
-	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets, location__contains='').values('url'))
+	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).order_by('-id')[:2000].values('tweetid'))
+	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-time').values()
 	return filter(lambda x: len(x['articlecontent'])>300, articles)
 
