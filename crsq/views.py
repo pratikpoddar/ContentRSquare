@@ -62,10 +62,24 @@ def tw_np(request, sector, location, page=1):
 
 	articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
 
+
+        article_list = []
+
+        for article in articles:
+
+                domain = urlparse.urlparse(article['url'])[1]
+                try:
+                        articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]
+                except Exception as e:
+			logger.exception(e)
+                        articlesemantics = {'summary': None}
+
+                article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'sharers': twitter_newspaper.get_sharers(article['url'])}))
+
 	template = loader.get_template('crsq/twitter-newspaper/index.html')
 
 	context = RequestContext(request, {
-	        'article_list': map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'sharers': twitter_newspaper.get_sharers(x['url'])} ), articles),
+	        'article_list': article_list,
 		'sector': sector,
 		'sectorname': filter(lambda x: slugify(x)==sector, tw_np_sector_list)[0],
 		'location': location,
@@ -98,33 +112,6 @@ def linkbook_view(request):
         })
         return HttpResponse(template.render(context))
 	
-
-def tw_np_article(request, articleid):
-	
-        article = ArticleInfo.objects.filter(id=int(articleid)).values()[0]
-	if not article:
-		raise Http404
-
-	domain = urlparse.urlparse(article['url'])[1]
-	sharers = twitter_newspaper.get_sharers(article['url'])
-	try:
-		articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values()[0]
-	except:
-		articlesemantics = {'summary': None, 'topic': None}
-
-	try:
-		articletags = ArticleTags.objects.filter(url=article['url']).values('tag')
-		articletags = map(lambda x: x['tag'], articletags)
-	except:
-		articletags = []
-
-        template = loader.get_template('crsq/twitter-newspaper/article.html')
-
-        context = RequestContext(request, {
-		'article' : dict( article, **{'domain': domain, 'sharers': sharers, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': ', '.join(articletags)})
-        })
-        return HttpResponse(template.render(context))
-
 def tw_np_redirect(request):
 	return redirect('/twitter-newspaper/technology/world')
 
