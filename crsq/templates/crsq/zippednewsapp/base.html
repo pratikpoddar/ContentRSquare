@@ -18,6 +18,7 @@
 
   <body>
 
+    {% block navcontent %}
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,6 +32,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav>
+   {% endblock %}
 
     <div class="container">
 	{% block bodycontent %}

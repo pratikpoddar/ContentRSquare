@@ -31,6 +31,7 @@ ZippedNews - {{ tag | crsq_unslugify }}
 {% endblock %}
 
 {% block footercontent %}
+<br/><br/>
 {% endblock %}
 
 
@@ -45,7 +46,7 @@ ZippedNews - {{ tag | crsq_unslugify }}
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			    if ($(this).next('.swipeenabled').length > 0) {
-				    $(this).hide("slide", { direction: "left" }, 400, function() { 
+				    $(this).hide("slide", { direction: "left" }, 150, function() { 
 					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
 					    $(this).next().show("slide", { direction: "right" }, 400);
 				    })
@@ -53,7 +54,7 @@ ZippedNews - {{ tag | crsq_unslugify }}
 		  },
 		  swipeRight:function(event, direction, distance, duration, fingerCount) {
 			   if ($(this).prev('.swipeenabled').length > 0) {
-				   $(this).hide("slide", { direction: "right" }, 400, function() {
+				   $(this).hide("slide", { direction: "right" }, 150, function() {
 				   	$(this).css('left', 'auto'); $(this).css('right', 'auto');
 				   	$(this).prev().show("slide", { direction: "left" }, 400);
 				   })
