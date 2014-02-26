@@ -46,30 +46,15 @@ random errors
 link click tracking in content-affiliate-advertising
 
 ----To Do - For related articles:
-Wiki Category Tree
-Wiki Category Representation of articles
 Search engine for articles
 
-----Pending:
-Category Tree
-
 ----Errors:
-Wiki Category Extraction: A few freebase wiki links say that page does not exist. ftw!
-Wiki Category Tree: Will fail in internet Pain. Too slow. Need to cache.
-
-Social Power of a link: What if extra params are added
-Getting Long Url and Article is stupidity really
-
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
 
-Twitter Links, Article Info and ArticleSemantics - Duplicate Error
-Check Correctness:
-Text-topic-brown
-Date
-Summary
-
 How important a news piece is?
-How relevant is it to the keyword?
+How relevant is it to the keyword? - NLTK + Solr
+Date is not correct
+Content Clustering
 
 
