@@ -14,7 +14,7 @@ ZippedNews: Real-time news related to "{{ tag | crsq_unslugify }}"
 		  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
-		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p><br/><br/>
                   <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
 		  <p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
