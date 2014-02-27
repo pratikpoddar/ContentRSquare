@@ -34,7 +34,7 @@ class TwitterListLinks(models.Model):
     tweetid = models.BigIntegerField(null=False, db_index=True)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     class Meta:
-        unique_together = (("sector", "twitteruser", "twitterlist", "tweetid"),)
+        unique_together = (("twitteruser", "twitterlist", "tweetid"),)
 
 class TwitterKeywordLinks(models.Model):
     keyword = models.CharField(max_length=100L, null=False)

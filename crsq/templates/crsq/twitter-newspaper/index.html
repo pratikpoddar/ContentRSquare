@@ -28,7 +28,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
                             {{ locationname }}
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="locationdropdown">
-                  {% for s in location_list %}
+                  {% for l in location_list %}
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
                   {% endfor %}
                   </ul>
