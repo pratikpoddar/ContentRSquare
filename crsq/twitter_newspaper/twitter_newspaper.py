@@ -10,7 +10,7 @@ from django.db.models import Max
 import logging
 from urlparse import urlparse
 from crsq.crsqlib.articleutilsdb import put_article_details, put_article_semantics_tags
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, TweetUsers, ArticleInfo, ArticleSemantics, ArticleTags
 from functools32 import lru_cache
 
 logger = logging.getLogger(__name__)
@@ -36,7 +36,7 @@ def search_twitter(keyword, numlinks):
         ## Create empty list of hold statuses
         status_list = []
 
-        ## Get SinceId as the last tweetid in the sector / twitteruser / twitterlist
+        ## Get SinceId as the last tweetid in the keyword
         try:
                 theSinceId = TwitterKeywordLinks.objects.filter(keyword=keyword).aggregate(Max('tweetid'))['tweetid__max']
         except Exception as e:
@@ -79,7 +79,7 @@ def search_twitter(keyword, numlinks):
 		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 			for url in urls:
-				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
+				twitterlink = TweetLinks(tweetid=status.id, author=status.author.screen_name, url=url)
 				try:
 					twitterlink.save()
 				except Exception as e:
@@ -93,18 +93,18 @@ def search_twitter(keyword, numlinks):
 
         return
 
-def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
+def get_list_timeline(twitteruser, twitterlist, numlinks):
 
-	logger.debug('twitter_newspaper - get_list_timeline - called for ' + sector + ' ' + twitteruser + ' ' + twitterlist)
+	logger.debug('twitter_newspaper - get_list_timeline - called for ' + twitteruser + ' ' + twitterlist)
 
 	## Create empty list of hold statuses
 	status_list = []
 
-	## Get SinceId as the last tweetid in the sector / twitteruser / twitterlist
+	## Get SinceId as the last tweetid in the twitteruser / twitterlist
 	try:
-		theSinceId = TwitterListLinks.objects.filter(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist).aggregate(Max('tweetid'))['tweetid__max']
+		theSinceId = TwitterListLinks.objects.filter(twitteruser=twitteruser, twitterlist=twitterlist).aggregate(Max('tweetid'))['tweetid__max']
 	except Exception as e:
-		logger.exception('twitter_newspaper - get_list_timeline - getSinceId for ' + sector + ' ' + twitteruser + ' ' + twitterlist + ' - ' + str(e))
+		logger.exception('twitter_newspaper - get_list_timeline - getSinceId for ' + twitteruser + ' ' + twitterlist + ' - ' + str(e))
 		theSinceId = None
 	
 	## Get all the statuses
@@ -120,7 +120,7 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 
 		    statuses = api.list_timeline(count=50, owner_screen_name=twitteruser, slug=twitterlist, include_entities="1", max_id=theMaxId, since_id=theSinceId)
 	except Exception as e:
-                logger.exception('twitter_newspaper - get_list_timeline - error getting twitter statuses - ' + sector + ' ' + twitteruser + ' ' + twitterlist + ' - ' + str(e))
+                logger.exception('twitter_newspaper - get_list_timeline - error getting twitter statuses - ' + twitteruser + ' ' + twitterlist + ' - ' + str(e))
 		raise
 
 	## Processing the urls in the statuses and saving them
@@ -137,10 +137,10 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
         	urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
 		urls = filter(lambda x: x.find('@') < 0, urls)
 		urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
-                twitterlistlink = TwitterListLinks(sector=sector, twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
+                twitterlistlink = TwitterListLinks(twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 			for url in urls:
-				twitterlink = TweetLinks(tweetid=status.id, location=status.author.location, author=status.author.screen_name, url=url)
+				twitterlink = TweetLinks(tweetid=status.id, author=status.author.screen_name, url=url)
 				try:
         	                        twitterlink.save()
 	                        except Exception as e:
@@ -156,17 +156,16 @@ def get_list_timeline(sector, twitteruser, twitterlist, numlinks):
 
 @lru_cache(maxsize=1024)
 def get_articles(sector, location):
-	tweets = map(lambda x: x['tweetid'], TwitterListLinks.objects.filter(sector=sector).order_by('-id')[:2000].values('tweetid'))
-	urls = map(lambda x: x['url'], TweetLinks.objects.filter(tweetid__in=tweets).values('url'))
+	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location=location).values('author'))
+	urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-time').values()
 	return filter(lambda x: len(x['articlecontent'])>300, articles)
-
 
 def get_sharers(url):
 	return TweetLinks.objects.filter(url=url).values('author', 'tweetid')
 
 
-#get_list_timeline("startups", "pratikpoddar", "startups", 100)
+#get_list_timeline("pratikpoddar", "startups", 100)
 #search_twitter("sachin tendulkar", 100)
 
 

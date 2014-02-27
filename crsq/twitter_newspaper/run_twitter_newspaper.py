@@ -26,12 +26,12 @@ def get_article_semantics_tags():
 		twitter_newspaper.put_article_semantics_tags(l)
 	return
 
-def run_twitter_newspaper(sector, tuser, tlist):
-	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + sector + tuser + tlist)
-	twitter_newspaper.get_list_timeline(sector, tuser, tlist, 40)
+def run_twitter_newspaper(tuser, tlist):
+	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
+	twitter_newspaper.get_list_timeline(tuser, tlist, 40)
 	get_articles()
 	get_article_semantics_tags()
-	logger.exception('run_twitter_newspaper: ' + sector + ' ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
+	logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
 def time_dependent_tw_np(toberun):
@@ -39,35 +39,35 @@ def time_dependent_tw_np(toberun):
 	toberun = toberun % 15
 
 	if toberun == 0:
-		run_twitter_newspaper('technology', 'pratikpoddar', 'startups')
+		run_twitter_newspaper('pratikpoddar', 'startups')
 	if toberun == 1:
-		run_twitter_newspaper('technology', 'dkhare', 'india-tech-and-vc')
+		run_twitter_newspaper('dkhare', 'india-tech-and-vc')
 	if toberun == 2:
-		run_twitter_newspaper('technology', 'Scobleizer', 'tech-news-people')
+		run_twitter_newspaper('Scobleizer', 'tech-news-people')
 	if toberun == 3:
-	        run_twitter_newspaper('technology', 'mashable', 'startups-silicon-valley-24')
+	        run_twitter_newspaper('mashable', 'startups-silicon-valley-24')
 	if toberun == 4:
-	        run_twitter_newspaper('technology', 'mashable', 'startups-nyc-24')
+	        run_twitter_newspaper('mashable', 'startups-nyc-24')
 	if toberun == 5:
-	        run_twitter_newspaper('technology', 'mashable', 'tech')
+	        run_twitter_newspaper('mashable', 'tech')
 	if toberun == 6:
-	        run_twitter_newspaper('entertainment', 'mashable', 'music')
+	        run_twitter_newspaper('mashable', 'music')
 	if toberun == 7:
-		run_twitter_newspaper('entertainment', 'tellychakkar', 'celebs')
+		run_twitter_newspaper('tellychakkar', 'celebs')
 	if toberun == 8:
-	        run_twitter_newspaper('business', 'WSJ', 'wsj-money')
+	        run_twitter_newspaper('WSJ', 'wsj-money')
 	if toberun == 9:
-	        run_twitter_newspaper('sports', 'WSJ', 'wsj-sports')
+	        run_twitter_newspaper('WSJ', 'wsj-sports')
 	if toberun == 10:
-	        run_twitter_newspaper('business', 'WSJ', 'wsj-ceo-council')
+	        run_twitter_newspaper('WSJ', 'wsj-ceo-council')
 	if toberun == 11:
-	        run_twitter_newspaper('entertainment', 'WSJ', 'fashion-week')
+	        run_twitter_newspaper('WSJ', 'fashion-week')
 	if toberun == 12:
-        	run_twitter_newspaper('technology', 'WSJ', 'wsj-tech')
+        	run_twitter_newspaper('WSJ', 'wsj-tech')
 	if toberun == 13:
-		run_twitter_newspaper('politics', 'theweek', 'politics')
+		run_twitter_newspaper('theweek', 'politics')
 	if toberun == 14:
-		run_twitter_newspaper('politics', 'mattklewis', 'political-journalists')
+		run_twitter_newspaper('mattklewis', 'political-journalists')
 	return
 
 

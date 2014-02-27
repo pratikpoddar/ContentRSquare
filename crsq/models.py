@@ -17,15 +17,18 @@ class AmazonProd(models.Model):
         unique_together = (("text", "index"),)
 
 class TweetLinks(models.Model):
+    author = models.CharField(max_length=100L, null=False, db_index=True)
     tweetid = models.BigIntegerField(null=False, db_index=True)
-    author = models.CharField(max_length=100L, null=False)
-    location = models.CharField(max_length=500L, default=None, null=True)
     url = models.CharField(max_length=255L, null=False, db_index=True)
     class Meta:
         unique_together = (("tweetid", "url"),)
 
+class TweetUsers(models.Model):
+    sector = models.CharField(max_length=100L, null=False, db_index=True)
+    location = models.CharField(max_length=100L, null=False, db_index=True)
+    author = models.CharField(max_length=100L, null=False, db_index=True)
+
 class TwitterListLinks(models.Model):
-    sector = models.CharField(max_length=100L, null=False)
     twitteruser = models.CharField(max_length=100L, null=False)
     twitterlist = models.CharField(max_length=100L, null=False)
     tweetid = models.BigIntegerField(null=False, db_index=True)
