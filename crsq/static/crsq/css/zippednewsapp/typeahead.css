@@ -2,6 +2,7 @@
 .tt-query,
 .tt-hint {
   width: 296px;
+  max-width: 100%;
   height: 30px;
   padding: 8px 12px;
   font-size: 18px;
@@ -21,6 +22,7 @@
 
 .twitter-typeahead {
 	width: 296px;
+	max-width: 100%;
 }
 
 .tt-hint {
@@ -29,6 +31,7 @@
 
 .tt-dropdown-menu {
   width: 296px;
+  max-width: 100%;
   margin-top: 6px;
   padding: 8px 0;
   background-color: #fff;
