@@ -14,9 +14,7 @@ ZippedNews: Real-time news on Popular Topics
 	  <h1>ZippedNews</h1>
 		<p style="text-align:justify">Hate reading full page long articles? Want quick four sentence summary of articles? Want a comprehensive list of articles by topic? You are at the right place! Here, you can Zip through News :)</p>
 		<p style="font-size:100%">Coming Soon on<br/><img src="{% static 'crsq/img/zippednewsapp/gplay.png' %}"/><img src="{% static 'crsq/img/zippednewsapp/ios.png' %}"/></p>
-		<div class="input-group input-group-lg">
-		      <input type="text" id="topicsearch" class="form-control" placeholder="Search for Topic">
-		</div>
+		<input type="text" id="topicsearch" class="typeahead" placeholder="Search for Topic (Coming Soon)">
 	</div>
 
 
@@ -45,72 +43,38 @@ ZippedNews: Real-time news on Popular Topics
                 <br/>
         </div>
 
-	{% comment %}
-	<div class="row">
-		<div class="col-sm-6 col-lg-6 col-md-6">
-			<h4>Recent Articles</h4>
-			<div class="list-group">
-				{% for article in recent_articles %}
-  	 			<div class="list-group-item">
-			   	<a rel="nofollow" href="{{ article.url }}" target="_blank"><h4 class="list-group-item-heading">{{ article.articletitle }}</h4></a>
-				<p class="list-group-item-text"><i>{{ article.domain }}</i></p>
-				<p class="list-group-item-text">{{ article.summary }}</p>
-	  			</div>
-				{% endfor %}
-			</div>  
-		</div>
-		<div class="col-sm-6 col-lg-6 col-md-6">
-			<h4>Popular Articles</h4>
-                        <div class="list-group">
-                                {% for article in popular_articles %}
-                                <div class="list-group-item">
-                                <a rel="nofollow" href="{{ article.url }}" target="_blank"><h4 class="list-group-item-heading">{{ article.articletitle }}</h4></a>
-                                <p class="list-group-item-text"><i>{{ article.domain }}</i></p>
-                                <p class="list-group-item-text">{{ article.summary }}</p>
-                                </div>
-                                {% endfor %}
-                        </div>
-		</div>
-	</div>
-	{% endcomment %}
-	
-	{% comment %}
-        <div class="row">
-                <div class="col-sm-12 col-lg-12 col-md-12">
-                        <h4>Popular News Topics:</h4>
-                </div>
-        </div>
-
-        <div class="row">
-                    {% for alphabet, listoftags in tagdict %}
-			<div class="col-sm-1 col-lg-1 col-md-1">	
-			<div class="dropdown" style="margin:4px;">
-			  <button class="btn dropdown-toggle" type="button" id="articletopic-{{ alphabet }}" data-toggle="dropdown">
-			    {{ alphabet }}
-			    <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" role="menu" aria-labelledby="articletopic-{{ alphabet }}">
-	                          {% for s in listoftags %}
-        	                          <li role="presentation">
-                	                          <a role="menuitem" tabindex="-1" href="/{{ s | slugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-                                          </li>
-                                  {% endfor %}
-			  </ul>
-			</div>
-			</div>
-                    {% endfor %}
-                <br/>
-        </div>
-	{% endcomment %}
-
 {% endblock %}
 
 {% block jscontent %}
+<script type="text/javascript" src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
 <script type="text/javascript">
 
-$('#topicsearch').typeahead({
-  minLength: 3,
-  local: ["arvinf", "arvind", "arvig", "parv"]
+$(window).load(function() {
+	var topiclist = new Bloodhound({
+	  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.topic); },
+	  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  	  local: [ /*
+	    { topic: 'one' },
+	    { topic: 'two' },
+	    { topic: 'three' },
+	    { topic: 'four' },
+	    { topic: 'five' },
+	    { topic: 'six' },
+	    { topic: 'seven' },
+	    { topic: 'eight' },
+	    { topic: 'nine' },
+	    { topic: 'ten' }*/
+	  ]
+	});
+ 
+	// initialize the bloodhound suggestion engine
+	topiclist.initialize();
+ 
+	$('#topicsearch').typeahead(null, {
+	  minLength: 3,
+	  displayKey: 'topic',
+	  source: topiclist.ttAdapter()
+	});
 });
 
 </script>
