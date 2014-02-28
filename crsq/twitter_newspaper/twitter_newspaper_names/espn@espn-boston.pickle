@@ -1,0 +1,39 @@
+(lp0
+(S'ESPNJoeyMac'
+p1
+S'Boston'
+p2
+S'espn'
+p3
+S'espn-boston'
+p4
+tp5
+a(S'GordonEdes'
+p6
+S'Boston'
+p7
+g3
+g4
+tp8
+a(S'ESPNForsberg'
+p9
+S'Boston, MA'
+p10
+g3
+g4
+tp11
+a(S'MikeReiss'
+p12
+S'Foxborough, MA'
+p13
+g3
+g4
+tp14
+a(S'ESPNBoston'
+p15
+S'Boston, Mass.'
+p16
+g3
+g4
+tp17
+a.

@@ -1,0 +1,142 @@
+(lp0
+(S'Gorman_Siobhan'
+p1
+S''
+p2
+S'WSJ'
+p3
+S'wsj-politics'
+p4
+tp5
+a(S'wsjMelanie'
+p6
+S'Washington, DC Bureau'
+p7
+g3
+g4
+tp8
+a(S'brkend'
+p9
+g2
+g3
+g4
+tp10
+a(S'willmauldin'
+p11
+S'Washington, D.C.'
+p12
+g3
+g4
+tp13
+a(S'aliciamundy'
+p14
+S'Washington'
+p15
+g3
+g4
+tp16
+a(S'kristinapet'
+p17
+S'Washington, D.C.'
+p18
+g3
+g4
+tp19
+a(S'coreyboles'
+p20
+S'Washington DC'
+p21
+g3
+g4
+tp22
+a(S'jaredfavole'
+p23
+S'White House'
+p24
+g3
+g4
+tp25
+a(S'NKingofDC'
+p26
+S'Washington, DC'
+p27
+g3
+g4
+tp28
+a(S'siobhanehughes'
+p29
+S'Washington'
+p30
+g3
+g4
+tp31
+a(S'DionNissenbaum'
+p32
+g2
+g3
+g4
+tp33
+a(S'KateMilani'
+p34
+S'Washington, D.C.'
+p35
+g3
+g4
+tp36
+a(S'johndmckinnon'
+p37
+S'Washington, DC'
+p38
+g3
+g4
+tp39
+a(S'JessBravin'
+p40
+S'Washington, D.C.'
+p41
+g3
+g4
+tp42
+a(S'randyyeip'
+p43
+S'New York'
+p44
+g3
+g4
+tp45
+a(S'julianbarnes'
+p46
+S'Washington, DC'
+p47
+g3
+g4
+tp48
+a(S'janetadamy'
+p49
+S'Washington, D.C.'
+p50
+g3
+g4
+tp51
+a(S'TimJHanrahan'
+p52
+S'Washington, D.C.'
+p53
+g3
+g4
+tp54
+a(S'ColleenMNelson'
+p55
+S'Washington, DC'
+p56
+g3
+g4
+tp57
+a(S'WSJpolitics'
+p58
+S'Washington, D.C.'
+p59
+g3
+g4
+tp60
+a.

@@ -1,0 +1,144 @@
+(lp0
+(S'LarsLuv'
+p1
+S'San Francisco'
+p2
+S'Scobleizer'
+p3
+S'tech-company-executives'
+p4
+tp5
+a(S'EricKintz'
+p6
+S'Los Angeles, CA'
+p7
+g3
+g4
+tp8
+a(S'DanAldridge1'
+p9
+S'Reston, VA USA'
+p10
+g3
+g4
+tp11
+a(S'Fayarjomandi'
+p12
+S'San Francisco'
+p13
+g3
+g4
+tp14
+a(S'evanspiegel'
+p15
+S'Pacific Palisades, CA'
+p16
+g3
+g4
+tp17
+a(S'Arubin'
+p18
+S'California'
+p19
+g3
+g4
+tp20
+a(S'forstall'
+p21
+S'Cupertino, CA'
+p22
+g3
+g4
+tp23
+a(S'paulpluschkell'
+p24
+S'California'
+p25
+g3
+g4
+tp26
+a(S'MrAlanCooper'
+p27
+S'San Francisco CA, Petaluma CA'
+p28
+g3
+g4
+tp29
+a(S'ericschmidt'
+p30
+S'Mountain View, CA'
+p31
+g3
+g4
+tp32
+a(S'ahamzawi'
+p33
+S'London, England'
+p34
+g3
+g4
+tp35
+a(S'teamreboot'
+p36
+S'New York'
+p37
+g3
+g4
+tp38
+a(S'shrepfur'
+p39
+S'Minneapolis'
+p40
+g3
+g4
+tp41
+a(S'ronnyejones'
+p42
+S'Alabama'
+p43
+g3
+g4
+tp44
+a(S'followforeman'
+p45
+S'Chicago, IL'
+p46
+g3
+g4
+tp47
+a(S'MichaelDell'
+p48
+S'Austin, TX '
+p49
+g3
+g4
+tp50
+a(S'alyssahhenry'
+p51
+S'Seattle'
+p52
+g3
+g4
+tp53
+a(S'puneetmehtanyc'
+p54
+S'New York, NY'
+p55
+g3
+g4
+tp56
+a(S'john_gotts'
+p57
+S'Hailey, Idaho'
+p58
+g3
+g4
+tp59
+a(S'kaifulee'
+p60
+S'Beijing, China'
+p61
+g3
+g4
+tp62
+a.

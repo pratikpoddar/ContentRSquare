@@ -1,0 +1,142 @@
+(lp0
+(S'techledes'
+p1
+S'San Francisco'
+p2
+S'TheWeek'
+p3
+S'tech-news'
+p4
+tp5
+a(S'fwd'
+p6
+S'The Internet'
+p7
+g3
+g4
+tp8
+a(S'verge'
+p9
+S'The Universe'
+p10
+g3
+g4
+tp11
+a(S'daily'
+p12
+S''
+p13
+g3
+g4
+tp14
+a(S'peterlauria3'
+p15
+S'Brooklyn, New York'
+p16
+g3
+g4
+tp17
+a(S'Techland'
+p18
+S'Electric Avenue'
+p19
+g3
+g4
+tp20
+a(S'HuffPostTech'
+p21
+S'NYC'
+p22
+g3
+g4
+tp23
+a(S'worldofapple'
+p24
+S'World'
+p25
+g3
+g4
+tp26
+a(S'cnntech'
+p27
+S'Atlanta, Georgia, USA'
+p28
+g3
+g4
+tp29
+a(S'ewoyke'
+p30
+S'New York'
+p31
+g3
+g4
+tp32
+a(S'JoshLevs'
+p33
+S'Roughhousing w/my boys'
+p34
+g3
+g4
+tp35
+a(S'CNET'
+p36
+S'San Francisco'
+p37
+g3
+g4
+tp38
+a(S'applespotlight'
+p39
+S'San Francisco'
+p40
+g3
+g4
+tp41
+a(S'TechnoBuffalo'
+p42
+g13
+g3
+g4
+tp43
+a(S'RogerWCheng'
+p44
+S'New York City'
+p45
+g3
+g4
+tp46
+a(S'CNBC'
+p47
+g13
+g3
+g4
+tp48
+a(S'nytimestech'
+p49
+S'New York, NY'
+p50
+g3
+g4
+tp51
+a(S'adnys'
+p52
+S"PDX-SFO-QLA-LON-AMS-Brasil '14"
+p53
+g3
+g4
+tp54
+a(S'jackschofield'
+p55
+S'London, England'
+p56
+g3
+g4
+tp57
+a(S'BridgetCarey'
+p58
+S'New York'
+p59
+g3
+g4
+tp60
+a.

@@ -1,0 +1,142 @@
+(lp0
+(S'orenjacob'
+p1
+S'East Bay'
+p2
+S'mashable'
+p3
+S'tech'
+p4
+tp5
+a(S'jolieodell'
+p6
+S''
+p7
+g3
+g4
+tp8
+a(S'cringely'
+p9
+g7
+g3
+g4
+tp10
+a(S'chr1sa'
+p11
+S'Berkeley'
+p12
+g3
+g4
+tp13
+a(S'TonyPerkins'
+p14
+S'San Francisco'
+p15
+g3
+g4
+tp16
+a(S'charlie_white'
+p17
+S'Worldwide'
+p18
+g3
+g4
+tp19
+a(S'boygenius'
+p20
+S'Greenwich, CT'
+p21
+g3
+g4
+tp22
+a(S'thurrott'
+p23
+S'Dedham, MA'
+p24
+g3
+g4
+tp25
+a(S'johnbattelle'
+p26
+S'Marin, California'
+p27
+g3
+g4
+tp28
+a(S'brianboyer'
+p29
+S'Washington, DC'
+p30
+g3
+g4
+tp31
+a(S'robynpeterson'
+p32
+S'New York, NY'
+p33
+g3
+g4
+tp34
+a(S'patricknorton'
+p35
+S'Alameda, CA, USA'
+p36
+g3
+g4
+tp37
+a(S'JohnPaczkowski'
+p38
+g7
+g3
+g4
+tp39
+a(S'benparr'
+p40
+S'San Francisco/Silicon Valley'
+p41
+g3
+g4
+tp42
+a(S'FutureBoy'
+p43
+S'SF, Formerly NY, Originally UK'
+p44
+g3
+g4
+tp45
+a(S'cheald'
+p46
+S'Phoenix, AZ'
+p47
+g3
+g4
+tp48
+a(S'sorayadarabi'
+p49
+S'New York City'
+p50
+g3
+g4
+tp51
+a(S'film_girl'
+p52
+S'Brooklyn, New York'
+p53
+g3
+g4
+tp54
+a(S'susanmernit'
+p55
+S'Oakland'
+p56
+g3
+g4
+tp57
+a(S'JasonFalls'
+p58
+S'Louisville, Ky.'
+p59
+g3
+g4
+tp60
+a.

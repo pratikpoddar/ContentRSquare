@@ -1,0 +1,144 @@
+(lp0
+(S'rihanna'
+p1
+S'LA BABY!'
+p2
+S'mashable'
+p3
+S'music'
+p4
+tp5
+a(S'thebravery'
+p6
+S'Los Angeles'
+p7
+g3
+g4
+tp8
+a(S'GreenDay'
+p9
+S'East Bay, California'
+p10
+g3
+g4
+tp11
+a(S'shakira'
+p12
+S'Barranquilla'
+p13
+g3
+g4
+tp14
+a(S'BenFolds'
+p15
+S'nashville'
+p16
+g3
+g4
+tp17
+a(S'aliciakeys'
+p18
+S'New York City'
+p19
+g3
+g4
+tp20
+a(S'Pink'
+p21
+S'los angeles'
+p22
+g3
+g4
+tp23
+a(S'ashleesimpson'
+p24
+S'los angeles'
+p25
+g3
+g4
+tp26
+a(S'jtimberlake'
+p27
+S'Memphis, TN'
+p28
+g3
+g4
+tp29
+a(S'depechemode'
+p30
+S'Burbank, CA (band webmaster)'
+p31
+g3
+g4
+tp32
+a(S'CollectiveSoul'
+p33
+S'Atlanta, GA'
+p34
+g3
+g4
+tp35
+a(S'Eminem'
+p36
+S'Detroit'
+p37
+g3
+g4
+tp38
+a(S'BonJovi'
+p39
+S'New Jersey'
+p40
+g3
+g4
+tp41
+a(S'ThisIsRobThomas'
+p42
+S'new york'
+p43
+g3
+g4
+tp44
+a(S'alyankovic'
+p45
+S'Los Angeles'
+p46
+g3
+g4
+tp47
+a(S'markhoppus'
+p48
+S'London/Los Angeles'
+p49
+g3
+g4
+tp50
+a(S'katyperry'
+p51
+S'REALITY'
+p52
+g3
+g4
+tp53
+a(S'KaiserChiefs'
+p54
+S'England'
+p55
+g3
+g4
+tp56
+a(S'ddlovato'
+p57
+S'DALLAS/LA'
+p58
+g3
+g4
+tp59
+a(S'thekillers'
+p60
+S'The World by way of Las Vegas'
+p61
+g3
+g4
+tp62
+a.

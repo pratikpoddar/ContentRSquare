@@ -1,0 +1,141 @@
+(lp0
+(S'LarsLuv'
+p1
+S'San Francisco'
+p2
+S'Scobleizer'
+p3
+S'most-influential-in-tech'
+p4
+tp5
+a(S'Fayarjomandi'
+p6
+S'San Francisco'
+p7
+g3
+g4
+tp8
+a(S'evanspiegel'
+p9
+S'Pacific Palisades, CA'
+p10
+g3
+g4
+tp11
+a(S'Arubin'
+p12
+S'California'
+p13
+g3
+g4
+tp14
+a(S'paulg'
+p15
+S''
+p16
+g3
+g4
+tp17
+a(S'macon44'
+p18
+S'Washington, DC'
+p19
+g3
+g4
+tp20
+a(S'MrAlanCooper'
+p21
+S'San Francisco CA, Petaluma CA'
+p22
+g3
+g4
+tp23
+a(S'KatieS'
+p24
+S'Paris, France'
+p25
+g3
+g4
+tp26
+a(S'ericschmidt'
+p27
+S'Mountain View, CA'
+p28
+g3
+g4
+tp29
+a(S'timberners_lee'
+p30
+S'Boston'
+p31
+g3
+g4
+tp32
+a(S'teamreboot'
+p33
+S'New York'
+p34
+g3
+g4
+tp35
+a(S'shrepfur'
+p36
+S'Minneapolis'
+p37
+g3
+g4
+tp38
+a(S'dreeves1'
+p39
+g16
+g3
+g4
+tp40
+a(S'MichaelDell'
+p41
+S'Austin, TX '
+p42
+g3
+g4
+tp43
+a(S'twitalytic'
+p44
+g16
+g3
+g4
+tp45
+a(S'kaifulee'
+p46
+S'Beijing, China'
+p47
+g3
+g4
+tp48
+a(S'sergeybrinn'
+p49
+g16
+g3
+g4
+tp50
+a(S'BillGates'
+p51
+S'Seattle, WA'
+p52
+g3
+g4
+tp53
+a(S'peterthiel'
+p54
+S'San Francisco'
+p55
+g3
+g4
+tp56
+a(S'Bill_Gross'
+p57
+S'Pasadena, CA'
+p58
+g3
+g4
+tp59
+a.

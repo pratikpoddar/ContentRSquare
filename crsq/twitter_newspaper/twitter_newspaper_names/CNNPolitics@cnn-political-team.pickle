@@ -1,0 +1,142 @@
+(lp0
+(S'yoonrob'
+p1
+S'USA'
+p2
+S'CNNPolitics'
+p3
+S'cnn-political-team'
+p4
+tp5
+a(S'ErinBurnett'
+p6
+S'NY, NY'
+p7
+g3
+g4
+tp8
+a(S'CNNOpinion'
+p9
+S''
+p10
+g3
+g4
+tp11
+a(S'David_Gergen'
+p12
+S'Everywhere'
+p13
+g3
+g4
+tp14
+a(S'BryanMonroeCNN'
+p15
+S'Washington, DC'
+p16
+g3
+g4
+tp17
+a(S'KevinBohnCNN'
+p18
+S'Washington, D.C. '
+p19
+g3
+g4
+tp20
+a(S'ShanTravisCNN'
+p21
+S'Washington DC'
+p22
+g3
+g4
+tp23
+a(S'LisaDCNN'
+p24
+S'Washington, DC'
+p25
+g3
+g4
+tp26
+a(S'DanaBashCNN'
+p27
+S'Washington, D.C.'
+p28
+g3
+g4
+tp29
+a(S'adamplevycnn'
+p30
+g10
+g3
+g4
+tp31
+a(S'TashaCNN'
+p32
+S'Washington, DC'
+p33
+g3
+g4
+tp34
+a(S'psteinhauserCNN'
+p35
+S'Washington DC'
+p36
+g3
+g4
+tp37
+a(S'CNNPR'
+p38
+g10
+g3
+g4
+tp39
+a(S'wolfblitzer'
+p40
+S'Washington D.C.'
+p41
+g3
+g4
+tp42
+a(S'SamFeistCNN'
+p43
+S'Washington, D.C.'
+p44
+g3
+g4
+tp45
+a(S'brikeilarcnn'
+p46
+S'Washington, DC'
+p47
+g3
+g4
+tp48
+a(S'ErinMcPike'
+p49
+S'Washington, D.C.'
+p50
+g3
+g4
+tp51
+a(S'CNNSitRoom'
+p52
+S'Washington '
+p53
+g3
+g4
+tp54
+a(S'JohnKingCNN'
+p55
+S'Washington, D.C.'
+p56
+g3
+g4
+tp57
+a(S'crowleyCNN'
+p58
+S'Washington, DC'
+p59
+g3
+g4
+tp60
+a.

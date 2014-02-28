@@ -1,0 +1,143 @@
+(lp0
+(S'SeungheeSuh'
+p1
+S'New York, NY'
+p2
+S'WSJ'
+p3
+S'wsj-style-entertainment'
+p4
+tp5
+a(S'NapolitanoWSJ'
+p6
+S'Hong Kong'
+p7
+g3
+g4
+tp8
+a(S'BethSchepens'
+p9
+S'London'
+p10
+g3
+g4
+tp11
+a(S'nmasidlover'
+p12
+S'France'
+p13
+g3
+g4
+tp14
+a(S'cjknutsen'
+p15
+S''
+p16
+g3
+g4
+tp17
+a(S'cpassariello'
+p18
+S'Paris'
+p19
+g3
+g4
+tp20
+a(S'kristina_oneill'
+p21
+S'Brooklyn, NY'
+p22
+g3
+g4
+tp23
+a(S'barbarachai'
+p24
+S'New York'
+p25
+g3
+g4
+tp26
+a(S'xanalter'
+p27
+g16
+g3
+g4
+tp28
+a(S'WSJspeakeasy'
+p29
+S'New York and Los Angeles'
+p30
+g3
+g4
+tp31
+a(S'WSJLife'
+p32
+S'New York, NY'
+p33
+g3
+g4
+tp34
+a(S'BinkleyOnStyle'
+p35
+S'Los Angeles'
+p36
+g3
+g4
+tp37
+a(S'jjasonchow'
+p38
+S'Hong Kong'
+p39
+g3
+g4
+tp40
+a(S'racheldodes'
+p41
+VÜT: 38.300236,-85.891098
+p42
+g3
+g4
+tp43
+a(S'wsjrock'
+p44
+S'New York, NY'
+p45
+g3
+g4
+tp46
+a(S'kurtdietrich'
+p47
+S'Brooklyn, NY'
+p48
+g3
+g4
+tp49
+a(S'rayalexsmith'
+p50
+S'Wall Street Journal - NYC'
+p51
+g3
+g4
+tp52
+a(S'MeenalMistry'
+p53
+S'West Village, New York'
+p54
+g3
+g4
+tp55
+a(S'elvainadine'
+p56
+S'New York City & Brooklyn'
+p57
+g3
+g4
+tp58
+a(S'EHolmesWSJ'
+p59
+S'New York'
+p60
+g3
+g4
+tp61
+a.
