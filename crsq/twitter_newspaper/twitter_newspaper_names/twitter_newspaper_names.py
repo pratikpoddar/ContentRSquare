@@ -9,7 +9,7 @@ import logging
 from urlparse import urlparse
 from functools32 import lru_cache
 import pickle
-from googlemaps import GoogleMaps
+from geopy import geocoders 
 
 logger = logging.getLogger(__name__)
 
@@ -25,20 +25,27 @@ api = tweepy.API(auth)
 
 locationmap_dict = {}
 
+# Installed from https://code.google.com/p/geopy/wiki/GettingStarted
+@lru_cache(maxsize=2048)
 def locationmap(location):
 
+	try:
+		g = geocoders.GoogleV3()
+		place, (lat, lng) = g.geocode(location)  
+		return "GeoCoder " + place
+	except:
+		pass
+ 
 	location = location.lower()
-	if location.find('boston')>-1:
-		return "Boston"
-        if filter(lambda x: location.find(x)>-1, ["washington", "seattle"]):
-		return "Washington"
+        if filter(lambda x: location.find(x)>-1, ["washington state", "seattle"]):
+		return "Seattle"
 	if filter(lambda x: location.find(x)>-1, ["stanford", "palo alto", "california", "los angeles", "san francisco", "silicon valley"]):
 		return "SF"
 	if location == "la":
 		return "SF"
 	if location.find('hong kong')>-1:
 		return "HK"
-        if filter(lambda x: location.find(x)>-1, ["nyc", "new york", "jersey"]):
+        if filter(lambda x: location.find(x)>-1, ["nyc", "new york", "jersey", "atlanta", "baltimore", "maryland", "washington d.c.", "boston", "louisville"]):
 		return "NY"
 	if (location == "ny"):
 		return "NY"
@@ -154,19 +161,19 @@ for screen_name in screen_names:
 for influencer in list_of_influencers:
 	twitter_location_dict[influencer[0]] += [influencer[1]]
 	twitter_location_renamed_dict[influencer[0]] += [locationmap(influencer[1])]
+	print str(twitter_location_dict[influencer[0]]) + " --> " + str(twitter_location_renamed_dict[influencer[0]])
 	ownerslug_dict[influencer[0]] += [(influencer[2], influencer[3])]
 	proposed_sectors_dict[influencer[0]] += [filter(lambda x: x[0]=="https://twitter.com/"+ influencer[2] + "/lists/" + influencer[3], twitter_lists)[0][1]]
 	proposed_location_dict[influencer[0]] += [filter(lambda x: x[0]=="https://twitter.com/"+ influencer[2] + "/lists/" + influencer[3], twitter_lists)[0][2]]
 
 
-for screen_name in screen_names:
-	if list(set(proposed_location_dict[screen_name])) == [None]:
-		print "---"
-		print screen_name
-		print list(set(ownerslug_dict[screen_name]))
-		print list(set(twitter_location_dict[screen_name]))
-		print list(set(twitter_location_renamed_dict[screen_name]))
-		print list(set(proposed_sectors_dict[screen_name]))
-		print list(set(proposed_location_dict[screen_name]))
+for screen_name in screen_names[:200]:
+	print "---"
+	print screen_name
+	print list(set(ownerslug_dict[screen_name]))
+	print list(set(twitter_location_dict[screen_name]))
+	print list(set(twitter_location_renamed_dict[screen_name]))
+	print list(set(proposed_sectors_dict[screen_name]))
+	print list(set(proposed_location_dict[screen_name]))
 
 
