@@ -194,7 +194,7 @@ final_output = []
 for screen_name in screen_names:
 	print "---"
 	print screen_name
-	#api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers-1', user_id=int(id_dict[screen_name][0]))
+	api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers-1', user_id=int(id_dict[screen_name][0]))
 	print list(set(ownerslug_dict[screen_name]))
 	print list(set(twitter_location_dict[screen_name]))
 	print list(set(twitter_location_renamed_dict[screen_name]))
