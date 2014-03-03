@@ -143,6 +143,17 @@ twitter_lists = [
 ("https://twitter.com/TheWeek/lists/sports-news",["sports"], []),
 ("https://twitter.com/TheWeek/lists/tech-news",["technology"], []),
 ("https://twitter.com/TheWeek/lists/business-news",["business"], []),
+("https://twitter.com/BBCIndia/lists/digital-indians", ["technology"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/glamsham/lists/celebrities", ["entertainment"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/political-parties", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/politicians-analyst", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/political-journalists", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/movie-stars", ["entertainment"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/business-persons", ["business"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/actress-in-india", ["entertainment"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/actors-in-india", ["entertainment"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/cricket-news", ["sports"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/inTheTweetNews/lists/cricketers-and-experts", ["sports"], ["mumbai-india", "bangalore-india"]),
 ]
 
 list_of_influencers = []
@@ -196,6 +207,7 @@ file = open("final_output.pickle", 'w')
 pickle.dump(final_output, file)
 file.close()
 
+TweetUsers.objects.all().delete()
 for elem in final_output:
 	locations = elem[1]+elem[2]+elem[3]
 	sectors = elem[4]
@@ -203,8 +215,7 @@ for elem in final_output:
 		for location in locations:
 			if sector:
 				if location:
-					if TweetUsers.objects.filter(sector=sector, location=location, author=elem[0]).count() == 0:
-						tu = TweetUsers(sector=sector, location=location, author=elem[0])
-						tu.save()
+					tu = TweetUsers(sector=sector, location=location, author=elem[0])
+					tu.save()
 
 
