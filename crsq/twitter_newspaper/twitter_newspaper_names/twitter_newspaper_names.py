@@ -11,6 +11,7 @@ from functools32 import lru_cache
 import pickle
 from django.template.defaultfilters import slugify
 from geopy import geocoders, distance
+from crsq.models import TweetUsers
 
 logger = logging.getLogger(__name__)
 
@@ -196,4 +197,15 @@ for screen_name in screen_names:
 file = open("final_output.pickle", 'w')
 pickle.dump(final_output, file)
 file.close()
+
+for elem in final_output:
+	locations = elem[1]+elem[2]+elem[3]
+	sectors = elem[4]
+	for sector in sectors:
+		for location in locations:
+			if location:
+				if sector:
+					tu = TweetUsers(sector=sector, location=location, author=elem[0])
+					tu.save()
+
 
