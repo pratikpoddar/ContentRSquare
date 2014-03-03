@@ -36,6 +36,9 @@ def run_twitter_newspaper(tuser, tlist):
 
 def time_dependent_tw_np(toberun):
 
+	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
+	return
+	
 	toberun = toberun % 15
 
 	if toberun == 0:
