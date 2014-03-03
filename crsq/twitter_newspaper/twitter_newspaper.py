@@ -15,10 +15,10 @@ from functools32 import lru_cache
 
 logger = logging.getLogger(__name__)
 
-consumer_key="nNRGguiHtC5AouxzUlZQ"
-consumer_secret="T3df1h6SIqitUs50mlPlbrTN9JrEMZzZK9h6ChYCGw"
-access_token="66690578-TeOd1CQGR6KaF3cQvyNE59XPLYLJ7HAmu2DLLqTri"
-access_token_secret="rGJYuYUJiSnUEqP0wxDNpfNVidPxZFqkuKkGDu3i3jI"
+consumer_key="eULM1PaB0Aw7RQyvWbRzHA"
+consumer_secret="d9h1QnZE7PAh7DVmQO8yapgRptVoIu8yTlzisytR2YQ"
+access_token="66690578-Upv2U0brunkUKvP0W1IVHnS2z3wVeFS2EBSEV5J9z"
+access_token_secret="h2JlCEUGVLkD1ZYJJiDkXXFQ4Gw19EpVk2E2Y8EEeq2OI"
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
