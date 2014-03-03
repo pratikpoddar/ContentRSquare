@@ -7,6 +7,7 @@ S'WSJ'
 p3
 S'business'
 p4
+I326905265
 tp5
 a(S'EmergingEurope'
 p6
@@ -14,6 +15,7 @@ S'Central and Eastern Europe'
 p7
 g3
 g4
+I80581580
 tp8
 a(S'WSJmarkets'
 p9
@@ -21,6 +23,7 @@ S'New York, NY'
 p10
 g3
 g4
+I28164923
 tp11
 a(S'WSJbusiness'
 p12
@@ -28,6 +31,7 @@ S'New York, NY'
 p13
 g3
 g4
+I28140646
 tp14
 a(S'TimOBrien'
 p15
@@ -35,6 +39,7 @@ S'New York'
 p16
 g3
 g4
+I20742461
 tp17
 a(S'WSJMoneyBeat'
 p18
@@ -42,6 +47,7 @@ S'New York, NY'
 p19
 g3
 g4
+I18858395
 tp20
 a(S'EHolmesWSJ'
 p21
@@ -49,6 +55,7 @@ S'New York'
 p22
 g3
 g4
+I18641695
 tp23
 a(S'JohnAByrne'
 p24
@@ -56,6 +63,7 @@ VÜT: 32.027902,118.797935
 p25
 g3
 g4
+I16574209
 tp26
 a(S'McKQuarterly'
 p27
@@ -63,6 +71,7 @@ S'Global'
 p28
 g3
 g4
+I15308469
 tp29
 a(S'WSJ'
 p30
@@ -70,11 +79,13 @@ S'New York, NY'
 p31
 g3
 g4
+I3108351
 tp32
 a(S'businessnews'
 p33
 g2
 g3
 g4
+I1118521
 tp34
 a.

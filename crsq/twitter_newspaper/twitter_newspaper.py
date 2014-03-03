@@ -27,6 +27,34 @@ api = tweepy.API(auth)
 
 twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com', 'thereformedbroker.com', 'indiadigitalreview.com', 'jwatch.org', 'c-span.org', 'whitehouse.gov', 'uber.com', 'ritholtz.com', 'geekwire.com', 'online.wsj.com', 'guardianlv.com']
 
+tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business"]
+tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India"]
+
+def tw_np_location_alias(location):
+
+        location-alias = []
+
+        if location == "world":
+                location-alias = ["boston-usa", "san-francisco-usa", "new-york-usa", "mumbai-india", "bangalore-india", "london-uk"]
+        if location == "united-states":
+                location-alias = ["boston-usa", "san-francisco-usa", "new-york-usa"]
+        if location == "india":
+                location-alias = ["mumbai-india", "bangalore-india"]
+        if location == "san-francisco-usa":
+                location-alias = [location]
+        if location == "new-york-usa":
+                location-alias = [location]
+        if location == "boston-usa":
+                location-alias = [location]
+        if location == "london-uk":
+                location-alias = [location]
+        if location == "mumbai-india":
+                location-alias = [location]
+        if location == "bangalore-india":
+                location-alias = [location]
+	
+	return location-alias
+
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
 def search_twitter(keyword, numlinks):
@@ -156,8 +184,8 @@ def get_list_timeline(twitteruser, twitterlist, numlinks):
 
 @lru_cache(maxsize=1024)
 def get_articles(sector, location):
-	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location=location).values('author'))
-	authors = ['snackfight', 'mattbuchanan', 'farrukhnaeem', 'vbhat', 'Bachscore', 'SrBachchan', 'davelevinthal', 'anildash', 'JesseRodriguez', 'NHPatch', 'peekyou', 'ihansika', 'jmartNYT', 'Weezer', 'minimathur', 'johncbussey', 'MattGarrahan', 'NanSanFran', 'TomBevanRCP', 'harsh88shah', 'LHInsights', 'sorayadarabi', 'nytmnews', 'ajitomatix', 'nmanaktala', 'RubiDilaik', 'SarangLakare', 'anthonyha', 'JenniferJJacobs', 'KevinCTofel', 'jwherrman', 'HuffPostPol', 'Jessicalessin', 'joseiswriting', 'BessemerVP', 'liveside', 'StartupCentral', 'mckaycoppins', 'deborahgage', 'ravitwo', 'avlesh', 'jason_pontin', 'brianboyer', 'KaiserChiefs', 'KarenhMW', 'ThisIsRobThomas', 'BlumeVentures', 'rogerwu99', 'ngjennings', 'ayushmannk', 'FixSean', 'BloombergView', 'learyreports', 'johnsonwhitney', 'jaredbkeller', 'karan009wahi', 'colvinj', 'kevglobal', 'bzcohen', 'adanie2', 'johnbattelle', 'WATblog', 'HarrisonWeber', 'forbes_india', 'AnnGerhart', 'dannowicki', 'satyangajwani', 'jayadelson', 'sarahcuda', 'JFKucinich', 'ryanstewart', 'nikhilchinapa', 'ManishaThakor', 'ceonyc', 'thegarance', 'iamdiddy', 'jbruin', 'lilyallen', 'sethporges', 'markhoppus', 'Milbank', 'jaredfavole', 'jayantsinha', 'ShiraOvide', 'ChronicleBenny', 'ktumulty', 'kiranshaw', 'kpoulsen', 'natashakorecki', 'dorkitude', 'Dexetra', 'danprimack', 'jonward11', 'jkirchick', 'joshzepps', 'MParekh', 'AlexParkerDC', 'ZekeJMiller', 'tgoetz', 'adamsmithtimes', 'vkhosla', 'nichcarlson', 'path', 'tumblr', '50cent', 'dsarno', 'karaswisher', 'SarahFKessler', 'StevenTDennis', 'Limor', 'mollywood', 'DionNissenbaum', 'kabster728', 'JonesTheMarkets', 'vijayanands', 'ddlovato', 'shahbuckler', 'meredithshiner', 'davidshepardson', 'mmurraypolitics', 'MichaelCBender', '1bobcohn', 'Meetup', 'VCShekhar', 'KishwerM', 'TheSwamy', 'Eminem', 'GA', 'benjrooney', 'benkweller', 'mviser', 'CarWale', 'eliotnelson', 'priyankachopra', 'Slate', 'righthalf', 'davelee', 'nmillions', 'jeffzeleny', 'sarahdoody', 'photomatt', 'coldplay', 'rajeshsawhney'] 
+	
+	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location__in=tw_np_location_alias(location)).values('author'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-time').values()
 	return filter(lambda x: len(x['articlecontent'])>300, articles)

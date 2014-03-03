@@ -32,9 +32,6 @@ import random
 
 logger = logging.getLogger(__name__)
 
-tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business"]
-tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India", "Singapore"]
-
 relevanttags = dbcache.getRelevantTags()
 
 def index(request):
@@ -56,7 +53,7 @@ def caa(request):
 
 def tw_np(request, sector, location, page=1):
 
-	if (not filter(lambda x: slugify(x)==sector, tw_np_sector_list)) or (not filter(lambda x: slugify(x)==location, tw_np_location_list)):
+	if (not filter(lambda x: slugify(x)==sector, twitter_newspaper.tw_np_sector_list)) or (not filter(lambda x: slugify(x)==location, twitter_newspaper.tw_np_location_list)):
 		return HttpResponse("<html><body>Twitter Newspaper - Wrong Input</body></html>")
 
 	articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
@@ -79,11 +76,11 @@ def tw_np(request, sector, location, page=1):
 	context = RequestContext(request, {
 	        'article_list': article_list,
 		'sector': sector,
-		'sectorname': filter(lambda x: slugify(x)==sector, tw_np_sector_list)[0],
+		'sectorname': filter(lambda x: slugify(x)==sector, twitter_newspaper.tw_np_sector_list)[0],
 		'location': location,
-		'locationname': filter(lambda x: slugify(x)==location, tw_np_location_list)[0],
-		'sector_list': tw_np_sector_list,
-		'location_list': tw_np_location_list,
+		'locationname': filter(lambda x: slugify(x)==location, twitter_newspaper.tw_np_location_list)[0],
+		'sector_list': twitter_newspaper.tw_np_sector_list,
+		'location_list': twitter_newspaper.tw_np_location_list,
 		'page': int(page),
 		'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+5)
         })
