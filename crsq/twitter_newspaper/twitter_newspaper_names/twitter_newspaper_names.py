@@ -38,9 +38,9 @@ def locationmap(location):
 		place, (lat, lng) = g.geocode(location)  
 		distcc = map(lambda cc: (cc[0], distance.distance((lat, lng), cc[1][1]).miles), centralcities.items())
 		distcc.sort(key=lambda x: x[1])
-		return slugify(distcc[0][0])
+		return [slugify(distcc[0][0])]
 	except Exception as e:
-		return None
+		return []
 
 def locationmap_strmatch(location): 
 	location = location.lower()
@@ -70,7 +70,7 @@ def locationmap_strmatch(location):
         if filter(lambda x: location.find(x)>-1, ["united states", "usa", "america", "north america", "white house"]):
 		return ["boston-usa", "san-francisco-usa", "new-york-usa"]
 	
-	return None
+	return []
 
 def get_members_of_list(linkoflist):
 	ownerslug = urlparse(linkoflist)[2].split("/lists/")
@@ -168,15 +168,13 @@ for screen_name in screen_names:
 	proposed_sectors_dict[screen_name] = []
 	proposed_location_dict[screen_name] = []
 
-list_of_influencers = []
 for influencer in list_of_influencers:
 	id_dict[influencer[0]] += [influencer[4]]
 	twitter_location_dict[influencer[0]] += [influencer[1]]
-	twitter_location_renamed_dict[influencer[0]] += locationmap(influencer[1])
-	twitter_location_strmatch_dict[influencer[0]] += locationmap_strmatch(influencer[1])
+	twitter_location_renamed_dict[influencer[0]] += map(lambda x: slugify(x), locationmap(influencer[1]))
+	twitter_location_strmatch_dict[influencer[0]] += map(lambda x: slugify(x), locationmap_strmatch(influencer[1]))
 	ownerslug_dict[influencer[0]] += [(influencer[2], influencer[3])]
 	proposed_sectors_dict[influencer[0]] += map(lambda x: slugify(x), filter(lambda x: x[0]=="https://twitter.com/"+ influencer[2] + "/lists/" + influencer[3], twitter_lists)[0][1])
-	print filter(lambda x: x[0]=="https://twitter.com/"+ influencer[2] + "/lists/" + influencer[3], twitter_lists)[0][2]
 	proposed_location_dict[influencer[0]] += map(lambda x: slugify(x), filter(lambda x: x[0]=="https://twitter.com/"+ influencer[2] + "/lists/" + influencer[3], twitter_lists)[0][2])
 
 
