@@ -183,12 +183,12 @@ def get_list_timeline(twitteruser, twitterlist, numlinks):
 	return
 
 @lru_cache(maxsize=1024)
-def get_articles(sector, location):
+def get_articles(sector, location, cursor=0):
 	
 	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location__in=tw_np_location_alias(location)).values('author'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
-	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-time').values()
-	return filter(lambda x: len(x['articlecontent'])>300, articles)
+	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-id')[cursor:cursor+10].values()
+	return articles
 
 def get_sharers(url):
 	return TweetLinks.objects.filter(url=url).values('author', 'tweetid')

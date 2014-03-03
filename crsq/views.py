@@ -56,7 +56,7 @@ def tw_np(request, sector, location, page=1):
 	if (not filter(lambda x: slugify(x)==sector, twitter_newspaper.tw_np_sector_list)) or (not filter(lambda x: slugify(x)==location, twitter_newspaper.tw_np_location_list)):
 		return HttpResponse("<html><body>Twitter Newspaper - Wrong Input</body></html>")
 
-	articles = twitter_newspaper.get_articles(sector, location)[int(page)*10-10:int(page)*10]
+	articles = twitter_newspaper.get_articles(sector, location, cursor=int(page)*10-10)[:10]
 
         article_list = []
 
