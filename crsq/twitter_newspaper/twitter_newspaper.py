@@ -32,28 +32,28 @@ tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", 
 
 def tw_np_location_alias(location):
 
-        location-alias = []
+        location_alias = []
 
         if location == "world":
-                location-alias = ["boston-usa", "san-francisco-usa", "new-york-usa", "mumbai-india", "bangalore-india", "london-uk"]
+                location_alias = ["boston-usa", "san-francisco-usa", "new-york-usa", "mumbai-india", "bangalore-india", "london-uk"]
         if location == "united-states":
-                location-alias = ["boston-usa", "san-francisco-usa", "new-york-usa"]
+                location_alias = ["boston-usa", "san-francisco-usa", "new-york-usa"]
         if location == "india":
-                location-alias = ["mumbai-india", "bangalore-india"]
+                location_alias = ["mumbai-india", "bangalore-india"]
         if location == "san-francisco-usa":
-                location-alias = [location]
+                location_alias = [location]
         if location == "new-york-usa":
-                location-alias = [location]
+                location_alias = [location]
         if location == "boston-usa":
-                location-alias = [location]
+                location_alias = [location]
         if location == "london-uk":
-                location-alias = [location]
+                location_alias = [location]
         if location == "mumbai-india":
-                location-alias = [location]
+                location_alias = [location]
         if location == "bangalore-india":
-                location-alias = [location]
+                location_alias = [location]
 	
-	return location-alias
+	return location_alias
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
