@@ -201,9 +201,10 @@ for elem in final_output:
 	sectors = elem[4]
 	for sector in sectors:
 		for location in locations:
-			if location:
-				if sector:
-					tu = TweetUsers(sector=sector, location=location, author=elem[0])
-					tu.save()
+			if sector:
+				if location:
+					if TweetUsers.objects.filter(sector=sector, location=location, author=elem[0]).count() == 0:
+						tu = TweetUsers(sector=sector, location=location, author=elem[0])
+						tu.save()
 
 
