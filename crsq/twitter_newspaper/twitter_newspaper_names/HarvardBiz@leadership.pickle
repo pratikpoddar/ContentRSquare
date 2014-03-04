@@ -1,0 +1,68 @@
+(lp0
+(S'RosabethKanter'
+p1
+S'Boston, MA'
+p2
+S'HarvardBiz'
+p3
+S'leadership'
+p4
+I68768975
+tp5
+a(S'Bill_George'
+p6
+S'Minneapolis, MN'
+p7
+g3
+g4
+I62522718
+tp8
+a(S'thejointstaff'
+p9
+S'The Pentagon, Washington D.C.'
+p10
+g3
+g4
+I28576135
+tp11
+a(S'JohnBaldoni'
+p12
+S'Ann Arbor'
+p13
+g3
+g4
+I23226127
+tp14
+a(S'practicallyrad'
+p15
+S'Wellesley, MA'
+p16
+g3
+g4
+I18990065
+tp17
+a(S'ThisIsSethsBlog'
+p18
+V
+p19
+g3
+g4
+I17825445
+tp20
+a(S'StewFriedman'
+p21
+S'Philadelphia, PA'
+p22
+g3
+g4
+I16158472
+tp23
+a(S'tammyerickson'
+p24
+S'Black Brook Farm, MA'
+p25
+g3
+g4
+I15030576
+tp26
+a.

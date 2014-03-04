@@ -48,9 +48,10 @@ def locationmap(location):
 		place, (lat, lng) = g.geocode(location)  
 		distcc = map(lambda cc: (cc[0], distance.distance((lat, lng), cc[1][1]).miles), centralcities.items())
 		distcc.sort(key=lambda x: x[1])
-		locationmapcache[location] = slugify(distcc[0][0])
+		locationmapcache[location] = [slugify(distcc[0][0])]
 		return [slugify(distcc[0][0])]
 	except Exception as e:
+		locationmapcache[location] = []
 		return []
 
 def locationmap_strmatch(location): 
@@ -222,8 +223,8 @@ for influencer in list_of_influencers:
 final_output = []
 for screen_name in screen_names:
 	print "---"
-	print screen_name
 	try:
+		print screen_name
 		api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers-1', user_id=int(id_dict[screen_name][0]))
 	except Exception as e:
 		print screen_name + " - error adding member to crsq-influencers"
@@ -243,7 +244,7 @@ file = open('locationmapcache.pickle', 'w')
 pickle.dump(locationmapcache, file)
 file.close()
 
-TweetUsers.objects.all().delete()
+#TweetUsers.objects.all().delete()
 for elem in final_output:
 	locations = elem[1]+elem[2]+elem[3]
 	sectors = elem[4]

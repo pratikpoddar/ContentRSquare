@@ -1,0 +1,4249 @@
+(dp0
+S''
+p1
+(lp2
+sS'global'
+p3
+(lp4
+ccopy_reg
+_reconstructor
+p5
+(cdjango.utils.safestring
+SafeText
+p6
+c__builtin__
+unicode
+p7
+Vsan-francisco-usa
+p8
+tp9
+Rp10
+asS'LA '
+p11
+(lp12
+g5
+(g6
+g7
+Vsan-francisco-usa
+p13
+tp14
+Rp15
+asS'Carson City, Nevada'
+p16
+(lp17
+g5
+(g6
+g7
+Vsan-francisco-usa
+p18
+tp19
+Rp20
+asS'Clacton-on-Sea'
+p21
+(lp22
+sS'New Delhi'
+p23
+(lp24
+g5
+(g6
+g7
+Vmumbai-india
+p25
+tp26
+Rp27
+asS'Louisiana'
+p28
+(lp29
+sS'Dedham, MA'
+p30
+(lp31
+g5
+(g6
+g7
+Vboston-usa
+p32
+tp33
+Rp34
+asS'Nederland'
+p35
+(lp36
+g5
+(g6
+g7
+Vlondon-uk
+p37
+tp38
+Rp39
+asS'LA BABY!'
+p40
+(lp41
+g5
+(g6
+g7
+Vsan-francisco-usa
+p42
+tp43
+Rp44
+asS'Montreal'
+p45
+(lp46
+sS'Atlanta'
+p47
+(lp48
+sS'North Salt Lake, UT'
+p49
+(lp50
+g5
+(g6
+g7
+Vsan-francisco-usa
+p51
+tp52
+Rp53
+asS'chennai'
+p54
+(lp55
+g5
+(g6
+g7
+Vbangalore-india
+p56
+tp57
+Rp58
+asS'On the back nine'
+p59
+(lp60
+g5
+(g6
+g7
+Vnew-york-usa
+p61
+tp62
+Rp63
+asS'Bangalore, India'
+p64
+(lp65
+g5
+(g6
+g7
+Vbangalore-india
+p66
+tp67
+Rp68
+asS'Alaska'
+p69
+(lp70
+sVÜT: 37.408012,-121.975478
+p71
+(lp72
+sS'I say not out '
+p73
+(lp74
+sS'Global'
+p75
+(lp76
+g5
+(g6
+g7
+Vsan-francisco-usa
+p77
+tp78
+Rp79
+asS'Pretoria, South Africa'
+p80
+(lp81
+g5
+(g6
+g7
+Vbangalore-india
+p82
+tp83
+Rp84
+asS'LA, CA'
+p85
+(lp86
+sS'London, U.K.'
+p87
+(lp88
+g5
+(g6
+g7
+Vlondon-uk
+p89
+tp90
+Rp91
+asS'Normally, London.'
+p92
+(lp93
+sS'South Korea'
+p94
+(lp95
+g5
+(g6
+g7
+Vbangalore-india
+p96
+tp97
+Rp98
+asS'Seattle'
+p99
+(lp100
+g5
+(g6
+g7
+Vsan-francisco-usa
+p101
+tp102
+Rp103
+asS'San Diego, California USA'
+p104
+(lp105
+sS'Hong Kong, London and New York'
+p106
+(lp107
+sS'Anantnag, Jammu and Kashmir'
+p108
+(lp109
+g5
+(g6
+g7
+Vmumbai-india
+p110
+tp111
+Rp112
+asS'In the tunnel around your way.'
+p113
+(lp114
+sS'Stanford, California'
+p115
+(lp116
+g5
+(g6
+g7
+Vsan-francisco-usa
+p117
+tp118
+Rp119
+asS'NYC'
+p120
+(lp121
+sS'Camden, Maine'
+p122
+(lp123
+g5
+(g6
+g7
+Vboston-usa
+p124
+tp125
+Rp126
+asS'Dothan, AL'
+p127
+(lp128
+g5
+(g6
+g7
+Vnew-york-usa
+p129
+tp130
+Rp131
+asS'Queens, NY'
+p132
+(lp133
+sVFlorianópolis
+p134
+(lp135
+sS'SF, Formerly NY, Originally UK'
+p136
+(lp137
+sS'Republic of Mischiefology'
+p138
+(lp139
+sS'Rochdale'
+p140
+(lp141
+g5
+(g6
+g7
+Vlondon-uk
+p142
+tp143
+Rp144
+asS'San Diego'
+p145
+(lp146
+g5
+(g6
+g7
+Vsan-francisco-usa
+p147
+tp148
+Rp149
+asS'Dar es Salaam, Tanzania'
+p150
+(lp151
+g5
+(g6
+g7
+Vmumbai-india
+p152
+tp153
+Rp154
+asS'Mobile, AL'
+p155
+(lp156
+g5
+(g6
+g7
+Vnew-york-usa
+p157
+tp158
+Rp159
+asS'Port of Spain, Trinidad '
+p160
+(lp161
+g5
+(g6
+g7
+Vnew-york-usa
+p162
+tp163
+Rp164
+asS'San Francisco, ca'
+p165
+(lp166
+g5
+(g6
+g7
+Vsan-francisco-usa
+p167
+tp168
+Rp169
+asS'Europe!'
+p170
+(lp171
+g5
+(g6
+g7
+Vlondon-uk
+p172
+tp173
+Rp174
+asS'Memphis, TN'
+p175
+(lp176
+g5
+(g6
+g7
+Vnew-york-usa
+p177
+tp178
+Rp179
+asS'Pasadena, CA'
+p180
+(lp181
+g5
+(g6
+g7
+Vsan-francisco-usa
+p182
+tp183
+Rp184
+asS'Los Angeles via Cleveland'
+p185
+(lp186
+g5
+(g6
+g7
+Vsan-francisco-usa
+p187
+tp188
+Rp189
+asS'Portugal'
+p190
+(lp191
+g5
+(g6
+g7
+Vlondon-uk
+p192
+tp193
+Rp194
+asS'SFO or BLR'
+p195
+(lp196
+sS'Central and Eastern Europe'
+p197
+(lp198
+g5
+(g6
+g7
+Vlondon-uk
+p199
+tp200
+Rp201
+asS'Boise & Washington, D.C.'
+p202
+(lp203
+g5
+(g6
+g7
+Vsan-francisco-usa
+p204
+tp205
+Rp206
+asS'Bengaluru, India'
+p207
+(lp208
+g5
+(g6
+g7
+Vbangalore-india
+p209
+tp210
+Rp211
+asS'Brussels, Belgium'
+p212
+(lp213
+g5
+(g6
+g7
+Vlondon-uk
+p214
+tp215
+Rp216
+asS'Maine'
+p217
+(lp218
+sS'Charlotte, NC'
+p219
+(lp220
+g5
+(g6
+g7
+Vnew-york-usa
+p221
+tp222
+Rp223
+asS'On the Thames & in the world'
+p224
+(lp225
+sS'Black Brook Farm, MA'
+p226
+(lp227
+g5
+(g6
+g7
+Vboston-usa
+p228
+tp229
+Rp230
+asS"God's Own Country"
+p231
+(lp232
+sS'Los Angeles & New York'
+p233
+(lp234
+sS'West Cornwall and Scilly'
+p235
+(lp236
+sVN40° 42.1982', W073° 59.2714'
+p237
+(lp238
+sS'33.921109, -118.387953'
+p239
+(lp240
+sS'The White House, Washington DC'
+p241
+(lp242
+g5
+(g6
+g7
+Vnew-york-usa
+p243
+tp244
+Rp245
+asS'San Francisco/Silicon Valley'
+p246
+(lp247
+sS'Europe'
+p248
+(lp249
+g5
+(g6
+g7
+Vlondon-uk
+p250
+tp251
+Rp252
+asS'Indianapolis'
+p253
+(lp254
+g5
+(g6
+g7
+Vnew-york-usa
+p255
+tp256
+Rp257
+asS'Carlsbad, California'
+p258
+(lp259
+sS'WestSide'
+p260
+(lp261
+g5
+(g6
+g7
+Vnew-york-usa
+p262
+tp263
+Rp264
+asS'Karnataka, India'
+p265
+(lp266
+sS'Simi Valley, California'
+p267
+(lp268
+g5
+(g6
+g7
+Vsan-francisco-usa
+p269
+tp270
+Rp271
+asS'Mumbai, Maharashtra'
+p272
+(lp273
+g5
+(g6
+g7
+Vmumbai-india
+p274
+tp275
+Rp276
+asS'Hong Kong'
+p277
+(lp278
+sS'Xbox One'
+p279
+(lp280
+sS'Bern, Schweiz'
+p281
+(lp282
+g5
+(g6
+g7
+Vlondon-uk
+p283
+tp284
+Rp285
+asVChi\u015fin\u0103u, MOLDOVA
+p286
+(lp287
+sS'Brasil'
+p288
+(lp289
+g5
+(g6
+g7
+Vnew-york-usa
+p290
+tp291
+Rp292
+asS'Hyderabad'
+p293
+(lp294
+sS'Caracas, Venezuela'
+p295
+(lp296
+g5
+(g6
+g7
+Vnew-york-usa
+p297
+tp298
+Rp299
+asS'DirtyTackle.net'
+p300
+(lp301
+sS'Philadelphia, PA'
+p302
+(lp303
+g5
+(g6
+g7
+Vnew-york-usa
+p304
+tp305
+Rp306
+asVÜT: 38.300236,-85.891098
+p307
+(lp308
+sS'Vitoria y General Pico'
+p309
+(lp310
+g5
+(g6
+g7
+Vnew-york-usa
+p311
+tp312
+Rp313
+asS'Estonia'
+p314
+(lp315
+sS'Pune, India'
+p316
+(lp317
+g5
+(g6
+g7
+Vmumbai-india
+p318
+tp319
+Rp320
+asS'New Delhi/ Srinagar'
+p321
+(lp322
+g5
+(g6
+g7
+Vmumbai-india
+p323
+tp324
+Rp325
+asS'South Africa'
+p326
+(lp327
+g5
+(g6
+g7
+Vbangalore-india
+p328
+tp329
+Rp330
+asS'Alameda, CA, USA'
+p331
+(lp332
+g5
+(g6
+g7
+Vsan-francisco-usa
+p333
+tp334
+Rp335
+asS'Madrid'
+p336
+(lp337
+g5
+(g6
+g7
+Vlondon-uk
+p338
+tp339
+Rp340
+asS'Houston,TX'
+p341
+(lp342
+g5
+(g6
+g7
+Vnew-york-usa
+p343
+tp344
+Rp345
+asS'NYC + Global'
+p346
+(lp347
+sS'Louisville, Ky.'
+p348
+(lp349
+sS'Sydney/Brisbane'
+p350
+(lp351
+g5
+(g6
+g7
+Vbangalore-india
+p352
+tp353
+Rp354
+asS'NY, NY'
+p355
+(lp356
+sS'Windsor and Westminster'
+p357
+(lp358
+g5
+(g6
+g7
+Vnew-york-usa
+p359
+tp360
+Rp361
+asS'Seattle WA'
+p362
+(lp363
+sS'Everywhere/Nowhere/SG'
+p364
+(lp365
+sS'india'
+p366
+(lp367
+g5
+(g6
+g7
+Vmumbai-india
+p368
+tp369
+Rp370
+asS'41.04879,-76.272192'
+p371
+(lp372
+sS'Kerala'
+p373
+(lp374
+g5
+(g6
+g7
+Vbangalore-india
+p375
+tp376
+Rp377
+asS'Appalachian Ohio'
+p378
+(lp379
+sS'Mumbai, India.'
+p380
+(lp381
+g5
+(g6
+g7
+Vmumbai-india
+p382
+tp383
+Rp384
+asS'Gurgaon, Haryana'
+p385
+(lp386
+g5
+(g6
+g7
+Vmumbai-india
+p387
+tp388
+Rp389
+asS'Washington DC'
+p390
+(lp391
+sS'London/Los Angeles'
+p392
+(lp393
+g5
+(g6
+g7
+Vsan-francisco-usa
+p394
+tp395
+Rp396
+asS'Los Angeles, Ca'
+p397
+(lp398
+g5
+(g6
+g7
+Vsan-francisco-usa
+p399
+tp400
+Rp401
+asS'new delhi'
+p402
+(lp403
+g5
+(g6
+g7
+Vmumbai-india
+p404
+tp405
+Rp406
+asS'St. Louis, MO'
+p407
+(lp408
+sS'San Francisco CA, Petaluma CA'
+p409
+(lp410
+g5
+(g6
+g7
+Vsan-francisco-usa
+p411
+tp412
+Rp413
+asS'Warrington'
+p414
+(lp415
+g5
+(g6
+g7
+Vlondon-uk
+p416
+tp417
+Rp418
+asS'Baltimore, MD'
+p419
+(lp420
+sS'Surrey, UK'
+p421
+(lp422
+g5
+(g6
+g7
+Vlondon-uk
+p423
+tp424
+Rp425
+asS'Madhya Pradesh'
+p426
+(lp427
+g5
+(g6
+g7
+Vmumbai-india
+p428
+tp429
+Rp430
+asS'Los Angeles (via Boston)'
+p431
+(lp432
+g5
+(g6
+g7
+Vsan-francisco-usa
+p433
+tp434
+Rp435
+asS'Jordan'
+p436
+(lp437
+g5
+(g6
+g7
+Vlondon-uk
+p438
+tp439
+Rp440
+asS'New England, USA'
+p441
+(lp442
+sS'Roughhousing w/my boys'
+p443
+(lp444
+sS'Gaia'
+p445
+(lp446
+g5
+(g6
+g7
+Vnew-york-usa
+p447
+tp448
+Rp449
+asS'Los Angeles, CA'
+p450
+(lp451
+g5
+(g6
+g7
+Vsan-francisco-usa
+p452
+tp453
+Rp454
+asS'Dhaka'
+p455
+(lp456
+g5
+(g6
+g7
+Vbangalore-india
+p457
+tp458
+Rp459
+asS'Tehran, Iran'
+p460
+(lp461
+g5
+(g6
+g7
+Vmumbai-india
+p462
+tp463
+Rp464
+asS'Greenock'
+p465
+(lp466
+sS'Frankfurt am Main'
+p467
+(lp468
+g5
+(g6
+g7
+Vlondon-uk
+p469
+tp470
+Rp471
+asS'London, England'
+p472
+(lp473
+g5
+(g6
+g7
+Vlondon-uk
+p474
+tp475
+Rp476
+asS'Butler Gym, 14778'
+p477
+(lp478
+g5
+(g6
+g7
+Vnew-york-usa
+p479
+tp480
+Rp481
+asS'Greenwich, CT'
+p482
+(lp483
+g5
+(g6
+g7
+Vnew-york-usa
+p484
+tp485
+Rp486
+asS'REHAB '
+p487
+(lp488
+g5
+(g6
+g7
+Vlondon-uk
+p489
+tp490
+Rp491
+asS'Austin, Texas'
+p492
+(lp493
+sS'UK - Netherlands'
+p494
+(lp495
+g5
+(g6
+g7
+Vlondon-uk
+p496
+tp497
+Rp498
+asS'Orlando & Dallas'
+p499
+(lp500
+g5
+(g6
+g7
+Vnew-york-usa
+p501
+tp502
+Rp503
+asS'Calabasas,CA.'
+p504
+(lp505
+g5
+(g6
+g7
+Vsan-francisco-usa
+p506
+tp507
+Rp508
+asS'Chicago, IL'
+p509
+(lp510
+sS'West Coast'
+p511
+(lp512
+sS'Madrid (Spain)'
+p513
+(lp514
+g5
+(g6
+g7
+Vlondon-uk
+p515
+tp516
+Rp517
+asS'Tennessee'
+p518
+(lp519
+g5
+(g6
+g7
+Vnew-york-usa
+p520
+tp521
+Rp522
+asS'New York City and Hoboken'
+p523
+(lp524
+g5
+(g6
+g7
+Vnew-york-usa
+p525
+tp526
+Rp527
+asS'Munich, Germany'
+p528
+(lp529
+g5
+(g6
+g7
+Vlondon-uk
+p530
+tp531
+Rp532
+asS'Chester Springs, PA'
+p533
+(lp534
+g5
+(g6
+g7
+Vnew-york-usa
+p535
+tp536
+Rp537
+asS'North Dakota'
+p538
+(lp539
+sS'Perth, Australia'
+p540
+(lp541
+sS'Worldwide '
+p542
+(lp543
+g5
+(g6
+g7
+Vnew-york-usa
+p544
+tp545
+Rp546
+asS'london'
+p547
+(lp548
+sS'San Fernando Valley, CA'
+p549
+(lp550
+g5
+(g6
+g7
+Vsan-francisco-usa
+p551
+tp552
+Rp553
+asS'Delhi. India '
+p554
+(lp555
+g5
+(g6
+g7
+Vmumbai-india
+p556
+tp557
+Rp558
+asS'MIT'
+p559
+(lp560
+sS'Texas'
+p561
+(lp562
+g5
+(g6
+g7
+Vsan-francisco-usa
+p563
+tp564
+Rp565
+asS"no sleep 'til"
+p566
+(lp567
+sS'HYDERABAD'
+p568
+(lp569
+sS'iPhone: 34.200497,-118.348869'
+p570
+(lp571
+sS'la'
+p572
+(lp573
+g5
+(g6
+g7
+Vsan-francisco-usa
+p574
+tp575
+Rp576
+asS'SF, CA'
+p577
+(lp578
+g5
+(g6
+g7
+Vsan-francisco-usa
+p579
+tp580
+Rp581
+asS'Delhi'
+p582
+(lp583
+g5
+(g6
+g7
+Vmumbai-india
+p584
+tp585
+Rp586
+asS'Redmond, Washington'
+p587
+(lp588
+g5
+(g6
+g7
+Vsan-francisco-usa
+p589
+tp590
+Rp591
+asS'Stanford, CA'
+p592
+(lp593
+g5
+(g6
+g7
+Vsan-francisco-usa
+p594
+tp595
+Rp596
+asS'the world'
+p597
+(lp598
+g5
+(g6
+g7
+Vmumbai-india
+p599
+tp600
+Rp601
+asS'Brooklyn, New York'
+p602
+(lp603
+sS'World'
+p604
+(lp605
+g5
+(g6
+g7
+Vmumbai-india
+p606
+tp607
+Rp608
+asS'Brussels'
+p609
+(lp610
+g5
+(g6
+g7
+Vlondon-uk
+p611
+tp612
+Rp613
+asS'Spain'
+p614
+(lp615
+g5
+(g6
+g7
+Vlondon-uk
+p616
+tp617
+Rp618
+asS'Dubai'
+p619
+(lp620
+g5
+(g6
+g7
+Vmumbai-india
+p621
+tp622
+Rp623
+asS'Kolkata, India'
+p624
+(lp625
+g5
+(g6
+g7
+Vbangalore-india
+p626
+tp627
+Rp628
+asS'Harvard Business School'
+p629
+(lp630
+g5
+(g6
+g7
+Vboston-usa
+p631
+tp632
+Rp633
+asVÜT: 3.134334,101.688174
+p634
+(lp635
+sVJordan - \u0627\u0644\u0623\u0631\u062f\u0646
+p636
+(lp637
+sS'New York, N.Y.'
+p638
+(lp639
+sS'Houston, Tx'
+p640
+(lp641
+sS'Taipei, Taiwan'
+p642
+(lp643
+g5
+(g6
+g7
+Vbangalore-india
+p644
+tp645
+Rp646
+asS'Mumbai,India'
+p647
+(lp648
+g5
+(g6
+g7
+Vmumbai-india
+p649
+tp650
+Rp651
+asS'alllll over the place'
+p652
+(lp653
+sS'Falkirk'
+p654
+(lp655
+sS'India'
+p656
+(lp657
+g5
+(g6
+g7
+Vmumbai-india
+p658
+tp659
+Rp660
+asS'Assam, India'
+p661
+(lp662
+g5
+(g6
+g7
+Vbangalore-india
+p663
+tp664
+Rp665
+asS'Houston, TX'
+p666
+(lp667
+g5
+(g6
+g7
+Vnew-york-usa
+p668
+tp669
+Rp670
+asS'New York by way of Florida'
+p671
+(lp672
+sS'mumbai , India '
+p673
+(lp674
+g5
+(g6
+g7
+Vmumbai-india
+p675
+tp676
+Rp677
+asS'Vermont'
+p678
+(lp679
+g5
+(g6
+g7
+Vboston-usa
+p680
+tp681
+Rp682
+asS'Washington, D.C. '
+p683
+(lp684
+sS'Minneapolis'
+p685
+(lp686
+g5
+(g6
+g7
+Vnew-york-usa
+p687
+tp688
+Rp689
+asS'Washington '
+p690
+(lp691
+sS'NY, New York'
+p692
+(lp693
+sS'Paris, France'
+p694
+(lp695
+g5
+(g6
+g7
+Vlondon-uk
+p696
+tp697
+Rp698
+asS'Tanzania, East Africa'
+p699
+(lp700
+g5
+(g6
+g7
+Vmumbai-india
+p701
+tp702
+Rp703
+asS'Every Ranji Trophy Match'
+p704
+(lp705
+sS'NOIDA'
+p706
+(lp707
+g5
+(g6
+g7
+Vmumbai-india
+p708
+tp709
+Rp710
+asS'Santa Clara, CA'
+p711
+(lp712
+g5
+(g6
+g7
+Vsan-francisco-usa
+p713
+tp714
+Rp715
+asS'all roads lead to Chicago..'
+p716
+(lp717
+g5
+(g6
+g7
+Vnew-york-usa
+p718
+tp719
+Rp720
+asS'Everywhere'
+p721
+(lp722
+g5
+(g6
+g7
+Vnew-york-usa
+p723
+tp724
+Rp725
+asS'Toronto Canada'
+p726
+(lp727
+g5
+(g6
+g7
+Vnew-york-usa
+p728
+tp729
+Rp730
+asS'Stockholm, Sweden'
+p731
+(lp732
+g5
+(g6
+g7
+Vlondon-uk
+p733
+tp734
+Rp735
+asVÜT: 18.957816,72.798911
+p736
+(lp737
+sS'Minnesota, WI'
+p738
+(lp739
+g5
+(g6
+g7
+Vnew-york-usa
+p740
+tp741
+Rp742
+asS'Bristol, CT'
+p743
+(lp744
+g5
+(g6
+g7
+Vnew-york-usa
+p745
+tp746
+Rp747
+asS'Spokane Washington'
+p748
+(lp749
+g5
+(g6
+g7
+Vsan-francisco-usa
+p750
+tp751
+Rp752
+asS'East Bay'
+p753
+(lp754
+g5
+(g6
+g7
+Vnew-york-usa
+p755
+tp756
+Rp757
+asS'United States'
+p758
+(lp759
+g5
+(g6
+g7
+Vnew-york-usa
+p760
+tp761
+Rp762
+asS'Smithville, TX'
+p763
+(lp764
+g5
+(g6
+g7
+Vnew-york-usa
+p765
+tp766
+Rp767
+asS'Pijnacker / Rotterdam'
+p768
+(lp769
+g5
+(g6
+g7
+Vlondon-uk
+p770
+tp771
+Rp772
+asS'Never far from a watering hole'
+p773
+(lp774
+sS'EU'
+p775
+(lp776
+g5
+(g6
+g7
+Vlondon-uk
+p777
+tp778
+Rp779
+asS'Planet Earth'
+p780
+(lp781
+g5
+(g6
+g7
+Vlondon-uk
+p782
+tp783
+Rp784
+asS'Tokyo/London'
+p785
+(lp786
+sS'Madrid, Buenos Aires'
+p787
+(lp788
+g5
+(g6
+g7
+Vnew-york-usa
+p789
+tp790
+Rp791
+asS'Kurukshetra; New Delhi'
+p792
+(lp793
+g5
+(g6
+g7
+Vmumbai-india
+p794
+tp795
+Rp796
+asS'Boston'
+p797
+(lp798
+sS'NYC!'
+p799
+(lp800
+g5
+(g6
+g7
+Vnew-york-usa
+p801
+tp802
+Rp803
+asS'UNC Chapel Hill'
+p804
+(lp805
+sS'DALLAS/LA'
+p806
+(lp807
+sS'Canmore Canada'
+p808
+(lp809
+g5
+(g6
+g7
+Vsan-francisco-usa
+p810
+tp811
+Rp812
+asS'Wall Street Journal - NYC'
+p813
+(lp814
+g5
+(g6
+g7
+Vnew-york-usa
+p815
+tp816
+Rp817
+asS'Washington DC metro area'
+p818
+(lp819
+g5
+(g6
+g7
+Vnew-york-usa
+p820
+tp821
+Rp822
+asS'Detroit, MI'
+p823
+(lp824
+g5
+(g6
+g7
+Vnew-york-usa
+p825
+tp826
+Rp827
+asVEspaña
+p828
+(lp829
+sS'Los Angeles, California '
+p830
+(lp831
+g5
+(g6
+g7
+Vsan-francisco-usa
+p832
+tp833
+Rp834
+asS'Honolulu, HI'
+p835
+(lp836
+g5
+(g6
+g7
+Vsan-francisco-usa
+p837
+tp838
+Rp839
+asS'East Bay, California'
+p840
+(lp841
+g5
+(g6
+g7
+Vsan-francisco-usa
+p842
+tp843
+Rp844
+asS'Patna'
+p845
+(lp846
+g5
+(g6
+g7
+Vmumbai-india
+p847
+tp848
+Rp849
+asVÜT: 40.762703,-73.967513
+p850
+(lp851
+sS'Palo Alto, CA, USA'
+p852
+(lp853
+g5
+(g6
+g7
+Vsan-francisco-usa
+p854
+tp855
+Rp856
+asS'Mumbai, India'
+p857
+(lp858
+g5
+(g6
+g7
+Vmumbai-india
+p859
+tp860
+Rp861
+asS'Madison, WI and Washington, DC'
+p862
+(lp863
+g5
+(g6
+g7
+Vnew-york-usa
+p864
+tp865
+Rp866
+asS'Dallas, TX'
+p867
+(lp868
+g5
+(g6
+g7
+Vnew-york-usa
+p869
+tp870
+Rp871
+asS'Airplanes'
+p872
+(lp873
+sS'Key Largo, FL'
+p874
+(lp875
+g5
+(g6
+g7
+Vnew-york-usa
+p876
+tp877
+Rp878
+asS'omnipresent'
+p879
+(lp880
+sS'Wellesley, MA'
+p881
+(lp882
+g5
+(g6
+g7
+Vboston-usa
+p883
+tp884
+Rp885
+asS'washington dc'
+p886
+(lp887
+g5
+(g6
+g7
+Vnew-york-usa
+p888
+tp889
+Rp890
+asS'Mountain View, CA'
+p891
+(lp892
+sS'Idaho & Washington, D.C.'
+p893
+(lp894
+sS'Minnesota/The Big Apple'
+p895
+(lp896
+g5
+(g6
+g7
+Vnew-york-usa
+p897
+tp898
+Rp899
+asS'Milano'
+p900
+(lp901
+g5
+(g6
+g7
+Vlondon-uk
+p902
+tp903
+Rp904
+asS'Baton Rouge, LA'
+p905
+(lp906
+g5
+(g6
+g7
+Vnew-york-usa
+p907
+tp908
+Rp909
+asS'Richmond Park'
+p910
+(lp911
+sS'India '
+p912
+(lp913
+g5
+(g6
+g7
+Vmumbai-india
+p914
+tp915
+Rp916
+asS'Phoenix, AZ'
+p917
+(lp918
+sS'Colorado'
+p919
+(lp920
+g5
+(g6
+g7
+Vsan-francisco-usa
+p921
+tp922
+Rp923
+asS'New Delhi, Pune,India.'
+p924
+(lp925
+g5
+(g6
+g7
+Vmumbai-india
+p926
+tp927
+Rp928
+asS'San Francisco, California'
+p929
+(lp930
+sS'New York'
+p931
+(lp932
+g5
+(g6
+g7
+Vnew-york-usa
+p933
+tp934
+Rp935
+asS'Boston/Alabama'
+p936
+(lp937
+g5
+(g6
+g7
+Vnew-york-usa
+p938
+tp939
+Rp940
+asS'Washington, DC & Illinois'
+p941
+(lp942
+g5
+(g6
+g7
+Vnew-york-usa
+p943
+tp944
+Rp945
+asS'where i meant to be '
+p946
+(lp947
+sS'Newcastle-Upon-Tyne'
+p948
+(lp949
+g5
+(g6
+g7
+Vlondon-uk
+p950
+tp951
+Rp952
+asS'Mumbai'
+p953
+(lp954
+g5
+(g6
+g7
+Vmumbai-india
+p955
+tp956
+Rp957
+asS'Philadelphia'
+p958
+(lp959
+g5
+(g6
+g7
+Vnew-york-usa
+p960
+tp961
+Rp962
+asS'Westminster'
+p963
+(lp964
+g5
+(g6
+g7
+Vsan-francisco-usa
+p965
+tp966
+Rp967
+asS'West Village, New York'
+p968
+(lp969
+g5
+(g6
+g7
+Vnew-york-usa
+p970
+tp971
+Rp972
+asS'Venezuela'
+p973
+(lp974
+g5
+(g6
+g7
+Vnew-york-usa
+p975
+tp976
+Rp977
+asS'Amman, Jordan'
+p978
+(lp979
+sS'Marin, California'
+p980
+(lp981
+g5
+(g6
+g7
+Vsan-francisco-usa
+p982
+tp983
+Rp984
+asS'Karachi, Pakistan'
+p985
+(lp986
+sS'Metro Atlanta '
+p987
+(lp988
+g5
+(g6
+g7
+Vbangalore-india
+p989
+tp990
+Rp991
+asVBrasília
+p992
+(lp993
+sS'Lewisville, TX'
+p994
+(lp995
+g5
+(g6
+g7
+Vnew-york-usa
+p996
+tp997
+Rp998
+asS'Salt Lake City, UT'
+p999
+(lp1000
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1001
+tp1002
+Rp1003
+asS'I live in London'
+p1004
+(lp1005
+g5
+(g6
+g7
+Vnew-york-usa
+p1006
+tp1007
+Rp1008
+asS'Seattle,Wa'
+p1009
+(lp1010
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1011
+tp1012
+Rp1013
+asS'online'
+p1014
+(lp1015
+g5
+(g6
+g7
+Vnew-york-usa
+p1016
+tp1017
+Rp1018
+asS'Newton, MA'
+p1019
+(lp1020
+g5
+(g6
+g7
+Vboston-usa
+p1021
+tp1022
+Rp1023
+asS'On the road'
+p1024
+(lp1025
+g5
+(g6
+g7
+Vbangalore-india
+p1026
+tp1027
+Rp1028
+asS'East Coast '
+p1029
+(lp1030
+g5
+(g6
+g7
+Vbangalore-india
+p1031
+tp1032
+Rp1033
+asS'Cupertino, CA'
+p1034
+(lp1035
+sVÜT: 38.905437,-77.063265
+p1036
+(lp1037
+sS'Mumbai/India'
+p1038
+(lp1039
+g5
+(g6
+g7
+Vmumbai-india
+p1040
+tp1041
+Rp1042
+asS'Gandhinagar, Gujarat, India'
+p1043
+(lp1044
+g5
+(g6
+g7
+Vmumbai-india
+p1045
+tp1046
+Rp1047
+asS'Alabama'
+p1048
+(lp1049
+g5
+(g6
+g7
+Vnew-york-usa
+p1050
+tp1051
+Rp1052
+asS'Central Texas'
+p1053
+(lp1054
+g5
+(g6
+g7
+Vnew-york-usa
+p1055
+tp1056
+Rp1057
+asS'Washington D.C.'
+p1058
+(lp1059
+sS'Honduras'
+p1060
+(lp1061
+g5
+(g6
+g7
+Vnew-york-usa
+p1062
+tp1063
+Rp1064
+asS'Hanford, California'
+p1065
+(lp1066
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1067
+tp1068
+Rp1069
+asS'Egypt'
+p1070
+(lp1071
+g5
+(g6
+g7
+Vlondon-uk
+p1072
+tp1073
+Rp1074
+asS'Beijing, China'
+p1075
+(lp1076
+g5
+(g6
+g7
+Vmumbai-india
+p1077
+tp1078
+Rp1079
+asS'Bombay, India'
+p1080
+(lp1081
+g5
+(g6
+g7
+Vmumbai-india
+p1082
+tp1083
+Rp1084
+asS'Lexington, MA'
+p1085
+(lp1086
+g5
+(g6
+g7
+Vboston-usa
+p1087
+tp1088
+Rp1089
+asS'Omaha, Nebraska, U.S.'
+p1090
+(lp1091
+sS'los angeles'
+p1092
+(lp1093
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1094
+tp1095
+Rp1096
+asS'Paris'
+p1097
+(lp1098
+g5
+(g6
+g7
+Vlondon-uk
+p1099
+tp1100
+Rp1101
+asVCalle Rei Martí 8, 3 piso. BCN
+p1102
+(lp1103
+sS'Boston, Massachusetts, USA'
+p1104
+(lp1105
+sS'SF Bay Area'
+p1106
+(lp1107
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1108
+tp1109
+Rp1110
+asS'Calgary... some of the time...'
+p1111
+(lp1112
+sS'Punjab and Tamil Nadu'
+p1113
+(lp1114
+g5
+(g6
+g7
+Vbangalore-india
+p1115
+tp1116
+Rp1117
+asS'mumbai'
+p1118
+(lp1119
+g5
+(g6
+g7
+Vmumbai-india
+p1120
+tp1121
+Rp1122
+asS'Abu Dhabi'
+p1123
+(lp1124
+g5
+(g6
+g7
+Vmumbai-india
+p1125
+tp1126
+Rp1127
+asS'Andover, MA'
+p1128
+(lp1129
+g5
+(g6
+g7
+Vboston-usa
+p1130
+tp1131
+Rp1132
+asS'Arunachal Pradesh,India'
+p1133
+(lp1134
+g5
+(g6
+g7
+Vmumbai-india
+p1135
+tp1136
+Rp1137
+asS'Ann Arbor'
+p1138
+(lp1139
+sS'Washington, DC'
+p1140
+(lp1141
+sS'WNY and Washington, DC'
+p1142
+(lp1143
+sS'Detroit via Nebraska'
+p1144
+(lp1145
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1146
+tp1147
+Rp1148
+asS'London, UK'
+p1149
+(lp1150
+sS'Pune'
+p1151
+(lp1152
+sS'Maldives'
+p1153
+(lp1154
+g5
+(g6
+g7
+Vbangalore-india
+p1155
+tp1156
+Rp1157
+asS'D.C.'
+p1158
+(lp1159
+g5
+(g6
+g7
+Vnew-york-usa
+p1160
+tp1161
+Rp1162
+asVÜT: 39.983029,-83.019119
+p1163
+(lp1164
+sS'Chicago, IL; Washington, DC'
+p1165
+(lp1166
+g5
+(g6
+g7
+Vnew-york-usa
+p1167
+tp1168
+Rp1169
+asS'Lake Jackson, TX'
+p1170
+(lp1171
+g5
+(g6
+g7
+Vnew-york-usa
+p1172
+tp1173
+Rp1174
+asVMéxico
+p1175
+(lp1176
+sS'Huntington Beach, CA '
+p1177
+(lp1178
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1179
+tp1180
+Rp1181
+asS'Gloucester'
+p1182
+(lp1183
+g5
+(g6
+g7
+Vlondon-uk
+p1184
+tp1185
+Rp1186
+asS'4th District of Texas'
+p1187
+(lp1188
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1189
+tp1190
+Rp1191
+asV\u0420\u043e\u0441\u0441\u0438\u044f, \u041c\u043e\u0441\u043a\u0432\u0430
+p1192
+(lp1193
+sS'New Jersey'
+p1194
+(lp1195
+g5
+(g6
+g7
+Vnew-york-usa
+p1196
+tp1197
+Rp1198
+asS'Orange County, CA'
+p1199
+(lp1200
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1201
+tp1202
+Rp1203
+asS'Washington'
+p1204
+(lp1205
+g5
+(g6
+g7
+Vnew-york-usa
+p1206
+tp1207
+Rp1208
+asS'Georgia and Washington, DC'
+p1209
+(lp1210
+sS'Pali Hill Bandra Mumbai'
+p1211
+(lp1212
+g5
+(g6
+g7
+Vmumbai-india
+p1213
+tp1214
+Rp1215
+asS'New Delhi, India '
+p1216
+(lp1217
+g5
+(g6
+g7
+Vmumbai-india
+p1218
+tp1219
+Rp1220
+asS'Alexandria, Va.'
+p1221
+(lp1222
+g5
+(g6
+g7
+Vnew-york-usa
+p1223
+tp1224
+Rp1225
+asS'Bombay'
+p1226
+(lp1227
+g5
+(g6
+g7
+Vmumbai-india
+p1228
+tp1229
+Rp1230
+asS'San Diego, Poway, Coronado'
+p1231
+(lp1232
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1233
+tp1234
+Rp1235
+asVÜT: 43.022705,-82.442206
+p1236
+(lp1237
+sS'Caribbean'
+p1238
+(lp1239
+sS'Boston area'
+p1240
+(lp1241
+sS'Cageside'
+p1242
+(lp1243
+g5
+(g6
+g7
+Vnew-york-usa
+p1244
+tp1245
+Rp1246
+asS'Haleyville, AL'
+p1247
+(lp1248
+g5
+(g6
+g7
+Vnew-york-usa
+p1249
+tp1250
+Rp1251
+asS'France'
+p1252
+(lp1253
+sS'Sebastopol, CA'
+p1254
+(lp1255
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1256
+tp1257
+Rp1258
+asS'Sydney'
+p1259
+(lp1260
+sS'Worldwide'
+p1261
+(lp1262
+sS'Edmonton-St. Albert'
+p1263
+(lp1264
+sS'Surbiton, UK'
+p1265
+(lp1266
+g5
+(g6
+g7
+Vlondon-uk
+p1267
+tp1268
+Rp1269
+asS'San Francisco Bay Area'
+p1270
+(lp1271
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1272
+tp1273
+Rp1274
+asS'Republica Moldova'
+p1275
+(lp1276
+g5
+(g6
+g7
+Vlondon-uk
+p1277
+tp1278
+Rp1279
+asS'New York City'
+p1280
+(lp1281
+sS'The World by way of Las Vegas'
+p1282
+(lp1283
+sS'Providence, Rhode Island'
+p1284
+(lp1285
+sS'Berlin'
+p1286
+(lp1287
+g5
+(g6
+g7
+Vlondon-uk
+p1288
+tp1289
+Rp1290
+asS'Palpa, Nepal'
+p1291
+(lp1292
+g5
+(g6
+g7
+Vmumbai-india
+p1293
+tp1294
+Rp1295
+asVMadrid, Latinoamérica, USA
+p1296
+(lp1297
+sS'Los Angeles'
+p1298
+(lp1299
+sS'Bangalore'
+p1300
+(lp1301
+sS'Philadelphia, USA'
+p1302
+(lp1303
+g5
+(g6
+g7
+Vnew-york-usa
+p1304
+tp1305
+Rp1306
+asS'CHANDIGARH'
+p1307
+(lp1308
+g5
+(g6
+g7
+Vmumbai-india
+p1309
+tp1310
+Rp1311
+asS'Palo Alto, CA'
+p1312
+(lp1313
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1314
+tp1315
+Rp1316
+asS'Naperville, IL'
+p1317
+(lp1318
+sS'nashville'
+p1319
+(lp1320
+g5
+(g6
+g7
+Vnew-york-usa
+p1321
+tp1322
+Rp1323
+asS'Florida'
+p1324
+(lp1325
+g5
+(g6
+g7
+Vnew-york-usa
+p1326
+tp1327
+Rp1328
+asS'California / Montana'
+p1329
+(lp1330
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1331
+tp1332
+Rp1333
+asS'Brisbane, Australia'
+p1334
+(lp1335
+sS'Bowen Island, BC, Canada'
+p1336
+(lp1337
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1338
+tp1339
+Rp1340
+asS'Shoreditch, East London'
+p1341
+(lp1342
+g5
+(g6
+g7
+Vlondon-uk
+p1343
+tp1344
+Rp1345
+asS'Jefferson, LA'
+p1346
+(lp1347
+g5
+(g6
+g7
+Vnew-york-usa
+p1348
+tp1349
+Rp1350
+asS'New York and Los Angeles'
+p1351
+(lp1352
+g5
+(g6
+g7
+Vnew-york-usa
+p1353
+tp1354
+Rp1355
+asS'Houston/Jersey'
+p1356
+(lp1357
+g5
+(g6
+g7
+Vnew-york-usa
+p1358
+tp1359
+Rp1360
+asS'Washington, DC/Nashville, TN'
+p1361
+(lp1362
+sS'Mumbai '
+p1363
+(lp1364
+g5
+(g6
+g7
+Vmumbai-india
+p1365
+tp1366
+Rp1367
+asS'Here, Now.'
+p1368
+(lp1369
+g5
+(g6
+g7
+Vnew-york-usa
+p1370
+tp1371
+Rp1372
+asS'Washington, D.C.'
+p1373
+(lp1374
+sS'Washington, DC Bureau'
+p1375
+(lp1376
+g5
+(g6
+g7
+Vnew-york-usa
+p1377
+tp1378
+Rp1379
+asS'Omaha, NE'
+p1380
+(lp1381
+g5
+(g6
+g7
+Vnew-york-usa
+p1382
+tp1383
+Rp1384
+asS'Gujarat, India'
+p1385
+(lp1386
+sS'North Carolina'
+p1387
+(lp1388
+g5
+(g6
+g7
+Vnew-york-usa
+p1389
+tp1390
+Rp1391
+asS'Palm Harbor, Fla.'
+p1392
+(lp1393
+sS'The Corner Office'
+p1394
+(lp1395
+sS'Cairo, Egypt'
+p1396
+(lp1397
+sS'Lewes Constituency, UK'
+p1398
+(lp1399
+g5
+(g6
+g7
+Vlondon-uk
+p1400
+tp1401
+Rp1402
+asS'Atlanta & Across USA'
+p1403
+(lp1404
+g5
+(g6
+g7
+Vnew-york-usa
+p1405
+tp1406
+Rp1407
+asS"Land o' Business Cards Austin"
+p1408
+(lp1409
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1410
+tp1411
+Rp1412
+asS'Houston, Texas'
+p1413
+(lp1414
+g5
+(g6
+g7
+Vnew-york-usa
+p1415
+tp1416
+Rp1417
+asS'MADRID'
+p1418
+(lp1419
+g5
+(g6
+g7
+Vlondon-uk
+p1420
+tp1421
+Rp1422
+asS'Delaware'
+p1423
+(lp1424
+g5
+(g6
+g7
+Vnew-york-usa
+p1425
+tp1426
+Rp1427
+asS'bangalore india '
+p1428
+(lp1429
+g5
+(g6
+g7
+Vbangalore-india
+p1430
+tp1431
+Rp1432
+asS'Podgorica, MNE'
+p1433
+(lp1434
+g5
+(g6
+g7
+Vlondon-uk
+p1435
+tp1436
+Rp1437
+asS'Beverly Hills, CA'
+p1438
+(lp1439
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1440
+tp1441
+Rp1442
+asVÜT: 49.262802,-123.116217
+p1443
+(lp1444
+sS'SLC, Baltimore'
+p1445
+(lp1446
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1447
+tp1448
+Rp1449
+asS'Middlesex, NJ'
+p1450
+(lp1451
+g5
+(g6
+g7
+Vnew-york-usa
+p1452
+tp1453
+Rp1454
+asS'Hailey, Idaho'
+p1455
+(lp1456
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1457
+tp1458
+Rp1459
+asS'Chicago'
+p1460
+(lp1461
+g5
+(g6
+g7
+Vnew-york-usa
+p1462
+tp1463
+Rp1464
+asS'Yahoo'
+p1465
+(lp1466
+g5
+(g6
+g7
+Vnew-york-usa
+p1467
+tp1468
+Rp1469
+asS'Denver, Colorado'
+p1470
+(lp1471
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1472
+tp1473
+Rp1474
+asS'California'
+p1475
+(lp1476
+sS'India Today Mediaplex'
+p1477
+(lp1478
+sVÜT: 17.152254,-62.057274
+p1479
+(lp1480
+sS'here, there & on the air! '
+p1481
+(lp1482
+sS'Toronto'
+p1483
+(lp1484
+g5
+(g6
+g7
+Vnew-york-usa
+p1485
+tp1486
+Rp1487
+asS'New York City area'
+p1488
+(lp1489
+g5
+(g6
+g7
+Vnew-york-usa
+p1490
+tp1491
+Rp1492
+asS'Bangalore '
+p1493
+(lp1494
+g5
+(g6
+g7
+Vbangalore-india
+p1495
+tp1496
+Rp1497
+asS'New York City, USA'
+p1498
+(lp1499
+sS'Nuneaton'
+p1500
+(lp1501
+g5
+(g6
+g7
+Vlondon-uk
+p1502
+tp1503
+Rp1504
+asS'Anaheim'
+p1505
+(lp1506
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1507
+tp1508
+Rp1509
+asS'Coronado'
+p1510
+(lp1511
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1512
+tp1513
+Rp1514
+asS'Hollywood, CA'
+p1515
+(lp1516
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1517
+tp1518
+Rp1519
+asS'Portsmouth, England'
+p1520
+(lp1521
+g5
+(g6
+g7
+Vlondon-uk
+p1522
+tp1523
+Rp1524
+asS'Dubai, UAE'
+p1525
+(lp1526
+sS'Yahoo Sports'
+p1527
+(lp1528
+sS"Tennessee's 7th District"
+p1529
+(lp1530
+sS'Park City'
+p1531
+(lp1532
+sS'Roma/NY'
+p1533
+(lp1534
+g5
+(g6
+g7
+Vnew-york-usa
+p1535
+tp1536
+Rp1537
+asS'Cyprus'
+p1538
+(lp1539
+g5
+(g6
+g7
+Vlondon-uk
+p1540
+tp1541
+Rp1542
+asS'8th District of Virginia'
+p1543
+(lp1544
+g5
+(g6
+g7
+Vnew-york-usa
+p1545
+tp1546
+Rp1547
+asS'Hammond, Louisiana'
+p1548
+(lp1549
+g5
+(g6
+g7
+Vnew-york-usa
+p1550
+tp1551
+Rp1552
+asS'Peabody, Massachusetts'
+p1553
+(lp1554
+sS'Kolkata,India'
+p1555
+(lp1556
+sS'upper left coast '
+p1557
+(lp1558
+g5
+(g6
+g7
+Vbangalore-india
+p1559
+tp1560
+Rp1561
+asVPanamá
+p1562
+(lp1563
+sS'Atlanta, USA'
+p1564
+(lp1565
+g5
+(g6
+g7
+Vnew-york-usa
+p1566
+tp1567
+Rp1568
+asS'REALITY'
+p1569
+(lp1570
+g5
+(g6
+g7
+Vboston-usa
+p1571
+tp1572
+Rp1573
+asS'Padrauna,Kushinagar,Delhi'
+p1574
+(lp1575
+g5
+(g6
+g7
+Vmumbai-india
+p1576
+tp1577
+Rp1578
+asS'D Town'
+p1579
+(lp1580
+sS'Miami, New York'
+p1581
+(lp1582
+g5
+(g6
+g7
+Vnew-york-usa
+p1583
+tp1584
+Rp1585
+asS'Santa Fe, NM'
+p1586
+(lp1587
+sS'London & Ipswich, UK'
+p1588
+(lp1589
+g5
+(g6
+g7
+Vlondon-uk
+p1590
+tp1591
+Rp1592
+asS'Israel'
+p1593
+(lp1594
+g5
+(g6
+g7
+Vlondon-uk
+p1595
+tp1596
+Rp1597
+asS'Southwest Alabama'
+p1598
+(lp1599
+g5
+(g6
+g7
+Vnew-york-usa
+p1600
+tp1601
+Rp1602
+asS'#LosAngeles'
+p1603
+(lp1604
+sS'Tampa, FL'
+p1605
+(lp1606
+g5
+(g6
+g7
+Vnew-york-usa
+p1607
+tp1608
+Rp1609
+asS'Zimbabwe'
+p1610
+(lp1611
+g5
+(g6
+g7
+Vmumbai-india
+p1612
+tp1613
+Rp1614
+asS'Chhattisgarh India'
+p1615
+(lp1616
+sS'www.facebook.com/DonaldPayneJr'
+p1617
+(lp1618
+sS'Windswept Fields'
+p1619
+(lp1620
+g5
+(g6
+g7
+Vlondon-uk
+p1621
+tp1622
+Rp1623
+asS'Austin, TX'
+p1624
+(lp1625
+sS'Often in Amsterdam'
+p1626
+(lp1627
+g5
+(g6
+g7
+Vlondon-uk
+p1628
+tp1629
+Rp1630
+asS'The Internet'
+p1631
+(lp1632
+g5
+(g6
+g7
+Vnew-york-usa
+p1633
+tp1634
+Rp1635
+asS'Humble, Texas'
+p1636
+(lp1637
+g5
+(g6
+g7
+Vnew-york-usa
+p1638
+tp1639
+Rp1640
+asS' Washington, D.C.'
+p1641
+(lp1642
+g5
+(g6
+g7
+Vnew-york-usa
+p1643
+tp1644
+Rp1645
+asS'Melbourne, Aust'
+p1646
+(lp1647
+sS'Ealing & Southall, London '
+p1648
+(lp1649
+sS'Barcelona'
+p1650
+(lp1651
+g5
+(g6
+g7
+Vlondon-uk
+p1652
+tp1653
+Rp1654
+asVEspaña, México y Latinoamérica
+p1655
+(lp1656
+sS'Minneapolis, MN'
+p1657
+(lp1658
+g5
+(g6
+g7
+Vnew-york-usa
+p1659
+tp1660
+Rp1661
+asS'Boston MA'
+p1662
+(lp1663
+sVÜT: 37.320808,-77.202667
+p1664
+(lp1665
+sS'Rajiv Gandhi Bhavan, Ahmedabad'
+p1666
+(lp1667
+sS'new york'
+p1668
+(lp1669
+g5
+(g6
+g7
+Vnew-york-usa
+p1670
+tp1671
+Rp1672
+asS'FiDi/NYC'
+p1673
+(lp1674
+g5
+(g6
+g7
+Vnew-york-usa
+p1675
+tp1676
+Rp1677
+asS'United Kingdom'
+p1678
+(lp1679
+sS'Wherever life takes me..'
+p1680
+(lp1681
+sS'NH/evrywhere there is snow'
+p1682
+(lp1683
+g5
+(g6
+g7
+Vboston-usa
+p1684
+tp1685
+Rp1686
+asS'The Cloud'
+p1687
+(lp1688
+g5
+(g6
+g7
+Vnew-york-usa
+p1689
+tp1690
+Rp1691
+asS'White House'
+p1692
+(lp1693
+g5
+(g6
+g7
+Vnew-york-usa
+p1694
+tp1695
+Rp1696
+asS'France/Miami/NYC/All Over'
+p1697
+(lp1698
+sS'Nadiad, Gujarat, India'
+p1699
+(lp1700
+g5
+(g6
+g7
+Vmumbai-india
+p1701
+tp1702
+Rp1703
+asS'THE WORLD...'
+p1704
+(lp1705
+g5
+(g6
+g7
+Vmumbai-india
+p1706
+tp1707
+Rp1708
+asS'Sao Paulo, Brasil'
+p1709
+(lp1710
+g5
+(g6
+g7
+Vnew-york-usa
+p1711
+tp1712
+Rp1713
+asS'San Francisco'
+p1714
+(lp1715
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1716
+tp1717
+Rp1718
+asS'Argentina'
+p1719
+(lp1720
+sS'The Pentagon, Washington D.C.'
+p1721
+(lp1722
+sS'Tucson, Arizona'
+p1723
+(lp1724
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1725
+tp1726
+Rp1727
+asS'Delhi '
+p1728
+(lp1729
+g5
+(g6
+g7
+Vmumbai-india
+p1730
+tp1731
+Rp1732
+asS'Karan Johar himself follows us'
+p1733
+(lp1734
+sS'Flagstaff, AZ'
+p1735
+(lp1736
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1737
+tp1738
+Rp1739
+asS'Atlanta, GA'
+p1740
+(lp1741
+g5
+(g6
+g7
+Vnew-york-usa
+p1742
+tp1743
+Rp1744
+asS'Berkeley'
+p1745
+(lp1746
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1747
+tp1748
+Rp1749
+asS'Southend'
+p1750
+(lp1751
+g5
+(g6
+g7
+Vlondon-uk
+p1752
+tp1753
+Rp1754
+asS'noida'
+p1755
+(lp1756
+g5
+(g6
+g7
+Vmumbai-india
+p1757
+tp1758
+Rp1759
+asS'Every part of India '
+p1760
+(lp1761
+g5
+(g6
+g7
+Vmumbai-india
+p1762
+tp1763
+Rp1764
+asS'New York City & Brooklyn'
+p1765
+(lp1766
+g5
+(g6
+g7
+Vnew-york-usa
+p1767
+tp1768
+Rp1769
+asS'The Universe'
+p1770
+(lp1771
+g5
+(g6
+g7
+Vmumbai-india
+p1772
+tp1773
+Rp1774
+asS'90049 '
+p1775
+(lp1776
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1777
+tp1778
+Rp1779
+asS'Silicon Valley'
+p1780
+(lp1781
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1782
+tp1783
+Rp1784
+asS'New Zealand'
+p1785
+(lp1786
+sS'Harlem'
+p1787
+(lp1788
+sS'Cambridge, MA, USA'
+p1789
+(lp1790
+g5
+(g6
+g7
+Vboston-usa
+p1791
+tp1792
+Rp1793
+asS'Lake Placid, NY'
+p1794
+(lp1795
+sS'England'
+p1796
+(lp1797
+g5
+(g6
+g7
+Vlondon-uk
+p1798
+tp1799
+Rp1800
+asVÜT: 32.027902,118.797935
+p1801
+(lp1802
+sS'Patna, Bihar'
+p1803
+(lp1804
+g5
+(g6
+g7
+Vmumbai-india
+p1805
+tp1806
+Rp1807
+asVN 28\ufffd 30' 0'' / E 77\ufffd 10' 0''
+p1808
+(lp1809
+sS'Boston, Mass.'
+p1810
+(lp1811
+sS'Grand Rapids, Michigan'
+p1812
+(lp1813
+sS'USA, Brazil'
+p1814
+(lp1815
+g5
+(g6
+g7
+Vnew-york-usa
+p1816
+tp1817
+Rp1818
+asS'London'
+p1819
+(lp1820
+sS'Barcelona, Spain'
+p1821
+(lp1822
+g5
+(g6
+g7
+Vlondon-uk
+p1823
+tp1824
+Rp1825
+asS'Ottawa, Canada'
+p1826
+(lp1827
+sS'here and there'
+p1828
+(lp1829
+sVÜT: 19.059725,72.83674
+p1830
+(lp1831
+sS'PhillaPa'
+p1832
+(lp1833
+sS'New Delhi '
+p1834
+(lp1835
+sS'Always On The Move.'
+p1836
+(lp1837
+sS'#Africa'
+p1838
+(lp1839
+sS'Mars'
+p1840
+(lp1841
+g5
+(g6
+g7
+Vnew-york-usa
+p1842
+tp1843
+Rp1844
+asVBak\u0131, Az\u0259rbaycan
+p1845
+(lp1846
+sS'haryana'
+p1847
+(lp1848
+g5
+(g6
+g7
+Vmumbai-india
+p1849
+tp1850
+Rp1851
+asS"Washington's 9th District"
+p1852
+(lp1853
+sS'East Tennessee'
+p1854
+(lp1855
+g5
+(g6
+g7
+Vnew-york-usa
+p1856
+tp1857
+Rp1858
+asS'The Wild West of England'
+p1859
+(lp1860
+g5
+(g6
+g7
+Vlondon-uk
+p1861
+tp1862
+Rp1863
+asS'San Francisco, CA area'
+p1864
+(lp1865
+sS'Montana'
+p1866
+(lp1867
+sVÜT: 43.668841,-79.392379
+p1868
+(lp1869
+sS'Massachusetts'
+p1870
+(lp1871
+g5
+(g6
+g7
+Vboston-usa
+p1872
+tp1873
+Rp1874
+asS'West Indies'
+p1875
+(lp1876
+sS'Calgary, AB'
+p1877
+(lp1878
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1879
+tp1880
+Rp1881
+asS'Bloogs Network'
+p1882
+(lp1883
+sS'Boston, MA'
+p1884
+(lp1885
+sS'Park City, UT'
+p1886
+(lp1887
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1888
+tp1889
+Rp1890
+asS'LA, California'
+p1891
+(lp1892
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1893
+tp1894
+Rp1895
+asS'North America'
+p1896
+(lp1897
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1898
+tp1899
+Rp1900
+asS'Arkansas/DC'
+p1901
+(lp1902
+sS'Grantham & Stamford'
+p1903
+(lp1904
+g5
+(g6
+g7
+Vlondon-uk
+p1905
+tp1906
+Rp1907
+asS'Atlanta, Ga. U.S.A.'
+p1908
+(lp1909
+sS'San Francisco & Silicon Valley'
+p1910
+(lp1911
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1912
+tp1913
+Rp1914
+asS'Atlanta, Georgia, USA'
+p1915
+(lp1916
+g5
+(g6
+g7
+Vnew-york-usa
+p1917
+tp1918
+Rp1919
+asS'Brooklyn, NY'
+p1920
+(lp1921
+g5
+(g6
+g7
+Vnew-york-usa
+p1922
+tp1923
+Rp1924
+asS'Florida 18'
+p1925
+(lp1926
+g5
+(g6
+g7
+Vnew-york-usa
+p1927
+tp1928
+Rp1929
+asS'Silicon Valley, CA'
+p1930
+(lp1931
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1932
+tp1933
+Rp1934
+asS'Sao Paulo, Brazil'
+p1935
+(lp1936
+sS'Tbilisi, Georgia'
+p1937
+(lp1938
+g5
+(g6
+g7
+Vlondon-uk
+p1939
+tp1940
+Rp1941
+asVÜT: 38.991698,-77.03542
+p1942
+(lp1943
+sS'Burbank, CA (band webmaster)'
+p1944
+(lp1945
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1946
+tp1947
+Rp1948
+asS'UK'
+p1949
+(lp1950
+g5
+(g6
+g7
+Vlondon-uk
+p1951
+tp1952
+Rp1953
+asS'Nuneaton, UK'
+p1954
+(lp1955
+g5
+(g6
+g7
+Vlondon-uk
+p1956
+tp1957
+Rp1958
+asS"Kentucky's Second District"
+p1959
+(lp1960
+sS'http://bit.ly/HighwayTrailer'
+p1961
+(lp1962
+sS' Putrajaya, Malaysia'
+p1963
+(lp1964
+g5
+(g6
+g7
+Vbangalore-india
+p1965
+tp1966
+Rp1967
+asS'San Francisco | @wsjd'
+p1968
+(lp1969
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1970
+tp1971
+Rp1972
+asS'Andhra Pradesh, India'
+p1973
+(lp1974
+g5
+(g6
+g7
+Vbangalore-india
+p1975
+tp1976
+Rp1977
+asS'Otago and Southland'
+p1978
+(lp1979
+sS'Seattle, WA'
+p1980
+(lp1981
+g5
+(g6
+g7
+Vsan-francisco-usa
+p1982
+tp1983
+Rp1984
+asS'here & there'
+p1985
+(lp1986
+sS'Oxford, UK'
+p1987
+(lp1988
+g5
+(g6
+g7
+Vlondon-uk
+p1989
+tp1990
+Rp1991
+asS'Kansas City + 10 Locations'
+p1992
+(lp1993
+sS'London / Twickenham'
+p1994
+(lp1995
+sVÜT: 32.711755,-117.154915
+p1996
+(lp1997
+sS'New York, New York'
+p1998
+(lp1999
+sS'West Hollywood, CA'
+p2000
+(lp2001
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2002
+tp2003
+Rp2004
+asS"PDX-AUS-QLA-LON-AMS-Brasil '14"
+p2005
+(lp2006
+sS'NJ'
+p2007
+(lp2008
+g5
+(g6
+g7
+Vnew-york-usa
+p2009
+tp2010
+Rp2011
+asS'SD/Imperial Counties, CA'
+p2012
+(lp2013
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2014
+tp2015
+Rp2016
+asS'San Diego, CA'
+p2017
+(lp2018
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2019
+tp2020
+Rp2021
+asS'Shimla'
+p2022
+(lp2023
+sS'U.S.; global'
+p2024
+(lp2025
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2026
+tp2027
+Rp2028
+asS'New York and the World'
+p2029
+(lp2030
+sS'NY'
+p2031
+(lp2032
+g5
+(g6
+g7
+Vnew-york-usa
+p2033
+tp2034
+Rp2035
+asS'Chile'
+p2036
+(lp2037
+g5
+(g6
+g7
+Vnew-york-usa
+p2038
+tp2039
+Rp2040
+asS'Reston, VA USA'
+p2041
+(lp2042
+sS'Cambridge, MA & Washington, DC'
+p2043
+(lp2044
+g5
+(g6
+g7
+Vnew-york-usa
+p2045
+tp2046
+Rp2047
+asS'Providence, RI'
+p2048
+(lp2049
+g5
+(g6
+g7
+Vboston-usa
+p2050
+tp2051
+Rp2052
+asS'Tel Aviv - Milan'
+p2053
+(lp2054
+g5
+(g6
+g7
+Vlondon-uk
+p2055
+tp2056
+Rp2057
+asS'Every country in the world'
+p2058
+(lp2059
+sS'Moscow, Russia'
+p2060
+(lp2061
+g5
+(g6
+g7
+Vlondon-uk
+p2062
+tp2063
+Rp2064
+asS'Detroit'
+p2065
+(lp2066
+g5
+(g6
+g7
+Vnew-york-usa
+p2067
+tp2068
+Rp2069
+asS'Foxborough, MA'
+p2070
+(lp2071
+sS'Pakistan '
+p2072
+(lp2073
+sS'Dublin, IRELAND'
+p2074
+(lp2075
+g5
+(g6
+g7
+Vlondon-uk
+p2076
+tp2077
+Rp2078
+asS'Park City, Utah'
+p2079
+(lp2080
+sS'Vernon Hills, IL / Chicago'
+p2081
+(lp2082
+g5
+(g6
+g7
+Vnew-york-usa
+p2083
+tp2084
+Rp2085
+asVÜT: 34.072426,-118.400527
+p2086
+(lp2087
+sS'Bozeman, Montana '
+p2088
+(lp2089
+sS'Pacific Palisades, CA'
+p2090
+(lp2091
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2092
+tp2093
+Rp2094
+asVÜT: 41.797147,-69.982095
+p2095
+(lp2096
+sS'Lexington, KY'
+p2097
+(lp2098
+g5
+(g6
+g7
+Vnew-york-usa
+p2099
+tp2100
+Rp2101
+asVÜT: 19.087244,72.872297
+p2102
+(lp2103
+sS'Mumbai / Dilli / Dubai'
+p2104
+(lp2105
+g5
+(g6
+g7
+Vmumbai-india
+p2106
+tp2107
+Rp2108
+asS'LA/Manchester/Everywhere'
+p2109
+(lp2110
+sS'USA'
+p2111
+(lp2112
+sS'Silicon Valley, California'
+p2113
+(lp2114
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2115
+tp2116
+Rp2117
+asS'New York, NY'
+p2118
+(lp2119
+g5
+(g6
+g7
+Vnew-york-usa
+p2120
+tp2121
+Rp2122
+asS'Worcester & Westminster'
+p2123
+(lp2124
+g5
+(g6
+g7
+Vboston-usa
+p2125
+tp2126
+Rp2127
+asS'SoHo NYC'
+p2128
+(lp2129
+sS'Cambridge, MA'
+p2130
+(lp2131
+sS'Indonesia'
+p2132
+(lp2133
+g5
+(g6
+g7
+Vbangalore-india
+p2134
+tp2135
+Rp2136
+asS'Nationwide '
+p2137
+(lp2138
+sS'Eastleigh'
+p2139
+(lp2140
+g5
+(g6
+g7
+Vlondon-uk
+p2141
+tp2142
+Rp2143
+asS'Barranquilla'
+p2144
+(lp2145
+g5
+(g6
+g7
+Vnew-york-usa
+p2146
+tp2147
+Rp2148
+asS'San Francisco, CA'
+p2149
+(lp2150
+sS'New Delhi, India'
+p2151
+(lp2152
+sS'Austin, TX '
+p2153
+(lp2154
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2155
+tp2156
+Rp2157
+asS'Stanford'
+p2158
+(lp2159
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2160
+tp2161
+Rp2162
+asS'coral springs, florida'
+p2163
+(lp2164
+g5
+(g6
+g7
+Vnew-york-usa
+p2165
+tp2166
+Rp2167
+asS'Plymouth'
+p2168
+(lp2169
+sS'Brentwood & Ongar'
+p2170
+(lp2171
+sS'DC ... Wizards center'
+p2172
+(lp2173
+g5
+(g6
+g7
+Vnew-york-usa
+p2174
+tp2175
+Rp2176
+asVÜT: 61.193134,-149.865779
+p2177
+(lp2178
+sS'Isle of Anglesey'
+p2179
+(lp2180
+g5
+(g6
+g7
+Vlondon-uk
+p2181
+tp2182
+Rp2183
+asS'Singapore'
+p2184
+(lp2185
+g5
+(g6
+g7
+Vbangalore-india
+p2186
+tp2187
+Rp2188
+asS'Santa Monica, CA'
+p2189
+(lp2190
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2191
+tp2192
+Rp2193
+asS'Electric Avenue'
+p2194
+(lp2195
+g5
+(g6
+g7
+Vnew-york-usa
+p2196
+tp2197
+Rp2198
+asS'Ohio/Washington D.C.'
+p2199
+(lp2200
+g5
+(g6
+g7
+Vnew-york-usa
+p2201
+tp2202
+Rp2203
+asS'Barbados'
+p2204
+(lp2205
+sS'Boston, MA USA'
+p2206
+(lp2207
+g5
+(g6
+g7
+Vboston-usa
+p2208
+tp2209
+Rp2210
+asS'Bangalore / New Delhi'
+p2211
+(lp2212
+g5
+(g6
+g7
+Vbangalore-india
+p2213
+tp2214
+Rp2215
+asS'(Kolkata) India'
+p2216
+(lp2217
+g5
+(g6
+g7
+Vbangalore-india
+p2218
+tp2219
+Rp2220
+asS'Oakland'
+p2221
+(lp2222
+sS'God bless the U.S.A.!!'
+p2223
+(lp2224
+g5
+(g6
+g7
+Vbangalore-india
+p2225
+tp2226
+Rp2227
+asS'Silicon Valley, Calif.'
+p2228
+(lp2229
+g5
+(g6
+g7
+Vsan-francisco-usa
+p2230
+tp2231
+Rp2232
+as.
