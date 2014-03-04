@@ -55,7 +55,7 @@ l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").v
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))
 print "ArticleInfo Links which are almost surely there by mistake l11+l12"
 print l11+l12
-l13 = map(lambda x: x['url'], filter(lambda x: len(x['articlecontent'])<200, ArticleInfo.objects.all().values('articlecontent','url')))
+l13 = map(lambda x: x['url'], filter(lambda x: len(x['articlecontent'])<250, ArticleInfo.objects.all().values('articlecontent','url')))
 print "Too short Articles l13"
 print l13
 

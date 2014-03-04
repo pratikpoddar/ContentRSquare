@@ -30,7 +30,7 @@ def put_article_details(url, source=None):
 			articledict = articleutils.getArticlePropertiesFromUrl(url)
 			socialpower = urlutils.getSocialShares(url)
 			articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(articledict['title']), articleimage = crsq_unicode(articledict['image']), articlecontent = crsq_unicode(articledict['cleaned_text']), articledate = articledict['publish_date'], articlehtml = crsq_unicode(articledict['raw_html']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source=source)
-			if len(articledict['cleaned_text'].strip())>200:
+			if len(articledict['cleaned_text'].strip())>250:
 				articleinfo.save()
 		except Exception as e:
 			logger.exception('articleutilsdb - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
