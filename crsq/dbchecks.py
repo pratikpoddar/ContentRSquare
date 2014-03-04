@@ -43,7 +43,7 @@ print "Duplicate urls tobedeleted"
 co = map(lambda x: x['contenthash'], ArticleInfo.objects.all().values('contenthash'))
 import collections
 dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
-urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(articlecontent=co).values('url')), dup_co)
+urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(contenthash=co).values('url')), dup_co)
 tobedeleted=[]
 for urlgroup in urlgroups:
     for url1 in urlgroup:
