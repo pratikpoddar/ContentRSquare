@@ -28,7 +28,7 @@ def get_article_semantics_tags():
 
 def run_twitter_newspaper(tuser, tlist):
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
-	twitter_newspaper.get_list_timeline(tuser, tlist, 40)
+	twitter_newspaper.get_list_timeline(tuser, tlist, 250)
 	get_articles()
 	get_article_semantics_tags()
 	logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
@@ -39,41 +39,6 @@ def time_dependent_tw_np(toberun):
 	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
 	return
 	
-	toberun = toberun % 15
-
-	if toberun == 0:
-		run_twitter_newspaper('pratikpoddar', 'startups')
-	if toberun == 1:
-		run_twitter_newspaper('dkhare', 'india-tech-and-vc')
-	if toberun == 2:
-		run_twitter_newspaper('Scobleizer', 'tech-news-people')
-	if toberun == 3:
-	        run_twitter_newspaper('mashable', 'startups-silicon-valley-24')
-	if toberun == 4:
-	        run_twitter_newspaper('mashable', 'startups-nyc-24')
-	if toberun == 5:
-	        run_twitter_newspaper('mashable', 'tech')
-	if toberun == 6:
-	        run_twitter_newspaper('mashable', 'music')
-	if toberun == 7:
-		run_twitter_newspaper('tellychakkar', 'celebs')
-	if toberun == 8:
-	        run_twitter_newspaper('WSJ', 'wsj-money')
-	if toberun == 9:
-	        run_twitter_newspaper('WSJ', 'wsj-sports')
-	if toberun == 10:
-	        run_twitter_newspaper('WSJ', 'wsj-ceo-council')
-	if toberun == 11:
-	        run_twitter_newspaper('WSJ', 'fashion-week')
-	if toberun == 12:
-        	run_twitter_newspaper('WSJ', 'wsj-tech')
-	if toberun == 13:
-		run_twitter_newspaper('theweek', 'politics')
-	if toberun == 14:
-		run_twitter_newspaper('mattklewis', 'political-journalists')
-	return
-
-
 class getTwitterNewspaper(CronJobBase):
 
 	RUN_EVERY_MINS = 1 # every 1 min
