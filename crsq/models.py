@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from urlparse import urlparse
+import hashlib
 
 class ContentAffiliate(models.Model):
     contenthash = models.CharField(max_length=100L, unique=True, db_index=True, null=False)
@@ -54,6 +55,12 @@ class ArticleInfo(models.Model):
     fbpower = models.IntegerField(default=0)
     source = models.CharField(max_length=300L, null=True, blank=True, default=None)
     time = models.DateTimeField(auto_now_add=True, blank=True)
+    contentlength = models.BigIntegerField(default=None, db_index=True)
+    contenthash = models.CharField(max_length=255L, default=None, db_index=True)
+    def save(self):
+        self.contentlength = len(articlecontent)
+	self.contenthash = str(int(hashlib.md5().hexdigest(articlecontent), 16))
+        super(ArticleInfo, self).save()
     def domainname(self):
         return urlparse(self.url)[1]
 
