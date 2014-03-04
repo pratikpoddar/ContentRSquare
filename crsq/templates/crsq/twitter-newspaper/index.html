@@ -56,7 +56,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 
 	<div class="row" style="text-align:center">
 	    <ul class="pager">
-		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"-1" }}">&larr; Recent</a></li>
+		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href={% if page == 1 %}#{% endif %}{% if page > 1 %}"/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"-1" }}"{% endif %}>&larr; Recent</a></li>
 		  <li class="next"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
 	    </ul>
         </div>
