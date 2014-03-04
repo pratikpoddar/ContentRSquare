@@ -46,7 +46,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
                   <div class="col-sm-9 col-lg-9 col-md-9">
                   <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p>
-                  <p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>
+                  {% comment %}<p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>{% endcomment %}
                   <p class="sharers">{% if article.sharers %} Shared by {% for sharer in article.sharers %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ sharer.author }}/status/{{ sharer.tweetid }}">@{{ sharer.author }} </a>{% endfor %}{% endif %}</p>
 
                   </div>
@@ -55,12 +55,11 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
             {% endfor %}
 
 	<div class="row" style="text-align:center">
-	    <ul class="pagination pagination-sm">
-		{% for pagei in pagerange %}
-                <li class="{% if pagei == page %}active{% endif %}"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ pagei }}">{{ pagei }}</a></li>
-		{% endfor %}
-            </ul>
-      </div>
+	    <ul class="pager">
+		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"-1" }}">&larr; Recent</a></li>
+		  <li class="next"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
+	    </ul>
+        </div>
 
 {% endblock %}
 

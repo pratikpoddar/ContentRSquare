@@ -82,7 +82,7 @@ def tw_np(request, sector, location, page=1):
 		'sector_list': twitter_newspaper.tw_np_sector_list,
 		'location_list': twitter_newspaper.tw_np_location_list,
 		'page': int(page),
-		'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+5)
+		'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+3)
         })
 	return HttpResponse(template.render(context))
 

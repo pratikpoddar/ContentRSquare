@@ -154,6 +154,17 @@ twitter_lists = [
 ("https://twitter.com/inTheTweetNews/lists/actors-in-india", ["entertainment"], ["mumbai-india", "bangalore-india"]),
 ("https://twitter.com/inTheTweetNews/lists/cricket-news", ["sports"], ["mumbai-india", "bangalore-india"]),
 ("https://twitter.com/inTheTweetNews/lists/cricketers-and-experts", ["sports"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/ETPolitics/lists/politics-tweets", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/McKinsey/lists/mckinsey-partners", ["business"], []),
+("https://twitter.com/HarvardHBS/lists/hbs-entrepreneurs", ["business"], []),
+("https://twitter.com/HarvardHBS/lists/hbs-faculty", ["business"], ["boston-usa"]),
+("https://twitter.com/TBSbarcelona/lists/business", ["business"], []),
+("https://twitter.com/WhartonSchoolPR/lists/wharton-faculty", ["business"], []),
+("https://twitter.com/StanfordBiz/lists/stanford-gsb-editorial", ["business"], []),
+("https://twitter.com/ibnlive/lists/politics", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/ninarfowler/lists/tech-europe-news", ["technology"], ["london-uk"]),
+("https://twitter.com/forbes_india/lists/politicians", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/forbes_india/lists/chiefs", ["business"], ["mumbai-india", "bangalore-india"]),
 ]
 
 list_of_influencers = []
