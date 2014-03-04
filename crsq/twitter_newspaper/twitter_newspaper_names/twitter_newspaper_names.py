@@ -165,6 +165,13 @@ twitter_lists = [
 ("https://twitter.com/ninarfowler/lists/tech-europe-news", ["technology"], ["london-uk"]),
 ("https://twitter.com/forbes_india/lists/politicians", ["politics"], ["mumbai-india", "bangalore-india"]),
 ("https://twitter.com/forbes_india/lists/chiefs", ["business"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/techreview/lists/team", ["technology"], []),
+("https://twitter.com/HarvardBiz/lists/leadership", ["business"], ["boston-usa", "san-francisco-usa", "new-york-usa"]),
+("https://twitter.com/HarvardBiz/lists/innovation", ["business"], ["boston-usa", "san-francisco-usa", "new-york-usa"]),
+("https://twitter.com/pi_editors/lists/influence-140", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/tweetminster/lists/ukmps", ["politics"], ["london-uk"]),
+("https://twitter.com/Politics_co_uk/lists/mps", ["politics"], ["london-uk"]),
+("https://twitter.com/NavbharatTimes/lists/elections-2014", ["politics"], ["mumbai-india", "bangalore-india"]),
 ]
 
 list_of_influencers = []
@@ -208,9 +215,7 @@ for screen_name in screen_names:
 	try:
 		api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers-1', user_id=int(id_dict[screen_name][0]))
 	except Exception as e:
-		print int(id_dict[screen_name][0])
-		print screen_name
-		print e
+		print screen_name + " - error adding member to crsq-influencers"
 	print list(set(ownerslug_dict[screen_name]))
 	print list(set(twitter_location_dict[screen_name]))
 	print list(set(twitter_location_renamed_dict[screen_name]))
