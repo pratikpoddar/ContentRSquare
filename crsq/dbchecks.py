@@ -40,7 +40,7 @@ print l8
 #l10 = list(set(map(lambda x: urlparse(x)[1], l2)))
 #print l10
 print "Duplicate urls tobedeleted"
-co = map(lambda x: x['articlecontent'], ArticleInfo.objects.all().values('articlecontent'))
+co = map(lambda x: x['contenthash'], ArticleInfo.objects.all().values('contenthash'))
 import collections
 dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
 urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(articlecontent=co).values('url')), dup_co)
@@ -55,7 +55,7 @@ l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").v
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))
 print "ArticleInfo Links which are almost surely there by mistake l11+l12"
 print l11+l12
-l13 = map(lambda x: x['url'], filter(lambda x: len(x['articlecontent'])<250, ArticleInfo.objects.all().values('articlecontent','url')))
+l13 = map(lambda x: x['url'], filter(lambda x: x['contentlength']<250, ArticleInfo.objects.all().values('contentlength','url')))
 print "Too short Articles l13"
 print l13
 
