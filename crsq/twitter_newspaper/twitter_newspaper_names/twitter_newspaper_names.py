@@ -31,14 +31,24 @@ locationmap_dict = {}
 
 centralcities = {"mumbai-india": g.geocode("Mumbai, India"), "bangalore-india": g.geocode("Bangalore, India"), "san-francisco-usa": g.geocode("San Francisco, California"), "boston-usa": g.geocode("Boston, MA, United States"), "london-uk": g.geocode("London, UK"), "new-york-usa": g.geocode("New York, USA")}
 
+try:
+	file = open('locationmapcache.pickle', 'r')
+	locationmapcache = pickle.load(file)
+	file.close()
+except:
+	locationmapcache = {}
+
 # Installed from https://code.google.com/p/geopy/wiki/GettingStarted
 @lru_cache(maxsize=2048)
 def locationmap(location):
 
+	if location in locationmapcache.keys():
+		return locationmapcache[location]
 	try:
 		place, (lat, lng) = g.geocode(location)  
 		distcc = map(lambda cc: (cc[0], distance.distance((lat, lng), cc[1][1]).miles), centralcities.items())
 		distcc.sort(key=lambda x: x[1])
+		locationmapcache[location] = slugify(distcc[0][0])
 		return [slugify(distcc[0][0])]
 	except Exception as e:
 		return []
@@ -229,6 +239,10 @@ file = open("final_output.pickle", 'w')
 pickle.dump(final_output, file)
 file.close()
 
+file = open('locationmapcache.pickle', 'w')
+pickle.dump(locationmapcache, file)
+file.close()
+
 TweetUsers.objects.all().delete()
 for elem in final_output:
 	locations = elem[1]+elem[2]+elem[3]
@@ -237,7 +251,8 @@ for elem in final_output:
 		for location in locations:
 			if sector:
 				if location:
-					tu = TweetUsers(sector=sector, location=location, author=elem[0])
-					tu.save()
+					if TweetUsers.objects.filter(sector=sector, location=location, author=elem[0]).count()==0:
+						tu = TweetUsers(sector=sector, location=location, author=elem[0])
+						tu.save()
 
 
