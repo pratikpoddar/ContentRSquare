@@ -97,10 +97,18 @@ def get_text_summary(text, title = None, library="sumy"):
 			summarizer = Summarizer(stemmer)
 			summarizer.stop_words = get_stop_words(LANGUAGE)
 
+			lastcount = 0
 	    		for sentence in summarizer(parser.document, 4):
-        			summary += sentence._text + " "
+				if lastcount == 0:
+	        			summary += sentence._text
+				elif abs(lastcount - text.find(sentence._text)) < 5:
+					summary += " " + sentence._text
+				else:
+					summary += " ... " + sentence._text
+				lastcount = text.find(sentence._text) + len(sentence._text) + 1
 
 			return summary.strip()
+
 		except Exception as e:
 			logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
 			raise	
