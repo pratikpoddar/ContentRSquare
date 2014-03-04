@@ -172,6 +172,7 @@ twitter_lists = [
 ("https://twitter.com/tweetminster/lists/ukmps", ["politics"], ["london-uk"]),
 ("https://twitter.com/Politics_co_uk/lists/mps", ["politics"], ["london-uk"]),
 ("https://twitter.com/NavbharatTimes/lists/elections-2014", ["politics"], ["mumbai-india", "bangalore-india"]),
+("https://twitter.com/Trushar/lists/indian-election-campaign", ["politics"], ["mumbai-india", "bangalore-india"]),
 ]
 
 list_of_influencers = []
