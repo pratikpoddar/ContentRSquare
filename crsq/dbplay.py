@@ -17,8 +17,8 @@ for url in urls:
 		print url
 		print counter
 		d1 = ArticleInfo.objects.get(url=url).articledate
-		d2 = getArticleProperties(ArticleInfo.objects.get(url=url).articlehtml)['publish_date']
-		if d2<datetime.date(2014,11,11):
+		d2 = getArticlePropertiesFromUrl(url=url)['publish_date']
+		if d2<datetime.date(2014,4,4):
 			a = ArticleInfo.objects.get(url=url)
 			a.articledate = d2
 			a.save()
@@ -28,7 +28,7 @@ for url in urls:
 	except:
 		pass
 
-#url='http://dealbook.nytimes.com/2014/03/03/philadelphia-to-sell-its-gas-works-utility-for-1-9-billion/'
+#url='http://www.cbssports.com/nfl/eye-on-football/24466743/anquan-boldin-no-rift-between-49ers-players-and-jim-harbaugh'
 #h = ArticleInfo.objects.get(url=url).articlehtml
 #getArticleProperties(h)['publish_date']
 

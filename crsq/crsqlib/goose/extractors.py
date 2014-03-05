@@ -113,6 +113,8 @@ class ContentExtractor(object):
 	dow = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'fri', 'sat', 'sun']
 
 	def checkdate(string):
+
+		string = string.strip()
 	
 		if len(string)>1000:
 			return None
@@ -123,10 +125,22 @@ class ContentExtractor(object):
 			for d in dow:
 				string = string.lower()
 				string = string.replace(d,'')
-			string = string.replace('last modified:', '')
-			
+			string = string.replace('last ', ' ')
+			string = string.replace('modified:', '')
+			string = string.replace('posted on', '')
+			string = string.replace('published on', '')
+			string = string.replace('published:', '')
+			string = string.replace('updated:', '')	
+			string = string.replace(' at ', ' ')
+			string = string.replace(' : ', ':')
 			try:
 				parseddate = dateutilparse(string)
+				return datetime.date(parseddate.year, parseddate.month, parseddate.day)
+			except:
+				pass
+
+			try:
+				parseddate = dateutilparse(string.upper())
 				return datetime.date(parseddate.year, parseddate.month, parseddate.day)
 			except:
 				pass
