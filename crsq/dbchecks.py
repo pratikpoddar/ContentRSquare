@@ -42,14 +42,15 @@ print l8
 print "Duplicate urls tobedeleted"
 co = map(lambda x: x['contenthash'], ArticleInfo.objects.all().values('contenthash'))
 import collections
+import itertools
 dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
 urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(contenthash=co).values('url')), dup_co)
 tobedeleted=[]
 for urlgroup in urlgroups:
-    for url1 in urlgroup:
-        for url2 in urlgroup:
-            if (url1.find(url2)>=0) and (len(url1)>len(url2)):
-		tobedeleted.append(url1)
+    for u in itertools.combinations(urlgroup, 2):
+        if len(u[0])>len(u[1]):
+                if (u[0].find(u[1])>=0) or (urlparse(u[0])[1]==urlparse(u[1])[1]):
+                        tobedeleted.append(u[0])
 print tobedeleted
 l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").values('url'))
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))
