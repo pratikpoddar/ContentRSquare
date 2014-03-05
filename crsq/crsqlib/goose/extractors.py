@@ -114,11 +114,15 @@ class ContentExtractor(object):
 
 	def checkdate(string):
 
+		if len(string)>5000:
+			return None
+
 		try:
 			for d in dow:
 				string = string.lower()
 				string = string.replace(d,'')
-	
+			string = string.replace('last modified:', '')
+			
 			try:
 				parseddate = dateutilparse(string)
 				return datetime.date(parseddate.year, parseddate.month, parseddate.day)
@@ -202,7 +206,6 @@ class ContentExtractor(object):
                 pass
 
         try:
-
                 pds = bs.find_all(attrs={'itemprop': re.compile(r'time|date|publish|Time|Date|Publish|TIME|DATE|PUBLISH')})
                 for pd in pds:
                         pd = pd.text.lower()
@@ -212,6 +215,15 @@ class ContentExtractor(object):
         except:
                 pass
 
+	try:
+                pds = bs.find_all(attrs={'property': re.compile(r'dtreviewed')})
+                for pd in pds:
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
+        except:
+                pass
 
         try:
                 pds = bs.find_all('time')
@@ -225,6 +237,16 @@ class ContentExtractor(object):
 
         try:
                 pds = bs.find_all('abbr')
+                for pd in pds:
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
+        except:
+                pass
+
+        try:
+                pds = bs.find_all(attrs={'class': 'meta'})
                 for pd in pds:
                         pd = pd.text.lower()
                         cd = checkdate(pd)
