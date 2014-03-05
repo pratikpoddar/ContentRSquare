@@ -113,8 +113,10 @@ class ContentExtractor(object):
 	dow = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'fri', 'sat', 'sun']
 
 	def checkdate(string):
-
+	
 		if len(string)>1000:
+			return None
+		if len(string.strip())==0:
 			return None
 
 		try:
@@ -134,7 +136,6 @@ class ContentExtractor(object):
 		                if t:
         		                if t[1] in [0,1,3]:
 	                	                return datetime.date(t[0][0], t[0][1], t[0][2])
-
 			except:
 				pass
 		except:
@@ -152,7 +153,7 @@ class ContentExtractor(object):
 		pass
 
         try:
-                pd = bs.find('meta', attrs={'name': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
+                pd = bs.find('meta', attrs={'name': re.compile(r'Last-Modified|date|published_time', re.IGNORECASE)})['content'].lower()
                 cd = checkdate(pd)
                 if cd:
                         return cd
@@ -177,6 +178,14 @@ class ContentExtractor(object):
 
         try:
                 pd = bs.find('meta', attrs={'name': re.compile(r'sailthru.date', re.IGNORECASE)})['content'].lower()
+                cd = checkdate(pd)
+                if cd:
+                        return cd
+        except:
+                pass
+
+        try:
+                pd = bs.find('time')['datetime'].lower()
                 cd = checkdate(pd)
                 if cd:
                         return cd
