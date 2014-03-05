@@ -87,6 +87,8 @@ def get_text_tags(text):
 def get_text_summary(text, title = None, library="sumy"):
 
 	text = crsq_unicode(text)
+	text = text.replace('Rs.', 'Rs')
+	text = text.replace('Dr.', 'Dr')
 	if library == "sumy":
 		try:
 			summary = ""
@@ -97,14 +99,14 @@ def get_text_summary(text, title = None, library="sumy"):
 			summarizer = Summarizer(stemmer)
 			summarizer.stop_words = get_stop_words(LANGUAGE)
 
-			lastcount = 0
+			lastcount = None
 	    		for sentence in summarizer(parser.document, 4):
-				if lastcount == 0:
+				if lastcount == None:
 	        			summary += sentence._text
 				elif abs(lastcount - text.find(sentence._text)) < 5:
 					summary += " " + sentence._text
 				else:
-					summary += " ... " + sentence._text
+					summary += " ...... " + sentence._text
 				lastcount = text.find(sentence._text) + len(sentence._text) + 1
 
 			return summary.strip()
