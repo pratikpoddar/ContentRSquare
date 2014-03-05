@@ -27,13 +27,13 @@ alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.filter(url__in=al
 from crsq.google_trends.gt import *
 google_trends = get_all_google_trends()
 def check_if_googlesearch_is_a_tag(googlesearch):
-	if googlesearch in alltags:
+	if len(ArticleTags.objects.filter(tag=googlesearch).values('url'))>3:
 		return googlesearch
 	
 	try:
 		freebase_meaning = text_summarize.get_Freebase_Meaning(googlesearch.replace('-',' '))
 		if freebase_meaning['wikilink']:
-			if slugify(freebase_meaning['title']) in alltags:
+			if len(ArticleTags.objects.filter(tag=slugify(freebase_meaning['title'])).values('url'))>3:
 				return slugify(freebase_meaning['title']) 
 	except:
 		pass

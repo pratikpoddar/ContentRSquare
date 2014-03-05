@@ -229,11 +229,11 @@ def zippednewsappwelcome(request):
 	##recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
 	##popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
 
-	def summary(url):
-		try:
-			return ArticleSemantics.objects.filter(url=url).values('summary')[0]['summary']
-		except:
-			return None
+	#def summary(url):
+	#	try:
+	#		return ArticleSemantics.objects.filter(url=url).values('summary')[0]['summary']
+	#	except:
+	#		return None
 
 	#recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
 	#popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
