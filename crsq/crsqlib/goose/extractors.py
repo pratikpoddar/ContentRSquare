@@ -114,7 +114,7 @@ class ContentExtractor(object):
 
 	def checkdate(string):
 
-		if len(string)>5000:
+		if len(string)>1000:
 			return None
 
 		try:
