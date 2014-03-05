@@ -52,7 +52,7 @@ class ArticleInfo(models.Model):
     articleimage = models.TextField(max_length=1000L, null=True, default=None)
     articlecontent = models.TextField()
     articlehtml = models.TextField()
-    articledate = models.DateField(null=True)
+    articledate = models.DateField(null=True, db_index=True)
     twitterpower = models.IntegerField(default=0)
     fbpower = models.IntegerField(default=0)
     source = models.CharField(max_length=300L, null=True, blank=True, default=None)

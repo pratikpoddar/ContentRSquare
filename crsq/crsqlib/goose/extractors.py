@@ -27,7 +27,7 @@ from crsq.crsqlib.goose.utils import StringSplitter
 from crsq.crsqlib.goose.utils import StringReplacement
 from crsq.crsqlib.goose.utils import ReplaceSequence
 from crsq.crsqlib.goose.parsedatetime import parsedatetime as pdt
-import dateutil
+from dateutil.parser import parse as dateutilparse
 import datetime
 from bs4 import BeautifulSoup
 
@@ -112,104 +112,70 @@ class ContentExtractor(object):
 	cal = pdt.Calendar()
 	dow = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'mon', 'tues', 'tue', 'wed', 'thurs', 'thur', 'fri', 'sat', 'sun']
 
-	try:
-		pd = bs.find('meta', attrs={'http-equiv': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
-		for d in dow:
-			pd = pd.replace(d,'')
+	def checkdate(string):
 
 		try:
-			return dateutil.parser.parse(pd)
+			for d in dow:
+				string = string.lower()
+				string = string.replace(d,'')
+	
+			try:
+				parseddate = dateutilparse(string)
+				return datetime.date(parseddate.year, parseddate.month, parseddate.day)
+			except:
+				pass
+
+			try:
+				t = cal.parse(string)
+		                if t:
+        		                if t[1] in [0,1,3]:
+	                	                return datetime.date(t[0][0], t[0][1], t[0][2])
+
+			except:
+				pass
 		except:
 			pass
 
-		t = cal.parse(pd)
-		
-		if t:
-			if t[1] in [0,1,3]:
-				return datetime.date(t[0][0], t[0][1], t[0][2])
-		else:
-			raise
+		return None
+
+
+	try:
+		pd = bs.find('meta', attrs={'http-equiv': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
+		cd = checkdate(pd)
+		if cd:
+			return cd
 	except:
 		pass
 
         try:
                 pd = bs.find('meta', attrs={'name': re.compile(r'Last-Modified', re.IGNORECASE)})['content'].lower()
-                for d in dow:
-                        pd = pd.replace(d,'')
-
-                try:
-                        return dateutil.parser.parse(pd)
-                except:
-                        pass
-
-                t = cal.parse(pd)
-
-                if t:
-                        if t[1] in [0,1,3]:
-                                return datetime.date(t[0][0], t[0][1], t[0][2])
-                else:
-                        raise
+                cd = checkdate(pd)
+                if cd:
+                        return cd
         except:
                 pass
 
         try:
                 pd = bs.find('meta', attrs={'property': re.compile(r'published_time', re.IGNORECASE)})['content'].lower()
-                for d in dow:
-                        pd = pd.replace(d,'')
-
-                try:
-                        return dateutil.parser.parse(pd)
-                except:
-                        pass
-
-                t = cal.parse(pd)
-
-                if t:
-                        if t[1] in [0,1,3]:
-                                return datetime.date(t[0][0], t[0][1], t[0][2])
-                else:
-                        raise
+                cd = checkdate(pd)
+                if cd:
+                        return cd
         except:
                 pass
 
         try:
                 pd = bs.find('meta', attrs={'property': re.compile(r'modified_time', re.IGNORECASE)})['content'].lower()
-                for d in dow:
-                        pd = pd.replace(d,'')
-
-                try:
-                        return dateutil.parser.parse(pd)
-                except:
-                        pass
-
-                t = cal.parse(pd)
-                
-                if t:   
-                        if t[1] in [0,1,3]:
-                                return datetime.date(t[0][0], t[0][1], t[0][2])
-                else:
-                        raise
+                cd = checkdate(pd)
+                if cd:
+                        return cd
         except:
                 pass
 
         try:
                 pd = bs.find('meta', attrs={'name': re.compile(r'sailthru.date', re.IGNORECASE)})['content'].lower()
-                for d in dow:
-                        pd = pd.replace(d,'')
-
-                try:
-                        return dateutil.parser.parse(pd)
-                except:
-                        pass
-
-
-                t = cal.parse(pd)
-
-                if t:
-                        if t[1] in [0,1,3]:
-                                return datetime.date(t[0][0], t[0][1], t[0][2])
-                else:
-                        raise
+                cd = checkdate(pd)
+                if cd:
+                        return cd
         except:
                 pass
 
@@ -217,20 +183,10 @@ class ContentExtractor(object):
 
                 pds = bs.find_all(attrs={'class': re.compile(r'time|date|Time|Date|TIME|DATE')})
                 for pd in pds:
-                        pd = pd.text.lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-
-		   	try:
-                		return dateutil.parser.parse(pd)
-		     	except:
-		        	pass
-			
-                        t = cal.parse(pd)
-                        if t:
-				if t[1] in [0,1,3]: 
-	                                return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+			pd = pd.text.lower()
+	                cd = checkdate(pd)
+	                if cd:
+	                        return cd
         except:
                 pass
 
@@ -239,19 +195,9 @@ class ContentExtractor(object):
                 pds = bs.find_all(attrs={'class': re.compile(r'publish|Publish|PUBLISH')})
                 for pd in pds:
                         pd = pd.text.lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-
-        	        try:
-	                        return dateutil.parser.parse(pd)
-	                except:
-	                        pass
-
-                        t = cal.parse(pd)
-                        if t:
-                                if t[1] in [0,1,3]:
-                                        return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
         except:
                 pass
 
@@ -260,19 +206,9 @@ class ContentExtractor(object):
                 pds = bs.find_all(attrs={'itemprop': re.compile(r'time|date|publish|Time|Date|Publish|TIME|DATE|PUBLISH')})
                 for pd in pds:
                         pd = pd.text.lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-
-        	        try:
-	                        return dateutil.parser.parse(pd)
-	                except:
-	                        pass
-
-                        t = cal.parse(pd)
-                        if t:
-                                if t[1] in [0,1,3]:
-                                        return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
         except:
                 pass
 
@@ -280,44 +216,22 @@ class ContentExtractor(object):
         try:
                 pds = bs.find_all('time')
                 for pd in pds:
-                        pd = pd['datetime'].lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-
-	                try:
-        	                return dateutil.parser.parse(pd)
-	                except:
-	                        pass
-
-                        t = cal.parse(pd)
-                        if t:
-                                if t[1] in [0,1,3]:
-                                        return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
         except:
                 pass
-
 
         try:
                 pds = bs.find_all('abbr')
                 for pd in pds:
                         pd = pd.text.lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-
-	                try:
-        	                return dateutil.parser.parse(pd)
-	                except:
-	                        pass
-
-                        t = cal.parse(pd)
-                        if t:
-                                if t[1] in [0,1,3]:
-                                        return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
         except:
                 pass
-
 	
 	def is_the_only_string_within_a_tag(s):
 	    """Return True if this string is the only child of its parent tag."""
@@ -326,16 +240,12 @@ class ContentExtractor(object):
 	try:
 		pds = bs.find_all(text=is_the_only_string_within_a_tag)
 		for pd in pds:
-			pd = pd.lower()
-	                for d in dow:
-        	                pd = pd.replace(d,'')
-			t = cal.parse(pd)
-			if t:
-				if t[1] in [0,1,3]:
-					return datetime.date(t[0][0], t[0][1], t[0][2])
-		raise 
-	except:
-		pass
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
+        except:
+                pass
 
         def is_total_string_with_nothing_else(s):
 	    try:
@@ -348,17 +258,12 @@ class ContentExtractor(object):
         try:
                 pds = bs.find_all(text=is_total_string_with_nothing_else)
                 for pd in pds:
-                        pd = pd.lower()
-                        for d in dow:
-                                pd = pd.replace(d,'')
-                        t = cal.parse(pd)
-                        if t:
-                                if t[1] in [0,1,3]:
-                                        return datetime.date(t[0][0], t[0][1], t[0][2])
-                raise
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
         except:
                 pass
-
 
 	return None
 
