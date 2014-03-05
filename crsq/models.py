@@ -3,6 +3,8 @@ from datetime import datetime
 from urlparse import urlparse
 import hashlib
 
+def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
+
 class ContentAffiliate(models.Model):
     contenthash = models.CharField(max_length=100L, unique=True, db_index=True, null=False)
     affiliate = models.TextField(null=False)
@@ -58,8 +60,8 @@ class ArticleInfo(models.Model):
     contentlength = models.BigIntegerField(default=None, db_index=True)
     contenthash = models.CharField(max_length=255L, default=None, db_index=True)
     def save(self):
-        self.contentlength = len(articlecontent)
-	self.contenthash = str(int(hashlib.md5().hexdigest(articlecontent), 16))
+        self.contentlength = len(self.articlecontent)
+	self.contenthash = str(int(hashlib.md5(removeNonAscii(self.articlecontent)).hexdigest(), 16))
         super(ArticleInfo, self).save()
     def domainname(self):
         return urlparse(self.url)[1]
