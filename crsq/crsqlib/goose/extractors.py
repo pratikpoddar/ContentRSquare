@@ -133,6 +133,7 @@ class ContentExtractor(object):
 			string = string.replace('updated:', '')	
 			string = string.replace(' at ', ' ')
 			string = string.replace(' : ', ':')
+			string = string.replace('hrs ', ' ')
 			try:
 				parseddate = dateutilparse(string)
 				return datetime.date(parseddate.year, parseddate.month, parseddate.day)
@@ -154,6 +155,11 @@ class ContentExtractor(object):
 				pass
 		except:
 			pass
+
+		substrs = string.split('|')
+		if (len(substrs)<3) and (len(substrs)>1):
+			for s in substrs:
+				return checkdate(s)
 
 		return None
 
@@ -208,7 +214,19 @@ class ContentExtractor(object):
 
         try:
 
-                pds = bs.find_all(attrs={'class': re.compile(r'time|date|Time|Date|TIME|DATE')})
+                pds = bs.find_all(attrs={'id': re.compile(r'raceByline', re.IGNORECASE)})
+                for pd in pds:
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
+        except:
+                pass
+
+
+        try:
+
+                pds = bs.find_all(attrs={'class': re.compile(r'time|date|Time|Date|TIME|DATE', re.IGNORECASE)})
                 for pd in pds:
 			pd = pd.text.lower()
 	                cd = checkdate(pd)
@@ -219,7 +237,7 @@ class ContentExtractor(object):
 
         try:
 
-                pds = bs.find_all(attrs={'class': re.compile(r'publish|Publish|PUBLISH')})
+                pds = bs.find_all(attrs={'class': re.compile(r'publish|Publish|PUBLISH', re.IGNORECASE)})
                 for pd in pds:
                         pd = pd.text.lower()
                         cd = checkdate(pd)
@@ -229,7 +247,7 @@ class ContentExtractor(object):
                 pass
 
         try:
-                pds = bs.find_all(attrs={'itemprop': re.compile(r'time|date|publish|Time|Date|Publish|TIME|DATE|PUBLISH')})
+                pds = bs.find_all(attrs={'itemprop': re.compile(r'time|date|publish|Time|Date|Publish|TIME|DATE|PUBLISH', re.IGNORECASE)})
                 for pd in pds:
                         pd = pd.text.lower()
                         cd = checkdate(pd)
@@ -239,7 +257,7 @@ class ContentExtractor(object):
                 pass
 
 	try:
-                pds = bs.find_all(attrs={'property': re.compile(r'dtreviewed')})
+                pds = bs.find_all(attrs={'property': re.compile(r'dtreviewed', re.IGNORECASE)})
                 for pd in pds:
                         pd = pd.text.lower()
                         cd = checkdate(pd)
@@ -277,6 +295,17 @@ class ContentExtractor(object):
                                 return cd
         except:
                 pass
+
+        try:
+                pds = bs.find_all(attrs={'class': 'create'})
+                for pd in pds:
+                        pd = pd.text.lower()
+                        cd = checkdate(pd)
+                        if cd:
+                                return cd
+        except:
+                pass
+
 	
 	def is_the_only_string_within_a_tag(s):
 	    """Return True if this string is the only child of its parent tag."""
