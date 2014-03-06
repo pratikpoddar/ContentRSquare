@@ -220,6 +220,15 @@ def zippednewsappwelcome(request):
 
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
+	
+	def positioning(loc):
+		p = ['US', 'India', 'UK']
+		try:
+			return p.index(loc)
+		except:
+			return len(p)
+
+	gt = sorted(google_trends.items(), key=lambda x: positioning(x))
 
 	#tagdict = {}
 	#tagdict = dbcache.getRelevantTagDict()
@@ -241,7 +250,7 @@ def zippednewsappwelcome(request):
 	template = loader.get_template('crsq/zippednewsapp/welcome.html')
         context = RequestContext(request, {
                 #'tagdict': sorted(tagdict.items()),
-		'google_trends': sorted(google_trends.items()),
+		'google_trends': gt
 		#'recent_articles': recent_articles,
 		#'popular_articles':  popular_articles
         })
