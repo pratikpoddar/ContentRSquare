@@ -222,13 +222,13 @@ def zippednewsappwelcome(request):
 	google_trends = pickle.load(googletrendsfile)
 	
 	def positioning(loc):
-		p = ['US', 'India', 'UK']
+		p = ['India', 'US', 'UK']
 		try:
 			return p.index(loc)
 		except:
 			return len(p)
 
-	gt = sorted(google_trends.items(), key=lambda x: positioning(x))
+	gt = sorted(google_trends.items(), key=lambda x: positioning(x[0]))
 
 	#tagdict = {}
 	#tagdict = dbcache.getRelevantTagDict()
