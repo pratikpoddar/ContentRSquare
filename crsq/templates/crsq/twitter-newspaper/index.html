@@ -44,7 +44,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
                   <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ sectorname }} News from {{ locationname }} - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
                   </div>
                   <div class="col-sm-9 col-lg-9 col-md-9">
-                  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if 0 %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+                  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p>
                   {% comment %}<p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>{% endcomment %}
                   <p class="sharers">{% if article.sharers %} Shared by {% for sharer in article.sharers %}<a target="_blank" rel="nofollow" href="https://twitter.com/{{ sharer.author }}/status/{{ sharer.tweetid }}">@{{ sharer.author }} </a>{% endfor %}{% endif %}</p>
