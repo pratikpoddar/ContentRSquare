@@ -4,10 +4,10 @@ import pickle
 from bs4 import BeautifulSoup
 
 def get_last_emails_gmail(username, password, n=500):
+
 	mail = imaplib.IMAP4_SSL('imap.gmail.com')
 	mail.login(username, password)
-	mail.list()
-	mail.select("inbox") # connect to inbox.
+	mail.select("inbox",readonly=True) # connect to inbox.
 
 	result, data = mail.search(None, "ALL")
  
@@ -28,17 +28,18 @@ def parse_email(raw_email):
 	
 	msg = email.message_from_string(raw_email)
 	body = ''
+	cleanbody = ''
 	if msg.is_multipart():
 	    for payload in msg.get_payload():
         	body += payload.get_payload()
 	else:
 	    body += msg.get_payload()
 
-	cleanbody = BeautifulSoup(body).text.replace('\n',' ').replace('\r',' ')
+	cleanbody = BeautifulSoup(body).text.strip().replace('\r',' ').replace('\n', ' ').strip()
 
 	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc'], 'CleanBody': cleanbody}
 
-e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks')
+e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 500)
 file=open('pratikgmaildump.txt', 'w')
 pickle.dump(e,file)
 file.close()
