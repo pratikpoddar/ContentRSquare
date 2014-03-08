@@ -1,20 +1,47 @@
 import imaplib
 import email
+import pickle
+from bs4 import BeautifulSoup
 
-mail = imaplib.IMAP4_SSL('imap.gmail.com')
-mail.login('pratik.phodu@gmail.com', 'indiarocks')
-mail.list()
-mail.select("inbox") # connect to inbox.
+def get_last_emails_gmail(username, password, n=500):
+	mail = imaplib.IMAP4_SSL('imap.gmail.com')
+	mail.login(username, password)
+	mail.list()
+	mail.select("inbox") # connect to inbox.
 
-result, data = mail.search(None, "ALL")
+	result, data = mail.search(None, "ALL")
  
-ids = data[0] # data is a list.
-id_list = ids.split() # ids is a space separated string
-latest_email_id = id_list[-1] # get the latest
+	ids = data[0] # data is a list.
+	id_list = ids.split() # ids is a space separated string
+	id_list.reverse()
+	email_ids = id_list[:n]
  
-result, data = mail.fetch(latest_email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
- 
-raw_email = data[0][1]
+	emails = []
+	for email_id in email_ids:
+		result, data = mail.fetch(email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
+ 		raw_email = data[0][1]
+		emails.append(parse_email(raw_email))
 
-msg = email.message_from_string(raw_email)
+	return emails
+
+def parse_email(raw_email):
+	
+	msg = email.message_from_string(raw_email)
+	body = ''
+	if msg.is_multipart():
+	    for payload in msg.get_payload():
+        	body += payload.get_payload()
+	else:
+	    body += msg.get_payload()
+
+	cleanbody = BeautifulSoup(body).text.replace('\n',' ').replace('\r',' ')
+
+	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc'], 'CleanBody': cleanbody}
+
+e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks')
+file=open('pratikgmaildump.txt', 'w')
+pickle.dump(e,file)
+file.close()
+
+
 
