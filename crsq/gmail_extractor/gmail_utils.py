@@ -40,7 +40,7 @@ def parse_email(raw_email):
 
 	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc']}
 
-e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 8000)
+e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 150)
 file=open('pratikgmaildump.txt', 'w')
 pickle.dump(e,file)
 file.close()
