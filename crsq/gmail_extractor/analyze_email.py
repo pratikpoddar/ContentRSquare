@@ -1,16 +1,15 @@
 import pickle
-from crsq.crsqlib.emailutils import EFZP
+from crsq.crsqlib.emailutils import EFZP, email_reply_parser
 from bs4 import BeautifulSoup
 from crsq.crsqlib.text_summarize import text_summarize
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def index_of_max(l):
-	return sorted(enumerate(l),key=lambda x: x[1])[-2][0]
+def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 file=open('pratikgmaildump.txt','r')
 emails1 = pickle.load(file)
 file.close()
-emails1 = emails1[:100]
+emails1 = emails1[:80]
 emails2 = filter(lambda x: x['From'].find('root@localhost')==-1, emails1)
 
 def analyze_body(body):
@@ -20,7 +19,8 @@ def analyze_body(body):
 	links = filter(lambda y: (y.find("http:")>=0) or (y.find("https:")>=0),  map(lambda x: x['href'], BeautifulSoup(emails2[4]['Body']).find_all('a', {'href': True})))
 	tags = text_summarize.get_text_tags(cleanbody)
 	parsed_cleanbody = EFZP.parse(cleanbody)
-	return {'CleanBody': cleanbody, 'Links': links, 'ParsedCleanBody': parsed_cleanbody}
+	shortbody = ' '.join(map(lambda x: removeNonAscii(BeautifulSoup(removeNonAscii(x.content)).text).decode('quopri'),  filter(lambda y: not y.quoted, email_reply_parser.EmailReplyParser.read(body).fragments)))
+	return { 'CleanBody': cleanbody, 'Links': links, 'ParsedCleanBody': parsed_cleanbody, 'ShortBody': shortbody }
 
 emails3 = []
 counter=0
