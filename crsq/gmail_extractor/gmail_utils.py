@@ -9,7 +9,7 @@ def get_last_emails_gmail(username, password, n=500):
 	mail.login(username, password)
 	mail.select("inbox",readonly=True) # connect to inbox.
 
-	result, data = mail.search(None, "ALL")
+	result, data = mail.search(None, 'FROM', '"gmail"')
  
 	ids = data[0] # data is a list.
 	id_list = ids.split() # ids is a space separated string
@@ -31,15 +31,16 @@ def parse_email(raw_email):
 	cleanbody = ''
 	if msg.is_multipart():
 	    for payload in msg.get_payload():
-        	body += payload.get_payload()
+        	body += str(payload.get_payload()) + ' '
 	else:
 	    body += msg.get_payload()
 
-	cleanbody = BeautifulSoup(body).text.strip().replace('\r',' ').replace('\n', ' ').strip()
+	body = body.strip()
+	body = body.decode("quopri")
 
-	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc'], 'CleanBody': cleanbody}
+	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc']}
 
-e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 500)
+e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 8000)
 file=open('pratikgmaildump.txt', 'w')
 pickle.dump(e,file)
 file.close()
