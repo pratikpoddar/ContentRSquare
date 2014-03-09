@@ -1,5 +1,5 @@
 import pickle
-import EFZP
+from crsq.crsqlib import EFZP
 from bs4 import BeautifulSoup
 from crsq.crsqlib.text_summarize import text_summarize
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -25,6 +25,10 @@ emails3 = []
 for email in emails2:
 	extra_info = analyze_body(email['Body'])
 	emails3.append(dict(email.items() + extra_info.items()))
+
+file=open('pratikgmaildumpextended.txt','w')
+pickle.dump(emails3, file)
+file.close()
 
 tfidf = TfidfVectorizer().fit_transform(map(lambda x: x['CleanBody'], emails3))
 sim = (tfidf * tfidf.T).A
