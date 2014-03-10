@@ -20,7 +20,7 @@ def analyze_body(body):
 	tags = text_summarize.get_text_tags(cleanbody)
 	parsed_cleanbody = EFZP.parse(cleanbody)
 	shortbody = ' '.join(map(lambda x: removeNonAscii(BeautifulSoup(removeNonAscii(x.content)).text).decode('quopri'),  filter(lambda y: not y.quoted, email_reply_parser.EmailReplyParser.read(body).fragments)))
-	return { 'CleanBody': cleanbody, 'Links': links, 'ParsedCleanBody': parsed_cleanbody, 'ShortBody': shortbody, 'tags': tags }
+	return { 'CleanBody': cleanbody, 'Links': links, 'ParsedCleanBody': parsed_cleanbody, 'ShortBody': shortbody, 'Tags': tags }
 
 emails3 = []
 counter=0

@@ -27,13 +27,6 @@ def closest_related_email(documents, emails, inputnum, algo):
 				print removeNonAscii(emails[elem[0]]['Subject'])
 				return elem[0]
 
-	if algo=="lsi":
-	
-		lsi = create_lsi(documents)
-
-		
-
-	
-
+emails[0]['Tags']
 links = sum(map(lambda x: x['Links'], emails), [])
 
