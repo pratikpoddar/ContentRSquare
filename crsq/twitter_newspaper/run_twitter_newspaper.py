@@ -2,6 +2,8 @@ from crsq.twitter_newspaper import twitter_newspaper
 from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags
 from datetime import datetime
 import logging
+from crsq.crsqlib.article_elastic_search import refreshdbtoes
+
 
 from django_cron import CronJobBase, Schedule
 
@@ -37,6 +39,7 @@ def run_twitter_newspaper(tuser, tlist):
 def time_dependent_tw_np(toberun):
 
 	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
+	refreshdbtoes()
 	return
 	
 class getTwitterNewspaper(CronJobBase):

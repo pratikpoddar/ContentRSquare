@@ -2,6 +2,7 @@ from crsq.feedanalyzer import feedextractor
 from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags
 from datetime import datetime
 import logging
+from crsq.crsqlib.article_elastic_search import refreshdbtoes
 
 from django_cron import CronJobBase, Schedule
 
@@ -67,6 +68,7 @@ def fa():
 	#for ny in nytlist:
 		#feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
 	logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
+	refreshdbtoes()
 	return
 
 class getFeedAnalyzer(CronJobBase):

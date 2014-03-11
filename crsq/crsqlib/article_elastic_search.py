@@ -56,11 +56,11 @@ def deleteurl(url):
 	return
 
 def searchdoc(keywordstr, num=30):
-	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title^2", "tags^3", "domain^3"]}}})
+	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title^2", "tags^3", "domain^3"]}}}, fields="url")
 	print("Got %d Hits:" % res['hits']['total'])
 	urls = []
 	for hit in res['hits']['hits']:
-	    urls.append(hit["_source"]["url"])
+	    urls.append(hit["fields"]["url"])
 	    if len(urls)==num:
 		return urls
 	    #print("%(url)s: %(text)s" % hit["_source"])
@@ -68,9 +68,9 @@ def searchdoc(keywordstr, num=30):
 	return urls
 
 def getall():
-	res = es.search(index="article-index", body={"query": {"match_all": {}}})
+	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="url")
         print("Got %d Hits:" % res['hits']['total'])
-        urls = map(lambda hit: hit["_source"]["url"], res['hits']['hits'])
+	urls = map(lambda hit: hit["fields"]["url"], res['hits']['hits'])
         return urls
 
 def indexurl(url):
