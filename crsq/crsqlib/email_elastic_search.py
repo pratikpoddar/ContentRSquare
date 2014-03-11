@@ -65,3 +65,13 @@ def indexemailid(emailhash):
 		indexemail(emaildict)
 	return
 
+def recommendedemails(emailhash):
+	
+	emailtags = ' '.join(map(lambda x: x['tag'], EmailInfo.objects.filter(emailhash=emailhash).values('tag')))
+	emailtags = emailtags.replace('-', ' ').title()
+	return searchemail(emailtags, 5)
+
+
+
+
+

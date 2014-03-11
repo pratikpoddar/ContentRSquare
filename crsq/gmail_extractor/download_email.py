@@ -2,6 +2,8 @@ import imaplib
 import email
 import pickle
 from bs4 import BeautifulSoup
+from crsq.models import EmailInfo
+from dateutil.parser import parse
 
 def get_last_emails_gmail(username, password, n=500):
 
@@ -38,7 +40,7 @@ def parse_email(raw_email):
 	body = body.strip()
 	body = body.decode("quopri")
 
-	return {'Delivered-To': msg['Delivered-To'], 'To': msg['To'], 'Subject': msg['Subject'], 'Date': msg['Date'], 'ID': msg['Message-ID'], 'From': msg['From'] , 'Self': msg, 'Body': body, 'Cc': msg['Cc'], 'Bcc': msg['Bcc']}
+	return {'emailto': msg['To'], 'subject': msg['Subject'], 'emailtime': parse(msg['Date']), 'messageid': msg['Message-ID'], 'from': msg['From'] , 'body': body, 'emailccto': msg['Cc'], 'emailbccto': msg['Bcc']}
 
 e = get_last_emails_gmail('pratik.phodu@gmail.com', 'indiarocks', 150)
 file=open('pratikgmaildump.txt', 'w')

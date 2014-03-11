@@ -93,6 +93,7 @@ class PenPatronUser(models.Model):
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
 class EmailInfo(models.Model):
+    emailhash = models.CharField(max_length=255L, db_index=True, unique=True)
     user = models.CharField(max_length=255L, null=False)
     emailfrom = models.CharField(max_length=255L, null=False)
     emailto = models.CharField(max_length=255L, default='', null=True, blank=True)
@@ -103,14 +104,23 @@ class EmailInfo(models.Model):
     body = models.TextField()
     cleanbody = models.TextField()
     shortbody = models.TextField()
-    emailhash = models.CharField(max_length=255L, db_index=True, unique=True)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def save(self):
 	self.emailhash = str(int(hashlib.md5(' '.join(map(lambda y: removeNonAscii(str(y)),filter(lambda x: x, [self.emailfrom, self.emailto, self.emailccto, self.emailbccto, self.user, self.emailtime])))).hexdigest(), 16))
         super(EmailInfo, self).save()
 
 
+class EmailTags(models.Model):
+    emailhash = models.CharField(max_length=255L, db_index=True)
+    tag = models.CharField(max_length=255L, db_index=True)
+    class Meta:
+        unique_together = (("emailhash", "tag"),)
 
+class EmailLinks(models.Model):
+    emailhash = models.CharField(max_length=255L, db_index=True)
+    tag = models.CharField(max_length=255L, db_index=True)
+    class Meta:
+        unique_together = (("emailhash", "tag"),)
 
  
 	
