@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from crsq.models import *
+from crsq.models import ArticleInfo, ArticleTags
 from urlparse import urlparse
 
 es = Elasticsearch()
@@ -46,6 +46,15 @@ def indexdoc(articledict):
 
 	return
 
+def deleteurl(url):
+	
+	try:
+		es.delete(index="article-index", doc_type="article", id=url)
+	except:
+		pass
+
+	return
+
 def searchdoc(keywordstr, num=30):
 	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title^2", "tags^3", "domain^3"]}}})
 	print("Got %d Hits:" % res['hits']['total'])
@@ -58,6 +67,12 @@ def searchdoc(keywordstr, num=30):
 
 	return urls
 
+def getall():
+	res = es.search(index="article-index", body={"query": {"match_all": {}}})
+        print("Got %d Hits:" % res['hits']['total'])
+        urls = map(lambda hit: hit["_source"]["url"], res['hits']['hits'])
+        return urls
+
 def indexurl(url):
 	
 	articledict = ArticleInfo.objects.filter(url=url).values()[0]
@@ -65,5 +80,16 @@ def indexurl(url):
 	domain = urlparse(url)[1]
 	if len(articledict):
 		indexdoc(dict(articledict.items() + [('tags', tags), ('domain', domain)]))
+	return
+
+def refreshdbtoes():
+	
+	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
+	indexurls = getall()
+	for url in list(set(indexurls)-set(dburls)):
+		deleteurl(url)
+	for url in list(set(dburls)-set(indexurls)):
+		indexurl(url)
+
 	return
 
