@@ -260,3 +260,9 @@ tar -zxvf python-dateutil-2.2.tar.gz
 python setup.py install
 
 Install from https://code.google.com/p/geopy/wiki/GettingStarted
+
+
+Add to ~/.bashrc
+## Start Elastic Search Server
+/home/ubuntu/elasticsearch-0.90.10/bin/elasticsearch
+
