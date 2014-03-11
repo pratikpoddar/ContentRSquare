@@ -262,7 +262,7 @@ python setup.py install
 Install from https://code.google.com/p/geopy/wiki/GettingStarted
 
 
-Add to ~/.bashrc
+Add to /etc/rc.local
 ## Start Elastic Search Server
 /home/ubuntu/elasticsearch-0.90.10/bin/elasticsearch
 
