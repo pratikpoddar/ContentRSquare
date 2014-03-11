@@ -165,8 +165,9 @@ def timenews_article(request, articleid):
 
 def zippednewsapp(request, tag):
 	try:
+		logger.debug(request.GET.keys())
 		if 'elasticsearchfail' in request.GET.keys():
-			if request.GET['elasticsearchfail']==True:
+			if request.GET['elasticsearchfail']=="True":
 				raise
                 urls = article_elastic_search.searchdoc(tag.replace('-',' ').title(), 30)
                 urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
@@ -181,7 +182,9 @@ def zippednewsapp(request, tag):
 	articletagsdump2 = collections.defaultdict(list)
 	for article in articletagsdump:
 		articletagsdump2[article['url']].append(article['tag'])
+
 	
+	articles = sorted(articles, key=lambda article: -article['id'])
 	article_list = []
 	
 	for article in articles:

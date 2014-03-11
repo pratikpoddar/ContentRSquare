@@ -92,6 +92,22 @@ class PenPatronUser(models.Model):
     message = models.CharField(max_length=1000L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
+class EmailInfo(models.Model):
+    user = models.CharField(max_length=255L, null=False)
+    emailfrom = models.CharField(max_length=255L, null=False)
+    emailto = models.CharField(max_length=255L, default='', null=True, blank=True)
+    emailccto = models.CharField(max_length=255L, default='', null=True, blank=True)
+    emailbccto = models.CharField(max_length=255L, default='', null=True, blank=True)
+    subject = models.CharField(max_length=1000L, default='')
+    emailtime = models.DateTimeField()
+    body = models.TextField()
+    cleanbody = models.TextField()
+    shortbody = models.TextField()
+    emailhash = models.CharField(max_length=255L, db_index=True, unique=True)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+    def save(self):
+	self.emailhash = str(int(hashlib.md5(' '.join(map(lambda y: removeNonAscii(str(y)),filter(lambda x: x, [self.emailfrom, self.emailto, self.emailccto, self.emailbccto, self.user, self.emailtime])))).hexdigest(), 16))
+        super(EmailInfo, self).save()
 
 
 
