@@ -34,18 +34,16 @@ def create_corpus(documents):
 
 	dictionary = corpora.Dictionary(texts)
 	corp = [dictionary.doc2bow(text) for text in texts]
+	return (dictionary, corp)
 
-def create_lsi(documents):
+def create_lsi(documents, query):
 
-	corp = create_corpus(documents)
+	dictionary, corp = create_corpus(documents)
 	# extract 400 LSI topics; use the default one-pass algorithm
-	lsi = models.lsimodel.LsiModel(corpus=corp, id2word=dictionary, num_topics=30)
-	return lsi
-
-def create_sim_index(documents):
-        corp = create_corpus(documents)
-	index = similarities.Similarity('/tmp/tst', corp, num_features=12)
-	return index
+	lsi = models.lsimodel.LsiModel(corpus=corp, id2word=dictionary, num_topics=10)
+	index = similarities.Similarity('/tmp/tst', lsi[corp], num_features=10)
+	queryindex = lsi[create_corpus(query)[1][0]]
+	return index[queryindex]
 
 def create_tfidf(documents):
 	tfidf = TfidfVectorizer().fit_transform(documents)

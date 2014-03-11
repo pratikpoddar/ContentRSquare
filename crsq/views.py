@@ -26,6 +26,8 @@ from crsq.linkbook import linkbook
 from crsq import dbcache
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags
 
+from crsq.crsqlib import article_elastic_search
+
 import collections
 
 import random
@@ -162,10 +164,18 @@ def timenews_article(request, articleid):
         return HttpResponse(template.render(context))
 
 def zippednewsapp(request, tag):
+	try:
+		if 'elasticsearchfail' in request.GET.keys():
+			if request.GET['elasticsearchfail']==True:
+				raise
+                urls = article_elastic_search.searchdoc(tag.replace('-',' ').title(), 30)
+                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+	except:
+		# Elastic Search Failed
+		urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 
-	urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
-	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
+	articles = ArticleInfo.objects.filter(url__in=urls).values()
 
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 	articletagsdump2 = collections.defaultdict(list)
