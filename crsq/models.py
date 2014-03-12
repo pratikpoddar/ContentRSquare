@@ -114,16 +114,16 @@ class EmailInfo(models.Model):
 
 
 class EmailTags(models.Model):
-    emailhash = models.CharField(max_length=255L, db_index=True)
+    messageid = models.CharField(max_length=255L, db_index=True)
     tag = models.CharField(max_length=255L, db_index=True)
     class Meta:
-        unique_together = (("emailhash", "tag"),)
+        unique_together = (("messageid", "tag"),)
 
 class EmailLinks(models.Model):
-    emailhash = models.CharField(max_length=255L, db_index=True)
-    tag = models.CharField(max_length=255L, db_index=True)
+    messageid = models.CharField(max_length=255L, db_index=True)
+    link = models.CharField(max_length=255L, db_index=True)
     class Meta:
-        unique_together = (("emailhash", "tag"),)
+        unique_together = (("messageid", "link"),)
 
  
 	

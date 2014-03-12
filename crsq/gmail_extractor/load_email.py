@@ -1,9 +1,7 @@
 import pickle
 from bs4 import BeautifulSoup
 from crsq.crsqlib.text_summarize import text_summarize
-
-execfile("doc_sim.py")
-from sklearn.feature_extraction.text import TfidfVectorizer
+from crsq.crsqlib import doc_sim
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
