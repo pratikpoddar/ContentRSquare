@@ -39,7 +39,8 @@ def indexemail(emaildict):
 		'bcc': emaildict['emailbccto'],
 		'subject': emaildict['subject'],
 		'body': emaildict['cleanbody'],
-		'id' : emaildict['id']
+		'messageid': emaildict['messageid'],
+		'emailhash': emaildict['emailhash'],
 	}
 	
 	createemailindex()
@@ -47,18 +48,31 @@ def indexemail(emaildict):
 
 	return
 
+def deleteemailhash(emailhash):
+
+        try:
+                es.delete(index="email-index", doc_type="email", id=emailhash)
+        except:
+                pass
+
+        return
+
 def searchemail(keywordstr, num=20):
+
+	if keywordstr.strip()=='':
+		return []
+
 	res = es.search(index="email-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}})
 	print("Got %d Hits:" % res['hits']['total'])
 	ids = []
 	for hit in res['hits']['hits']:
-	    ids.append(hit["_source"]["id"])
+	    ids.append(hit["_source"]["messageid"])
 	    if len(ids)==num:
 		return ids
 
 	return ids
 
-def indexemailid(emailhash):
+def indexemailhash(emailhash):
 	
 	emaildict = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
 	if len(emaildict):
@@ -67,11 +81,28 @@ def indexemailid(emailhash):
 
 def recommendedemails(emailhash):
 	
-	emailtags = ' '.join(map(lambda x: x['tag'], EmailInfo.objects.filter(emailhash=emailhash).values('tag')))
+	messageid = EmailInfo.objects.get(emailhash=emailhash).messageid
+	emailtags = ' '.join(map(lambda x: x['tag'], EmailTags.objects.filter(messageid=messageid).values('tag')))
 	emailtags = emailtags.replace('-', ' ').title()
 	return searchemail(emailtags, 5)
 
+def getall():
+	res = es.search(index="email-index", body={"query": {"match_all": {}}}, size=100000, fields="emailhash")
+        print("Got %d Hits:" % res['hits']['total'])
+	if res['hits']['total']>0:
+		emailhashes = map(lambda hit: hit["fields"]["emailhash"], res['hits']['hits'])
+	else:
+		emailhashes = []
+        return emailhashes
 
+def refreshdbtoes():
+	
+	dbhashes = map(lambda x:x ['emailhash'], EmailInfo.objects.all().values('emailhash'))
+	indexhashes = getall()
+	for h in list(set(indexhashes)-set(dbhashes)):
+		deleteemailhash(h)
+	for h in list(set(dbhashes)-set(indexhashes)):
+		indexemailhash(h)
 
-
+	return
 

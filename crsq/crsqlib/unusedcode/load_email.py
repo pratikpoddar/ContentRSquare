@@ -5,11 +5,10 @@ from crsq.crsqlib import doc_sim
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
-file=open('pratikgmaildumpextended.txt','r')
-emails = pickle.load(file)
-file.close()
-
-documents = map(lambda x: removeNonAscii(x['ShortBody']), emails)
+#file=open('pratikgmaildumpextended.txt','r')
+#emails = pickle.load(file)
+#file.close()
+#documents = map(lambda x: removeNonAscii(x['ShortBody']), emails)
 
 def closest_related_email(documents, emails, inputnum, algo):
 
@@ -38,5 +37,5 @@ def closest_related_email(documents, emails, inputnum, algo):
 def closest_links(emails, inputnum):
 	return map(lambda x: x['url'], ArticleTags.objects.filter(tag__in=map(lambda x: slugify(x), emails[inputnum]['Tags'])).values('url'))
 
-links = sum(map(lambda x: x['Links'], emails), [])
+#links = sum(map(lambda x: x['Links'], emails), [])
 

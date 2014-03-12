@@ -56,6 +56,10 @@ def deleteurl(url):
 	return
 
 def searchdoc(keywordstr, num=30):
+
+        if keywordstr.strip()=='':
+                return []
+
 	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title^2", "tags^3", "domain^3"]}}}, fields="url")
 	print("Got %d Hits:" % res['hits']['total'])
 	urls = []
@@ -70,7 +74,10 @@ def searchdoc(keywordstr, num=30):
 def getall():
 	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="url")
         print("Got %d Hits:" % res['hits']['total'])
-	urls = map(lambda hit: hit["fields"]["url"], res['hits']['hits'])
+	if res['hits']['total']>0:
+		urls = map(lambda hit: hit["fields"]["url"], res['hits']['hits'])
+	else:
+		urls = []
         return urls
 
 def indexurl(url):
