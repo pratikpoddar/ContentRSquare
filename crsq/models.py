@@ -104,10 +104,13 @@ class EmailInfo(models.Model):
     body = models.TextField()
     cleanbody = models.TextField()
     shortbody = models.TextField()
+    messageid = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def save(self):
 	self.emailhash = str(int(hashlib.md5(' '.join(map(lambda y: removeNonAscii(str(y)),filter(lambda x: x, [self.emailfrom, self.emailto, self.emailccto, self.emailbccto, self.user, self.emailtime])))).hexdigest(), 16))
         super(EmailInfo, self).save()
+    class Meta:
+        unique_together = (("user", "messageid"),)
 
 
 class EmailTags(models.Model):
