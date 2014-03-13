@@ -113,12 +113,6 @@ class EmailInfo(models.Model):
         unique_together = (("user", "messageid"),)
 
 
-class EmailTags(models.Model):
-    messageid = models.CharField(max_length=255L, db_index=True)
-    tag = models.CharField(max_length=255L, db_index=True)
-    class Meta:
-        unique_together = (("messageid", "tag"),)
-
 class EmailLinks(models.Model):
     messageid = models.CharField(max_length=255L, db_index=True)
     link = models.CharField(max_length=255L, db_index=True)

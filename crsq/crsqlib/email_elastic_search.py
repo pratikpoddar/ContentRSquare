@@ -80,11 +80,14 @@ def indexemailhash(emailhash):
 	return
 
 def recommendedemails(emailhash):
-	
-	messageid = EmailInfo.objects.get(emailhash=emailhash).messageid
-	emailtags = ' '.join(map(lambda x: x['tag'], EmailTags.objects.filter(messageid=messageid).values('tag')))
-	emailtags = emailtags.replace('-', ' ').title()
-	return searchemail(emailtags, 5)
+
+	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
+        print("Got %d Hits:" % res['hits']['total'])
+        if res['hits']['total']>0:
+                emailhashes = map(lambda hit: hit["fields"]["emailhash"], res['hits']['hits'])
+        else:
+                emailhashes = []
+        return emailhashes
 
 def getall():
 	res = es.search(index="email-index", body={"query": {"match_all": {}}}, size=100000, fields="emailhash")

@@ -57,8 +57,8 @@ How relevant is it to the keyword? - NLTK + Solr
 Date is not correct
 Content Clustering
 
-http://www.hindustantimes.com/business-news/jet-airways-joins-fare-war-offers-75-discount-for-two-days/article1-1188229.aspx Summary ends abruptly
-
-Budget-2014 only one article
-
 zippednews topic search typeahead
+
+Gmail-Extractor
+Check if gmail extractor identified by emailhash / messageid is correct
+Incorporate threadid somewhere in gmail extractor
