@@ -84,7 +84,7 @@ def recommendedemails(emailhash):
 	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
         print("Got %d Hits:" % res['hits']['total'])
         if res['hits']['total']>0:
-                emailhashes = map(lambda hit: hit["fields"]["emailhash"], res['hits']['hits'])
+                emailhashes = map(lambda hit: hit["_id"], res['hits']['hits'])
         else:
                 emailhashes = []
         return emailhashes

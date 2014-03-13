@@ -23,7 +23,11 @@ urlpatterns = patterns('',
 	url(r'^zippednewsapp/crsqsearch/([a-zA-Z0-9-]+)/?$', views.zippednewsapptaglist, name='zntl'),
 	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
 
-	url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
+	url(r'^emailrecommender/([a-zA-Z0-9]+)/?$', views.emailrecommender, name='emailrecommender'),
+
+        url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
+
+
 )
 
 

@@ -24,9 +24,9 @@ from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq.linkbook import linkbook
 from crsq import dbcache
-from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags
+from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo
 
-from crsq.crsqlib import article_elastic_search
+from crsq.crsqlib import article_elastic_search, email_elastic_search
 
 import collections
 
@@ -297,5 +297,37 @@ def dbchecker(request, extraparam=0):
 		html += "</body></html>"
 
         return HttpResponse(html)
+
+
+def emailrecommender(request, emailhash):
+
+	e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
+	ehashes = email_elastic_search.recommendedemails(emailhash)
+	recommended = []
+	for ehash in ehashes[:5]:
+		subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
+		recommended.append((subject, ehash))
+
+        template = loader.get_template('crsq/emailrecommender/index.html')
+        context = RequestContext(request, {
+                'e': e,
+		'recommended': recommended,
+        })
+
+        return HttpResponse(template.render(context))
+	
+
+	
+
+
+
+
+
+	
+
+
+
+
+
 
 

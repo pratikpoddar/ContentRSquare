@@ -1,0 +1,21 @@
+{% load staticfiles %}
+{% load tagfilter %}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+From: {{ e.emailfrom }}<br/>
+To: {{ e.emailto }}<br/>
+Subject: {{ e.subject }}<br/><br/>
+Body: {{ e.body }}<br/><br/>
+ShortBody: {{ e.shortbody }}<br/><br/>
+CleanBody: {{ e.cleanbody }}<br/><br/>
+Recommended:
+{% for r in recommended %}
+	<a href='/emailrecommender/{{ r.1 }}' target="_blank">{{ r.0  }}</a><br/>
+{% endfor %}
+
+
+</body>
+</html>
