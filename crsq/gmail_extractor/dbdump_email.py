@@ -27,7 +27,7 @@ def parse_email(username, raw_email):
 	    body += msg.get_payload()
 
 	body = body.strip()
-	body = body.decode("quopri")
+	body = body.decode("quopri").replace('\r',' ').replace('\n', ' ').strip()
 
 	return {'user': username, 'emailto': msg['To'], 'subject': msg['Subject'], 'emailtime': parse(msg['Date']), 'messageid': msg['Message-ID'], 'emailfrom': msg['From'] , 'body': body, 'emailccto': msg['Cc'], 'emailbccto': msg['Bcc']}
 

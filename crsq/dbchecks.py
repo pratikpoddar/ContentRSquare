@@ -8,19 +8,15 @@ from django.db.models import Count
 l1 = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 l2 = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
 l3 = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
-l4 = map(lambda x: x['url'], ArticleTags.objects.all().values('url'))
+l4 = map(lambda x: x['url'], ArticleTags.objects.exclude(url__in=l1).values('url'))
 print "Links in TweetLinks but not in ArticleInfo set(l2)-set(l1)"
 print set(l2)-set(l1)
 print "Links in ArticleInfo but not in ArticleSemantics set(l1)-set(l3)"
 print set(l1)-set(l3)
-#print "Links in ArticleInfo but not in ArticleTags set(l1)-set(l4)"
-#print set(l1)-set(l4)
 print "Links in ArticleSemantics but not in ArticleInfo set(l3)-set(l1)"
 print set(l3)-set(l1)
-print "Links in ArticleTags but not in ArticleInfo set(l4)-set(l1)"
-print set(l4)-set(l1)
-print "Average Number of Tags for a Link"
-print len(l4) / len(set(l4))
+print "Links in ArticleTags but not in ArticleInfo set(l4)"
+print set(l4)
 print "Links in ArticleInfo that are not articles l5"
 l5 = filter(lambda x: not urlutils.is_url_an_article(x), list(set(l1)))
 print l5
@@ -51,6 +47,7 @@ for urlgroup in urlgroups:
         if len(u[0])>len(u[1]):
                 if (u[0].find(u[1])>=0) or (urlparse(u[0])[1]==urlparse(u[1])[1]):
                         tobedeleted.append(u[0])
+			tobedeleted = list(set(tobedeleted))
 print tobedeleted
 l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").values('url'))
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))

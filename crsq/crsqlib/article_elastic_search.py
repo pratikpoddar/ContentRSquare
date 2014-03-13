@@ -72,10 +72,10 @@ def searchdoc(keywordstr, num=30):
 	return urls
 
 def getall():
-	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="url")
-        print("Got %d Hits:" % res['hits']['total'])
+	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="")
+        print("Got %d Hits" % res['hits']['total'])
 	if res['hits']['total']>0:
-		urls = map(lambda hit: hit["fields"]["url"], res['hits']['hits'])
+		urls = map(lambda hit: hit["_id"], res['hits']['hits'])
 	else:
 		urls = []
         return urls
@@ -90,7 +90,7 @@ def indexurl(url):
 	return
 
 def refreshdbtoes():
-	
+
 	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
 	indexurls = getall()
 	for url in list(set(indexurls)-set(dburls)):
