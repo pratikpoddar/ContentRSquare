@@ -20,11 +20,16 @@ def parse_email(username, raw_email):
 	msg = email.message_from_string(raw_email)
 	body = ''
 	cleanbody = ''
-	if msg.is_multipart():
-	    for payload in msg.get_payload():
-        	body += str(payload.get_payload()) + ' '
-	else:
-	    body += msg.get_payload()
+        if msg.is_multipart():
+            for payload in msg.get_payload():
+                if payload.get_content_subtype() == 'plain':
+                        body += str(payload.get_payload()) + ' '
+                if payload.get_content_subtype() == 'alternative':
+                        for payload2 in payload.get_payload():
+                                if payload2.get_content_subtype() == 'plain':
+                                        body += str(payload2.get_payload()) + ' '
+        else:
+            body += msg.get_payload()
 
 	body = body.strip()
 	body = body.decode("quopri").replace('\r',' ').replace('\n', ' ').strip()
