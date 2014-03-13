@@ -4,15 +4,23 @@ from bs4 import BeautifulSoup
 from crsq.crsqlib.text_summarize import text_summarize
 from sklearn.feature_extraction.text import TfidfVectorizer
 from crsq.models import EmailInfo, EmailLinks
+from crsq.crsqlib.geodict import geodict_lib
 
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def analyze_body(body):
 	cleanbody = BeautifulSoup(body).text.strip().replace('\r',' ').replace('\n', ' ').strip()
 	links = filter(lambda y: (y.find("http:")>=0) or (y.find("https:")>=0),  map(lambda x: x['href'], BeautifulSoup(body).find_all('a', {'href': True})))
-	#parsed_cleanbody = EFZP.parse(cleanbody)
+
+	parsed_cleanbody = EFZP.parse(cleanbody)
+	efzpshortbody = parsed_cleanbody['body']
+	efzpsignature = parsed_cleanbody['signature']
+
 	shortbody = removeNonAscii(' '.join(map(lambda x: removeNonAscii(BeautifulSoup(removeNonAscii(x.content)).text).decode('quopri'),  filter(lambda y: not y.quoted, email_reply_parser.EmailReplyParser.read(body).fragments)))).replace('\r', ' ').replace('\n', ' ').strip()
-	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody }
+
+	places = geodict_lib.find_locations_in_text(cleanbody)
+
+	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
 print len(messageids)
@@ -24,6 +32,9 @@ for mid in messageids:
 	ei = EmailInfo.objects.get(messageid=mid)
 	ei.shortbody = d['shortbody']
 	ei.cleanbody = d['cleanbody']
+	ei.efzpshortbody = d['efzpshortbody']
+	ei.efzpsignature = d['efzpsignature']
+	ei.places = d['places']
 	try:
 		ei.save()
 	except Exception as exc:

@@ -104,6 +104,9 @@ class EmailInfo(models.Model):
     body = models.TextField()
     cleanbody = models.TextField()
     shortbody = models.TextField()
+    efzpshortbody = models.TextField()
+    efzpsignature = models.TextField()
+    places = models.TextField()
     messageid = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def save(self):
