@@ -35,6 +35,7 @@ def indexemail(emaildict):
 
 	doc = {
 		'from': emaildict['emailfrom'],
+		'to': emaildict['emailto'],
 		'cc' : emaildict['emailccto'],
 		'bcc': emaildict['emailbccto'],
 		'subject': emaildict['subject'],
@@ -62,7 +63,7 @@ def searchemail(keywordstr, num=20):
 	if keywordstr.strip()=='':
 		return []
 
-	res = es.search(index="email-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}})
+	res = es.search(index="email-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["from", "to", "cc", "bcc", "subject^2", "body^3"]}}})
 	print("Got %d Hits:" % res['hits']['total'])
 	ids = []
 	for hit in res['hits']['hits']:
@@ -108,4 +109,5 @@ def refreshdbtoes():
 		indexemailhash(h)
 
 	return
+
 
