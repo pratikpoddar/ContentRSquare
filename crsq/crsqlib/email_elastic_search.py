@@ -39,7 +39,7 @@ def indexemail(emaildict):
 		'cc' : emaildict['emailccto'],
 		'bcc': emaildict['emailbccto'],
 		'subject': emaildict['subject'],
-		'body': emaildict['cleanbody'],
+		'body': emaildict['cleanbody'].replace('@',' '),
 		'messageid': emaildict['messageid'],
 		'emailhash': emaildict['emailhash'],
 	}

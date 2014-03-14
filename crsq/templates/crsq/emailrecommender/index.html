@@ -11,10 +11,21 @@ Subject: {{ e.subject }}<br/><br/>
 Body: {{ e.body }}<br/><br/>
 ShortBody: {{ e.shortbody }}<br/><br/>
 CleanBody: {{ e.cleanbody }}<br/><br/>
-Recommended:
-{% for r in recommended %}
+Tags: {{ e.tags }}<br/><br/>
+
+Recommended Emails:<br/>
+{% for r in recommendedemails %}
 	<a href='/emailrecommender/{{ r.1 }}' target="_blank">{{ r.0  }}</a><br/>
 {% endfor %}
+<br/>
+
+Recommended Links:<br/>
+{% for r in recommendedlinks %}
+        <a href='{{ r }}' target="_blank">{{ r }}</a><br/>
+{% endfor %}
+<br/>
+
+
 
 
 </body>
