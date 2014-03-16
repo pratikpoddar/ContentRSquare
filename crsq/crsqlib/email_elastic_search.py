@@ -39,7 +39,7 @@ def indexemail(emaildict):
 		'cc' : emaildict['emailccto'],
 		'bcc': emaildict['emailbccto'],
 		'subject': emaildict['subject'],
-		'body': emaildict['cleanbody'].replace('@',' '),
+		'body': emaildict['cleanbody'].replace('@',' ').replace('gmail.com', ''),
 		'messageid': emaildict['messageid'],
 		'emailhash': emaildict['emailhash'],
 	}
@@ -63,8 +63,18 @@ def searchemail(keywordstr, num=20):
 	if keywordstr.strip()=='':
 		return []
 
-	res = es.search(index="email-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["from", "to", "cc", "bcc", "subject^2", "body^3"]}}})
-	print("Got %d Hits:" % res['hits']['total'])
+	#res = es.search(index="email-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["from", "to", "cc", "bcc", "subject^2", "body^3"]}}})
+
+        res = es.search(index="email-index", fields="url", body={"query": {
+            "custom_score": {
+                "script" : "_score",
+                "query": {
+                        "query_string": {"query": keywordstr, "fields": ["from", "to", "cc", "bcc", "subject^2", "body^3"]}
+                },
+            }
+        }
+        })
+
 	ids = []
 	for hit in res['hits']['hits']:
 	    ids.append(hit["_source"]["messageid"])
@@ -102,6 +112,10 @@ def refreshdbtoes():
 	
 	dbhashes = map(lambda x:x ['emailhash'], EmailInfo.objects.all().values('emailhash'))
 	indexhashes = getall()
+	#for h in list(indexhashes):
+	#	deleteemailhash(h)
+	#for h in list(dbhashes):
+	#	indexemailhash(h)
 	for h in list(set(indexhashes)-set(dbhashes)):
 		deleteemailhash(h)
 	for h in list(set(dbhashes)-set(indexhashes)):
