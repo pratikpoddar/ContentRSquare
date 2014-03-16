@@ -58,6 +58,7 @@ def pick_appropriate_url(entry):
 	return None	
 	
 def load_rss_in_table(rss_url, extractor):
+	
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)

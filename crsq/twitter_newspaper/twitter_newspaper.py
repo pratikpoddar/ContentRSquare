@@ -187,6 +187,7 @@ def get_articles(sector, location, cursor=0):
 	
 	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location__in=tw_np_location_alias(location)).values('author'))
 	urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
+	urls = map(lambda x: x['url'], ArticleSemantics.objects.exclude(summary=None).exclude(summary='').filter(url__in=urls).values('url'))
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-id')[cursor:cursor+10].values()
 	return articles
 

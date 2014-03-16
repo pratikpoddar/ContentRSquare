@@ -83,7 +83,6 @@ def indexemailhash(emailhash):
 def recommendedemails(emailhash):
 
 	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
-        print("Got %d Hits:" % res['hits']['total'])
         if res['hits']['total']>0:
                 emailhashes = map(lambda hit: hit["_id"], res['hits']['hits'])
         else:
@@ -92,7 +91,7 @@ def recommendedemails(emailhash):
 
 def getall():
 	res = es.search(index="email-index", body={"query": {"match_all": {}}}, size=100000, fields="emailhash")
-        print("Got %d Hits:" % res['hits']['total'])
+        print("Getting all indices -  %d Hits:" % res['hits']['total'])
 	if res['hits']['total']>0:
 		emailhashes = map(lambda hit: hit["fields"]["emailhash"], res['hits']['hits'])
 	else:

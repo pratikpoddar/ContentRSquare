@@ -266,3 +266,4 @@ Add to /etc/rc.local
 ## Start Elastic Search Server
 /home/ubuntu/elasticsearch-0.90.10/bin/elasticsearch
 
+Install https://github.com/emilmont/pyStatParser

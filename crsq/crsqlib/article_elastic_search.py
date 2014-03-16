@@ -38,7 +38,8 @@ def indexdoc(articledict):
 		'title' : articledict['articletitle'],
 		'url': articledict['url'],
 		'tags': articledict['tags'],
-		'domain': articledict['domain']
+		'domain': articledict['domain'],
+		'articleid': articledict['id']
 	}
 	
 	createarticleindex()
@@ -60,20 +61,30 @@ def searchdoc(keywordstr, num=30):
         if keywordstr.strip()=='':
                 return []
 
-	res = es.search(index="article-index", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title^2", "tags^3", "domain^3"]}}}, fields="url")
-	print("Got %d Hits:" % res['hits']['total'])
+	#res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
+
+        res = es.search(index="article-index", fields="url", body={"query": {
+            "custom_score": {
+                "script" : "_score * (1.00003**doc['articleid'].value)",
+                "query": {
+                	"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
+                },
+
+            }
+        }
+        })
+
 	urls = []
 	for hit in res['hits']['hits']:
 	    urls.append(hit["fields"]["url"])
 	    if len(urls)==num:
 		return urls
-	    #print("%(url)s: %(text)s" % hit["_source"])
 
 	return urls
 
 def getall():
 	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="")
-        print("Got %d Hits" % res['hits']['total'])
+        print("Getting all elements indexed - Got %d Hits" % res['hits']['total'])
 	if res['hits']['total']>0:
 		urls = map(lambda hit: hit["_id"], res['hits']['hits'])
 	else:
@@ -93,10 +104,19 @@ def refreshdbtoes():
 
 	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
 	indexurls = getall()
+	#for url in list(indexurls):
+	#	deleteurl(url)
+	#for url in list(dburls):
+	#	indexurl(url)
 	for url in list(set(indexurls)-set(dburls)):
 		deleteurl(url)
 	for url in list(set(dburls)-set(indexurls)):
 		indexurl(url)
 
 	return
+
+def num_articles_search_exact(string):
+
+	res = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string + '"', "fields": ["text", "title"]}}}, fields="")
+	return res['hits']['total']
 

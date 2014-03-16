@@ -68,7 +68,9 @@ def fa():
 	#for ny in nytlist:
 		#feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
 	logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
+	print "Load RSS in Table Done"
 	refreshdbtoes()
+	print "Refresh DB to ES Done"
 	return
 
 class getFeedAnalyzer(CronJobBase):
