@@ -69,7 +69,7 @@ def searchemail(keywordstr, num=20):
             "custom_score": {
                 "script" : "_score",
                 "query": {
-                        "query_string": {"query": keywordstr, "fields": ["from", "to", "cc", "bcc", "subject^2", "body^3"]}
+                        "query_string": {"query": keywordstr, "fields": ["subject^2", "body^3"]}
                 },
             }
         }
@@ -92,11 +92,14 @@ def indexemailhash(emailhash):
 
 def recommendedemails(emailhash):
 
-	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["from", "cc", "bcc", "subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
+	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
         if res['hits']['total']>0:
                 emailhashes = map(lambda hit: hit["_id"], res['hits']['hits'])
         else:
                 emailhashes = []
+
+	mysubject = EmailInfo.objects.get(emailhash=emailhash).subject.lower().replace('re: ', '')
+	emailhashes = filter(lambda x: not EmailInfo.objects.get(emailhash=x).subject.lower().replace('re: ','') == mysubject, emailhashes)
         return emailhashes
 
 def getall():

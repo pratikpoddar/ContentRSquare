@@ -65,7 +65,7 @@ def searchdoc(keywordstr, num=30):
 
         res = es.search(index="article-index", fields="url", body={"query": {
             "custom_score": {
-                "script" : "_score * (1.00003**doc['articleid'].value)",
+                "script" : "_score * (1.000008**doc['articleid'].value)",
                 "query": {
                 	"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
                 },

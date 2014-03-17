@@ -12,6 +12,9 @@ import nltk
 from stat_parser import Parser
 import nltk.data
 
+import sys
+sys.stdout = open("email_analyzer.dat", "w+")
+
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 parser = Parser()
 
@@ -23,11 +26,14 @@ def getBStext(html):
 
 def get_parsed_trees(text):
 	sentences = sent_tokenizer.tokenize(text)
-	return map(lambda sentence: parser.parse(sentence), sentences)
+	try:
+		return map(lambda sentence: parser.parse(sentence), sentences)
+	except:
+		return []
 
 def get_possible_event_tags(tree):
         try:
-            if tree.pos()[0][1] == 'IN':
+            if (tree.pos()[0][1] == 'IN') and (tree.pos()[0][0] in ['in', 'at', 'on']):
                 print tree[1]
                 for child in tree[1]:
                     print child
@@ -35,6 +41,23 @@ def get_possible_event_tags(tree):
                 get_possible_event_tags(child)
         except:
             pass
+
+def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime):
+
+	emailvec = filter(lambda x: x, [emailfrom, emailto, emailcc, emailbcc])
+
+        allpreviousemails = filter(lambda x: len(filter(lambda y: y in ' '.join(filter(lambda t: t, [x['emailfrom'], x['emailto'], x['emailccto'], x['emailbccto']])), emailvec)) > 0, EmailInfo.objects.all().values())
+
+	previousemails = filter(lambda z: z['emailtime'] < emailtime, allpreviousemails)
+	if len(previousemails)>2:
+		return 0
+
+	intro_words = ['connect', 'welcome', 'connect', 'glad to meet', 'meet', 'introduce', 'introduction', 'invite', 'join', 'appoint']
+	
+	if len(filter(lambda x: body.lower().find(x)>=0, intro_words)) == 0:
+		return 0
+
+	return 1
 
 def analyze_body(body):
 
@@ -58,15 +81,19 @@ def analyze_body(body):
 	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places, 'tags': tags }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
-messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
-messageids = messageids[:2]
+#messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
+#messageids = messageids[:2]
 
 def init():
 	print len(messageids)
 	for mid in messageids:
 		print mid
 		body = EmailInfo.objects.filter(messageid=mid).values('body')[0]['body']
+		e = EmailInfo.objects.filter(messageid=mid).values()[0]
 		d = analyze_body(body)
+		intro_email = is_introduction_email(e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto'], e['cleanbody'], e['emailtime'])
+		if intro_email == 1:
+			print "Intro Email: " + mid
 		print "...analyzed"
 		ei = EmailInfo.objects.get(messageid=mid)
 		ei.shortbody = d['shortbody']
@@ -88,4 +115,4 @@ def init():
 					print exc
 
 
-
+init()
