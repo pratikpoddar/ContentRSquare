@@ -108,6 +108,8 @@ class EmailInfo(models.Model):
     efzpsignature = models.TextField()
     tags = models.TextField()
     places = models.TextField()
+    eventtags = models.TextField()
+    introductiontags = models.TextField()
     messageid = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def save(self):

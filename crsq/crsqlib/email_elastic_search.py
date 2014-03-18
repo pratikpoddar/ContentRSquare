@@ -99,6 +99,7 @@ def recommendedemails(emailhash):
                 emailhashes = []
 
 	mysubject = EmailInfo.objects.get(emailhash=emailhash).subject.lower().replace('re: ', '')
+	emailhashes = map(lambda x: x['emailhash'], filter(lambda x: EmailInfo.objects.filter(emailhash__in=emailhashes).values('emailhash')))
 	emailhashes = filter(lambda x: not EmailInfo.objects.get(emailhash=x).subject.lower().replace('re: ','') == mysubject, emailhashes)
         return emailhashes
 

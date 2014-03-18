@@ -12,9 +12,6 @@ import nltk
 from stat_parser import Parser
 import nltk.data
 
-import sys
-sys.stdout = open("email_analyzer.dat", "w+")
-
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 parser = Parser()
 
@@ -32,15 +29,18 @@ def get_parsed_trees(text):
 		return []
 
 def get_possible_event_tags(tree):
+	output = []
         try:
             if (tree.pos()[0][1] == 'IN') and (tree.pos()[0][0] in ['in', 'at', 'on']):
-                print tree[1]
+		output.append(tree[1])
                 for child in tree[1]:
-                    print child
+                    output.append(child)
             for child in tree:
-                get_possible_event_tags(child)
+                output += get_possible_event_tags(child)
         except:
             pass
+	
+	return output
 
 def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime):
 
@@ -76,9 +76,10 @@ def analyze_body(body):
 	tags = removeNonAscii(' '.join(tags))
 
 	event_tags = map(lambda x: get_possible_event_tags(x), get_parsed_trees(cleanbody))
+	eventtags = str(event_tags)
 	places = geodict_lib.find_locations_in_text(cleanbody)
 
-	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places, 'tags': tags }
+	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places, 'tags': tags, 'eventtags': eventtags }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
 #messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
@@ -86,14 +87,12 @@ messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody=''
 
 def init():
 	print len(messageids)
-	for mid in messageids:
+	for mid in messageids[:4]:
 		print mid
 		body = EmailInfo.objects.filter(messageid=mid).values('body')[0]['body']
 		e = EmailInfo.objects.filter(messageid=mid).values()[0]
 		d = analyze_body(body)
 		intro_email = is_introduction_email(e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto'], e['cleanbody'], e['emailtime'])
-		if intro_email == 1:
-			print "Intro Email: " + mid
 		print "...analyzed"
 		ei = EmailInfo.objects.get(messageid=mid)
 		ei.shortbody = d['shortbody']
@@ -102,6 +101,8 @@ def init():
 		ei.efzpsignature = d['efzpsignature']
 		ei.places = d['places']
 		ei.tags = d['tags']
+		ei.eventtags = d['eventtags']
+		ei.introudctiontags = str(intro_email)
 		try:
 			ei.save()
 		except Exception as exc:
