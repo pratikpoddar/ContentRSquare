@@ -23,29 +23,29 @@ def get_article_semantics_tags():
 	ase = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
 	tobeexpanded = list(set(tl)-set(ase))
 
-	print str(len(tobeexpanded)) + " articles left from tweetlinks to get sematics tags"
+	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get sematics tags")
 	for l in tobeexpanded:
 		print "twitter newspaper - getting article_semantics_tags " + l
 		twitter_newspaper.put_article_semantics_tags(l)
 	return
 
 def run_twitter_newspaper(tuser, tlist):
-	print "Starting to run twitter newspaper"
+	logger.exception("Starting to run twitter newspaper")
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
 	twitter_newspaper.get_list_timeline(tuser, tlist, 250)
 	get_articles()
-	print "Get articles done"
+	logger.exception("Get articles done")
 	get_article_semantics_tags()
-	print "Get article semantics tags done"
+	logger.exception("Get article semantics tags done")
 	logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
 def time_dependent_tw_np(toberun):
 
 	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
-	print "Run Twitter Newspaper Done"
+	logger.exception("Run Twitter Newspaper Done")
 	refreshdbtoes()
-	print "Refresh DB to ES Done"
+	logger.exception("Refresh DB to ES Done")
 	return
 	
 class getTwitterNewspaper(CronJobBase):

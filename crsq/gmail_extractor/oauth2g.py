@@ -324,13 +324,14 @@ result, data = imap_conn.search(None, 'FROM', '"gmail"')
 ids = data[0] # data is a list.
 id_list = ids.split() # ids is a space separated string
 id_list.reverse()
-email_ids = id_list[:800]
+email_ids = id_list[:500]
 
 emails = []
 counter = 0
 for email_id in email_ids:
-	result, data = imap_conn.fetch(email_id, "(RFC822)") # fetch the email body (RFC822) for the given ID
+	result, data = imap_conn.fetch(email_id, "(X-GM-THRID X-GM-MSGID RFC822)") # fetch the email body (RFC822) for the given ID
         raw_email = data[0][1]
+	extra_info = data[0][0]
         emails.append(raw_email)
 	print counter
 	counter+=1

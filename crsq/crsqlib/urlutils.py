@@ -64,12 +64,12 @@ def getSocialShares(url):
 	fb = 0
 	tw = 0
 	try:
-		fb = int(simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url))[url]['shares'])
+		fb = int(simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url, timeout=3))[url]['shares'])
 	except Exception as e:
 		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 	
 	try:
-		tw = int(simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url))['count'])
+		tw = int(simplejson.load(urllib2.urlopen("http://urls.api.twitter.com/1/urls/count.json?url="+url, timeout=3))['count'])
 	except Exception as e:
 		logger.debug('urlutils - getSocialShares - ' + url + ' ' + str(e))
 

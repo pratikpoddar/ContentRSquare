@@ -56,12 +56,19 @@ def deleteurl(url):
 
 	return
 
-def searchdoc(keywordstr, num=30):
+def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0):
 
         if keywordstr.strip()=='':
                 return []
 
-	#res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
+	if weightfrontloading== 1.0:
+		keywordstr = keywordstr
+	else:
+		keywordlist = keywordstr.split(' ')
+		keywordpower = map(lambda y: 1+ (y-1)*(weightfrontloading-1)/(len(keywordlist)-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
+		keywordstr = ' '.join(map(lambda x: x[0]+"^"+str(x[1]), zip(keywordlist,keywordpower)))
+
+        #res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
 
         res = es.search(index="article-index", fields="url", body={"query": {
             "custom_score": {
@@ -76,9 +83,10 @@ def searchdoc(keywordstr, num=30):
 
 	urls = []
 	for hit in res['hits']['hits']:
-	    urls.append(hit["fields"]["url"])
-	    if len(urls)==num:
-		return urls
+	    if hit['_score']>threshold:
+		    urls.append(hit["fields"]["url"])
+		    if len(urls)==num:
+			return urls
 
 	return urls
 
@@ -96,7 +104,7 @@ def indexurl(url):
 	articledict = ArticleInfo.objects.filter(url=url).values()[0]
 	tags = ' '.join(map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag')))
 	domain = urlparse(url)[1]
-	if len(articledict):
+	if len(articledict) and len(tags)>0:
 		indexdoc(dict(articledict.items() + [('tags', tags), ('domain', domain)]))
 	return
 

@@ -11,6 +11,8 @@ from crsq.crsqlib import article_elastic_search
 import nltk
 from stat_parser import Parser
 import nltk.data
+from random import shuffle
+import email
 
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 parser = Parser()
@@ -44,20 +46,35 @@ def get_possible_event_tags(tree):
 
 def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime):
 
-	emailvec = filter(lambda x: x, [emailfrom, emailto, emailcc, emailbcc])
+        emailvec = filter(lambda x: x, [emailfrom, emailto, emailcc, emailbcc])
+	emailstring = ', '.join(emailvec)
 
-        allpreviousemails = filter(lambda x: len(filter(lambda y: y in ' '.join(filter(lambda t: t, [x['emailfrom'], x['emailto'], x['emailccto'], x['emailbccto']])), emailvec)) > 0, EmailInfo.objects.all().values())
-
-	previousemails = filter(lambda z: z['emailtime'] < emailtime, allpreviousemails)
-	if len(previousemails)>2:
-		return 0
-
-	intro_words = ['connect', 'welcome', 'connect', 'glad to meet', 'meet', 'introduce', 'introduction', 'invite', 'join', 'appoint']
+	emailtuples = map(lambda x: email.utils.parseaddr(x.strip()), emailstring.split(','))
 	
-	if len(filter(lambda x: body.lower().find(x)>=0, intro_words)) == 0:
-		return 0
+	emaillist = map(lambda x: x[1], emailtuples)
 
-	return 1
+	print emaillist
+
+	possibleintro = []
+
+	for e in emaillist:
+		previousemails = filter(lambda x: e in ' '.join(filter(lambda t: t, [x['emailfrom'], x['emailto'], x['emailccto'], x['emailbccto']])) > 0, EmailInfo.objects.filter(emailtime__lt=emailtime).values())
+
+		if len(previousemails)<3:
+			possibleintro.append(e.strip())
+
+	intro_words = ['connect', 'welcome', 'connect', 'meet', 'introduce', 'introduction', 'introducing', 'invite', 'join', 'appoint', 'pleasure to', 'happy to', 'glad to']
+	
+	if len(possibleintro) == 0:
+		return ''
+	if len(filter(lambda x: body.lower().find(x)>=0, intro_words)) == 0:
+		return ''
+
+	output = []
+	for pi in possibleintro:
+		map(lambda y: y[0] + "<" + y[1] + ">", filter(lambda x: x[1]==pi, emailtuples))
+
+	return output
 
 def analyze_body(body):
 
@@ -77,43 +94,46 @@ def analyze_body(body):
 
 	event_tags = map(lambda x: get_possible_event_tags(x), get_parsed_trees(cleanbody))
 	eventtags = str(event_tags)
-	places = geodict_lib.find_locations_in_text(cleanbody)
+
+	places = ''
+	#places = geodict_lib.find_locations_in_text(cleanbody)
 
 	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places, 'tags': tags, 'eventtags': eventtags }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
-#messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
+messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
 #messageids = messageids[:2]
+shuffle(messageids)
+messageids += [EmailInfo.objects.filter(emailhash='287196092109604632134099517296500982492')[0].messageid]
 
 def init():
 	print len(messageids)
-	for mid in messageids[:4]:
+	for mid in messageids[:89]:
 		print mid
 		body = EmailInfo.objects.filter(messageid=mid).values('body')[0]['body']
 		e = EmailInfo.objects.filter(messageid=mid).values()[0]
-		d = analyze_body(body)
+		#d = analyze_body(body)
 		intro_email = is_introduction_email(e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto'], e['cleanbody'], e['emailtime'])
 		print "...analyzed"
 		ei = EmailInfo.objects.get(messageid=mid)
-		ei.shortbody = d['shortbody']
-		ei.cleanbody = d['cleanbody']
-		ei.efzpshortbody = d['efzpshortbody']
-		ei.efzpsignature = d['efzpsignature']
-		ei.places = d['places']
-		ei.tags = d['tags']
-		ei.eventtags = d['eventtags']
-		ei.introudctiontags = str(intro_email)
+		#ei.shortbody = d['shortbody']
+		#ei.cleanbody = d['cleanbody']
+		#ei.efzpshortbody = d['efzpshortbody']
+		#ei.efzpsignature = d['efzpsignature']
+		#ei.places = d['places']
+		#ei.tags = d['tags']
+		#ei.eventtags = d['eventtags']
+		ei.introductiontags = str(intro_email)
 		try:
 			ei.save()
 		except Exception as exc:
 			print exc
-		for l in d['links']:
-			if EmailLinks.objects.filter(messageid=mid, link=l).count()==0:
-				try:
-					el = EmailLinks(messageid=mid, link=l)
-					el.save()
-				except Exception as exc:
-					print exc
-
+		#for l in d['links']:
+		#	if EmailLinks.objects.filter(messageid=mid, link=l).count()==0:
+		#		try:
+		#			el = EmailLinks(messageid=mid, link=l)
+		#			el.save()
+		#		except Exception as exc:
+		#			print exc
 
 init()

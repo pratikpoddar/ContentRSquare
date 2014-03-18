@@ -308,7 +308,7 @@ def emailrecommender(request, emailhash):
 	#	subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
 	#	recommendedemails.append((subject, ehash))
 
-	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), 30)
+	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.4, weightfrontloading=20.0)
 	recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 
         template = loader.get_template('crsq/emailrecommender/index.html')
