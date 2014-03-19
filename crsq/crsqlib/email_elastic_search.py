@@ -40,6 +40,7 @@ def indexemail(emaildict):
 		'bcc': emaildict['emailbccto'],
 		'subject': emaildict['subject'],
 		'body': emaildict['cleanbody'].replace('@',' ').replace('gmail.com', ''),
+		'efzpshortbody': emaildict['efzpshortbody'].replace('@',' ').replace('gmail.com', ''),
 		'messageid': emaildict['messageid'],
 		'emailhash': emaildict['emailhash'],
 	}
@@ -69,7 +70,7 @@ def searchemail(keywordstr, num=20):
             "custom_score": {
                 "script" : "_score",
                 "query": {
-                        "query_string": {"query": keywordstr, "fields": ["subject^2", "body^3"]}
+                        "query_string": {"query": keywordstr, "fields": ["subject^2", "efzpshortbody^3", "body^3"]}
                 },
             }
         }
@@ -92,7 +93,7 @@ def indexemailhash(emailhash):
 
 def recommendedemails(emailhash):
 
-	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["subject^2", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
+	res = es.mlt(index="email-index", doc_type="email", body={"query": {"query_string": {"query": "\*", "fields": ["subject^2", "efzpshortbody^3", "body^3"]}}}, id=emailhash, percent_terms_to_match=0.1)
         if res['hits']['total']>0:
                 emailhashes = map(lambda hit: hit["_id"], res['hits']['hits'])
         else:

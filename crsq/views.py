@@ -316,12 +316,22 @@ def emailrecommender(request, emailhash):
 	introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
 	recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
 
+	try:
+		locstr = e['eventtags2'].replace("'", '"').replace('u"', '"')
+		loclist = json.loads(locstr)['locationtags']
+		locationtags = urllib2.quote(' '.join(loclist))
+		reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
+	except Exception as exc:
+		logger.exception(exc)
+		reviewlinks = ''
+
         template = loader.get_template('crsq/emailrecommender/index.html')
         context = RequestContext(request, {
                 'e': e,
 		'recommendedemails': recommendedemails,
 		'recommendedlinks': recommendedlinks,
-		'recommendedlinks_from_introduction': recommendedlinks_from_introduction
+		'recommendedlinks_from_introduction': recommendedlinks_from_introduction,
+		'reviewlinks': reviewlinks
         })
 
         return HttpResponse(template.render(context))

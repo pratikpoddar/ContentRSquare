@@ -103,13 +103,13 @@ def analyze_body(body):
 
 	#places = geodict_lib.find_locations_in_text(cleanbody)
 
-	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'places': places, 'tags': tags, 'eventtags': eventtags }
+	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'eventtags2': eventtags2, 'tags': tags, 'eventtags': eventtags }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
 #messageids = messageids[:2]
 shuffle(messageids)
-messageids = [EmailInfo.objects.filter(emailhash='249649030772104449406858135941847810907')[0].messageid]
+messageids += [EmailInfo.objects.filter(emailhash='249649030772104449406858135941847810907')[0].messageid]
 
 def init():
 	print len(messageids)
@@ -142,3 +142,4 @@ def init():
 					print exc
 
 init()
+
