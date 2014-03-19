@@ -56,8 +56,9 @@ def deleteurl(url):
 
 	return
 
-def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0):
+def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=8.0):
 
+	recency = recencyweight/1000000
         if keywordstr.strip()=='':
                 return []
 
@@ -65,14 +66,14 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0):
 		keywordstr = keywordstr
 	else:
 		keywordlist = keywordstr.split(' ')
-		keywordpower = map(lambda y: 1+ (y-1)*(weightfrontloading-1)/(len(keywordlist)-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
+		keywordpower = map(lambda y: 1+ (y**2-1)*(weightfrontloading-1)/(len(keywordlist)**2-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
 		keywordstr = ' '.join(map(lambda x: x[0]+"^"+str(x[1]), zip(keywordlist,keywordpower)))
 
         #res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
 
         res = es.search(index="article-index", fields="url", body={"query": {
             "custom_score": {
-                "script" : "_score * (1.000008**doc['articleid'].value)",
+                "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
                 "query": {
                 	"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
                 },

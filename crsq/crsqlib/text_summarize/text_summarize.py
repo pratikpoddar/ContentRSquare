@@ -167,6 +167,46 @@ def get_python_tagger(text, tag_meaning=True):
 		return tags
 	
 
+def get_nltk_ne_ner(text):
+
+        text = crsq_unicode(text)
+        logger.debug('## NLTK NE NER ##')
+        try:
+                pos_tags = nltk.pos_tag(nltk.word_tokenize(text))
+                ne = nltk.ne_chunk(pos_tags, binary=False)
+                locationtags = []
+		timetags = []
+                for i in range(len(ne)):
+                        try:
+                                if (ne[i].node=="ORGANIZATION") or (ne[i].node=="LOCATION"):
+                                        locationtags.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+                        except:
+                                pass
+
+                        try:
+                                if (ne[i].node=="DATE") or (ne[i].node=="TIME"):
+                                        timetags.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
+                        except:
+                                pass
+			
+
+                locationtags = filter(lambda x: len(x)>4, locationtags)
+                locationtags = filter(lambda x: x.replace(' ','').isalnum(), locationtags)
+                locationtags = filter(lambda x: not unicode(x).replace(' ','').isdecimal(), locationtags)
+                timetags = filter(lambda x: len(x)>4, timetags)
+                timetags = filter(lambda x: x.replace(' ','').isalnum(), timetags)
+                timetags = filter(lambda x: not unicode(x).replace(' ','').isdecimal(), timetags)
+	
+		tags = {'locationtags': locationtags, 'timetags': timetags}
+                logger.debug(tags)
+
+		return tags
+
+        except Exception as e:
+                logger.exception('text_summarize.py - get_nltk_ne_ner - error - '+ str(e))
+                raise
+
+
 def get_nltk_ne(text, tag_meaning=True):
 
 	text = crsq_unicode(text)

@@ -7,6 +7,8 @@
 
 From: {{ e.emailfrom }}<br/>
 To: {{ e.emailto }}<br/>
+Cc: {{ e.emailccto }}<br/>
+Bcc: {{ e.emailbccto }}<br/>
 Subject: {{ e.subject }}<br/><br/>
 Body: {{ e.body }}<br/><br/>
 ShortBody: {{ e.shortbody }}<br/><br/>
@@ -14,13 +16,7 @@ CleanBody: {{ e.cleanbody }}<br/><br/>
 Tags: {{ e.tags }}<br/><br/>
 Introduction Email??: {{ e.introductiontags }}<br/><br/>
 EventTags: {{ e.eventtags }}<br/><br/>
-Places: {{ e.places }}<br/><br/>
-
-Recommended Emails:<br/>
-{% for r in recommendedemails %}
-	<a href='/emailrecommender/{{ r.1 }}' target="_blank">{{ r.0  }}</a><br/>
-{% endfor %}
-<br/>
+EventTags2: {{ e.eventtags2 }}<br/><br/>
 
 Recommended Links:<br/>
 {% for r in recommendedlinks %}
@@ -28,7 +24,17 @@ Recommended Links:<br/>
 {% endfor %}
 <br/>
 
+Recommended Links from Introduction:<br/>
+{% for r in recommendedlinks_from_introduction %}
+        <a href='{{ r }}' target="_blank">{{ r }}</a><br/>
+{% endfor %}
+<br/>
 
+Recommended Emails:<br/>
+{% for r in recommendedemails %}
+        <a href='/emailrecommender/{{ r.1 }}' target="_blank">{{ r.0  }}</a><br/>
+{% endfor %}
+<br/>
 
 
 </body>

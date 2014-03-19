@@ -10,6 +10,7 @@ from django.db.models import Count
 
 from django.core.context_processors import csrf
 
+import re
 import urllib
 import urllib2
 from datetime import datetime
@@ -308,14 +309,19 @@ def emailrecommender(request, emailhash):
 	#	subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
 	#	recommendedemails.append((subject, ehash))
 
-	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.4, weightfrontloading=20.0)
+	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
 	recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+	
+	introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
+	introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
+	recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
 
         template = loader.get_template('crsq/emailrecommender/index.html')
         context = RequestContext(request, {
                 'e': e,
 		'recommendedemails': recommendedemails,
-		'recommendedlinks': recommendedlinks
+		'recommendedlinks': recommendedlinks,
+		'recommendedlinks_from_introduction': recommendedlinks_from_introduction
         })
 
         return HttpResponse(template.render(context))
