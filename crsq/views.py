@@ -302,6 +302,12 @@ def dbchecker(request, extraparam=0):
 
 def emailrecommender(request, emailhash):
 
+	if EmailInfo.objects.filter(emailhash=emailhash).count()==0:
+	        return HttpResponse("<html><body>Email Recommender - Wrong Input</body></html>")
+
+	if len(EmailInfo.objects.get(emailhash=emailhash).cleanbody)<50:
+		return HttpResponse("<html><body>Email Recommender - Too short an email</body></html>")
+
 	e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
 	ehashes = email_elastic_search.recommendedemails(emailhash)
 	recommendedemails = []
