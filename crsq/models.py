@@ -22,6 +22,7 @@ class AmazonProd(models.Model):
 class TweetLinks(models.Model):
     author = models.CharField(max_length=100L, null=False, db_index=True)
     tweetid = models.BigIntegerField(null=False, db_index=True)
+    tweettext = models.CharField(max_length=1000L, null=True, default='')
     url = models.CharField(max_length=255L, null=False, db_index=True)
     class Meta:
         unique_together = (("tweetid", "url"),)

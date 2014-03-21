@@ -107,7 +107,7 @@ def search_twitter(keyword, numlinks):
 		twitterkeywordlink = TwitterKeywordLinks(keyword=keyword, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 			for url in urls:
-				twitterlink = TweetLinks(tweetid=status.id, author=status.author.screen_name, url=url)
+				twitterlink = TweetLinks(tweetid=status.id, tweettext=crsq_unicode(status.text), author=status.author.screen_name, url=url)
 				try:
 					twitterlink.save()
 				except Exception as e:
@@ -168,7 +168,7 @@ def get_list_timeline(twitteruser, twitterlist, numlinks):
                 twitterlistlink = TwitterListLinks(twitteruser=twitteruser, twitterlist=twitterlist, tweetid=status.id)
 		if TweetLinks.objects.filter(tweetid=status.id).count() == 0:
 			for url in urls:
-				twitterlink = TweetLinks(tweetid=status.id, author=status.author.screen_name, url=url)
+				twitterlink = TweetLinks(tweetid=status.id, tweettext=crsq_unicode(status.text), author=status.author.screen_name, url=url)
 				try:
         	                        twitterlink.save()
 	                        except Exception as e:

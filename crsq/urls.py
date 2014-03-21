@@ -25,7 +25,9 @@ urlpatterns = patterns('',
 
 	url(r'^emailrecommender/([a-zA-Z0-9]+)/?$', views.emailrecommender, name='emailrecommender'),
 
-        url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker')
+        url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker'),
+	
+	url(r'^gmailemailjs/?$', views.gmailemailjs, name='gmailemailjs')
 
 
 )

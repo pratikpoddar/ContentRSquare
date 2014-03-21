@@ -54,6 +54,9 @@ def caa(request):
 	
         return HttpResponse(jsonresponse)
 
+def gmailemailjs(request):
+	return HttpResponse("<html><body>Gmail Email JS</body></html>")
+
 def tw_np(request, sector, location, page=1):
 
 	if (not filter(lambda x: slugify(x)==sector, twitter_newspaper.tw_np_sector_list)) or (not filter(lambda x: slugify(x)==location, twitter_newspaper.tw_np_location_list)):
