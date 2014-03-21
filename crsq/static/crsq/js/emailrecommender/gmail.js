@@ -1,5 +1,5 @@
 s = document.createElement('script');
-s.setAttribute('src', 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
+s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
 document.getElementsByTagName('head')[0].appendChild(s);
 var jqueryloadchecker = window.setInterval(checkJquery, 3000);
 var functioncallchecker = 0;
