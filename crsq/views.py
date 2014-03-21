@@ -170,7 +170,7 @@ def zippednewsapp(request, tag):
 		if 'elasticsearchfail' in request.GET.keys():
 			if request.GET['elasticsearchfail']=="True":
 				raise
-                urls = article_elastic_search.searchdoc(tag.replace('-',' ').title(), 30)
+                urls = article_elastic_search.searchdoc('"'+tag.replace('-',' ').title()+'"', 30)
                 urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	except:
 		# Elastic Search Failed
@@ -303,11 +303,11 @@ def dbchecker(request, extraparam=0):
 def emailrecommender(request, emailhash):
 
 	e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
-	#ehashes = email_elastic_search.recommendedemails(emailhash)
+	ehashes = email_elastic_search.recommendedemails(emailhash)
 	recommendedemails = []
-	#for ehash in ehashes[:5]:
-	#	subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
-	#	recommendedemails.append((subject, ehash))
+	for ehash in ehashes[:5]:
+		subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
+		recommendedemails.append((subject, ehash))
 
 	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
 	recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])

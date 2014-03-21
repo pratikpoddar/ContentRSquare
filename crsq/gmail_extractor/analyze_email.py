@@ -88,7 +88,8 @@ def analyze_body(body):
 	efzpshortbody = parsed_cleanbody['body']
 	efzpsignature = parsed_cleanbody['signature']
 
-	shortbody = removeNonAscii(' '.join(map(lambda x: getBStext(x.content),  filter(lambda y: not y.quoted, email_reply_parser.EmailReplyParser.read(body).fragments)))).strip()
+	#shortbody = removeNonAscii(' '.join(map(lambda x: getBStext(x.content),  filter(lambda y: not y.quoted, email_reply_parser.EmailReplyParser.read(body).fragments)))).strip()
+	shortbody = ''
 		
 	tags = list(set(map(lambda x: slugify(x), text_summarize.get_text_tags(cleanbody))))
 	tags = map(lambda x: x.replace('-',' '), tags)
@@ -106,14 +107,12 @@ def analyze_body(body):
 	return { 'cleanbody': cleanbody, 'links': links, 'shortbody': shortbody, 'efzpshortbody': efzpshortbody, 'efzpsignature': efzpsignature, 'eventtags2': eventtags2, 'tags': tags, 'eventtags': eventtags }
 
 messageids = map(lambda x: x['messageid'], EmailInfo.objects.filter(cleanbody='').values('messageid'))
-messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
-#messageids = messageids[:2]
+#messageids = map(lambda x: x['messageid'], EmailInfo.objects.all().values('messageid'))
 shuffle(messageids)
-messageids += [EmailInfo.objects.filter(emailhash='249649030772104449406858135941847810907')[0].messageid]
 
 def init():
 	print len(messageids)
-	for mid in messageids[:89]:
+	for mid in messageids:
 		print mid
 		body = EmailInfo.objects.filter(messageid=mid).values('body')[0]['body']
 		e = EmailInfo.objects.filter(messageid=mid).values()[0]

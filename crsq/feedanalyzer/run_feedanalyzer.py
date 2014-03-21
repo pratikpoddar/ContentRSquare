@@ -20,7 +20,7 @@ def fa():
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/crunchgear", "feed")
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/Techcrunch/europe", "feed")
 	feedextractor.load_rss_in_table("http://feeds.mashable.com/Mashable", "feed")
-	feedextractor.load_rss_in_table("http://yourstory.com/feed/", "feed")
+	feedextractor.load_rss_in_table("http://yourstory.com/feed/", "fromscratch")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1006", "feed")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1004", "feed")
 	feedextractor.load_rss_in_table("http://www.npr.org/rss/rss.php?id=1014", "feed")
