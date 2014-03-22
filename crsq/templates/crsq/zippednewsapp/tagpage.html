@@ -3,7 +3,13 @@
 {% load tagfilter %}
 
 {% block title %}
-ZippedNews: Real-time news related to "{{ tag | crsq_unslugify }}"
+"{{ tag | crsq_unslugify }}" News: ZippedNews
+{% endblock %}
+
+{% block metadescription %}
+	{% for article in articles %}
+		{{ article.articletitle }} 
+	{% endfor %}
 {% endblock %}
 
 {% block bodycontent %}
