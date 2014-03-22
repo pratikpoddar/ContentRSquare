@@ -29,6 +29,8 @@ from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTag
 
 from crsq.crsqlib import article_elastic_search, email_elastic_search
 
+from dateutil.parser import parse as dateutilparse
+
 import collections
 
 import random
@@ -55,7 +57,46 @@ def caa(request):
         return HttpResponse(jsonresponse)
 
 def gmailemailjs(request):
-	return HttpResponse("<html><body>Gmail Email JS</body></html>")
+
+	def getemailaddr(string):
+		return filter(lambda x: x.find('@')>0, string.split(' '))[-1].strip()
+
+	def getemailhash(username, fromaddr, subject, dateemail):
+		try:
+			return EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject).values('emailhash')[0]['emailhash']
+		except Exception as exc:
+			return []
+
+	emailidentifier = request.GET['emailidentifier']
+	username = request.GET['username']
+	offset = timedelta(hours=5, minutes=30)
+	openemails = emailidentifier.split(';;||;;||crsq||;;||;;')
+	openemails = filter(lambda x: len(x)>0, openemails)
+	emailhashes = []
+	for openemail in openemails:
+		openemailelems = openemail.split('--||--||crsq||--||--')
+		fromaddr = getemailaddr(filter(lambda x: x.find('from:')>-1, openemailelems)[0][5:].strip())
+		subject = filter(lambda x: x.find('subject:')>-1, openemailelems)[0][8:].strip()
+		try:
+			dateemail = dateutilparse(filter(lambda x: x.find('date:')>-1, openemailelems)[0][5:].strip())-offset
+			dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute)
+		except:
+			dateemail = None
+		emailhashes += [getemailhash(username, fromaddr, subject, dateemail)]
+		
+	emailhashes = filter(lambda x: x, emailhashes)
+	rlinks=[]
+	for emailhash in emailhashes:
+	        e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
+		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
+	        recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+		rlinks += recommendedlinks[:5]
+
+	output = ArticleInfo.objects.filter(url__in=rlinks).values('url', 'articletitle')
+	output = json.dumps([dict(x) for x in output])
+	
+	jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
+        return HttpResponse(jsonresponse)
 
 def tw_np(request, sector, location, page=1):
 

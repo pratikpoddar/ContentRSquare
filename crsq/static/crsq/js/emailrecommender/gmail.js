@@ -23,19 +23,18 @@ function gmailEmailRecommender() {
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
-	    url: "http://46.137.209.142/gmailemailjs",
+	    url: "https://46.137.209.142/gmailemailjs",
 	    data: { emailidentifier: emailidentifier, username: username },
 	    dataType: "jsonp",
 	    jsonp: 'jsonp_callback'
 	}).done(function(data) {
-	    result={'links': ["http://www.google.com", "http://www.yoyo.com"], 'titles': ["Google", "Yo Yo"]};
 	    console.log("CRSQ Gmail Email Recommender");
-	    console.log(result);
-	    showonsidebar(result);
-	)
+	    console.log(data['output']);
+	    showonsidebar(data['output']);
+	})
 }
 
-function showonsidebar(d) {
+function showonsidebar(l) {
 	if ($("#crsqdiv").length == 0) {
 	        $('.nH .adC').append('<div id="crsqdiv"></div>')
 	}
@@ -48,12 +47,10 @@ function showonsidebar(d) {
 
 	$('#rapportive-sidebar').hide();
 
-	links=d['links'];
-	titles=d['titles'];
-	arrlen=titles.length;
+	arrlen=l.length;
 
 	for (var i = 0; i < arrlen; i++) {
-        	$('#crsqdiv').append( "<div class='crsqtitle'>" + titles[i] + "</div><div class='crsqlink'><a href='" + links[i] + "'>" + links[i] + "</a></div><br/>");
+        	$('#crsqdiv').append( "<div class='crsqtitle'>" + l[i]['articletitle'] + "</div><div class='crsqlink'><a href='" + l[i]['url'] + "'>" + l[i]['url'] + "</a></div><br/>");
 	}
 }
 
@@ -64,8 +61,10 @@ function getGmailEmailsUniqueIdentifiers() {
         {
                 if ($(openemailelems[i]).hasClass('UszGxc')) {
                         openemails += ";;||;;||crsq||;;||;;";
-                }
-                openemails += $.trim(openemailelems[i].innerText) + "--||--||crsq||--||--";
+                };
+		if (($.trim(openemailelems[i].innerText).indexOf("from:")==0) || ($.trim(openemailelems[i].innerText).indexOf("subject:")==0) || ($.trim(openemailelems[i].innerText).indexOf("date:"))==0) {
+	                openemails += $.trim(openemailelems[i].innerText) + "--||--||crsq||--||--";
+		};
         }
         openemails += ";;||;;||crsq||;;||;;"
         return openemails
