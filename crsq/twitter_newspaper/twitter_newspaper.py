@@ -15,6 +15,16 @@ from functools32 import lru_cache
 
 logger = logging.getLogger(__name__)
 
+def crsq_unicode(s):
+
+        if s  == None:
+                return s
+
+        if isinstance(s, unicode):
+                return s
+        else:
+                return s.decode('utf-8')
+
 consumer_key="eULM1PaB0Aw7RQyvWbRzHA"
 consumer_secret="d9h1QnZE7PAh7DVmQO8yapgRptVoIu8yTlzisytR2YQ"
 access_token="66690578-Upv2U0brunkUKvP0W1IVHnS2z3wVeFS2EBSEV5J9z"

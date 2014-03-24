@@ -60,5 +60,18 @@ Content Clustering
 zippednews topic search typeahead
 
 Gmail-Extractor
-Check if gmail extractor identified by emailhash / messageid is correct
 Incorporate threadid somewhere in gmail extractor
+
+Email Link Recommender
+EiR - Check why not there in manjula email
+
+Email Contact Recommenders
+- Friends who might be interested in this email
+- My EiR friends
+- My UI/UX friends
+
+Who are the first users?
+- Evernote/Rapportive first users or power users
+
+How will you induce network effect?
+

@@ -13,8 +13,10 @@ def get_articles():
 	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
 	ai = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
+	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get article info")
 
 	for l in tobeexpanded:
+		print "twitter newspaper - getting article_info " + l
 		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
 	return
 
