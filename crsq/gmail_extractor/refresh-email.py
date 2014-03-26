@@ -54,7 +54,9 @@ def getConnection(user):
 	
 	return imap_conn
 
-def getEmails(imap_conn):
+def getNewEmails(user, imap_conn):
+
+	lastid = EmailUser.objects.get(email=user).lastid
 
 	result, data = imap_conn.search(None, 'FROM', '"gmail"')
 
@@ -62,6 +64,8 @@ def getEmails(imap_conn):
 	id_list = ids.split() # ids is a space separated string
 	id_list.reverse()
 	email_ids = id_list[:500]
+	email_ids = filter(lambda x: int(x) > int(lastid), email_ids)
+	newlastid = max(map(lambda x: int(x), email_ids))
 
 	emails = []
 	counter = 0
@@ -72,4 +76,11 @@ def getEmails(imap_conn):
 	        emails.append(raw_email)
 	        print counter
 	        counter+=1
+
+	eu = EmailUser.objects.get(email=user)
+	eu.lastid = str(newlastid)
+	eu.save()
+
+
+
 
