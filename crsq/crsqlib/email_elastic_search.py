@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from crsq.models import *
 from urlparse import urlparse
+import logging
 
 es = Elasticsearch()
 
