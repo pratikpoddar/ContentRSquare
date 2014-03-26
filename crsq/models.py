@@ -93,6 +93,14 @@ class PenPatronUser(models.Model):
     message = models.CharField(max_length=1000L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
+class EmailUser(models.Model):
+    name = models.CharField(max_length=255L, null=False)
+    email = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    refreshtoken = models.TextField()
+    accesstoken = models.TextField()
+    lastid = models.TextField()
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+
 class EmailInfo(models.Model):
     emailhash = models.CharField(max_length=255L, db_index=True, unique=True)
     user = models.CharField(max_length=255L, null=False)
