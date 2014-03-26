@@ -1,8 +1,16 @@
 from elasticsearch import Elasticsearch
 from crsq.models import ArticleInfo, ArticleTags
 from urlparse import urlparse
+import logging
 
 es = Elasticsearch()
+
+# get trace logger and set level
+tracer = logging.getLogger('elasticsearch.trace')
+tracer.setLevel(logging.DEBUG)
+
+# add handlers to tracer
+tracer.addHandler(logging.FileHandler('/var/log/elasticsearch/debug.log'))
 
 def createarticleindex():
 
