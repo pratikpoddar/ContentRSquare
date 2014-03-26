@@ -35,7 +35,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com', 'thereformedbroker.com', 'indiadigitalreview.com', 'jwatch.org', 'c-span.org', 'whitehouse.gov', 'uber.com', 'ritholtz.com', 'geekwire.com', 'online.wsj.com', 'guardianlv.com']
+twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com', 'thereformedbroker.com', 'indiadigitalreview.com', 'jwatch.org', 'c-span.org', 'whitehouse.gov', 'uber.com', 'ritholtz.com', 'geekwire.com', 'guardianlv.com']
 
 tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business"]
 tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India"]

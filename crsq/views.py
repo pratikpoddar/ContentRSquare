@@ -367,8 +367,7 @@ def emailrecommender(request, emailhash):
 	recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
 
 	try:
-		locstr = e['eventtags2'].replace("'", '"').replace('u"', '"')
-		loclist = json.loads(locstr)['locationtags']
+		loclist = json.loads(e['eventtags2'])['locationtags']
 		locationtags = urllib2.quote(' '.join(loclist))
 		reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
 	except Exception as exc:

@@ -8,7 +8,7 @@
 
 {% block metadescription %}
 	{% if articles %}
-	Real Time News related to "{{ tag | crsq_unslugify }}"
+	Real Time News related to '{{ tag | crsq_unslugify }}'
 	{% endif %}
 	{% for article in articles %}
 		 - {{ article.articletitle }}

@@ -110,6 +110,7 @@ class EmailInfo(models.Model):
     emailbccto = models.CharField(max_length=1000L, default='', null=True, blank=True)
     subject = models.CharField(max_length=1000L, default='')
     emailtime = models.DateTimeField()
+    extrainfo = models.TextField()
     body = models.TextField()
     cleanbody = models.TextField()
     shortbody = models.TextField()
@@ -129,10 +130,10 @@ class EmailInfo(models.Model):
 
 
 class EmailLinks(models.Model):
-    messageid = models.CharField(max_length=255L, db_index=True)
+    emailhash = models.CharField(max_length=255L, db_index=True)
     link = models.CharField(max_length=255L, db_index=True)
     class Meta:
-        unique_together = (("messageid", "link"),)
+        unique_together = (("emailhash", "link"),)
 
  
 	

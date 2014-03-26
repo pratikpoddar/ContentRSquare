@@ -185,6 +185,7 @@ nltk.download('maxent_treebank_pos_tagger')
 nltk.download('maxent_ne_chunker')
 nltk.download('words')
 nltk.download('stopwords')
+In nltk wget http://nlp.stanford.edu/software/stanford-ner-2014-01-04.zip
 pip install -U textblob
 curl https://raw.github.com/sloria/TextBlob/master/download_corpora.py | python
 easy_install stemming

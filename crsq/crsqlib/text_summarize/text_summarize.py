@@ -28,13 +28,17 @@ from crsq.models import *
 from crsq.crsqlib.text_summarize import text_topic_brown
 
 from django.template.defaultfilters import slugify
+from nltk.tag.stanford import NERTagger
 
 import logging
+
 
 logger = logging.getLogger(__name__)
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
+
+stanford_ner_tagger = NERTagger('/home/ubuntu/nltk_data/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz', '/home/ubuntu/nltk_data/stanford-ner/stanford-ner.jar')
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
@@ -76,11 +80,11 @@ def get_text_tags(text):
 		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
 		pass
 
-	try:
-		output_tags += get_topia_termextract(text, tag_meaning=False)
-	except Exception as e:
-		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
-		pass
+	#try:
+	#	output_tags += get_topia_termextract(text, tag_meaning=False)
+	#except Exception as e:
+	#	logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
+	#	pass
 
 	return list(set(output_tags))
 
@@ -172,32 +176,20 @@ def get_nltk_ne_ner(text):
         text = crsq_unicode(text)
         logger.debug('## NLTK NE NER ##')
         try:
-                pos_tags = nltk.pos_tag(nltk.word_tokenize(text))
-                ne = nltk.ne_chunk(pos_tags, binary=False)
-                locationtags = []
-		timetags = []
-                for i in range(len(ne)):
-                        try:
-                                if (ne[i].node=="ORGANIZATION") or (ne[i].node=="LOCATION"):
-                                        locationtags.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
-                        except:
-                                pass
+		tags = stanford_ner_tagger.tag(text.split())
+		cursortag = ''
+		tags_traversed = []
+		for tag in tags:
+			if tag[1]==cursortag:
+				tags_traversed[-1] = (tags_traversed[-1][0] + ' ' + tag[0], tags_traversed[-1][1])
+			else:
+				tags_traversed.append(tag)
+				cursortag = tag[1]			
+		
+		locationtags = map(lambda y: y[0], filter(lambda x: x[1] == 'LOCATION', tags_traversed))
+		#timetags = map(lambda y: y[0], filter(lambda x: (x[1] == 'DATE') or (x[1] == 'TIME'), tags_traversed))
 
-                        try:
-                                if (ne[i].node=="DATE") or (ne[i].node=="TIME"):
-                                        timetags.append(' '.join(map(lambda x: x[0], ne[i].leaves())))
-                        except:
-                                pass
-			
-
-                locationtags = filter(lambda x: len(x)>4, locationtags)
-                locationtags = filter(lambda x: x.replace(' ','').isalnum(), locationtags)
-                locationtags = filter(lambda x: not unicode(x).replace(' ','').isdecimal(), locationtags)
-                timetags = filter(lambda x: len(x)>4, timetags)
-                timetags = filter(lambda x: x.replace(' ','').isalnum(), timetags)
-                timetags = filter(lambda x: not unicode(x).replace(' ','').isdecimal(), timetags)
-	
-		tags = {'locationtags': locationtags, 'timetags': timetags}
+		tags = {'locationtags': locationtags}
                 logger.debug(tags)
 
 		return tags
