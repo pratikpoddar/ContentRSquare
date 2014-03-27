@@ -9,10 +9,6 @@ function jqueryLoaded() {
 	if (functioncallchecker == 0) {
 		functioncallchecker = 1;
 		gmailEmailRecommender();
-	        $(document).click(function() {
-	          gmailEmailRecommender()
-	        });
-		
 	}
 }
  
@@ -36,6 +32,10 @@ function gmailEmailRecommender() {
 	    console.log("CRSQ Gmail Email Recommender");
 	    console.log(data['output']);
 	    showonsidebar(data['output']);
+            $(document).click(function() {
+                 gmailEmailRecommender()
+            });
+	    
 	})
 }
 
