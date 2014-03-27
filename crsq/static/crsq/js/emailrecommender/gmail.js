@@ -8,7 +8,11 @@ function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
 	if (functioncallchecker == 0) {
 		functioncallchecker = 1;
-		gmailEmailRecommender()
+		gmailEmailRecommender();
+	        $(document).click(function() {
+	          gmailEmailRecommender()
+	        });
+		
 	}
 }
  
@@ -16,6 +20,7 @@ function checkJquery() {
 	clearInterval(jqueryloadchecker);
 	if (window.jQuery) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJquery, 3000);}
 }
+
  
 function gmailEmailRecommender() {
 	var emailidentifier = getGmailEmailsUniqueIdentifiers();
@@ -34,8 +39,9 @@ function gmailEmailRecommender() {
 	})
 }
 
-function showonsidebar(l) {
+function showonsidebar(l) {	
 	if ($("#crsqdiv").length == 0) {
+		$('.nH .adC').html('')
 	        $('.nH .adC').append('<div id="crsqdiv"></div>')
 	}
 	else {
@@ -44,7 +50,6 @@ function showonsidebar(l) {
 
 	$("#crsqdiv").append('<style type="text/css"> .crsqtitle { font-size:80%; color: #222;} .crsqlink {font-size:70%;} </style>');
 	$("#crsqdiv").append('Antaryaami Suggestions<br/><br/>');
-
 	$('#rapportive-sidebar').hide();
 
 	arrlen=l.length;

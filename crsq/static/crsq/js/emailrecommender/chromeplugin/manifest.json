@@ -1,0 +1,15 @@
+{
+  "name": "CRSQ Gmail Email Recommender",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [ {
+      "exclude_globs": [  ],
+      "include_globs": [  ],
+      "js": [ "contentscript.js" ],
+      "matches": [ "http://mail.google.com/mail*", "https://mail.google.com/mail*", "http://mail.google.com/a/*", "https://mail.google.com/a/*" ]
+   } ],
+  "web_accessible_resources": ["contentscript.js"],
+  "converted_from_user_script": true,
+  "description": "Context Aware Information Discovery"
+}
+
