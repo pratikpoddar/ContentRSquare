@@ -63,8 +63,7 @@ def getNewEmails(user):
 	ids = data[0] # data is a list.
 	id_list = ids.split() # ids is a space separated string
 	id_list.reverse()
-	email_ids = id_list[:500]
-	email_ids = filter(lambda x: int(x) > int(lastid), email_ids)
+	email_ids = filter(lambda x: int(x) > int(lastid), id_list)
 
 	if len(email_ids)==0:
 		return

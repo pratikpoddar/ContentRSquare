@@ -139,5 +139,5 @@ def analyze_emails(emailhashes):
 
 emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.filter(cleanbody='').values('emailhash'))
 #emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.all().values('emailhash'))
-analyze_emails(emailhashes[:2])
+analyze_emails(emailhashes)
 
