@@ -40,7 +40,7 @@ def check_if_googlesearch_is_a_tag(googlesearch):
 
 	return None
 
-google_trends = {k: filter(lambda y: y, list(set(map(lambda x: check_if_googlesearch_is_a_tag(x), v)))) for k, v in google_trends.items()}
+#google_trends = {k: filter(lambda y: y, list(set(map(lambda x: check_if_googlesearch_is_a_tag(x), v)))) for k, v in google_trends.items()}
 tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'w')
 pickle.dump(google_trends, tagfile)
 tagfile.close()

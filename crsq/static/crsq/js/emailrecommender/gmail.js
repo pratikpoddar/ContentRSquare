@@ -3,12 +3,19 @@ s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'
 document.getElementsByTagName('head')[0].appendChild(s);
 var jqueryloadchecker = window.setInterval(checkJquery, 3000);
 var functioncallchecker = 0;
+var clickfunctionchecker = 0;
 
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
 	if (functioncallchecker == 0) {
 		functioncallchecker = 1;
 		gmailEmailRecommender();
+		if (clickfunctionchecker == 0) {
+			clickfunctionchecker = 1;
+	                $(window).click(function() {
+	                     gmailEmailRecommender()
+	                });
+		}	
 	}
 }
  
@@ -20,7 +27,7 @@ function checkJquery() {
  
 function gmailEmailRecommender() {
 	var emailidentifier = getGmailEmailsUniqueIdentifiers();
-	var username = "pratik.phodu@gmail.com";
+	var username = 'pratik.phodu@gmail.com';
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
@@ -32,10 +39,6 @@ function gmailEmailRecommender() {
 	    console.log("CRSQ Gmail Email Recommender");
 	    console.log(data['output']);
 	    showonsidebar(data['output']);
-            $(document).click(function() {
-                 gmailEmailRecommender()
-            });
-	    
 	})
 }
 

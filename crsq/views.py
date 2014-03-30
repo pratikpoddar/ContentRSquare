@@ -214,7 +214,7 @@ def zippednewsapp(request, tag):
 		if 'elasticsearchfail' in request.GET.keys():
 			if request.GET['elasticsearchfail']=="True":
 				raise
-                urls = article_elastic_search.searchdoc('"'+tag.replace('-',' ').title()+'"', 30)
+                urls = article_elastic_search.searchdoc(tag.replace('-',' ').title(), 30)
                 urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	except:
 		# Elastic Search Failed
