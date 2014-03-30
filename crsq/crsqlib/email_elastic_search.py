@@ -123,6 +123,8 @@ def getall():
 
 def refreshdbtoes():
 	
+	return
+	
 	dbhashes = map(lambda x:x ['emailhash'], EmailInfo.objects.all().values('emailhash'))
 	indexhashes = getall()
 	#for h in list(indexhashes):
