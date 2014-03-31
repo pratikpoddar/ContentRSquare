@@ -159,14 +159,14 @@ def is_url_an_article(url):
 		return False
 
         if "google" in urlparse(url)[1].split("."):
-                if not url.find("www.google.com/hostednews"):
+                if url.find("www.google.com/hostednews")==-1:
                         return False
 
 	if not (urlparse(url)[2] + urlparse(url)[3] + urlparse(url)[4]).replace("/","").replace(" ",""):
 		return False
 	
 	try:
-		if urlparse(url)[2].split('.')[-1].lower() in ['jpg', 'png', 'gif', 'pdf', 'mp3', 'wav', 'mp4', 'jpeg', 'xml']:
+		if urlparse(url)[2].split('.')[-1].lower() in ['jpg', 'png', 'gif', 'pdf', 'mp3', 'wav', 'mp4', 'jpeg', 'xml', 'zip', 'gzip', 'tar']:
 			return False
 	except:
 		pass

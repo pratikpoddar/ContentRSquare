@@ -19,6 +19,10 @@ class AmazonProd(models.Model):
     class Meta:
         unique_together = (("text", "index"),)
 
+class DeleteLinks(models.Model):
+    url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    reason = models.TextField()
+
 class TweetLinks(models.Model):
     author = models.CharField(max_length=100L, null=False, db_index=True)
     tweetid = models.BigIntegerField(null=False, db_index=True)

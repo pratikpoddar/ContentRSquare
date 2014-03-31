@@ -17,6 +17,7 @@ def get_articles():
 
 	for l in tobeexpanded:
 		print "twitter newspaper - getting article_info " + l
+		logger.debug("twitter newspaper - getting article_info " + l)
 		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
 	return
 
@@ -28,6 +29,7 @@ def get_article_semantics_tags():
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get sematics tags")
 	for l in tobeexpanded:
 		print "twitter newspaper - getting article_semantics_tags " + l
+		logger.debug("twitter newspaper - getting article_semantics_tags " + l)
 		twitter_newspaper.put_article_semantics_tags(l)
 	return
 

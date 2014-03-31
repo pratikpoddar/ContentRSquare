@@ -6,7 +6,7 @@ from django.db.models import Max
 import logging
 from urlparse import urlparse
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags, DeleteLinks
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +32,19 @@ def put_article_details(url, source=None):
 			articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(articledict['title']), articleimage = crsq_unicode(articledict['image']), articlecontent = crsq_unicode(articledict['cleaned_text']), articledate = articledict['publish_date'], articlehtml = crsq_unicode(articledict['raw_html']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source=source)
 			if len(articledict['cleaned_text'].strip())>250:
 				articleinfo.save()
+			else:
+				try:
+					dl = DeleteLinks(url=url, reason="Article Clean Text is less than 250 chars")
+					dl.save()
+				except:
+					pass
 		except Exception as e:
+			try:
+				if str(e).find('Read timed out. (read timeout=8)')>-1:
+					dl = DeleteLinks(url=url, reason="Time out")
+                                        dl.save()
+			except:
+				pass
 			logger.exception('articleutilsdb - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
 	return
 

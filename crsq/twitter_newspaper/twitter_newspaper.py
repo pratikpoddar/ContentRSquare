@@ -37,6 +37,8 @@ api = tweepy.API(auth)
 
 twitter_newspaper_blocked_domains = ['thehill.com', 'shortyawards.com', 'ciowhitepapers.com', 'docquery.fec.gov', 'zao.com', 'thereformedbroker.com', 'indiadigitalreview.com', 'jwatch.org', 'c-span.org', 'whitehouse.gov', 'uber.com', 'ritholtz.com', 'geekwire.com', 'guardianlv.com']
 
+twitter_newspaper_blocked_tlds = ['org.ve']
+
 tw_np_sector_list = ["Technology", "Politics", "Entertainment", "Sports", "Business"]
 tw_np_location_list = ["World", "United States", "India", "San Francisco, USA", "New York, USA", "Boston, USA", "London, UK", "Mumbai, India", "Bangalore, India"]
 
@@ -107,6 +109,7 @@ def search_twitter(keyword, numlinks):
                         urls = filter(lambda x: urlutils.is_url_an_article(x), urls)
                         urls = filter(lambda x: x.find('@') < 0, urls)
                         urls = filter(lambda x: urlparse(x)[1].replace('www.','') not in twitter_newspaper_blocked_domains, urls)
+			urls = filter(lambda x: '.'.join(urlparse(x)[1].replace('www.','').split('.')[-2:-1]) not in twitter_newspaper_blocked_tlds, urls)
                         urls = map(lambda x: urlutils.getCanonicalUrl(urlutils.getLongUrlOptimized(x)), urls)
 		except Exception as e:
 			logger.exception('twitter_newspaper - search_twitter - error getting Long Urls ' + str(status.id) + ' ' + str(e))

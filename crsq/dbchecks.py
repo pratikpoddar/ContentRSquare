@@ -48,6 +48,7 @@ for urlgroup in urlgroups:
                 if (u[0].find(u[1])>=0) or (urlparse(u[0])[1]==urlparse(u[1])[1]):
                         tobedeleted.append(u[0])
 			tobedeleted = list(set(tobedeleted))
+
 print tobedeleted
 l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").values('url'))
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))
