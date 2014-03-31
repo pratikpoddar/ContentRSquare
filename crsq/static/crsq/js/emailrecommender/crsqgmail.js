@@ -7,16 +7,25 @@ var clickfunctionchecker = 0;
 
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
-	if (functioncallchecker == 0) {
-		functioncallchecker = 1;
-		gmailEmailRecommender();
-		if (clickfunctionchecker == 0) {
-			clickfunctionchecker = 1;
-	                $(window).click(function() {
-	                     gmailEmailRecommender()
-	                });
-		}	
-	}
+	$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
+	  .done(function( script, textStatus ) {
+	        if (functioncallchecker == 0) {
+        	        functioncallchecker = 1;
+	                gmailEmailRecommender();
+	                if (clickfunctionchecker == 0) {
+        	                clickfunctionchecker = 1;
+	                        $(window).click(function() {
+        	                     gmailEmailRecommender()
+	                        });
+				gmail.observe.on("open_email", function(id, url, body) {
+  				  console.log("openemail");
+				  gmailEmailRecommender()
+				  console.log(gmail.get.email_data(id));
+				})
+        	        }
+	        }
+		
+	  })
 }
  
 function checkJquery() {
@@ -28,6 +37,9 @@ function checkJquery() {
 function gmailEmailRecommender() {
 	var emailidentifier = getGmailEmailsUniqueIdentifiers();
 	var username = 'pratik.phodu@gmail.com';
+	var gmail = Gmail();
+	console.log(gmail.get.user_email())
+	console.log(gmail.get.email_data(email_id=undefined))
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
