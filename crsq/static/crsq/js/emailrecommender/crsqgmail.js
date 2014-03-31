@@ -26,7 +26,7 @@ function jqueryLoaded() {
         		        }
 		        }		
 		  })
-	}
+	})
 }
  
 function checkJquery() {
