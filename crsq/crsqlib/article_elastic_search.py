@@ -119,8 +119,6 @@ def indexurl(url):
 
 def refreshdbtoes():
 
-	return 
-
 	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
 	indexurls = getall()
 	#for url in list(indexurls):
