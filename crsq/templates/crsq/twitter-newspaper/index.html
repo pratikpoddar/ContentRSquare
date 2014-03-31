@@ -16,7 +16,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="sectordropdown">
 		  {% for s in sector_list %}
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="/twitter-newspaper/{{ s | slugify }}/{{ location }}">{{ s }}</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ s | slugify }}/{{ location }}">{{ s }}</a></li>
         	  {% endfor %}
 		  </ul>
 		</span>
@@ -29,12 +29,10 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="locationdropdown">
                   {% for l in location_list %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/twitter-newspaper/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
                   {% endfor %}
                   </ul>
                 </span>
-
-
 
 	</h2>
 
@@ -56,8 +54,8 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
 
 	<div class="row" style="text-align:center">
 	    <ul class="pager">
-		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href={% if page == 1 %}#{% endif %}{% if page > 1 %}"/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"-1" }}"{% endif %}>&larr; Recent</a></li>
-		  <li class="next"><a href="/twitter-newspaper/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
+		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href={% if page == 1 %}#{% endif %}{% if page > 1 %}"/{{ sector }}/{{ location }}/{{ page | add:"-1" }}"{% endif %}>&larr; Recent</a></li>
+		  <li class="next"><a href="/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
 	    </ul>
         </div>
 
