@@ -7,25 +7,26 @@ var clickfunctionchecker = 0;
 
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
-	$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
-	  .done(function( script, textStatus ) {
-	        if (functioncallchecker == 0) {
-        	        functioncallchecker = 1;
-	                gmailEmailRecommender();
-	                if (clickfunctionchecker == 0) {
-        	                clickfunctionchecker = 1;
-	                        $(window).click(function() {
-        	                     gmailEmailRecommender()
-	                        });
-				gmail.observe.on("open_email", function(id, url, body) {
-  				  console.log("openemail");
-				  gmailEmailRecommender()
-				  console.log(gmail.get.email_data(id));
-				})
-        	        }
-	        }
-		
-	  })
+	$(window).load(function() {
+		$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
+		  .done(function( script, textStatus ) {
+		        if (functioncallchecker == 0) {
+	        	        functioncallchecker = 1;
+		                gmailEmailRecommender();
+		                if (clickfunctionchecker == 0) {
+	        	                clickfunctionchecker = 1;
+		                        $(window).click(function() {
+        		                     gmailEmailRecommender()
+	        	                });
+					gmail.observe.on("open_email", function(id, url, body) {
+  					  console.log("openemail");
+					  gmailEmailRecommender()
+					  console.log(gmail.get.email_data(id));
+					})
+        		        }
+		        }		
+		  })
+	}
 }
  
 function checkJquery() {
