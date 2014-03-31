@@ -5,6 +5,7 @@ from urlparse import urlparse
 import pickle
 from django.db.models import Count
 
+"""
 toptagshelp = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:500])
 toptags = []
 for t in toptagshelp:
@@ -23,7 +24,7 @@ for tag in toptags:
 
 allurls = list(set(map(lambda x: x['url'], ArticleInfo.objects.exclude(articlecontent=None).exclude(articlecontent='').exclude(articleimage='').exclude(articleimage=None).values('url'))))
 alltags = list(set(map(lambda x: x['tag'], ArticleTags.objects.filter(url__in=allurls).values('tag'))))
-
+"""
 from crsq.google_trends.gt import *
 google_trends = get_all_google_trends()
 def check_if_googlesearch_is_a_tag(googlesearch):
