@@ -3,38 +3,28 @@ s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'
 document.getElementsByTagName('head')[0].appendChild(s);
 var jqueryloadchecker = window.setInterval(checkJquery, 3000);
 var functioncallchecker = 0;
-var clickfunctionchecker = 0;
 
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
-	$(window).load(function() {
-		$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
+	$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
 		  .done(function( script, textStatus ) {
 		        if (functioncallchecker == 0) {
 	        	        functioncallchecker = 1;
 		                gmailEmailRecommender();
-		                if (clickfunctionchecker == 0) {
-	        	                clickfunctionchecker = 1;
-		                        $(window).click(function() {
-        		                     gmailEmailRecommender()
-	        	                });
-					gmail.observe.on("open_email", function(id, url, body) {
-  					  console.log("openemail");
-					  gmailEmailRecommender()
-					  console.log(gmail.get.email_data(id));
-					})
-        		        }
-		        }		
-		  })
-	})
+				gmail.observe.on("open_email", function(id, url, body) {
+  				  console.log("openemail");
+				  gmailEmailRecommender()
+				  console.log(gmail.get.email_data(id));
+				})
+        		 }
+		})
 }
  
-function checkJquery() {
+function checkJqueryAndGlobals() {
 	clearInterval(jqueryloadchecker);
-	if (window.jQuery) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJquery, 3000);}
+	if ((window.jQuery) && (GLOBALS)) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);}
 }
 
- 
 function gmailEmailRecommender() {
 	var emailidentifier = getGmailEmailsUniqueIdentifiers();
 	var username = 'pratik.phodu@gmail.com';
