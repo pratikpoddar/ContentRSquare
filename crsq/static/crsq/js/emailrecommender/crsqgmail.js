@@ -10,9 +10,9 @@ function jqueryLoaded() {
 		  .done(function( script, textStatus ) {
 		        if (functioncallchecker == 0) {
 	        	        functioncallchecker = 1;
+				var gmail = Gmail();
 		                gmailEmailRecommender();
 				gmail.observe.on("open_email", function(id, url, body) {
-				  var gmail = Gmail();
   				  console.log("openemail");
 				  gmailEmailRecommender();
 				  console.log(gmail.get.email_data(id));
@@ -23,7 +23,7 @@ function jqueryLoaded() {
  
 function checkJqueryAndGlobals() {
        clearInterval(jqueryloadchecker);
-       if ((window.jQuery) && (typeof GLOBALS == "object")) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobal
+       if ((window.jQuery) && (typeof GLOBALS == "object")) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);}
 }
 
 function gmailEmailRecommender() {
