@@ -263,7 +263,7 @@ def zippednewsapp(request, tag):
 
 def zippednewsapptaglist(request, tagsearch):
 
-	taglist = filter(lambda x: x.find(tagsearch)==0, dbcache.getRelevantTags())
+	taglist = filter(lambda x: x.find(tagsearch)==0, relevanttags)
         template = loader.get_template('crsq/zippednewsapp/taglist.html')
         context = RequestContext(request, {
                 'taglist': sorted(taglist),

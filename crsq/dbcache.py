@@ -17,17 +17,14 @@ def getRelevantTagDict():
 
 	return tagdict
 
-# For ArticleGroup - welcome.html, tagpage.html
+# For ArticleGroup - welcome.html, tagpage.html, taglist.html
 @lru_cache(maxsize=1024)
 def getRelevantTags():
 
-        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").order_by('-time').values('tag')[:2000])))
+        relevanttags = list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(source__startswith="google_trend").values('tag')) + map(lambda x: x['tag'], ImportantTags.objects.filter(source="top_tag").values('tag'))))
 
         relevanttags = sorted(list(set(relevanttags)))
 
 	return relevanttags
-
-
-
 
 
