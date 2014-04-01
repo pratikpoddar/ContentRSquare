@@ -12,8 +12,9 @@ function jqueryLoaded() {
 	        	        functioncallchecker = 1;
 		                gmailEmailRecommender();
 				gmail.observe.on("open_email", function(id, url, body) {
+				  var gmail = Gmail();
   				  console.log("openemail");
-				  gmailEmailRecommender()
+				  gmailEmailRecommender();
 				  console.log(gmail.get.email_data(id));
 				})
         		 }
