@@ -1,9 +1,9 @@
 s = document.createElement('script');
 s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
 document.getElementsByTagName('head')[0].appendChild(s);
-var jqueryloadchecker = window.setInterval(checkJquery, 3000);
+var jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);
 var functioncallchecker = 0;
-
+ 
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
 	$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
@@ -21,8 +21,8 @@ function jqueryLoaded() {
 }
  
 function checkJqueryAndGlobals() {
-	clearInterval(jqueryloadchecker);
-	if ((window.jQuery) && (GLOBALS)) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);}
+       clearInterval(jqueryloadchecker);
+       if ((window.jQuery) && (typeof GLOBALS == "object")) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobal
 }
 
 function gmailEmailRecommender() {
