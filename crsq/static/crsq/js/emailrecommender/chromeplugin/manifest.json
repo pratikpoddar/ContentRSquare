@@ -8,6 +8,8 @@
       "js": [ "contentscript.js" ],
       "matches": [ "http://mail.google.com/mail*", "https://mail.google.com/mail*", "http://mail.google.com/a/*", "https://mail.google.com/a/*" ]
    } ],
+  "icons": { "128": "gmail_crsq_boost_128.png",
+	     "256": "gmail_crsq_boost_256.png"},
   "web_accessible_resources": ["contentscript.js"],
   "converted_from_user_script": true,
   "description": "Context Aware Information Discovery"
