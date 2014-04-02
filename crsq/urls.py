@@ -7,9 +7,9 @@ urlpatterns = patterns('',
 
 	url(r'^content-affiliate-advertising/?$', views.caa, name='caa'),
 
-	url(r'^twitter-newspaper/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?$', views.tw_np, name='tw_np'),
-	url(r'^twitter-newspaper/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([0-9]+)/?$', views.tw_np, name='tw_np'),
-	url(r'^twitter-newspaper', views.tw_np_redirect, name='tw_np_redirect'),
+	url(r'^twitterstreetjournal/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?$', views.tw_np, name='tw_np'),
+	url(r'^twitterstreetjournal/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([0-9]+)/?$', views.tw_np, name='tw_np'),
+	url(r'^twitterstreetjournal', views.tw_np_redirect, name='tw_np_redirect'),
 
 	url(r'^timeline-news/article/[a-zA-Z0-9-]+/([0-9]+)/?$', views.timenews_article, name='timenews_article'),
 	url(r'^timeline-news/([a-zA-Z0-9-]+)/?$', views.timenews, name='timenews'),

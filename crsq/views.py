@@ -118,7 +118,7 @@ def tw_np(request, sector, location, page=1):
 
                 article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'sharers': twitter_newspaper.get_sharers(article['url'])}))
 
-	template = loader.get_template('crsq/twitter-newspaper/index.html')
+	template = loader.get_template('crsq/twitterstreetjournal/index.html')
 
 	context = RequestContext(request, {
 	        'article_list': article_list,
@@ -155,7 +155,7 @@ def linkbook_view(request):
         return HttpResponse(template.render(context))
 	
 def tw_np_redirect(request):
-	return redirect('/twitter-newspaper/technology/san-francisco-usa')
+	return redirect('/twitterstreetjournal/technology/san-francisco-usa')
 
 def penp(request, notice=None):
 

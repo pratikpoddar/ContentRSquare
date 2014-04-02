@@ -1,9 +1,9 @@
-{% extends "crsq/twitter-newspaper/base.html" %}
+{% extends "crsq/twitterstreetjournal/base.html" %}
 {% load staticfiles %}
 {% load tagfilter %}
 
 {% block title %}
-Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
+Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 {% endblock %}
 
 {% block bodycontent %}
@@ -39,7 +39,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Newspaper
             {% for article in article_list %}
                   <div class="row" style="margin-top:35px;">
                   <div class="col-sm-3 col-lg-3 col-md-3">
-                  <img class="articleimage" src="{% static 'crsq/img/twitter-newspaper/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ sectorname }} News from {{ locationname }} - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
+                  <img class="articleimage" src="{% static 'crsq/img/twitterstreetjournal/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ sectorname }} News from {{ locationname }} - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
                   </div>
                   <div class="col-sm-9 col-lg-9 col-md-9">
                   <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
