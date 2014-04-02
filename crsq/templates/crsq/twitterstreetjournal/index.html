@@ -6,6 +6,15 @@
 Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 {% endblock %}
 
+{% block metadescription %}
+        {% if article_list %}
+	Real-time {{ sectorname }} news from {{ locationname }}
+        {% endif %}
+        {% for article in article_list %}
+                 - {{ article.articletitle }}
+        {% endfor %}
+{% endblock %}
+
 {% block bodycontent %}
 
           <h2>Popular Articles shared by
