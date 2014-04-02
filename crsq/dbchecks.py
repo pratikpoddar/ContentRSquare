@@ -52,10 +52,11 @@ for urlgroup in urlgroups:
 print tobedeleted
 l11 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="/~r/").values('url'))
 l12 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="http://feed").values('url'))
-print "ArticleInfo Links which are almost surely there by mistake l11+l12"
-print l11+l12
-l13 = map(lambda x: x['url'], filter(lambda x: x['contentlength']<250, ArticleInfo.objects.filter(contentlength__lt=250).values('contentlength', 'url')))
-print "Too short Articles l13"
-print l13
+l13 = map(lambda x: x['url'], ArticleInfo.objects.filter(url__contains="glogin").values('url'))
+print "ArticleInfo Links which are almost surely there by mistake l11+l12+l13"
+print l11+l12+l13
+l14 = map(lambda x: x['url'], filter(lambda x: x['contentlength']<250, ArticleInfo.objects.filter(contentlength__lt=250).values('contentlength', 'url')))
+print "Too short Articles l14"
+print l14
 
 

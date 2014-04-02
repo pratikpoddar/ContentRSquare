@@ -120,7 +120,9 @@ def isShortUrlPossibly(url):
 			return True
 		if "mklnd" in domain.split("."):
 			return True
-
+                if "amzn" in domain.split("."):
+                        return True
+		
 		topdomain = '.'.join(urlparse(url)[1].split(".")[-2:])
 		if len(topdomain)<=7:
 			return True
