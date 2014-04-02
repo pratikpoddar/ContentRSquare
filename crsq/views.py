@@ -155,7 +155,7 @@ def linkbook_view(request):
         return HttpResponse(template.render(context))
 	
 def tw_np_redirect(request):
-	return redirect('/twitter-newspaper/technology/world')
+	return redirect('/twitter-newspaper/technology/san-francisco-usa')
 
 def penp(request, notice=None):
 
