@@ -6,16 +6,15 @@ var functioncallchecker = 0;
  
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
-	$.getScript( "https://raw.githubusercontent.com/KartikTalwar/gmail.js/master/gmail.min.js" )
+	$.getScript( "https://46.137.209.142/static/crsq/js/emailrecommender/gmail.min.js" )
 		  .done(function( script, textStatus ) {
 		        if (functioncallchecker == 0) {
 	        	        functioncallchecker = 1;
 				var gmail = Gmail();
 		                gmailEmailRecommender();
 				gmail.observe.on("open_email", function(id, url, body) {
-  				  console.log("openemail");
+  				  console.log("crsq email opened");
 				  gmailEmailRecommender();
-				  console.log(gmail.get.email_data(id));
 				})
         		 }
 		})
@@ -27,11 +26,12 @@ function checkJqueryAndGlobals() {
 }
 
 function gmailEmailRecommender() {
-	var emailidentifier = getGmailEmailsUniqueIdentifiers();
-	var username = 'pratik.phodu@gmail.com';
 	var gmail = Gmail();
-	console.log(gmail.get.user_email())
-	console.log(gmail.get.email_data(email_id=undefined))
+	var username = gmail.get.user_email();
+	var emailidentifier = getGmailEmailsUniqueIdentifiers();
+	console.log("username: " + username)
+	console.log(emailidentifier)
+	//console.log(gmail.get.email_data(email_id=undefined))
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
@@ -42,7 +42,9 @@ function gmailEmailRecommender() {
 	}).done(function(data) {
 	    console.log("CRSQ Gmail Email Recommender");
 	    console.log(data['output']);
-	    showonsidebar(data['output']);
+	    if (data['output'].length>0) {
+		    showonsidebar(data['output']);
+	    }
 	})
 }
 

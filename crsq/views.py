@@ -13,9 +13,7 @@ from django.core.context_processors import csrf
 import re
 import urllib
 import urllib2
-from datetime import datetime
-from datetime import timedelta
-from datetime import date
+from datetime import date, timedelta, datetime
 import pytz
 import pickle
 import logging
@@ -62,9 +60,11 @@ def gmailemailjs(request):
 		return filter(lambda x: x.find('@')>0, string.split(' '))[-1].strip()
 
 	def getemailhash(username, fromaddr, subject, dateemail):
+
 		try:
-			return EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject).values('emailhash')[0]['emailhash']
+			return EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=2),dateemail+timedelta(minutes=1))).values('emailhash')[0]['emailhash']
 		except Exception as exc:
+			logger.exception(exc)
 			return []
 
 	emailidentifier = request.GET['emailidentifier']
@@ -79,7 +79,7 @@ def gmailemailjs(request):
 		subject = filter(lambda x: x.find('subject:')>-1, openemailelems)[0][8:].strip()
 		try:
 			dateemail = dateutilparse(filter(lambda x: x.find('date:')>-1, openemailelems)[0][5:].strip())-offset
-			dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute)
+			dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
 		except:
 			dateemail = None
 		emailhashes += [getemailhash(username, fromaddr, subject, dateemail)]
@@ -241,7 +241,8 @@ def zippednewsapp(request, tag):
                 	articlesemantics = {'summary': None, 'topic': None}
 
 	        try:
-			articletags = filter(lambda x: x in relevanttags, articletagsdump2[article['url']])
+			articletags = articletagsdump2[article['url']]
+			#articletags = filter(lambda x: x in relevanttags, articletagsdump2[article['url']])
         	        #articletags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=article['url']).values('tag'))
 			#articletags = filter(lambda x: x in relevanttags, articletags)
 	        except:
@@ -288,29 +289,9 @@ def zippednewsappwelcome(request):
 
 	gt = sorted(google_trends.items(), key=lambda x: positioning(x[0]))
 
-	#tagdict = {}
-	#tagdict = dbcache.getRelevantTagDict()
-
-	#recent_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[1:4].values()
-	#popular_articles = ArticleInfo.objects.exclude(articleimage='').exclude(articleimage=None).order_by('-id')[4:7].values()
-	##recent_articles = [ recent_articles[i] for i in sorted(random.sample(xrange(len(recent_articles)), 3)) ]
-	##popular_articles = [ popular_articles[i] for i in sorted(random.sample(xrange(len(popular_articles)), 3)) ]
-
-	#def summary(url):
-	#	try:
-	#		return ArticleSemantics.objects.filter(url=url).values('summary')[0]['summary']
-	#	except:
-	#		return None
-
-	#recent_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), recent_articles)
-	#popular_articles = map(lambda x: dict( x, **{'domain': urlparse.urlparse(x['url'])[1], 'summary': summary(x['url'])} ), popular_articles)
-
 	template = loader.get_template('crsq/zippednewsapp/welcome.html')
         context = RequestContext(request, {
-                #'tagdict': sorted(tagdict.items()),
 		'google_trends': gt
-		#'recent_articles': recent_articles,
-		#'popular_articles':  popular_articles
         })
 
         return HttpResponse(template.render(context))

@@ -58,7 +58,7 @@ def getNewEmails(user):
 	lastid = EmailUser.objects.get(email=user).lastid
 
 	imap_conn = getConnection(user)
-	result, data = imap_conn.search(None, 'FROM', '"gmail"')
+	result, data = imap_conn.search(None, 'FROM', '"."')
 
 	ids = data[0] # data is a list.
 	id_list = ids.split() # ids is a space separated string
