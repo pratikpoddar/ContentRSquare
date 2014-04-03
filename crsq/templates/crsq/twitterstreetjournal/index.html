@@ -67,6 +67,18 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 		  <li class="next"><a href="/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
 	    </ul>
         </div>
+	
+	<div class="row" style="text-align:center">
+		 {{ locationname }} News by interest:<br/>
+                  {% for s in sector_list %}
+                        <a href="/{{ s | slugify }}/{{ location }}"> {{ s }} </a> 
+                  {% endfor %}
+			<br/>
+		 {{ sectorname }} News by city:<br/>
+                  {% for l in location_list %}
+                        <a href="/{{ sector }}/{{ l | slugify }}"> {{ l }} </a> 
+                  {% endfor %}
+	</div>
 
 {% endblock %}
 
