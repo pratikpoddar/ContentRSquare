@@ -63,9 +63,9 @@ def gmailemailjs(request):
 
 		try:
 	                logger.debug((username, fromaddr, subject, dateemail))
-                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject).values('emailhash')))
-                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash')))
-			return map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash'))
+                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__icontains=username, emailfrom__icontains=fromaddr, subject__icontains=subject).values('emailhash')))
+                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__icontains=username, emailfrom__icontains=fromaddr, subject__icontains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash')))
+			return map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__icontains=username, emailfrom__icontains=fromaddr, subject__icontains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash'))
 		except Exception as exc:
 			logger.exception(exc)
 			return []
