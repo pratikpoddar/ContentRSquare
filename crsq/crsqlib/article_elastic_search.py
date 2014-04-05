@@ -90,6 +90,19 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
         }
         })
 
+	"""
+        res = es.search(index="article-index", fields="url", body={"query": {
+            "custom_score": {
+                "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
+		"query" : {
+	                "match_phrase": {
+        	                "_all": keywordstr
+	                },
+		}
+            }
+        }
+        })
+	"""
 	urls = []
 	for hit in res['hits']['hits']:
 	    if hit['_score']>threshold:

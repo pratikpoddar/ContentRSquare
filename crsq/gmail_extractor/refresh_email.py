@@ -9,6 +9,8 @@ client_id = '292712397025-bh6dhs8n9eluc4me3hujtugg7fndd539.apps.googleuserconten
 client_secret = '4YOc_uf_4Lxyg37QPvZ18HST'
 scope = 'https://mail.google.com/'
 
+def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+
 def getUser():
 
 	name = raw_input('Write your name: ')
@@ -58,12 +60,12 @@ def getNewEmails(user):
 	lastid = EmailUser.objects.get(email=user).lastid
 
 	imap_conn = getConnection(user)
-	result, data = imap_conn.search(None, 'FROM', '"."')
+	result, data = imap_conn.search(None, 'FROM', '"gmail"')
 
 	ids = data[0] # data is a list.
 	id_list = ids.split() # ids is a space separated string
 	id_list.reverse()
-	email_ids = filter(lambda x: int(x) > int(lastid), id_list)
+	email_ids = filter(lambda x: int(x) > int(lastid), id_list)[:100]
 
 	if len(email_ids)==0:
 		return
@@ -109,7 +111,7 @@ def parse_email(username, raw_email):
             body += msg.get_payload()
 
         body = body.strip()
-        body = body.decode("quopri").replace('\r',' ').replace('\n', ' ').strip()
+        body = removeNonAscii(body.decode("quopri").replace('\r',' ').replace('\n', ' ').strip())
 
         return {'user': username, 'emailto': msg['To'], 'subject': msg['Subject'], 'emailtime': parse(msg['Date']), 'messageid': msg['Message-ID'], 'emailfrom': msg['From'] , 'body': body, 'emailccto': msg['Cc'], 'emailbccto': msg['Bcc']}
 
