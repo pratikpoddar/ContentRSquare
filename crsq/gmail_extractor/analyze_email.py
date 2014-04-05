@@ -24,6 +24,12 @@ def getBStext(html):
 	sstr = BeautifulSoup(removeNonAscii(html)).stripped_strings
 	return removeNonAscii(removeNonAscii(' '.join(sstr)).replace('\r', ' ').replace('\n', ' ').strip().decode('quopri'))
 
+def emailstr2tuples(emailstring):
+	namematches = re.findall('"[^"]*"', emailstring)
+	for nm in namematches:
+		emailstring = emailstring.replace(nm, ' '.join(map(lambda x: x.strip(), nm.split(','))))
+	return map(lambda x: email.utils.parseaddr(x.strip()), emailstring.split(','))
+
 def get_parsed_trees(text):
 	sentences = sent_tokenizer.tokenize(text)
 	try:
@@ -50,7 +56,7 @@ def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime
         emailvec = filter(lambda x: x, [emailfrom, emailto, emailcc, emailbcc])
 	emailstring = ', '.join(emailvec)
 
-	emailtuples = map(lambda x: email.utils.parseaddr(x.strip()), emailstring.split(','))
+	emailtuples = emailstr2tuples(emailstring)
 	
 	emaillist = map(lambda x: x[1], emailtuples)
 
@@ -112,30 +118,31 @@ def analyze_emails(emailhashes):
 	for eh in emailhashes:
 		print eh
 		e = EmailInfo.objects.filter(emailhash=eh).values()[0]
-		body = e['body']
-		d = analyze_body(body)
-		intro_email = is_introduction_email(e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto'], e['cleanbody'], e['emailtime'])
-		print "...analyzed"
-		ei = EmailInfo.objects.get(emailhash=eh)
-		ei.shortbody = d['shortbody']
-		ei.cleanbody = d['cleanbody']
-		ei.efzpshortbody = d['efzpshortbody']
-		ei.efzpsignature = d['efzpsignature']
-		ei.tags = d['tags']
-		ei.eventtags = d['eventtags']
-		ei.eventtags2 = d['eventtags2']
-		ei.introductiontags = str(intro_email)
-		try:
-			ei.save()
-		except Exception as exc:
-			print exc
-		for l in d['links']:
-			if EmailLinks.objects.filter(emailhash=eh, link=l).count()==0:
-				try:
-					el = EmailLinks(emailhash=eh, link=l)
-					el.save()
-				except Exception as exc:
-					print exc
+		if e['emailfrom'].find('.')>-1:
+			body = e['body']
+			d = analyze_body(body)
+			intro_email = is_introduction_email(e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto'], e['cleanbody'], e['emailtime'])
+			print "...analyzed"
+			ei = EmailInfo.objects.get(emailhash=eh)
+			ei.shortbody = d['shortbody']
+			ei.cleanbody = d['cleanbody']
+			ei.efzpshortbody = d['efzpshortbody']
+			ei.efzpsignature = d['efzpsignature']
+			ei.tags = d['tags']
+			ei.eventtags = d['eventtags']
+			ei.eventtags2 = d['eventtags2']
+			ei.introductiontags = str(intro_email)
+			try:
+				ei.save()
+			except Exception as exc:
+				print exc
+			for l in d['links']:
+				if EmailLinks.objects.filter(emailhash=eh, link=l).count()==0:
+					try:
+						el = EmailLinks(emailhash=eh, link=l)
+						el.save()
+					except Exception as exc:
+						print exc
 
 emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.filter(cleanbody='').values('emailhash'))
 #emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.all().values('emailhash'))

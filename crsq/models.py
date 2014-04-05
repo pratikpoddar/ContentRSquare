@@ -127,7 +127,10 @@ class EmailInfo(models.Model):
     messageid = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     def save(self):
-	self.emailhash = str(int(hashlib.md5(' '.join(map(lambda y: removeNonAscii(str(y)),filter(lambda x: x, [self.emailfrom, self.emailto, self.emailccto, self.emailbccto, self.user, self.emailtime])))).hexdigest(), 16))
+	if (self.emailhash == '') or (self.emailhash == None):
+		self.emailhash = str(int(hashlib.md5(' '.join(map(lambda y: removeNonAscii(str(y)),filter(lambda x: x, [self.emailfrom, self.emailto, self.emailccto, self.emailbccto, self.user, self.emailtime])))).hexdigest(), 16))
+	else:
+		self.emailhash = self.emailhash
         super(EmailInfo, self).save()
     class Meta:
         unique_together = (("user", "messageid"),)

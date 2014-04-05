@@ -62,7 +62,10 @@ def gmailemailjs(request):
 	def getemailhash(username, fromaddr, subject, dateemail):
 
 		try:
-			return EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=2),dateemail+timedelta(minutes=1))).values('emailhash')[0]['emailhash']
+	                logger.debug((username, fromaddr, subject, dateemail))
+                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject).values('emailhash')))
+                        logger.debug(map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash')))
+			return map(lambda x: x['emailhash'], EmailInfo.objects.filter(user__contains=username, emailfrom__contains=fromaddr, subject__contains=subject, emailtime__range=(dateemail-timedelta(minutes=3),dateemail+timedelta(minutes=2))).values('emailhash'))
 		except Exception as exc:
 			logger.exception(exc)
 			return []
@@ -82,7 +85,7 @@ def gmailemailjs(request):
 			dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
 		except:
 			dateemail = None
-		emailhashes += [getemailhash(username, fromaddr, subject, dateemail)]
+		emailhashes += getemailhash(username, fromaddr, subject, dateemail)
 		
 	emailhashes = filter(lambda x: x, emailhashes)
 	rlinks=[]
@@ -330,32 +333,37 @@ def emailrecommender(request, emailhash):
 	if EmailInfo.objects.filter(emailhash=emailhash).count()==0:
 	        return HttpResponse("<html><body>Email Recommender - Wrong Input</body></html>")
 
-	if len(EmailInfo.objects.get(emailhash=emailhash).cleanbody)<50:
-		return HttpResponse("<html><body>Email Recommender - Too short an email</body></html>")
-
 	e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
-	ehashes = email_elastic_search.recommendedemails(emailhash)
-	recommendedemails = []
-	for ehash in ehashes[:5]:
-		subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
-		recommendedemails.append((subject, ehash))
 
-	recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
-	recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
-	
-	introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
-	introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
-	recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
-
-	try:
-		loclist = json.loads(e['eventtags2'])['locationtags']
-		locationtags = urllib2.quote(' '.join(loclist))
-		reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
-	except Exception as exc:
-		logger.exception(exc)
+	if len(EmailInfo.objects.get(emailhash=emailhash).cleanbody)<50:
+		recommendedemails = []
+		recommendedlinks = []
+		recommendedlinks_from_introduction = []
 		reviewlinks = ''
 
-        template = loader.get_template('crsq/emailrecommender/index.html')
+	else:
+		ehashes = email_elastic_search.recommendedemails(emailhash)
+		recommendedemails = []
+		for ehash in ehashes[:5]:
+			subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
+			recommendedemails.append((subject, ehash))
+
+		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
+		recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+	
+		introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
+		introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
+		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
+
+		try:
+			loclist = json.loads(e['eventtags2'])['locationtags']
+			locationtags = urllib2.quote(' '.join(loclist))
+			reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
+		except Exception as exc:
+			logger.exception(exc)
+			reviewlinks = ''
+
+	template = loader.get_template('crsq/emailrecommender/index.html')
         context = RequestContext(request, {
                 'e': e,
 		'recommendedemails': recommendedemails,
