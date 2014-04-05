@@ -342,7 +342,11 @@ def emailrecommender(request, emailhash):
 		reviewlinks = ''
 
 	else:
-		ehashes = email_elastic_search.recommendedemails(emailhash)
+		try:
+			ehashes = email_elastic_search.recommendedemails(emailhash)
+		except:
+			ehashes = []
+
 		recommendedemails = []
 		for ehash in ehashes[:5]:
 			subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
