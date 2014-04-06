@@ -122,6 +122,8 @@ def isShortUrlPossibly(url):
 			return True
                 if "amzn" in domain.split("."):
                         return True
+		if len(filter(lambda x: len(filter(lambda y: y in x, ["a", "e", "i", "o", "u"]))==0, domain.replace('www.', '').split(".")[:-1]))>0:
+			return True
 		
 		topdomain = '.'.join(urlparse(url)[1].split(".")[-2:])
 		if len(topdomain)<=7:

@@ -42,9 +42,7 @@ function gmailEmailRecommender() {
 	}).done(function(data) {
 	    console.log("CRSQ Gmail Email Recommender");
 	    console.log(data['output']);
-	    if (data['output'].length>0) {
-		    showonsidebar(data['output']);
-	    }
+	    showonsidebar(data['output']);
 	})
 }
 
@@ -62,6 +60,10 @@ function showonsidebar(l) {
 	$('#rapportive-sidebar').hide();
 
 	arrlen=l.length;
+
+	if (arrlen == 0) {
+		$('#crsqdiv').append("No Suggestions as of now");
+	}
 
 	for (var i = 0; i < arrlen; i++) {
         	$('#crsqdiv').append( "<div class='crsqtitle'>" + l[i]['articletitle'] + "</div><div class='crsqlink'><a href='" + l[i]['url'] + "'>" + l[i]['url'] + "</a></div><br/>");

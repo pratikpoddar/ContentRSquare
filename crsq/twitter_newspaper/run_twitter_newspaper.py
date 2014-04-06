@@ -1,5 +1,5 @@
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags
+from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags, DeleteLinks
 from datetime import datetime
 import logging
 from crsq.crsqlib.article_elastic_search import refreshdbtoes
