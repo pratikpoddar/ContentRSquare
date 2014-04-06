@@ -97,7 +97,7 @@ def gmailemailjs(request):
                         dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
                 except:
                         dateemail = None		
-		emailhashes += getemailhash(username, openemail['from_email'], '', dateemail)
+		emailhashes += getemailhash(username, openemail['from_email'], openemail['subject'], dateemail)
 		
 	emailhashes = filter(lambda x: x, emailhashes)
 	rlinks=[]

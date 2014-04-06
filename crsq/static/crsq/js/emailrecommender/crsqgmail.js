@@ -97,6 +97,7 @@ function getGmailEmailsUniqueIdentifiers() {
 		outputtemp['cc'] = t[key]['cc'];
 		outputtemp['bcc'] = t[key]['bcc'];
 		outputtemp['datetime'] = t[key]['datetime'];
+		outputtemp['subject'] = t[key]['subject'];
 		output.push(outputtemp);
 	}	
         return JSON.stringify(output)
