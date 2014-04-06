@@ -71,8 +71,11 @@ def gmailemailjs(request):
 			return []
 
 	emailidentifier = request.GET['emailidentifier']
+	openthread  = json.loads(emailidentifier)
 	username = request.GET['username']
 	offset = timedelta(hours=5, minutes=30)
+
+	"""
 	openemails = emailidentifier.split(';;||;;||crsq||;;||;;')
 	openemails = filter(lambda x: len(x)>0, openemails)
 	emailhashes = []
@@ -86,6 +89,15 @@ def gmailemailjs(request):
 		except:
 			dateemail = None
 		emailhashes += getemailhash(username, fromaddr, subject, dateemail)
+	"""
+	emailhashes = []
+	for openemail in openthread:
+                try:
+                        dateemail = dateutilparse(openemail['datetime'])-offset
+                        dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
+                except:
+                        dateemail = None		
+		emailhashes += getemailhash(username, openemail['from_email'], '', dateemail)
 		
 	emailhashes = filter(lambda x: x, emailhashes)
 	rlinks=[]

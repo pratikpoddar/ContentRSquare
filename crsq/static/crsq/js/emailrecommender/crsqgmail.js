@@ -31,7 +31,6 @@ function gmailEmailRecommender() {
 	var emailidentifier = getGmailEmailsUniqueIdentifiers();
 	console.log("username: " + username)
 	console.log(emailidentifier)
-	//console.log(gmail.get.email_data(email_id=undefined))
 	$.ajax({
       	    type: "GET",
 	    crossDomain: true,
@@ -71,6 +70,8 @@ function showonsidebar(l) {
 }
 
 function getGmailEmailsUniqueIdentifiers() {
+
+	/*
         $('.ajz').click(); openemailelems = $('tr.ajv'); $('.ajz').click();
         openemails = "";
         for (var i=0;i<openemailelems.length;i++)
@@ -83,7 +84,22 @@ function getGmailEmailsUniqueIdentifiers() {
 		};
         }
         openemails += ";;||;;||crsq||;;||;;"
-        return openemails
+	return openemails
+	*/
+
+	var gmail = Gmail();
+	t = gmail.get.email_data(email_id=undefined).threads;
+	output = [];
+	for (key in t) {
+		outputtemp = {};
+		outputtemp['from_email'] = t[key]['from_email'];
+		outputtemp['to'] = t[key]['to'];
+		outputtemp['cc'] = t[key]['cc'];
+		outputtemp['bcc'] = t[key]['bcc'];
+		outputtemp['datetime'] = t[key]['datetime'];
+		output.push(outputtemp);
+	}	
+        return JSON.stringify(output)
 }
 
 
