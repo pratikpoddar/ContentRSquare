@@ -113,7 +113,7 @@ def parse_email(username, raw_email):
         body = body.strip()
         body = removeNonAscii(body.decode("quopri").replace('\r',' ').replace('\n', ' ').strip())
 
-        return {'user': username, 'emailto': msg['To'], 'subject': msg['Subject'], 'emailtime': parse(msg['Date']), 'messageid': msg['Message-ID'], 'emailfrom': msg['From'] , 'body': body, 'emailccto': msg['Cc'], 'emailbccto': msg['Bcc']}
+        return {'user': username, 'emailto': removeNonAscii(msg['To']), 'subject': removeNonAscii(msg['Subject']), 'emailtime': parse(msg['Date']), 'messageid': msg['Message-ID'], 'emailfrom': removeNonAscii(msg['From']) , 'body': removeNonAscii(body), 'emailccto': removeNonAscii(msg['Cc']), 'emailbccto': removeNonAscii(msg['Bcc'])}
 
 
 
