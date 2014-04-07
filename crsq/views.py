@@ -305,7 +305,11 @@ def zippednewsappwelcome(request):
 
 	gt = sorted(google_trends.items(), key=lambda x: positioning(x[0]))
 
-	template = loader.get_template('crsq/zippednewsapp/welcome.html')
+        if request.mobile:
+                template = loader.get_template('crsq/zippednewsapp/welcomemobile.html')
+        else:
+                template = loader.get_template('crsq/zippednewsapp/welcome.html')
+
         context = RequestContext(request, {
 		'google_trends': gt
         })

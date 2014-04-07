@@ -1,0 +1,54 @@
+{% extends "crsq/zippednewsapp/base.html" %}
+{% load staticfiles %}
+{% load tagfilter %}
+
+{% block title %}
+ZippedNews: Real-time news on Popular Topics
+{% endblock %}
+
+{% block navcontent %}
+{% endblock %}
+
+{% block bodycontent %}
+	<div class="jumbotron">
+	  <h1>ZippedNews</h1>
+		<p style="text-align:justify">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
+		<input type="text" id="topicsearch" class="typeahead" placeholder="Enter Topic">
+	</div>
+
+{% endblock %}
+
+{% block jscontent %}
+<script type="text/javascript" src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+<script type="text/javascript">
+
+$(window).load(function() {
+	var topiclist = new Bloodhound({
+	  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.topic); },
+	  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  	  local: [ /*
+	    { topic: 'one' },
+	    { topic: 'two' },
+	    { topic: 'three' },
+	    { topic: 'four' },
+	    { topic: 'five' },
+	    { topic: 'six' },
+	    { topic: 'seven' },
+	    { topic: 'eight' },
+	    { topic: 'nine' },
+	    { topic: 'ten' }*/
+	  ]
+	});
+ 
+	// initialize the bloodhound suggestion engine
+	topiclist.initialize();
+ 
+	$('#topicsearch').typeahead(null, {
+	  minLength: 3,
+	  displayKey: 'topic',
+	  source: topiclist.ttAdapter()
+	});
+});
+
+</script>
+{% endblock %}
