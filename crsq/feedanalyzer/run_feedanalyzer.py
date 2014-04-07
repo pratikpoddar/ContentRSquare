@@ -9,6 +9,7 @@ from django_cron import CronJobBase, Schedule
 logger = logging.getLogger(__name__)
 
 def fa():
+	#return
 	logger.debug('run_feedanalyzer - Getting Feed Result ')
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/TechCrunch/", "feed")
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/TechCrunch/startups", "feed")

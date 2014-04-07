@@ -87,21 +87,23 @@ def get_signature(email_text):
     sig_opening_statements = [
                               "warm regards",
                               "kind regards",
-                              "regards",
-                              "cheers",
+                              "regards,",
+                              "cheers,",
                               "many thanks",
-                              "thanks",
-                              "sincerely",
+                              "thanks,",
+                              "sincerely,",
                               "ciao",
-                              "Best",
+                              "Best, ",
+			      "Best regards,"
                               "bGIF",
-                              "thank you",
-                              "thankyou",
-                              "talk soon",
+                              "thank you,",
+                              "thankyou,",
+                              "talk soon.",
                               "cordially",
                               "yours truly",
                               "thanking You",
-                              "sent from my iphone"]
+                              "sent from my iphone",
+			      "sent via blackberry"]
     pattern = "(?P<signature>(" + string.joinfields(sig_opening_statements, "|") + ")(.)*)"
     groups = re.search(pattern, email_text, re.IGNORECASE + re.DOTALL)
     signature = None

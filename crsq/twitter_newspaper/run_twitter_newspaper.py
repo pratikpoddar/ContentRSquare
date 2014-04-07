@@ -19,6 +19,8 @@ def get_articles():
 		print "twitter newspaper - getting article_info " + l
 		logger.debug("twitter newspaper - getting article_info " + l)
 		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
+		## hack
+		twitter_newspaper.put_article_semantics_tags(l)
 	return
 
 def get_article_semantics_tags():
