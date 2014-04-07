@@ -22,7 +22,9 @@ parser = Parser()
 def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def getBStext(html): 
 	html = re.sub(r"<br>", ". ", html, flags=re.IGNORECASE)
-	sstr = BeautifulSoup(removeNonAscii(html)).stripped_strings
+	bs = BeautifulSoup(removeNonAscii(html)) 
+	[x.extract() for x in bs.find_all('style')]
+	sstr = bs.stripped_strings
 	return removeNonAscii(removeNonAscii(' '.join(sstr)).replace('\r', ' ').replace('\n', ' ').strip().decode('quopri'))
 
 def get_parsed_trees(text):
@@ -140,6 +142,7 @@ def analyze_emails(emailhashes):
 						print exc
 
 emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.filter(cleanbody='').values('emailhash'))
+emailhashes += ['339855517795737342097015790860613412520', '170393155474755305332148513604094040364', '2152322734023675164905570236928783054', '177046093575222475901304086499635940126']
 #emailhashes = map(lambda x: x['emailhash'], EmailInfo.objects.all().values('emailhash'))
 analyze_emails(emailhashes)
 

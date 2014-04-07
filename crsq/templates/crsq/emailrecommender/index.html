@@ -12,11 +12,11 @@ Bcc: {{ e.emailbccto }}<br/>
 Subject: {{ e.subject }}<br/><br/>
 Body: {{ e.body }}<br/><br/>
 CleanBody: {{ e.cleanbody }}<br/><br/>
-ShortBody: {{ e.shortbody }}<br/><br/>
+{% comment %}ShortBody: {{ e.shortbody }}<br/><br/>{% endcomment %}
 EFZP ShortBody: {{ e.efzpshortbody }}<br/><br/>
 Tags: {{ e.tags }}<br/><br/>
 Introduction Email??: {{ e.introductiontags }}<br/><br/>
-EventTags: {{ e.eventtags }}<br/><br/>
+{% comment %}EventTags: {{ e.eventtags }}<br/><br/>{% endcomment %}
 EventTags2: {{ e.eventtags2 }}<br/><br/>
 Review Links: {{ reviewlinks }}<br/><br/>
 
