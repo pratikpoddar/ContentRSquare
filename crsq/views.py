@@ -376,7 +376,10 @@ def emailrecommender(request, emailhash):
 		try:
 			loclist = json.loads(e['eventtags2'])['locationtags']
 			locationtags = urllib2.quote(' '.join(loclist))
-			reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
+			if locationtags == '':
+				reviewlinks = ''
+			else:
+				reviewlinks = 'http://www.asklaila.com/search/Bangalore/-/' + locationtags + '/?searchNearby=false'
 		except Exception as exc:
 			logger.exception(exc)
 			reviewlinks = ''
