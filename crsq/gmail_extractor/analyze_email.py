@@ -14,6 +14,7 @@ import nltk.data
 from random import shuffle
 import email
 import json
+from crsq.crsqlib.emailutils.emailutils import emailstr2tuples
 
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 parser = Parser()
@@ -23,12 +24,6 @@ def getBStext(html):
 	html = re.sub(r"<br>", ". ", html, flags=re.IGNORECASE)
 	sstr = BeautifulSoup(removeNonAscii(html)).stripped_strings
 	return removeNonAscii(removeNonAscii(' '.join(sstr)).replace('\r', ' ').replace('\n', ' ').strip().decode('quopri'))
-
-def emailstr2tuples(emailstring):
-	namematches = re.findall('"[^"]*"', emailstring)
-	for nm in namematches:
-		emailstring = emailstring.replace(nm, ' '.join(map(lambda x: x.strip(), nm.split(','))))
-	return map(lambda x: email.utils.parseaddr(x.strip()), emailstring.split(','))
 
 def get_parsed_trees(text):
 	sentences = sent_tokenizer.tokenize(text)
@@ -58,7 +53,7 @@ def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime
 
 	emailtuples = emailstr2tuples(emailstring)
 	
-	emaillist = map(lambda x: x[1], emailtuples)
+	emaillist = map(lambda x: x[1].lower(), emailtuples)
 
 	print emaillist
 

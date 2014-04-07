@@ -32,6 +32,7 @@ from dateutil.parser import parse as dateutilparse
 import collections
 
 import random
+from crsq.crsqlib.emailutils.emailutils import emailstr2tuples
 
 logger = logging.getLogger(__name__)
 
@@ -364,12 +365,13 @@ def emailrecommender(request, emailhash):
 			subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
 			recommendedemails.append((subject, ehash))
 
-		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
+		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.55, weightfrontloading=20.0, recencyweight=0.0)
 		recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	
-		introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
-		introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
-		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.3, recencyweight=1.0)
+		#introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
+		#introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
+		introtags = ' '.join(filter(lambda y: y, map(lambda x: x[0], emailstr2tuples(e['introductiontags']))))
+		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.6, recencyweight=1.0)
 
 		try:
 			loclist = json.loads(e['eventtags2'])['locationtags']
