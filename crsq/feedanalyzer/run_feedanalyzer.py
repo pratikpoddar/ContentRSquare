@@ -9,6 +9,7 @@ from django_cron import CronJobBase, Schedule
 logger = logging.getLogger(__name__)
 
 def fa():
+	logger.exception('run_feedanalyzer: Getting Feed Result')
 	logger.debug('run_feedanalyzer - Getting Feed Result ')
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/TechCrunch/", "feed")
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/TechCrunch/startups", "feed")
@@ -68,9 +69,9 @@ def fa():
 	#for ny in nytlist:
 		#feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
 	logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
-	print "Load RSS in Table Done"
+	logger.exception("Load RSS in Table Done")
 	refreshdbtoes()
-	print "Refresh DB to ES Done"
+	logger.exception("Refresh DB to ES Done")
 	return
 
 class getFeedAnalyzer(CronJobBase):
