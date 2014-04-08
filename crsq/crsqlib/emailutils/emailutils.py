@@ -10,15 +10,22 @@ def emailstr2tuples(emailstring):
         tuples = map(lambda x: email.utils.parseaddr(x.strip()), emailstring.split(','))
         return map(lambda x: (x[0], x[1].lower()), tuples)
 
-def relatedemailaddr(username, emailaddr):
+def relatedemailaddr(e):
 
-        emailpartners = filter(lambda y: emailaddr in y, map(lambda x: ', '.join(filter(lambda t: t, [x['emailfrom'], x['emailto'], x['emailccto'], x['emailbccto']])), EmailInfo.objects.filter(username=username).values()))
+	username = e['user']
+	emailsinvolvedstr = ', '.join(filter(lambda t: t, [e['emailfrom'], e['emailto'], e['emailccto'], e['emailbccto']]))
+	emailsinvolved = list(set(map(lambda x: x[1], emailstr2tuples(emailsinvolvedstr)))-set([username]))
 	
-	emailpartners = map(lambda x: list(set(map(lambda y: y[1], emailstr2tuples(x)))), emailpartners)
+	allemailpartners = map(lambda x: ', '.join(filter(lambda t: t, [x['emailfrom'], x['emailto'], x['emailccto'], x['emailbccto']])), EmailInfo.objects.filter(user=username).values())
 
-	counter =  Counter(sum(emailpartners, []))
+	relatedemails = []
+	for emailaddrinvolved in emailsinvolved:
+	        emailpartners = filter(lambda y: emailaddrinvolved in y, allemailpartners)
+		emailpartners = map(lambda x: list(set(map(lambda y: y[1], emailstr2tuples(x)))), emailpartners)
+		counter =  Counter(sum(emailpartners, []))
+		relatedemails += map(lambda z: z[0], filter(lambda y: y[0] not in username + ' '.join(emailsinvolved), sorted(counter.items(), key=lambda x: -x[1]))[:4])
 
-	return filter(lambda y: y[0] not in username + ' ' + emailaddr, sorted(counter.items(), key=lambda x: -x[1]))[:4]
+	return list(set(relatedemails))
 
 	
 

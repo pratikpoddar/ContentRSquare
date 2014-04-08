@@ -32,7 +32,7 @@ from dateutil.parser import parse as dateutilparse
 import collections
 
 import random
-from crsq.crsqlib.emailutils.emailutils import emailstr2tuples
+from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 
 logger = logging.getLogger(__name__)
 
@@ -356,6 +356,7 @@ def emailrecommender(request, emailhash):
 		recommendedemails = []
 		recommendedlinks = []
 		recommendedlinks_from_introduction = []
+		recommendedpeople = []
 		reviewlinks = ''
 
 	else:
@@ -377,6 +378,8 @@ def emailrecommender(request, emailhash):
 		introtags = ' '.join(filter(lambda y: y, map(lambda x: x[0], emailstr2tuples(e['introductiontags']))))
 		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.6, recencyweight=1.0)
 
+		recommendedpeople = relatedemailaddr(e)
+
 		try:
 			loclist = json.loads(e['eventtags2'])['locationtags']
 			locationtags = urllib2.quote(' '.join(loclist))
@@ -394,6 +397,7 @@ def emailrecommender(request, emailhash):
 		'recommendedemails': recommendedemails,
 		'recommendedlinks': recommendedlinks,
 		'recommendedlinks_from_introduction': recommendedlinks_from_introduction,
+		'recommendedpeople': recommendedpeople,
 		'reviewlinks': reviewlinks
         })
 
