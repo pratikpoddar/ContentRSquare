@@ -40,7 +40,7 @@ var articleGenerator = {
 
 	function cleanTitle(str) {
 		str = str.trim().toLowerCase();
-		last = str.lastIndexOf("-");
+		last = Math.max(str.lastIndexOf("-"), str.lastIndexOf("|"));
 		if (last==-1) {
 			return ""
 		}
@@ -50,25 +50,25 @@ var articleGenerator = {
 		}
 
 		str = str.substring(0,last).removeStopWords().trim();
-		str = str.replace(/[^a-z\s]+/g, " ").replace(/\s{2,}/g, ' ').trim();
+		str = str.replace(/[^a-z\s]+/g, " ").removeStopWords().replace(/\s{2,}/g, ' ').trim();
 		return str;
 	}
 	
-        for (var i=0; i<Math.min(historyItems.length,30);i++) {
+        for (var i=0; i<Math.min(historyItems.length,70);i++) {
 		if (checkDomainBlocked(historyItems[i]['url'])==0) {
 			historytitle = cleanTitle(historyItems[i]['title']);
 			if (historytitle.length>0) {
-		                searchitem.push(historytitle);
+				if (searchitem.length<50) {
+			                searchitem.push(historytitle);
+				}
 			}
 		}
         }
 
 	searchitem = searchitem.filter(onlyUnique);
-	alert(searchitem);
-	for (var i=0; i<searchitem.length; i++) {
-		alert(searchitem[i]);
-	}
+	searchitem = searchitem.slice(0,20);
 	searchitem = searchitem.join(' ');
+	alert(searchitem);
 	searchOnCRSQ_ =  'http://46.137.209.142:9200/article-index/article/_search?q='+encodeURIComponent(searchitem);
 	alert("History Search Done");
 	var req = new XMLHttpRequest();
