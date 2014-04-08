@@ -1,7 +1,7 @@
 var articleGenerator = {
   
   zopeyeArticles: function() {
-    alert("History Search Start");
+    //alert("History Search Start");
     searchitem = [];
     chrome.history.search({text:''}, function(historyItems){
 
@@ -39,18 +39,22 @@ var articleGenerator = {
 	}
 
 	function cleanTitle(str) {
+
 		str = str.trim().toLowerCase();
+
 		last = Math.max(str.lastIndexOf("-"), str.lastIndexOf("|"));
-		if (last==-1) {
-			return ""
-		}
-		
+
 		if (str== "") {
 			return ""
 		}
 
+                if (last==-1) {
+                        last = str.length;
+                }
+
 		str = str.substring(0,last).removeStopWords().trim();
 		str = str.replace(/[^a-z\s]+/g, " ").removeStopWords().replace(/\s{2,}/g, ' ').trim();
+
 		return str;
 	}
 	
@@ -68,22 +72,22 @@ var articleGenerator = {
 	searchitem = searchitem.filter(onlyUnique);
 	searchitem = searchitem.slice(0,20);
 	searchitem = searchitem.join(' ');
-	alert(searchitem);
+	//alert(searchitem);
 	searchOnCRSQ_ =  'http://46.137.209.142:9200/article-index/article/_search?q='+encodeURIComponent(searchitem);
-	alert("History Search Done");
+	//alert("History Search Done");
 	var req = new XMLHttpRequest();
 	req.open("GET", searchOnCRSQ_, true);
-	alert("Article Search Done");
+	//alert("Article Search Done");
 	req.onload = articleGenerator.showArticles_.bind(this);
 	req.send(null);
-	alert("Showed Articles");
-    });
+	//alert("Showed Articles");
+    })
   },
 
   showArticles_: function (e) {
     var jsonObj = JSON.parse(e.target.response);
     var articlelist = jsonObj['hits']['hits'];
-    alert("Got " + jsonObj['hits']['total'] + " Results");
+    //alert("Got " + jsonObj['hits']['total'] + " Results");
     var articles = [];
     for (var i=0; i<articlelist.length; i++) {
 	articles.push({'title': articlelist[i]['_source']['title'], 'url': articlelist[i]['_source']['url'], 'domain': articlelist[i]['_source']['domain']})
