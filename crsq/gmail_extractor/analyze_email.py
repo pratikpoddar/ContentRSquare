@@ -27,27 +27,6 @@ def getBStext(html):
 	sstr = bs.stripped_strings
 	return removeNonAscii(removeNonAscii(' '.join(sstr)).replace('\r', ' ').replace('\n', ' ').strip().decode('quopri'))
 
-def get_parsed_trees(text):
-	sentences = sent_tokenizer.tokenize(text)
-	try:
-		return map(lambda sentence: parser.parse(sentence), sentences)
-	except:
-		return []
-
-def get_possible_event_tags(tree):
-	output = []
-        try:
-            if (tree.pos()[0][1] == 'IN') and (tree.pos()[0][0] in ['in', 'at', 'on']):
-		output.append(tree[1])
-                for child in tree[1]:
-                    output.append(child)
-            for child in tree:
-                output += get_possible_event_tags(child)
-        except:
-            pass
-	
-	return output
-
 def is_introduction_email(emailfrom, emailto, emailcc, emailbcc, body, emailtime):
 
         emailvec = filter(lambda x: x, [emailfrom, emailto, emailcc, emailbcc])
