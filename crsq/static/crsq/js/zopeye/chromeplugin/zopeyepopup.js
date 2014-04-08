@@ -90,7 +90,7 @@ var articleGenerator = {
     }
 
     if (articles.length>0) {
-	document.body.innerHTML += "<div class='crsqattribution'>Powered by ZopEye</div>";
+	document.body.innerHTML = "<div class='crsqattribution'>Powered by ZopEye</div>";
     };
 
     for (var i = 0; i < Math.min(articles.length,5); i++) {
