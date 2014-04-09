@@ -1,8 +1,8 @@
 var articleGenerator = {
   
+  searchlink: "",
   zopeyeArticles: function() {
     //alert("History Search Start");
-    searchitem = [];
     chrome.history.search({text:''}, function(historyItems){
 
         function onlyUnique(value, index, self) {
@@ -57,11 +57,12 @@ var articleGenerator = {
 
 		return str;
 	}
-	
+
+	searchitem = []	
         for (var i=0; i<Math.min(historyItems.length,70);i++) {
 		if (checkDomainBlocked(historyItems[i]['url'])==0) {
 			historytitle = cleanTitle(historyItems[i]['title']);
-			if (historytitle.length>0) {
+				if (historytitle.length>0) {
 				if (searchitem.length<50) {
 			                searchitem.push(historytitle);
 				}
@@ -73,10 +74,10 @@ var articleGenerator = {
 	searchitem = searchitem.slice(0,20);
 	searchitem = searchitem.join(' ');
 	//alert(searchitem);
-	searchOnCRSQ_ =  'http://46.137.209.142:9200/article-index/article/_search?q='+encodeURIComponent(searchitem);
+	articleGenerator.searchlink =  'http://46.137.209.142:9200/article-index/article/_search?q='+encodeURIComponent(searchitem);
 	//alert("History Search Done");
 	var req = new XMLHttpRequest();
-	req.open("GET", searchOnCRSQ_, true);
+	req.open("GET", articleGenerator.searchlink, true);
 	//alert("Article Search Done");
 	req.onload = articleGenerator.showArticles_.bind(this);
 	req.send(null);
@@ -94,7 +95,7 @@ var articleGenerator = {
     }
 
     if (articles.length>0) {
-	document.body.innerHTML = "<div class='crsqattribution'>Powered by ZopEye</div>";
+	document.body.innerHTML = "<div class='crsqattribution'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>";
     };
 
     for (var i = 0; i < Math.min(articles.length,5); i++) {
