@@ -268,3 +268,5 @@ Add to /etc/rc.local
 /home/ubuntu/elasticsearch-0.90.10/bin/elasticsearch
 
 Install https://github.com/emilmont/pyStatParser
+
+pip install django_compressor

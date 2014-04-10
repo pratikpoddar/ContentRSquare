@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load tagfilter %}
+{% load compress %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +11,13 @@
     <meta name="author" content="">
 
     <title>{% block title %}ZippedNews{% endblock %}</title>
+    {% compress css %}
     <!-- Bootstrap core CSS -->
     <link href="{% static "crsq/css/zippednewsapp/bootstrap.readable.min.css" %}" rel="stylesheet">
     <!-- Add custom CSS here -->
     <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "crsq/css/zippednewsapp/typeahead.css" %}"/>
+    {% endcompress %}
   </head>
 
   <body>
@@ -62,9 +65,11 @@
     {% endblock %}
 
     <!-- JavaScript -->
+    {% compress js %}
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-1.10.2.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jail.js" %}"></script>
+    {% endcompress %}
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 	{% block jscontent %}

@@ -110,6 +110,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -164,10 +165,12 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'crsq',
     'south',
-    'django_cron'
+    'django_cron',
+    'compressor',
 )
 
 LOG_DIR='/home/ubuntu/django_log'
+COMPRESS_ROOT = '/home/ubuntu/crsq/crsq/static/'
 
 CRON_CLASSES = [
     "crsq.feedanalyzer.run_feedanalyzer.getFeedAnalyzer",
