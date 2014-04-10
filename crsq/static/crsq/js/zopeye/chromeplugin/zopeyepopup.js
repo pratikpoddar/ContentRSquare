@@ -112,7 +112,10 @@ var articleGenerator = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  articleGenerator.zopeyeArticles();
+	var i = new Image();
+	i.onload = articleGenerator.zopeyeArticles;
+	i.onerror = function () { document.body.children[0].children[0].innerHTML = "No Internet Connection Found. ZopEye eyes are closed!" ;}
+	i.src = 'http://www.google.com/images/logo.png?d=' + escape(Date());
 });
 
 
