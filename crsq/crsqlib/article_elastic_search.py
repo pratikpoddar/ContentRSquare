@@ -2,6 +2,7 @@ from elasticsearch import Elasticsearch
 from crsq.models import ArticleInfo, ArticleTags
 from urlparse import urlparse
 import logging
+from bs4 import BeautifulSoup
 
 es = Elasticsearch()
 
@@ -71,6 +72,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
                 return []
 
 	if weightfrontloading== 1.0:
+		keywordlist = keywordstr.split(' ')
 		keywordstr = keywordstr
 	else:
 		keywordlist = keywordstr.split(' ')
@@ -79,7 +81,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 
         #res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
 
-	bodyquery = {"query": {
+	bodyquery = {
             "custom_score": {
                 "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
                 "query": {
@@ -87,34 +89,27 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
                 }
             }
         }
-	}
 
 	if highlight==True:
-	        res = es.search(index="article-index", fields="url", body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
+	        res = es.search(index="article-index", body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
+		urls = []
+		for hit in res['hits']['hits']:
+		    if hit['_score']>threshold:
+			    url = hit["_source"]["url"]
+			    highlight = list(set(map(lambda x: x.text.lower(), BeautifulSoup(' '.join(sum(hit['highlight'].values(), []))).find_all('em'))))
+			    highlight_search = ' '.join(filter(lambda x: x.lower() in highlight, keywordlist))
+			    urls.append({'url':url, 'highlight': highlight_search})
+		return urls
+
 	else:
 		res = es.search(index="article-index", fields="url", body={"query": bodyquery})
-
-	"""
-        res = es.search(index="article-index", fields="url", body={"query": {
-            "custom_score": {
-                "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
-		"query" : {
-	                "match_phrase": {
-        	                "_all": keywordstr
-	                },
-		}
-            }
-        }
-        })
-	"""
-	urls = []
-	for hit in res['hits']['hits']:
-	    if hit['_score']>threshold:
-		    urls.append(hit["fields"]["url"])
-		    if len(urls)==num:
-			return urls
-
-	return urls
+		urls = []
+		for hit in res['hits']['hits']:
+		    if hit['_score']>threshold:
+			    urls.append(hit["fields"]["url"])
+			    if len(urls)==num:
+				return urls
+		return urls
 
 def getall():
 	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="")

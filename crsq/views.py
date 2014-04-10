@@ -412,12 +412,13 @@ def zopeyesearch(request, keywordstr):
 	if keywordstr.strip() == "":
 		return HttpResponse("<html><body>Zop Eye Search - Wrong Input</body></html>")
 		
-	urls = article_elastic_search.searchdoc(keywordsstr, highlight=True)
+	urls = article_elastic_search.searchdoc(keywordstr, highlight=True)
 	result = []
 	for url in urls:
 		article = ArticleInfo.objects.get(url=url['url'])
-		url['image'] = article.image
-		url['title'] = article.title
+		url['image'] = article.articleimage
+		url['domain'] = article.domainname()
+		url['title'] = article.articletitle
 		result.append(url)
 
 	return HttpResponse(result)

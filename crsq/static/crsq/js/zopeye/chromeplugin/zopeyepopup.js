@@ -74,7 +74,7 @@ var articleGenerator = {
 	searchitem = searchitem.slice(0,20);
 	searchitem = searchitem.join(' ');
 	//alert(searchitem);
-	articleGenerator.searchlink =  'http://46.137.209.142:9200/article-index/article/_search?q='+encodeURIComponent(searchitem);
+	articleGenerator.searchlink =  'http://46.137.209.142/zopeyesearch/'+encodeURIComponent(searchitem);
 	//alert("History Search Done");
 	var req = new XMLHttpRequest();
 	req.open("GET", articleGenerator.searchlink, true);
@@ -86,14 +86,8 @@ var articleGenerator = {
   },
 
   showArticles_: function (e) {
-    var jsonObj = JSON.parse(e.target.response);
-    var articlelist = jsonObj['hits']['hits'];
+    var articles = JSON.parse(e.target.response);
     //alert("Got " + jsonObj['hits']['total'] + " Results");
-    var articles = [];
-    for (var i=0; i<articlelist.length; i++) {
-	articles.push({'title': articlelist[i]['_source']['title'], 'url': articlelist[i]['_source']['url'], 'domain': articlelist[i]['_source']['domain']})
-    }
-
     if (articles.length>0) {
 	document.body.innerHTML = "<div class='crsqattribution'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>";
     };
@@ -103,7 +97,7 @@ var articleGenerator = {
       var a = document.createElement('a');
       a.href = articles[i].url;
       a.target= "_blank";
-      a.innerHTML = '<br/><span class="crsqtitle">' + articles[i].title + '</span>' + '<br/>' + '<span class="crsqdomain">' + articles[i].domain + '</span><br/>'
+      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><span class="crsqtitle">' + articles[i].title + '</span>' + '<br/>' + '<span class="crsqdomain">' + articles[i].domain + '</span><br/>'
       d.appendChild(a);
       document.body.appendChild(d);
     }
