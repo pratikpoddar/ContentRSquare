@@ -64,7 +64,7 @@ def deleteurl(url):
 
 	return
 
-def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=8.0):
+def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=8.0, highlight=False):
 
 	recency = recencyweight/1000000
         if keywordstr.strip()=='':
@@ -79,16 +79,20 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 
         #res = es.search(index="article-index", fields="url", body={"query": {"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}}})
 
-        res = es.search(index="article-index", fields="url", body={"query": {
+	bodyquery = {"query": {
             "custom_score": {
                 "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
                 "query": {
-                	"query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
-                },
-
+                        "query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
+                }
             }
         }
-        })
+	}
+
+	if highlight==True:
+	        res = es.search(index="article-index", fields="url", body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
+	else:
+		res = es.search(index="article-index", fields="url", body={"query": bodyquery})
 
 	"""
         res = es.search(index="article-index", fields="url", body={"query": {
