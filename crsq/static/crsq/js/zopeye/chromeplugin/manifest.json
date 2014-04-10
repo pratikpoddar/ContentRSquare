@@ -2,10 +2,10 @@
   "name": "Zop Eye",
   "version": "1.0",
   "manifest_version": 2,
-  "browser_action": {
-    "default_icon": "zopeye_logo.png",
-    "default_popup": "zopeyepopup.html"
-  },
+//  "browser_action": {
+//    "default_icon": "zopeye_logo.png",
+//    "default_popup": "zopeyepopup.html"
+//  },
   "chrome_url_overrides" : {
     "newtab": "zopeyepopup.html"
   },

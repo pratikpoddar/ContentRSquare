@@ -2,26 +2,20 @@
 <html>
   <head>
     <title>ZopEye Suggestions</title>
+    <link type="text/css" rel="stylesheet" href="bootstrap.readable.min.css">
     <style>
       body {
-        min-width: 357px;
-        overflow-x: hidden;
-      }
-
-      img {
-        margin: 5px;
-	width: 100px;
-	height: 100px;
+	padding-top: 50px;
       }
 
       .crsqattribution {
 	float: right;
 	color: #666;
 	font-size:80%;
-	margin: 0px;
      }
 
       .crsqtitle {
+	text-align:justify;
      }
 
       .crsqdomain {
@@ -31,17 +25,34 @@
      }
      
      .crsqimage {
-	width: 300px;
-	height: 300px;
+	width: 100%;
+	height: 200px;
 	margin: 5px;
      }
 
+     .crsqarticle {
+	padding: 20px;
+     }
+
+
     </style>
 
-    <script src="zopeyepopup.js"></script>
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jail.js"></script>
+    <script type="text/javascript" src="zopeyepopup.js"></script>
+    <script>
+        $(window).load(function() { 
+            $('.articleimage').jail({loadHiddenImages : true});
+          });
+    </script>
+
+
   </head>
-  <body>
-	<img src="loading.gif">
+  <body class="container">
+	<div class='jumbotron'><div class='crsqsuggestions row' align="center">
+		<img src="loading.gif"/>
+	</div></div>
+	<div class='crsqattribution row'><a href='#' target='_blank'>Powered by ZopEye</a></div>
   </body>
 </html>
 

@@ -89,17 +89,19 @@ var articleGenerator = {
     var articles = JSON.parse(e.target.response);
     //alert("Got " + jsonObj['hits']['total'] + " Results");
     if (articles.length>0) {
-	document.body.innerHTML = "<div class='crsqattribution'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>";
+	document.body.innerHTML = "<div class='jumbotron'><div class='crsqsuggestions row'></div></div>";
+	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
     };
 
-    for (var i = 0; i < Math.min(articles.length,5); i++) {
+    for (var i = 0; i < Math.min(articles.length,4); i++) {
       var d = document.createElement('div');
+      d.className="col-sm-3 col-lg-3 col-md-3 crsqarticle";
       var a = document.createElement('a');
       a.href = articles[i].url;
       a.target= "_blank";
-      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><span class="crsqtitle">' + articles[i].title + '</span>' + '<br/>' + '<span class="crsqdomain">' + articles[i].domain + '</span><br/>'
+      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>' + '<div class="crsqdomain">' + articles[i].domain + '</div>'
       d.appendChild(a);
-      document.body.appendChild(d);
+      document.body.children[0].children[0].appendChild(d);
     }
 
     if (articles.length>0) {
