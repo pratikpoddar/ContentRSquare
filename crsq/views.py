@@ -419,6 +419,7 @@ def zopeyesearch(request, keywordstr):
 		url['image'] = article.articleimage
 		url['domain'] = article.domainname()
 		url['title'] = article.articletitle
-		result.append(url)
+		if url['image']:
+			result.append(url)
 
-	return HttpResponse(result)
+	return HttpResponse(json.dumps(result), content_type="application/json")
