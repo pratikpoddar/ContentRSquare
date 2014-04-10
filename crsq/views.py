@@ -407,18 +407,17 @@ def emailrecommender(request, emailhash):
 
         return HttpResponse(template.render(context))
 	
+def zopeyesearch(request, keywordstr):
 
-	
+	if keywordstr.strip() == "":
+		return HttpResponse("<html><body>Zop Eye Search - Wrong Input</body></html>")
+		
+	urls = article_elastic_search.searchdoc(keywordsstr, highlight=True)
+	result = []
+	for url in urls:
+		article = ArticleInfo.objects.get(url=url['url'])
+		url['image'] = article.image
+		url['title'] = article.title
+		result.append(url)
 
-
-
-
-
-	
-
-
-
-
-
-
-
+	return HttpResponse(result)

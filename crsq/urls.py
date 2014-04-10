@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
 
 	url(r'^emailrecommender/([a-zA-Z0-9]+)/?$', views.emailrecommender, name='emailrecommender'),
+	url(r'^zopeyesearch/([a-zA-Z0-9 ]+)/?$', views.zopeyesearch, name='zopeyesearch'),
 
         url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker'),
 	

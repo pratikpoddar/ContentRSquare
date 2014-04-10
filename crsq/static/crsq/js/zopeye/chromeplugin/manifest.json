@@ -6,6 +6,9 @@
     "default_icon": "zopeye_logo.png",
     "default_popup": "zopeyepopup.html"
   },
+  "chrome_url_overrides" : {
+    "newtab": "zopeyepopup.html"
+  },
   "icons": {
      "128": "zopeye_logo.png"
   },
