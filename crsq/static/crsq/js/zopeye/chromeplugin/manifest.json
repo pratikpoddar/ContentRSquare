@@ -13,7 +13,9 @@
      "128": "zopeye_logo.png"
   },
   "permissions": [
-	"history"
+	"history",
+	"http://46.137.209.142/*",
+	"https://46.137.209.142/&"
   ],
   "description": "Get content from around the world based on your browsing history"
 }
