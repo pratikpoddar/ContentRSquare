@@ -122,17 +122,8 @@ def tw_np(request, sector, location, page=1):
 	articles = twitter_newspaper.get_articles(sector, location, cursor=int(page)*10-10)[:10]
 
         article_list = []
-
         for article in articles:
-
-                domain = urlparse.urlparse(article['url'])[1]
-                try:
-                        articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]
-                except Exception as e:
-			logger.exception(e)
-                        articlesemantics = {'summary': None}
-
-                article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'sharers': twitter_newspaper.get_sharers(article['url'])}))
+                article_list.append(dict( article, **{'domain': urlparse.urlparse(article['url'])[1], 'articlesummary' : ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]['summary'], 'sharers': twitter_newspaper.get_sharers(article['url'])}))
 
 	template = loader.get_template('crsq/twitterstreetjournal/index.html')
 

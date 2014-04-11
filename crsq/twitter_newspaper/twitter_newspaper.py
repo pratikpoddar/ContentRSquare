@@ -195,12 +195,19 @@ def get_list_timeline(twitteruser, twitterlist, numlinks):
 
 	return
 
+from datetime import datetime
+
+@lru_cache(maxsize=4096)
+def get_articles_sec_loc(sector, location):
+        authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location__in=tw_np_location_alias(location)).values('author'))
+        urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
+        urls = map(lambda x: x['url'], ArticleSemantics.objects.exclude(summary=None).exclude(summary='').filter(url__in=urls).values('url'))
+	return urls
+
 @lru_cache(maxsize=1024)
 def get_articles(sector, location, cursor=0):
 	
-	authors = map(lambda x: x['author'], TweetUsers.objects.filter(sector=sector, location__in=tw_np_location_alias(location)).values('author'))
-	urls = map(lambda x: x['url'], TweetLinks.objects.filter(author__in=authors).values('url'))
-	urls = map(lambda x: x['url'], ArticleSemantics.objects.exclude(summary=None).exclude(summary='').filter(url__in=urls).values('url'))
+	urls = get_articles_sec_loc(sector, location)
 	articles = ArticleInfo.objects.filter(url__in=urls).exclude(articleimage=None).order_by('-id')[cursor:cursor+10].values()
 	return articles
 
