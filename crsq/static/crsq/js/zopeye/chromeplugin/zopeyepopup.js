@@ -57,7 +57,7 @@ var articleGenerator = {
 		return str;
 	}
 
-        chrome.storage.local.get(null, function (data) { if ("articles" in data) { articleGenerator.showArticles_(data['articles']);}; });
+        chrome.storage.local.get(null, function (data) { if (("articles" in data) && ("searchlink" in data)) { articleGenerator.showArticles_(data['articles'], data['searchlink']);}; });
 
 	searchitem = []	
         for (var i=0; i<Math.min(historyItems.length,70);i++) {
@@ -81,17 +81,17 @@ var articleGenerator = {
 	var req = new XMLHttpRequest();
 	req.open("GET", articleGenerator.searchlink, true);
 	console.log("Article Search Done");
-	req.onload = function(e) { articleGenerator.showArticles_(JSON.parse(e.target.response)); chrome.storage.local.set({'articles': JSON.parse(e.target.response), 'searchlink': articleGenerator.searchlink}, function() {}); };
+	req.onload = function(e) { articleGenerator.showArticles_(JSON.parse(e.target.response), articleGenerator.searchlink); chrome.storage.local.set({'articles': JSON.parse(e.target.response), 'searchlink': articleGenerator.searchlink}, function() {}); };
 	req.send(null);
 	console.log("Showed Articles");
     })
   },
 
-  showArticles_: function (articles) {
+  showArticles_: function (articles, searchlink) {
     console.log(articles);
     if (articles.length>0) {
 	document.body.innerHTML = "<div class='jumbotron'><div class='crsqsuggestions row'></div></div>";
-	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
+	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
     };
 
     for (var i = 0; i < Math.min(articles.length,4); i++) {
