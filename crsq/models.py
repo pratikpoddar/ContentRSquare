@@ -63,7 +63,7 @@ class ArticleInfo(models.Model):
     source = models.CharField(max_length=300L, null=True, blank=True, default=None)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     contentlength = models.BigIntegerField(default=None, db_index=True)
-    contenthash = models.CharField(max_length=255L, default=None, db_index=True)
+    contenthash = models.CharField(max_length=255L, default=None, db_index=True, unique=True)
     def save(self):
         self.contentlength = len(self.articlecontent)
 	self.contenthash = str(int(hashlib.md5(removeNonAscii(self.articlecontent)).hexdigest(), 16))
