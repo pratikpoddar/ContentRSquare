@@ -2,7 +2,7 @@ var articleGenerator = {
   
   searchlink: "",
   zopeyeArticles: function() {
-    //alert("History Search Start");
+    console.log("History Search Start");
     chrome.history.search({text:''}, function(historyItems){
 
         function onlyUnique(value, index, self) {
@@ -44,25 +44,26 @@ var articleGenerator = {
 
 		last = Math.max(str.lastIndexOf("-"), str.lastIndexOf("|"));
 
-		if (str== "") {
-			return ""
-		}
+		if (str== "") { return "" }
 
-                if (last==-1) {
-                        last = str.length;
-                }
+                if (last==-1) { last = str.length; }
 
 		str = str.substring(0,last).removeStopWords().trim();
+		if (str== "") { return "" }
+
 		str = str.replace(/[^a-z\s]+/g, " ").removeStopWords().replace(/\s{2,}/g, ' ').trim();
+		if (str== "") { return "" }
 
 		return str;
 	}
+
+        chrome.storage.local.get(null, function (data) { if ("articles" in data) { articleGenerator.showArticles_(data['articles']);}; });
 
 	searchitem = []	
         for (var i=0; i<Math.min(historyItems.length,70);i++) {
 		if (checkDomainBlocked(historyItems[i]['url'])==0) {
 			historytitle = cleanTitle(historyItems[i]['title']);
-				if (historytitle.length>0) {
+			if (historytitle.length>0) {
 				if (searchitem.length<50) {
 			                searchitem.push(historytitle);
 				}
@@ -73,21 +74,21 @@ var articleGenerator = {
 	searchitem = searchitem.filter(onlyUnique);
 	searchitem = searchitem.slice(0,20);
 	searchitem = searchitem.join(' ');
-	//alert(searchitem);
+	console.log(searchitem);
 	articleGenerator.searchlink =  'http://46.137.209.142/zopeyesearch/'+encodeURIComponent(searchitem);
-	//alert("History Search Done");
+
+	console.log("History Search Done");
 	var req = new XMLHttpRequest();
 	req.open("GET", articleGenerator.searchlink, true);
-	//alert("Article Search Done");
-	req.onload = articleGenerator.showArticles_.bind(this);
+	console.log("Article Search Done");
+	req.onload = function(e) { articleGenerator.showArticles_(JSON.parse(e.target.response)); chrome.storage.local.set({'articles': JSON.parse(e.target.response), 'searchlink': articleGenerator.searchlink}, function() {}); };
 	req.send(null);
-	//alert("Showed Articles");
+	console.log("Showed Articles");
     })
   },
 
-  showArticles_: function (e) {
-    var articles = JSON.parse(e.target.response);
-    //alert("Got " + jsonObj['hits']['total'] + " Results");
+  showArticles_: function (articles) {
+    console.log(articles);
     if (articles.length>0) {
 	document.body.innerHTML = "<div class='jumbotron'><div class='crsqsuggestions row'></div></div>";
 	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+articleGenerator.searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
