@@ -43,7 +43,7 @@ dup_co = [x for x, y in collections.Counter(co).items() if y > 1]
 urlgroups = map(lambda co: map(lambda x: x['url'], ArticleInfo.objects.filter(contenthash=co).values('url')), dup_co)
 tobedeleted=[]
 for urlgroup in urlgroups:
-    for u in itertools.combinations(urlgroup, 2):
+    for u in itertools.permutations(urlgroup, 2):
         if len(u[0])>len(u[1]):
                 if (u[0].find(u[1])>=0) or (urlparse(u[0])[1]==urlparse(u[1])[1]):
                         tobedeleted.append(u[0])
