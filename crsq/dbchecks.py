@@ -58,5 +58,8 @@ print l11+l12+l13
 l14 = map(lambda x: x['url'], filter(lambda x: x['contentlength']<250, ArticleInfo.objects.filter(contentlength__lt=250).values('contentlength', 'url')))
 print "Too short Articles l14"
 print l14
+l15 = map(lambda x: x['url'], ArticleInfo.objects.filter(articletitle__icontains="404").filter(articletitle__icontains="not found").values('url'))
+print "Page Not Found Possibly"
+print l15
 
 
