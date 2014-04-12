@@ -100,7 +100,7 @@ var articleGenerator = {
       var a = document.createElement('a');
       a.href = articles[i].url;
       a.target= "_blank";
-      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>' + '<div class="crsqdomain">' + articles[i].domain + '</div>'
+      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>' + '<div class="crsqdomain">' + articles[i].domain + '</div>' +' <div class="crsqhighlight">' + articles[i].highlight + '</div>'
       d.appendChild(a);
       document.body.children[0].children[0].appendChild(d);
     }
