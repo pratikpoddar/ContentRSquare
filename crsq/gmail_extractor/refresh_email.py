@@ -9,7 +9,11 @@ client_id = '292712397025-bh6dhs8n9eluc4me3hujtugg7fndd539.apps.googleuserconten
 client_secret = '4YOc_uf_4Lxyg37QPvZ18HST'
 scope = 'https://mail.google.com/'
 
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+def removeNonAscii(s): 
+	try:
+		return "".join(filter(lambda x: ord(x)<128, s))
+	except:
+		return ""
 
 def getUser():
 

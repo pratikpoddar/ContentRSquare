@@ -3,6 +3,7 @@ s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'
 document.getElementsByTagName('head')[0].appendChild(s);
 var jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);
 var functioncallchecker = 0;
+var gmailidentifierextractor = 0;
  
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
@@ -89,18 +90,31 @@ function getGmailEmailsUniqueIdentifiers() {
 
 	var gmail = Gmail();
 	t = gmail.get.email_data(email_id=undefined).threads;
-	output = [];
-	for (key in t) {
-		outputtemp = {};
-		outputtemp['from_email'] = t[key]['from_email'];
-		outputtemp['to'] = t[key]['to'];
-		outputtemp['cc'] = t[key]['cc'];
-		outputtemp['bcc'] = t[key]['bcc'];
-		outputtemp['datetime'] = t[key]['datetime'];
-		outputtemp['subject'] = t[key]['subject'];
-		output.push(outputtemp);
-	}	
-        return JSON.stringify(output)
+	
+	function checkingifreturned() {
+ 	   if(typeof t == 'undefined') {
+		clearInterval(checkingifreturned);
+	        setTimeout(checkingifreturned, 2000);
+	        return;
+	    }
+
+	    else {
+	  
+		output = [];
+		for (key in t) {
+			outputtemp = {};
+			outputtemp['from_email'] = t[key]['from_email'];
+			outputtemp['to'] = t[key]['to'];
+			outputtemp['cc'] = t[key]['cc'];
+			outputtemp['bcc'] = t[key]['bcc'];
+			outputtemp['datetime'] = t[key]['datetime'];
+			outputtemp['subject'] = t[key]['subject'];
+			output.push(outputtemp);
+		}	
+        	return JSON.stringify(output)
+            }
+	}
+	checkingifreturned();
 }
 
 
