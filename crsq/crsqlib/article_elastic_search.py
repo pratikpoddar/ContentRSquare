@@ -97,7 +97,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 		    if hit['_score']>threshold:
 			    url = hit["_source"]["url"]
 			    highlight = list(set(map(lambda x: x.text.lower(), BeautifulSoup(' '.join(sum(hit['highlight'].values(), []))).find_all('em'))))
-			    highlight_search = ' '.join(filter(lambda x: x.lower() in highlight, keywordlist))
+			    highlight_search = ' '.join(list(set(' '.join(filter(lambda x: x.lower() in highlight, keywordlist)).split())))
 			    urls.append({'url':url, 'highlight': highlight_search})
 		return urls
 
