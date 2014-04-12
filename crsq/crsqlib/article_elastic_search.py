@@ -68,6 +68,7 @@ def deleteurl(url):
 def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=8.0, highlight=False):
 
 	recency = recencyweight/1000000
+	maxarticleid = str(100000)
         if keywordstr.strip()=='':
                 return []
 
@@ -83,7 +84,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 
 	bodyquery = {
             "custom_score": {
-                "script" : "_score * ("+str(1.0+recency)+"**doc['articleid'].value)",
+                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*40000/"+maxarticleid+"))",
                 "query": {
                         "query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
                 }
