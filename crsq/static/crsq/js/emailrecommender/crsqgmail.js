@@ -93,9 +93,8 @@ function getGmailEmailsUniqueIdentifiers() {
 	
 	function checkingifreturned() {
  	   if(typeof t == 'undefined') {
-		clearInterval(checkingifreturned);
-	        setTimeout(checkingifreturned, 2000);
-	        return;
+		clearInterval(gmailidentifierextractor);
+	        gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
 	    }
 
 	    else {
@@ -114,7 +113,7 @@ function getGmailEmailsUniqueIdentifiers() {
         	return JSON.stringify(output)
             }
 	}
-	checkingifreturned();
+	gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
 }
 
 
