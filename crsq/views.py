@@ -371,7 +371,7 @@ def emailrecommender(request, emailhash):
 		#introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])
 		#introtags = ' '.join(map(lambda y: '"'+y.strip()+'"', filter(lambda x: len(x.strip().split(' '))>1, introtags.split(','))))
 		introtags = ' '.join(filter(lambda y: y, map(lambda x: x[0], emailstr2tuples(e['introductiontags']))))
-		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=0.8, recencyweight=1.0)
+		recommendedlinks_from_introduction = article_elastic_search.searchdoc(introtags, num=10, threshold=2.5, recencyweight=1.0)
 
 		recommendedpeople = relatedemailaddr(e)
 
