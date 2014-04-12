@@ -89,28 +89,33 @@ var articleGenerator = {
 
   showArticles_: function (articles, searchlink) {
     console.log(articles);
+    
     if (articles.length>0) {
 	document.body.innerHTML = "<div class='jumbotron'><div class='crsqsuggestions row'></div></div>";
 	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
     };
 
     for (var i = 0; i < Math.min(articles.length,4); i++) {
+
       var d = document.createElement('div');
       d.className="col-sm-3 col-lg-3 col-md-3 crsqarticle";
       var a = document.createElement('a');
       a.href = articles[i].url;
       a.target= "_blank";
-      a.innerHTML = '<br/><img class="crsqimage" src="'+ articles[i].image+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>';
+      a.innerHTML = '<br/><img class="crsqimage" data-src="'+ articles[i].image+'" src="'+ 'loading.gif'+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>';
       var span = document.createElement('span');
       span.innerHTML = '<div class="crsqdomain">' + articles[i].domain + '</div>' +' <div class="crsqhighlight">(' + articles[i].highlight + ')</div>';
       d.appendChild(a);
       d.appendChild(span);
       document.body.children[0].children[0].appendChild(d);
+
     }
 
     if (articles.length>0) {
         document.body.innerHTML += "<br/>";
     };
+
+    $('.crsqimage').jail({loadHiddenImages : true})
 
   }
 };
@@ -121,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	i.onerror = function () { document.body.children[0].children[0].innerHTML = "No Internet Connection Found. ZopEye eyes are closed!" ;}
 	i.src = 'http://www.google.com/images/logo.png?d=' + escape(Date());
 });
-
 
 String.prototype.removeStopWords = function() {
     var x;
