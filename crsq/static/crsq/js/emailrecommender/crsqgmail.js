@@ -28,22 +28,26 @@ function checkJqueryAndGlobals() {
 
 function gmailEmailRecommender() {
 	var gmail = Gmail();
+	this.gmailidentifierextractor = 0;
+	clearInterval(this.gmailidentifierextractor);
 	var username = gmail.get.user_email();
-	var emailidentifier = getGmailEmailsUniqueIdentifiers();
-	console.log("username: " + username)
-	console.log(emailidentifier)
-	$.ajax({
-      	    type: "GET",
-	    crossDomain: true,
-	    url: "https://46.137.209.142/gmailemailjs",
-	    data: { emailidentifier: emailidentifier, username: username },
-	    dataType: "jsonp",
-	    jsonp: 'jsonp_callback'
-	}).done(function(data) {
-	    console.log("CRSQ Gmail Email Recommender");
-	    console.log(data['output']);
-	    showonsidebar(data['output']);
+	$.when(getGmailEmailsUniqueIdentifiers()).done(function(x)  {
+		console.log(x);
+		console.log("username: " + username)
+		$.ajax({
+      		    type: "GET",
+		    crossDomain: true,
+		    url: "https://46.137.209.142/gmailemailjs",
+		    data: { emailidentifier: JSON.stringify(x.splice(0,4)), username: username },
+		    dataType: "jsonp",
+		    jsonp: 'jsonp_callback'
+		}).done(function(data) {
+		    console.log("CRSQ Gmail Email Recommender");
+		    console.log(data['output']);
+		    showonsidebar(data['output']);
+		})
 	})
+
 }
 
 function showonsidebar(l) {	
@@ -89,12 +93,13 @@ function getGmailEmailsUniqueIdentifiers() {
 	*/
 
 	var gmail = Gmail();
+	delete t;
 	t = gmail.get.email_data(email_id=undefined).threads;
 	
 	function checkingifreturned() {
+	   clearInterval(this.gmailidentifierextractor);
  	   if(typeof t == 'undefined') {
-		clearInterval(gmailidentifierextractor);
-	        gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
+	       this.gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
 	    }
 
 	    else {
@@ -109,11 +114,12 @@ function getGmailEmailsUniqueIdentifiers() {
 			outputtemp['datetime'] = t[key]['datetime'];
 			outputtemp['subject'] = t[key]['subject'];
 			output.push(outputtemp);
-		}	
-        	return JSON.stringify(output)
+		        }
+		console.log(output);
+        	return output
             }
 	}
-	gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
+	return checkingifreturned()
 }
 
 

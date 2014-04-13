@@ -74,7 +74,7 @@ def gmailemailjs(request):
 	emailidentifier = request.GET['emailidentifier']
 	openthread  = json.loads(emailidentifier)
 	username = request.GET['username']
-	offset = timedelta(hours=5, minutes=30)
+	offset = timedelta(hours=0, minutes=0)
 
 	"""
 	openemails = emailidentifier.split(';;||;;||crsq||;;||;;')
@@ -97,7 +97,8 @@ def gmailemailjs(request):
                         dateemail = dateutilparse(openemail['datetime'])-offset
                         dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
                 except:
-                        dateemail = None		
+                        dateemail = None
+		logger.debug([username, openemail['from_email'], openemail['subject'], dateemail])		
 		emailhashes += getemailhash(username, openemail['from_email'], openemail['subject'], dateemail)
 		
 	emailhashes = filter(lambda x: x, emailhashes)
