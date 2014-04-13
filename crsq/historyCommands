@@ -270,3 +270,7 @@ Add to /etc/rc.local
 Install https://github.com/emilmont/pyStatParser
 
 pip install django_compressor
+
+Elastic Search with Wordnet:
+http://javaaswin.blogspot.in/2014/02/elasticsearch-with-wordnet.html
+
