@@ -22,9 +22,17 @@ def createarticleindex():
 				'analysis': {
 					'analyzer': {
 						'my_ngram_analyzer' : {
- 					               	'tokenizer' : 'my_ngram_tokenizer'
+ 					               	'tokenizer' : 'my_ngram_tokenizer',
+							'filter': ['my_synonym_filter']
  	  					}
               				},
+					'filter': {
+						'my_synonym_filter': {
+							'type': 'synonym',
+							'format': 'wordnet',
+							'synonyms_path': 'analysis/wn_s.pl'
+						}
+					},
 	        			'tokenizer' : {
 						'my_ngram_tokenizer' : {
 					                'type' : 'nGram',
