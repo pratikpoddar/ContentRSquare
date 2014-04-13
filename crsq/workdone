@@ -29,12 +29,13 @@ Given a article link, get its long form content, title, image, date etc
 Given an article link, identify the key words in the article and the categories in which the article lie
 Given an article link, identify categories and positioning on the wikipedia graph and the wikipedia category graph
 Given an article link, summarize the article
-Given two articles, identify closeness by a metric on category graph
 
-Full Text Search engine for blogs
+Full Text Search engine
 
 Add a line of code and the videos in the page would have recommendations changed
 Add a line of code in the blog, and I can identify interesting words and link them to amazon products
+
+Semantic Similarity between two words
 
 ----To Do Video Advertising:
 New Video id as a parameter
@@ -45,22 +46,15 @@ random errors
 ----To Do Content-Affiliate-Advertising
 link click tracking in content-affiliate-advertising
 
-----To Do - For related articles:
-Search engine for articles
-
 ----Errors:
 Twitter-Newspaper: See how to scale up twitter without api pain
 Twitter-Newspaper: Api limit study - how much can be crawled
 
 How important a news piece is?
-How relevant is it to the keyword? - NLTK + Solr
 Date is not correct
 Content Clustering
 
 zippednews topic search typeahead
-
-Gmail-Extractor
-Incorporate threadid somewhere in gmail extractor
 
 Email Link Recommender
 EiR - Check why not there in manjula email

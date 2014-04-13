@@ -3,6 +3,7 @@ from crsq.models import ArticleInfo, ArticleTags
 from urlparse import urlparse
 import logging
 from bs4 import BeautifulSoup
+import math
 
 es = Elasticsearch()
 
@@ -166,7 +167,9 @@ def semantic_closeness_webdice(string1, string2):
 	num12 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '" AND "' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
 
 	if float(num12)>30:
-		return 2.0*float(num12)/(float(num1)+float(num2))
+		ratio = 2.0*float(num12)/(float(num1)+float(num2))
+		return math.atan(20.0*ratio)/(math.pi/2)
+
 	else:
 		return 0.0
 
