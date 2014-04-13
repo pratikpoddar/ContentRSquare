@@ -72,9 +72,10 @@ def gmailemailjs(request):
 			return []
 
 	emailidentifier = request.GET['emailidentifier']
+	logger.debug(emailidentifier)
 	openthread  = json.loads(emailidentifier)
 	username = request.GET['username']
-	offset = timedelta(hours=0, minutes=0)
+	offset = timedelta(hours=5, minutes=30)
 
 	"""
 	openemails = emailidentifier.split(';;||;;||crsq||;;||;;')
