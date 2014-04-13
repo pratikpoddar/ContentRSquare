@@ -155,6 +155,24 @@ def refreshdbtoes():
 
 def num_articles_search_exact(string):
 
-	res = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string + '"', "fields": ["text", "title"]}}}, fields="")
+	res = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string + '"', "fields": ["text", "title"]}}}, fields="", size=0)
 	return res['hits']['total']
+
+# Based on http://www2007.org/papers/paper632.pdf
+def semantic_closeness_webdice(string1, string2):
+
+	num1 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+	num2 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+	num12 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '" AND "' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+
+	if float(num12)>30:
+		return 2.0*float(num12)/(float(num1)+float(num2))
+	else:
+		return 0.0
+
+	
+
+
+
+
 
