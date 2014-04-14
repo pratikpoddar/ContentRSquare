@@ -162,6 +162,8 @@ def num_articles_search_exact(string):
 # Based on http://www2007.org/papers/paper632.pdf
 def semantic_closeness_webdice(string1, string2):
 
+	string1 = string1.lower()
+	string2 = string2.lower()
 	num1 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
 	num2 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
 	num12 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '" AND "' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
