@@ -31,6 +31,7 @@ def fa():
 	feedextractor.load_rss_in_table("http://www.ducttapemarketing.com/blog/feed/", "feed")
 	feedextractor.load_rss_in_table("http://www.engadget.com/rss.xml", "fromscratch")
 	feedextractor.load_rss_in_table("http://www.tmz.com/rss.xml", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.dailydot.com/feed/summary/latest/", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.feedburner.com/fastcompany", "feed")
 	feedextractor.load_rss_in_table("http://feeds.huffingtonpost.com/huffingtonpost/raw_feed", "feed")
 	feedextractor.load_rss_in_table("http://timesofindia.feedsportal.com/c/33039/f/533965/index.rss", "fromscratch")
