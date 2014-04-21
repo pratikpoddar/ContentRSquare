@@ -30,7 +30,8 @@ urlpatterns = patterns('',
 	
 	url(r'^gmailemailjs/?$', views.gmailemailjs, name='gmailemailjs'),
 
-        url(r'^crsqsemanticsimilarity/([a-zA-Z0-9 ]+)/([a-zA-Z0-9 ]+)/?$', views.crsqsemanticsimilarity, name='crsqss'),
+        url(r'^crsqsemanticsimilarityapi/([a-zA-Z0-9 ]+)/([a-zA-Z0-9 ]+)/?$', views.crsqsemanticsimilarityapi, name='crsqssapi'),
+        url(r'^crsqsemanticsimilarity/?$', views.crsqsemanticsimilarity, name='crsqss'),
 
 
 
