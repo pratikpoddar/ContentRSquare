@@ -31,6 +31,8 @@ from dateutil.parser import parse as dateutilparse
 
 import collections
 
+from ratelimit.decorators import ratelimit
+
 import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 
@@ -418,3 +420,17 @@ def zopeyesearch(request, keywordstr):
 			result.append(url)
 
 	return HttpResponse(json.dumps(result), content_type="application/json")
+
+@ratelimit(rate='1/m')
+def crsqsemanticsimilarity(request, param1, param2):
+
+	param1 = param1.lower()
+	param2 = param2.lower()
+	result = {'param1': param1, 'param2': param2, 'closeness': semantic_closeness_webdice(param1, param2)}
+	return HttpResponse(json.dumps(result), content_type="application/json")
+
+	
+
+
+
+
