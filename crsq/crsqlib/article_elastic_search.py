@@ -122,7 +122,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 		return urls
 
 def getall():
-	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=100000, fields="")
+	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=500000, fields="")
         print("Getting all elements indexed - Got %d Hits" % res['hits']['total'])
 	if res['hits']['total']>0:
 		urls = map(lambda hit: hit["_id"], res['hits']['hits'])
