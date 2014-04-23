@@ -92,24 +92,29 @@ var articleGenerator = {
     
     if (articlegroup.length>0) {
 	document.body.innerHTML = "<div class='jumbotron'></div>";
-	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by -- ZopEye --</a></div>"
+	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
     };
 
     for (var j = 0; j < articlegroup.length; j++) {
 	    articles = articlegroup[j];
 	    var r = document.createElement('div');
-            r.className = 'crsqsuggestions row';
+            r.className = 'crsqsuggestions panel panel-default row';
 	    for (var i = 0; i < Math.min(articles.length,4); i++) {
 
 	      var d = document.createElement('div');
-	      d.className="col-sm-3 col-lg-3 col-md-3 crsqarticle";
-	      var a = document.createElement('a');
-	      a.href = articles[i].url;
-	      a.target= "_blank";
-	      a.innerHTML = '<br/><img class="crsqimage" data-src="'+ articles[i].image+'" src="'+ 'loading.gif'+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>';
+	      d.className="crsqarticle col-sm-3 col-lg-3 col-md-3";
+	      var a1 = document.createElement('a');
+	      a1.href = articles[i].url;
+	      a1.target= "_blank";
+	      a1.innerHTML = '<br/><img class="crsqimage" data-src="'+ articles[i].image+'" src="'+ 'loading.gif'+'"/>';
+	      var a2 = document.createElement('a');
+	      a2.href = articles[i].url;
+	      a2.target = "_blank";
+	      a2.innerHTML += '<div class="crsqtitle">' + articles[i].title + '</div>';
 	      var span = document.createElement('span');
 	      span.innerHTML = '<div class="crsqdomain">' + articles[i].domain + '</div>' +' <div class="crsqhighlight">(' + articles[i].highlight + ')</div>';
-	      d.appendChild(a);
+	      d.appendChild(a1);
+	      d.appendChild(a2);
 	      d.appendChild(span);
 	      r.appendChild(d);
 	    }
