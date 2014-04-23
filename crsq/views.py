@@ -31,7 +31,7 @@ from dateutil.parser import parse as dateutilparse
 
 import collections
 
-from ratelimit.decorators import ratelimit
+#from ratelimit.decorators import ratelimit
 
 import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
@@ -421,16 +421,42 @@ def zopeyesearch(request, keywordstr):
 
 	return HttpResponse(json.dumps(result), content_type="application/json")
 
-@ratelimit(rate='1/m')
-def crsqsemanticsimilarity(request, param1, param2):
+#@ratelimit(ip=False, rate='2/m', keys=lambda req: req.META.get('HTTP_X_FORWARDED_FOR', req.META['REMOTE_ADDR']))
+def crsqsemanticsimilarityapi(request, param1, param2):
 
-	param1 = param1.lower()
-	param2 = param2.lower()
-	result = {'param1': param1, 'param2': param2, 'closeness': semantic_closeness_webdice(param1, param2)}
+	# Will be true if the same IP makes more than rate.
+	was_limited = getattr(request, 'limited', False)
+
+        param1 = param1.lower()
+        param2 = param2.lower()
+
+	if was_limited:
+		result = {'param1': param1, 'param2': param2, 'error': 'Limit per minute exceeded. Contact pratikpoddar05051989@gmail.com to get unlimited access to the api' }
+		
+	else:
+		result = {'param1': param1, 'param2': param2, 'closeness': article_elastic_search.semantic_closeness_webdice(param1, param2)}
+	
 	return HttpResponse(json.dumps(result), content_type="application/json")
 
+def crsqsemanticsimilarity(request):
+
+	if ('param1' in request.GET.keys()) and ('param2' in request.GET.keys()):
+		param1 = request.GET['param1']
+		param2 = request.GET['param2']
+		closeness = article_elastic_search.semantic_closeness_webdice(param1, param2)
+	else:
+		closeness = ''
+		param1 = ''
+		param2 = ''
 	
 
+        template = loader.get_template('crsq/crsqsemanticsimilarity/index.html')
+        context = RequestContext(request, {
+                'closeness': closeness,
+                'param1': param1,
+		'param2': param2
+        })
+        return HttpResponse(template.render(context))
 
 
 

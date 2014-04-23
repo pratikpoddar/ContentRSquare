@@ -1,0 +1,104 @@
+{% load staticfiles %}
+{% load tagfilter %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block metadescription %}{% endblock %}">
+    <meta name="author" content="">
+
+    <title>{% block title %}CRSQ Semantic Similarity{% endblock %}</title>
+    {% compress css %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "crsq/css/crsqsemanticsimilarity/bootstrap.readable.min.css" %}" rel="stylesheet">
+    <!-- Add custom CSS here -->
+    <link href="{% static "crsq/css/crsqsemanticsimilarity/semanticsimilarity.css" %}" rel="stylesheet">
+    {% endcompress %}
+  </head>
+
+  <body>
+
+    {% block navcontent %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">{% block navbartitle %}CRSQ Semantic Similarity{% endblock %}</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#"></a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+   {% endblock %}
+
+    <div class="container">
+	{% block bodycontent %}
+
+        <div class="jumbotron">
+        	<h1>CRSQ Semantic Similarity</h1>
+        	<p style="text-align:justify">See how closely two elements of a pair are related. Semantic similarity or semantic relatedness is a metric defined over a set of terms, where the idea of distance between them is based on the likeness of their meaning or semantic content as opposed to similarity which can be estimated regarding their syntactical representation. <br/> Example: <a href="http://46.137.209.142/crsqsemanticsimilarity?param1=Sachin+Tendulkar&param2=Rahul+Dravid">(Sachin Tendulkar / Rahul Dravid)</a>, <a href="http://46.137.209.142/crsqsemanticsimilarity?param1=Sachin+Tendulkar&param2=Rahul+Gandhi">(Sachin Tendulkar / Rahul Gandhi)</a>, <a href="http://46.137.209.142/crsqsemanticsimilarity?param1=Rahul+Gandhi&param2=Narendra+Modi">(Rahul Gandhi / Narendra Modi)</a>, <a href="http://46.137.209.142/crsqsemanticsimilarity?param1=love&param2=romance">(love / romance)</a>, <a href="http://46.137.209.142/crsqsemanticsimilarity?param1=love&param2=cricket">(love / cricket)</a>. Give it a shot. We are improving with time by adding more knowledge into the system. This is just the beginning.</p>
+
+
+		<div class="row" align="center">
+			<h2>
+			{% if param1 %}
+				{% if param2 %}
+			Semantic Closeness between <br/><u>{{ param1 }}</u> and <u>{{ param2 }}</u> is <u>{{ closeness | floatformat:3 }}</u>
+				{% endif %}
+			{% endif %}
+			</h2>
+		</div>
+
+	        <div class="row" align="center">
+
+		<form class="form-inline" role="form" action="/crsqsemanticsimilarity" method="get">
+		  <div class="form-group">
+		    <label class="sr-only" for="inputparam1">Parameter 1</label>
+		    <input type="text" class="form-control" id="inputparam1" placeholder="Parameter 1" name="param1">
+		  </div>
+		  <div class="form-group">
+		    <label class="sr-only" for="inputparam2">Parameter 2</label>
+		    <input type="text" class="form-control" id="inputparam2" placeholder="Parameter 2" name="param2">
+		  </div>
+	  	<button type="submit" class="btn btn-default">Get Similarity</button>
+		</form>
+
+	        </div>
+	</div>
+
+
+
+	{% endblock %}
+    </div><!-- /.container -->    
+
+    {% block footercontent %}
+    <div class="container">
+      <hr>
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Pratik Poddar</p>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /.container -->
+    {% endblock %}
+
+    <!-- JavaScript -->
+    {% compress js %}
+    <script type="text/javascript" src="{% static "crsq/js/crsqsemanticsimilarity/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
+    {% endcompress %}
+
+	{% block jscontent %}
+	{% endblock %}
+
+  </body>
+
+</html>
