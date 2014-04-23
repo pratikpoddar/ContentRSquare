@@ -410,7 +410,7 @@ def zopeyesearch(request, keywordstr):
 		return HttpResponse("<html><body>Zop Eye Search - Wrong Input</body></html>")
 		
 	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
-	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts), level=98)
+	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts))
 	result = []
 	for clust in clustered_urls:
 		tempresult= []
