@@ -409,16 +409,24 @@ def zopeyesearch(request, keywordstr):
 	if keywordstr.strip() == "":
 		return HttpResponse("<html><body>Zop Eye Search - Wrong Input</body></html>")
 		
-	urls = article_elastic_search.searchdoc(keywordstr, highlight=True)
+	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
+	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts), level=98)
 	result = []
-	for url in urls:
-		article = ArticleInfo.objects.get(url=url['url'])
-		url['image'] = article.articleimage
-		url['domain'] = article.domainname()
-		url['title'] = article.articletitle
-		if url['image']:
-			result.append(url)
-
+	for clust in clustered_urls:
+		tempresult= []
+		for url in clust:
+			article = ArticleInfo.objects.get(url=url)
+			urldict = filter(lambda x: x['url']==url, urldicts)[0]
+			urldict['image'] = article.articleimage
+			urldict['domain'] = article.domainname()
+			urldict['title'] = article.articletitle
+			if urldict['image']:
+				tempresult.append(urldict)
+		if tempresult:
+			result.append(tempresult)
+	logger.debug(len(urldicts))
+	logger.debug(len(clustered_urls))
+		
 	return HttpResponse(json.dumps(result), content_type="application/json")
 
 #@ratelimit(ip=False, rate='2/m', keys=lambda req: req.META.get('HTTP_X_FORWARDED_FOR', req.META['REMOTE_ADDR']))

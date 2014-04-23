@@ -4,6 +4,7 @@ from urlparse import urlparse
 import logging
 from bs4 import BeautifulSoup
 import math
+from cluster import HierarchicalClustering
 
 es = Elasticsearch()
 
@@ -76,8 +77,8 @@ def deleteurl(url):
 
 def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=8.0, highlight=False):
 
-	recency = recencyweight/1000000
-	maxarticleid = str(100000)
+	recency = recencyweight/1000000.0
+	maxarticleid = str(100000.0)
         if keywordstr.strip()=='':
                 return []
 
@@ -93,7 +94,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 
 	bodyquery = {
             "custom_score": {
-                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*40000/"+maxarticleid+"))",
+                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*40000.0/"+maxarticleid+"))",
                 "query": {
                         "query_string": {"query": keywordstr, "fields": ["text", "title", "tags", "domain"]}
                 }
@@ -101,7 +102,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
         }
 
 	if highlight==True:
-	        res = es.search(index="article-index", body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
+	        res = es.search(index="article-index", size=max(num, 10), body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
 		urls = []
 		for hit in res['hits']['hits']:
 		    if hit['_score']>threshold:
@@ -112,7 +113,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 		return urls
 
 	else:
-		res = es.search(index="article-index", fields="url", body={"query": bodyquery})
+		res = es.search(index="article-index", fields="url", body={"query": bodyquery}, size=max(num,10))
 		urls = []
 		for hit in res['hits']['hits']:
 		    if hit['_score']>threshold:
@@ -175,9 +176,17 @@ def semantic_closeness_webdice(string1, string2):
 	else:
 		return 0.0
 
+def cluster_articles(urls, level=97):
 	
-
-
-
-
+	articles = map(lambda x: es.get(index="article-index", doc_type='article', id=x)['_source'], urls)
+	print len(articles)
+	#cl = HierarchicalClustering(articles, lambda x,y: 1.0-(2.0*float(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' ')))))/float((len(x['tags'].split(' ')) + len(y['tags'].split(' '))))))
+	cl = HierarchicalClustering(articles, lambda x,y: 100-(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' '))))))
+	clusters = cl.getlevel(level)
+	print len(clusters)
+	urlclusters = []
+	for clust in clusters:
+		urlclusters.append(map(lambda x: x['url'], clust))
+		
+	return urlclusters
 
