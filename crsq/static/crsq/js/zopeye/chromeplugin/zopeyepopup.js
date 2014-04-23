@@ -87,31 +87,37 @@ var articleGenerator = {
     })
   },
 
-  showArticles_: function (articles, searchlink) {
-    console.log(articles);
+  showArticles_: function (articlegroup, searchlink) {
+    console.log(articlegroup);
     
-    if (articles.length>0) {
-	document.body.innerHTML = "<div class='jumbotron'><div class='crsqsuggestions row'></div></div>";
-	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by ZopEye</a></div>"
+    if (articlegroup.length>0) {
+	document.body.innerHTML = "<div class='jumbotron'></div>";
+	document.body.innerHTML += "<div class='crsqattribution row'><a href='"+searchlink+"' target='_blank'>Powered by -- ZopEye --</a></div>"
     };
 
-    for (var i = 0; i < Math.min(articles.length,4); i++) {
+    for (var j = 0; j < articlegroup.length; j++) {
+	    articles = articlegroup[j];
+	    var r = document.createElement('div');
+            r.className = 'crsqsuggestions row';
+	    for (var i = 0; i < Math.min(articles.length,4); i++) {
 
-      var d = document.createElement('div');
-      d.className="col-sm-3 col-lg-3 col-md-3 crsqarticle";
-      var a = document.createElement('a');
-      a.href = articles[i].url;
-      a.target= "_blank";
-      a.innerHTML = '<br/><img class="crsqimage" data-src="'+ articles[i].image+'" src="'+ 'loading.gif'+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>';
-      var span = document.createElement('span');
-      span.innerHTML = '<div class="crsqdomain">' + articles[i].domain + '</div>' +' <div class="crsqhighlight">(' + articles[i].highlight + ')</div>';
-      d.appendChild(a);
-      d.appendChild(span);
-      document.body.children[0].children[0].appendChild(d);
-
+	      var d = document.createElement('div');
+	      d.className="col-sm-3 col-lg-3 col-md-3 crsqarticle";
+	      var a = document.createElement('a');
+	      a.href = articles[i].url;
+	      a.target= "_blank";
+	      a.innerHTML = '<br/><img class="crsqimage" data-src="'+ articles[i].image+'" src="'+ 'loading.gif'+'"/><br/><div class="crsqtitle">' + articles[i].title + '</div>';
+	      var span = document.createElement('span');
+	      span.innerHTML = '<div class="crsqdomain">' + articles[i].domain + '</div>' +' <div class="crsqhighlight">(' + articles[i].highlight + ')</div>';
+	      d.appendChild(a);
+	      d.appendChild(span);
+	      r.appendChild(d);
+	    }
+	    document.body.children[0].appendChild(r);
+	    document.body.innerHTML += "<br/>"
     }
 
-    if (articles.length>0) {
+    if (articlegroup.length>0) {
         document.body.innerHTML += "<br/>";
     };
 
