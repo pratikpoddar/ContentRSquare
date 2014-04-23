@@ -411,6 +411,7 @@ def zopeyesearch(request, keywordstr):
 		
 	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
 	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts))
+	clustered_urls = sorted(clustered_urls, key=lambda x: -len(x))
 	result = []
 	for clust in clustered_urls:
 		tempresult= []
