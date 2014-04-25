@@ -13,16 +13,18 @@ function checkJquery() {
        if (window.jQuery)  {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJquery, 3000);}
 }
 
+function onlyUnique(value, index, self) {
+	return self.indexOf(value) === index;
+}
+
 function gmailEmailRecommender() {
-	var username = 'pratik.phodu@gmail.com';
 	$.when(getGmailEmailsContent()).done(function(x)  {
 		console.log(x);
-		console.log("username: " + username)
 		$.ajax({
       		    type: "GET",
 		    crossDomain: true,
 		    url: "https://46.137.209.142/gmailemailjs",
-		    data: { emailcontent: x, username: username },
+		    data: { emailcontent: x },
 		    dataType: "jsonp",
 		    jsonp: 'jsonp_callback'
 		}).done(function(data) {
@@ -42,7 +44,7 @@ function showonsidebar(l) {
         	$("#crsqdiv").html('')
 	}
 
-	$("#crsqdiv").append('<style type="text/css"> .crsqtitle { font-size:80%; color: #222;} .crsqlink {font-size:70%;} </style>');
+	$("#crsqdiv").append('<style type="text/css"> .crsqtitle { font-size:80%; color: #222;word-wrap: break-word;} .crsqlink {font-size:70%;word-wrap:break-word;} </style>');
 	$("#crsqdiv").append('Antaryaami Suggestions<br/><br/>');
 	$('#rapportive-sidebar').hide();
 
@@ -60,8 +62,17 @@ function showonsidebar(l) {
 function getGmailEmailsContent() {
 
 	openemails=[]; 
-	$.each($('.adP'), function(index, value) { openemails.push($($(value).html().replace(/>/gi,'> ')).text().replace(/  /gi, ' ')) });
-	emailcontent = openemails.join(' ').removeStopWords();
+	$.each($('.adP'), function(index, value) { openemails.push($($(value).html().replace('<wbr>','').replace(/>/gi,'> ')).text().replace(/  /gi, ' ').replace(/\n/g, ' ').replace(/<[^>]*>/g, " ").replace(/[-_][-_][-_]*/gi,' ').replace(/http[^\s]*/gi, ' ').replace(/@\s*[^\s]*/gi, ' ')) });
+	emailcontent = openemails.join(' ').replace(/\W/g, ' ').trim().toLowerCase();
+	if (emailcontent=="") {
+		return emailcontent;
+	}
+	else {
+		emailcontent = emailcontent.removeStopWords();
+	}
+
+	emailcontent = emailcontent.split(' ').filter(function(x) { return !(x=="") }).filter(function(x) { return !($.isNumeric(x))}).filter(onlyUnique).join(' ')
+
 	return emailcontent;
 	
 }
@@ -90,6 +101,7 @@ String.prototype.removeStopWords = function() {
         'also',
         'although',
         'always',
+	'am',
         'among',
         'an',
         'and',
@@ -191,6 +203,7 @@ String.prototype.removeStopWords = function() {
         'first',
         'for',
         'four',
+	'fri',
         'from',
         'full',
         'fully',
@@ -291,6 +304,7 @@ String.prototype.removeStopWords = function() {
         'members',
         'men',
         'might',
+	'mon',
         'more',
         'most',
         'mostly',
@@ -358,6 +372,7 @@ String.prototype.removeStopWords = function() {
         'perhaps',
         'place',
         'places',
+	'pm',
         'point',
         'pointed',
         'pointing',
@@ -385,6 +400,7 @@ String.prototype.removeStopWords = function() {
         's',
         'said',
         'same',
+	'sat',
         'saw',
         'say',
         'says',
@@ -421,6 +437,7 @@ String.prototype.removeStopWords = function() {
         'still',
         'still',
         'such',
+	'sun',
         'sure',
         't',
         'take',
@@ -446,6 +463,8 @@ String.prototype.removeStopWords = function() {
         'thoughts',
         'three',
         'through',
+	'thur',
+	'thurs',
         'thus',
         'to',
         'today',
@@ -453,6 +472,7 @@ String.prototype.removeStopWords = function() {
         'too',
         'took',
         'toward',
+	'tue',
         'turn',
         'turned',
         'turning',
@@ -479,6 +499,7 @@ String.prototype.removeStopWords = function() {
         'way',
         'ways',
         'we',
+	'wed',
         'well',
         'wells',
         'went',

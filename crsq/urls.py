@@ -27,7 +27,8 @@ urlpatterns = patterns('',
 	url(r'^zopeyesearch/([a-zA-Z0-9 ]+)/?$', views.zopeyesearch, name='zopeyesearch'),
 
         url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker'),
-	
+
+        url(r'^gmailemailjs/?$', views.gmailemailjs, name='gmailemailjs'),	
 	url(r'^gmailemailjs_imap/?$', views.gmailemailjs_imap, name='gmailemailjs_imap'),
 
         url(r'^crsqsemanticsimilarityapi/([a-zA-Z0-9 ]+)/([a-zA-Z0-9 ]+)/?$', views.crsqsemanticsimilarityapi, name='crsqssapi'),

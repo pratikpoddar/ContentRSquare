@@ -25,7 +25,7 @@ from crsq.linkbook import linkbook
 from crsq import dbcache
 from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo
 
-from crsq.crsqlib import article_elastic_search, email_elastic_search
+from crsq.crsqlib import article_elastic_search, email_elastic_search, text_summarize
 
 from dateutil.parser import parse as dateutilparse
 
@@ -147,7 +147,13 @@ def tw_np(request, sector, location, page=1):
 def gmailemailjs(request):
 
 	emailcontent = request.GET['emailcontent']
-	urls = article_elastic_search.searchdoc(emailcontent, num=10, threshold=0.7)
+	tags = text_summarize.text_summarize.get_text_tags(emailcontent)
+	tags = ' '.join(tags).strip()
+	logger.debug("Gmail Email JS Tags: " + tags)
+	if tags == '':
+		urls = []
+	else:
+		urls = article_elastic_search.searchdoc(tags, num=10, threshold=0.9)
 
         output = ArticleInfo.objects.filter(url__in=urls).values('url', 'articletitle')
         output = json.dumps([dict(x) for x in output])
@@ -237,8 +243,15 @@ def zippednewsapp(request, tag):
 			if request.GET['elasticsearchfail']=="True":
 				raise
 		searchterm = tag.replace('-',' ').title()
-		searchterm = '"' + searchterm + '" ' + searchterm
-                urls = article_elastic_search.searchdoc(searchterm, 30)
+
+		searchterm2 = '"' + searchterm + '"'
+                urls = article_elastic_search.searchdoc(searchterm2, 30)
+		if urls==[]:
+			searchterm2 = ' AND '.join(searchterm.split(' '))
+			urls = article_elastic_search.searchdoc(searchterm2, 30)
+			if urls==[]:
+				searchterm2 = '"' + searchterm + '" ' + searchterm
+				urls = article_elastic_search.searchdoc(searchterm2, 30)
                 urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	except:
 		# Elastic Search Failed
