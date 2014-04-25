@@ -28,7 +28,7 @@ urlpatterns = patterns('',
 
         url(r'^dbchecker/([a-zA-Z0-9]+)/?$', views.dbchecker, name='dbsummarychecker'),
 	
-	url(r'^gmailemailjs/?$', views.gmailemailjs, name='gmailemailjs'),
+	url(r'^gmailemailjs_imap/?$', views.gmailemailjs_imap, name='gmailemailjs_imap'),
 
         url(r'^crsqsemanticsimilarityapi/([a-zA-Z0-9 ]+)/([a-zA-Z0-9 ]+)/?$', views.crsqsemanticsimilarityapi, name='crsqssapi'),
         url(r'^crsqsemanticsimilarity/?$', views.crsqsemanticsimilarity, name='crsqss'),

@@ -57,7 +57,7 @@ def caa(request):
 	
         return HttpResponse(jsonresponse)
 
-def gmailemailjs(request):
+def gmailemailjs_imap(request):
 
 	def getemailaddr(string):
 		return filter(lambda x: x.find('@')>0, string.split(' '))[-1].strip()
@@ -143,6 +143,17 @@ def tw_np(request, sector, location, page=1):
 		'pagerange' : range(max(1,int(page)-2),max(1,int(page)-2)+3)
         })
 	return HttpResponse(template.render(context))
+
+def gmailemailjs(request):
+
+	emailcontent = request.GET['emailcontent']
+	urls = article_elastic_search.searchdoc(emailcontent, num=10, threshold=0.7)
+
+        output = ArticleInfo.objects.filter(url__in=urls).values('url', 'articletitle')
+        output = json.dumps([dict(x) for x in output])
+
+        jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
+        return HttpResponse(jsonresponse)
 
 def linkbook_view(request):
 

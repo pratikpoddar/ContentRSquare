@@ -1,44 +1,28 @@
 s = document.createElement('script');
 s.setAttribute('src', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js');
 document.getElementsByTagName('head')[0].appendChild(s);
-var jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);
-var functioncallchecker = 0;
-var gmailidentifierextractor = 0;
+var jqueryloadchecker = window.setInterval(checkJquery, 3000);
  
 function jqueryLoaded() {
 	clearInterval(jqueryloadchecker);
-	$.getScript( "https://46.137.209.142/static/crsq/js/emailrecommender/gmail.min.js" )
-		  .done(function( script, textStatus ) {
-		        if (functioncallchecker == 0) {
-	        	        functioncallchecker = 1;
-				var gmail = Gmail();
-		                gmailEmailRecommender();
-				gmail.observe.on("open_email", function(id, url, body) {
-  				  console.log("crsq email opened");
-				  gmailEmailRecommender();
-				})
-        		 }
-		})
+	gmailEmailRecommender();
 }
  
-function checkJqueryAndGlobals() {
+function checkJquery() {
        clearInterval(jqueryloadchecker);
-       if ((window.jQuery) && (typeof GLOBALS == "object")) {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJqueryAndGlobals, 3000);}
+       if (window.jQuery)  {jqueryLoaded();} else { jqueryloadchecker = window.setInterval(checkJquery, 3000);}
 }
 
 function gmailEmailRecommender() {
-	var gmail = Gmail();
-	this.gmailidentifierextractor = 0;
-	clearInterval(this.gmailidentifierextractor);
-	var username = gmail.get.user_email();
-	$.when(getGmailEmailsUniqueIdentifiers()).done(function(x)  {
+	var username = 'pratik.phodu@gmail.com';
+	$.when(getGmailEmailsContent()).done(function(x)  {
 		console.log(x);
 		console.log("username: " + username)
 		$.ajax({
       		    type: "GET",
 		    crossDomain: true,
 		    url: "https://46.137.209.142/gmailemailjs",
-		    data: { emailidentifier: JSON.stringify(x.splice(0,4)), username: username },
+		    data: { emailcontent: x, username: username },
 		    dataType: "jsonp",
 		    jsonp: 'jsonp_callback'
 		}).done(function(data) {
@@ -47,7 +31,6 @@ function gmailEmailRecommender() {
 		    showonsidebar(data['output']);
 		})
 	})
-
 }
 
 function showonsidebar(l) {	
@@ -74,52 +57,492 @@ function showonsidebar(l) {
 	}
 }
 
-function getGmailEmailsUniqueIdentifiers() {
+function getGmailEmailsContent() {
 
-	/*
-        $('.ajz').click(); openemailelems = $('tr.ajv'); $('.ajz').click();
-        openemails = "";
-        for (var i=0;i<openemailelems.length;i++)
-        {
-                if ($(openemailelems[i]).hasClass('UszGxc')) {
-                        openemails += ";;||;;||crsq||;;||;;";
-                };
-		if (($.trim(openemailelems[i].innerText).indexOf("from:")==0) || ($.trim(openemailelems[i].innerText).indexOf("subject:")==0) || ($.trim(openemailelems[i].innerText).indexOf("date:"))==0) {
-	                openemails += $.trim(openemailelems[i].innerText) + "--||--||crsq||--||--";
-		};
-        }
-        openemails += ";;||;;||crsq||;;||;;"
-	return openemails
-	*/
-
-	var gmail = Gmail();
-	delete t;
-	t = gmail.get.email_data(email_id=undefined).threads;
+	openemails=[]; 
+	$.each($('.adP'), function(index, value) { openemails.push($($(value).html().replace(/>/gi,'> ')).text().replace(/  /gi, ' ')) });
+	emailcontent = openemails.join(' ').removeStopWords();
+	return emailcontent;
 	
-	function checkingifreturned() {
-	   clearInterval(this.gmailidentifierextractor);
- 	   if(typeof t == 'undefined') {
-	       this.gmailidentifierextractor = window.setInterval(checkingifreturned, 2000);
-	    }
-
-	    else {
-	  
-		output = [];
-		for (key in t) {
-			outputtemp = {};
-			outputtemp['from_email'] = t[key]['from_email'];
-			outputtemp['to'] = t[key]['to'];
-			outputtemp['cc'] = t[key]['cc'];
-			outputtemp['bcc'] = t[key]['bcc'];
-			outputtemp['datetime'] = t[key]['datetime'];
-			outputtemp['subject'] = t[key]['subject'];
-			output.push(outputtemp);
-		        }
-		console.log(output);
-        	return output
-            }
-	}
-	return checkingifreturned()
 }
 
-
+String.prototype.removeStopWords = function() {
+    var x;
+    var y;
+    var word;
+    var stop_word;
+    var regex_str;
+    var regex;
+    var cleansed_string = this.valueOf();
+    var stop_words = new Array(
+        'a',
+        'about',
+        'above',
+        'across',
+        'after',
+        'again',
+        'against',
+        'all',
+        'almost',
+        'alone',
+        'along',
+        'already',
+        'also',
+        'although',
+        'always',
+        'among',
+        'an',
+        'and',
+        'another',
+        'any',
+        'anybody',
+        'anyone',
+        'anything',
+        'anywhere',
+        'are',
+        'area',
+        'areas',
+        'around',
+        'as',
+        'ask',
+        'asked',
+        'asking',
+        'asks',
+        'at',
+        'away',
+        'b',
+        'back',
+        'backed',
+        'backing',
+        'backs',
+        'be',
+        'became',
+        'because',
+        'become',
+        'becomes',
+        'been',
+        'before',
+        'began',
+        'behind',
+        'being',
+        'beings',
+        'best',
+        'better',
+        'between',
+        'big',
+        'both',
+        'but',
+        'by',
+        'c',
+        'came',
+        'can',
+        'cannot',
+        'case',
+        'cases',
+        'certain',
+        'certainly',
+        'clear',
+        'clearly',
+	'com',
+        'come',
+        'could',
+        'd',
+        'did',
+        'differ',
+        'different',
+        'differently',
+        'do',
+        'does',
+        'done',
+        'down',
+        'down',
+        'downed',
+        'downing',
+        'downs',
+        'during',
+        'e',
+        'each',
+        'early',
+        'either',
+        'end',
+        'ended',
+        'ending',
+        'ends',
+        'enough',
+	'error',
+        'even',
+        'evenly',
+        'ever',
+        'every',
+        'everybody',
+        'everyone',
+        'everything',
+        'everywhere',
+        'f',
+        'face',
+        'faces',
+        'fact',
+        'facts',
+        'far',
+        'felt',
+        'few',
+        'find',
+        'finds',
+        'first',
+        'for',
+        'four',
+        'from',
+        'full',
+        'fully',
+        'further',
+        'furthered',
+        'furthering',
+        'furthers',
+	'fwiw',
+	'fyi',
+        'g',
+        'gave',
+        'general',
+        'generally',
+        'get',
+        'gets',
+        'give',
+        'given',
+        'gives',
+        'go',
+        'going',
+        'good',
+        'goods',
+        'got',
+        'great',
+        'greater',
+        'greatest',
+        'group',
+        'grouped',
+        'grouping',
+        'groups',
+        'h',
+        'had',
+        'has',
+        'have',
+        'having',
+        'he',
+        'her',
+        'here',
+        'herself',
+        'high',
+        'high',
+        'high',
+        'higher',
+        'highest',
+        'him',
+        'himself',
+        'his',
+        'how',
+        'however',
+        'i',
+        'if',
+        'important',
+        'in',
+        'interest',
+        'interested',
+        'interesting',
+        'interests',
+        'into',
+        'is',
+        'it',
+        'its',
+        'itself',
+        'j',
+        'just',
+        'k',
+        'keep',
+        'keeps',
+        'kind',
+        'knew',
+        'know',
+        'known',
+        'knows',
+        'l',
+        'large',
+        'largely',
+        'last',
+        'later',
+        'latest',
+        'least',
+        'less',
+        'let',
+        'lets',
+        'like',
+        'likely',
+	'lol',
+        'long',
+        'longer',
+        'longest',
+        'm',
+        'made',
+        'make',
+        'making',
+        'man',
+        'many',
+        'may',
+        'me',
+        'member',
+        'members',
+        'men',
+        'might',
+        'more',
+        'most',
+        'mostly',
+        'mr',
+        'mrs',
+        'much',
+        'must',
+        'my',
+        'myself',
+        'n',
+        'necessary',
+        'need',
+        'needed',
+        'needing',
+        'needs',
+        'never',
+        'new',
+        'newer',
+        'newest',
+	'news',
+        'next',
+        'no',
+        'nobody',
+        'non',
+        'noone',
+        'not',
+        'nothing',
+        'now',
+        'nowhere',
+        'number',
+        'numbers',
+        'o',
+        'of',
+        'off',
+        'often',
+        'old',
+        'older',
+        'oldest',
+	'omg',
+        'on',
+        'once',
+        'one',
+        'only',
+        'open',
+        'opened',
+        'opening',
+        'opens',
+        'or',
+        'order',
+        'ordered',
+        'ordering',
+        'orders',
+	'org',
+        'other',
+        'others',
+        'our',
+        'out',
+        'over',
+        'p',
+        'part',
+        'parted',
+        'parting',
+        'parts',
+        'per',
+        'perhaps',
+        'place',
+        'places',
+        'point',
+        'pointed',
+        'pointing',
+        'points',
+        'possible',
+        'present',
+        'presented',
+        'presenting',
+        'presents',
+        'problem',
+        'problems',
+        'put',
+        'puts',
+        'q',
+        'quite',
+        'r',
+        'rather',
+        'really',
+	'related',
+	'remove',
+        'right',
+        'right',
+        'room',
+        'rooms',
+        's',
+        'said',
+        'same',
+        'saw',
+        'say',
+        'says',
+        'second',
+        'seconds',
+        'see',
+        'seem',
+        'seemed',
+        'seeming',
+        'seems',
+        'sees',
+        'several',
+        'shall',
+        'she',
+        'should',
+        'show',
+        'showed',
+        'showing',
+        'shows',
+        'side',
+        'sides',
+        'since',
+        'small',
+        'smaller',
+        'smallest',
+        'so',
+        'some',
+        'somebody',
+        'someone',
+        'something',
+        'somewhere',
+        'state',
+        'states',
+        'still',
+        'still',
+        'such',
+        'sure',
+        't',
+        'take',
+        'taken',
+        'than',
+        'that',
+        'the',
+        'their',
+        'them',
+        'then',
+        'there',
+        'therefore',
+        'these',
+        'they',
+        'thing',
+        'things',
+        'think',
+        'thinks',
+        'this',
+        'those',
+        'though',
+        'thought',
+        'thoughts',
+        'three',
+        'through',
+        'thus',
+        'to',
+        'today',
+        'together',
+        'too',
+        'took',
+        'toward',
+        'turn',
+        'turned',
+        'turning',
+        'turns',
+        'two',
+        'u',
+        'under',
+        'until',
+        'up',
+        'upon',
+        'us',
+        'use',
+        'used',
+        'uses',
+        'v',
+	'visit',
+        'very',
+        'w',
+        'want',
+        'wanted',
+        'wanting',
+        'wants',
+        'was',
+        'way',
+        'ways',
+        'we',
+        'well',
+        'wells',
+        'went',
+        'were',
+        'what',
+        'when',
+        'where',
+        'whether',
+        'which',
+        'while',
+        'who',
+        'whole',
+        'whose',
+        'why',
+        'will',
+        'with',
+        'within',
+        'without',
+        'work',
+        'worked',
+        'working',
+        'works',
+        'would',
+	'www',
+        'x',
+        'y',
+        'year',
+        'years',
+        'yet',
+        'you',
+        'young',
+        'younger',
+        'youngest',
+        'your',
+        'yours',
+        'z'
+    )
+         
+    // Split out all the individual words in the phrase
+    words = cleansed_string.match(/[^\s]+|\s+[^\s+]$/g)
+ 
+    // Review all the words
+    for(x=0; x < words.length; x++) {
+        // For each word, check all the stop words
+        for(y=0; y < stop_words.length; y++) {
+            // Get the current word
+            word = words[x].replace(/\s+|[^a-z]+/ig, "");   // Trim the word and remove non-alpha
+             
+            // Get the stop word
+            stop_word = stop_words[y];
+             
+            // If the word matches the stop word, remove it from the keywords
+            if(word.toLowerCase() == stop_word) {
+                // Build the regex
+                regex_str = "^\\s*"+stop_word+"\\s*$";      // Only word
+                regex_str += "|^\\s*"+stop_word+"\\s+";     // First word
+                regex_str += "|\\s+"+stop_word+"\\s*$";     // Last word
+                regex_str += "|\\s+"+stop_word+"\\s+";      // Word somewhere in the middle
+                regex = new RegExp(regex_str, "ig");
+             
+                // Remove the word from the keywords
+                cleansed_string = cleansed_string.replace(regex, " ");
+            }
+        }
+    }
+    return cleansed_string.replace(/^\s+|\s+$/g, "");
+}
