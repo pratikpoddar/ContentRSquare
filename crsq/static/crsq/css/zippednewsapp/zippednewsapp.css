@@ -44,6 +44,7 @@ body {
 
 #topicsearch {
    width: 300px;
+   max-width: 90%;
 }
 
 footer {
