@@ -14,10 +14,10 @@ ZippedNews: Real-time news on Popular Topics
 	  <h1>ZippedNews</h1>
 		<p style="text-align:justify">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
 
-		<form class="form-inline" role="form" onsubmit="function(){location.href = 'http://zippednews.com/' + $('#topicsearch').toLowerCase().replace(/-+/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}">
+		<form class="form-inline" role="form" action="http://zippednews.com/" method="get">
 		  <div class="form-group">
 		    <label class="sr-only" for="topicsearch">Enter Topic (eg: Microsoft Corp)</label>
-		    <input type="text" class="form-control" id="topicsearch" placeholder="Enter Topic (eg: Microsoft Corp)">
+		    <input type="text" class="form-control" name="topicsearch" id="topicsearch" placeholder="Enter Topic (eg: Microsoft Corp)">
 		  </div>
 		  <button type="submit" class="btn btn-default">Search</button>
 		</form>

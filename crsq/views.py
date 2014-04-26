@@ -153,7 +153,7 @@ def gmailemailjs(request):
 	if tags == '':
 		urls = []
 	else:
-		urls = article_elastic_search.searchdoc(tags, num=10, threshold=0.9)
+		urls = article_elastic_search.searchdoc(tags, num=10, threshold=0.4)
 
         output = ArticleInfo.objects.filter(url__in=urls).values('url', 'articletitle')
         output = json.dumps([dict(x) for x in output])
@@ -317,6 +317,9 @@ def zippednewsapptaglist(request, tagsearch):
 
 	
 def zippednewsappwelcome(request):
+
+	if 'topicsearch' in request.GET.keys():
+		return redirect('http://www.zippednews.com/' + slugify(request.GET['topicsearch']))
 
 	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
