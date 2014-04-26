@@ -39,7 +39,8 @@ body {
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if aritlce.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify;font-size:90%"><i>Summary:</i> {{ article.articlesummary }}</p>
-		  <p style="text-align:justify;font-size:90%"><a href="{{ article.url }}" target="_blank"> Read Full Article </a><br/><a href="http://www.zippednews.com" target="_blank"> Go to homepage for new topic </a></p>
+		  <p style="text-align:justify;font-size:90%"><a href="{{ article.url }}" target="_blank"> Read Full Article </a><br/><a href="http://www.zippednews.com" target="_blank"> Go to homepage for new topic </a><br/> Left swipe to get next article </p>
+		  
 		  </div>
 		  </div>
 	    {% endfor %}

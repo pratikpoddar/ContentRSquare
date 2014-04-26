@@ -8,7 +8,7 @@ from crsq.crsqlib.articleutils import *
 import datetime
 
 urls=[]
-urls = map(lambda x: x['url'], ArticleInfo.objects.filter(articledate__gt=datetime.date(2015,1,1)).values('url'))
+#urls = map(lambda x: x['url'], ArticleInfo.objects.filter(articledate__gt=datetime.date(2015,1,1)).values('url'))
 print len(urls)
 counter = 0
 for url in urls:
@@ -31,4 +31,19 @@ for url in urls:
 #url='http://www.cbssports.com/nfl/eye-on-football/24466743/anquan-boldin-no-rift-between-49ers-players-and-jim-harbaugh'
 #h = ArticleInfo.objects.get(url=url).articlehtml
 #getArticleProperties(h)['publish_date']
+
+l11 = ArticleInfo.objects.filter(url__contains="/~r/") | ArticleInfo.objects.filter(url__contains="http://feed") | ArticleInfo.objects.filter(url__contains="glogin") | ArticleInfo.objects.filter(url__contains="feeds")
+l11= map(lambda x: x['url'], l11.values('url'))
+for url in l11:
+	url2 = urlutils.getLongUrl(url)
+	if url2 not in l11:
+		articleutilsdb.put_article_details(url2)
+		articleurilsdb.put_article_semantics_tags(url2)		
+
+
+
+
+		
+	
+
 

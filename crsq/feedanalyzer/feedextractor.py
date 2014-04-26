@@ -73,6 +73,7 @@ def load_rss_in_table(rss_url, extractor):
 	                        	        articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
 
 				if extractor=="fromscratch":
+					url = urlutils.getLongUrl(url)
 					articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
 
 				articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
