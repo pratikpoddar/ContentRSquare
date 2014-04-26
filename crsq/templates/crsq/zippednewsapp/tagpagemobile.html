@@ -14,11 +14,18 @@ ZippedNews - {{ tag | crsq_unslugify }}
 
 <style type="text/css">
 .navbar-brand {
-	padding: 3px 3px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	height: auto!important;
 }
 
 .navbar {
-	min-height: auto;
+	min-height: 0px;
+	margin-bottom: 0px;
+}
+
+body {
+	padding-top:30px!important;
 }
 </style>
 
@@ -30,9 +37,9 @@ ZippedNews - {{ tag | crsq_unslugify }}
 		  </div>
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
-		  <h4 style="margin-top:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if aritlce.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
-                  <p style="text-align:justify"><i>Summary:</i> {{ article.articlesummary }}</p><br/><br/>
-		  <p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} <span style="float:right"><a href="https://twitter.com/intent/tweet?button_hashtag=ZippedNews&text={{ article.articletitle}}%20{{ article.url }}" class="twitter-hashtag-button" data-lang="en" data-related="pratikpoddar">Tweet #ZippedNews</a></span></p>
+		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if aritlce.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+                  <p style="text-align:justify;font-size:95%"><i>Summary:</i> {{ article.articlesummary }}</p>
+		  {%comment%}<br/><br/><p style="text-align:justify" class="tags">{% for t in article.tags %}<a href="/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} <span style="float:right"><a href="https://twitter.com/intent/tweet?button_hashtag=ZippedNews&text={{ article.articletitle}}%20{{ article.url }}" class="twitter-hashtag-button" data-lang="en" data-related="pratikpoddar">Tweet #ZippedNews</a></span></p>{%endcomment%}
 
 		  </div>
 		  </div>
@@ -45,6 +52,11 @@ ZippedNews - {{ tag | crsq_unslugify }}
 
 
 {% block jscontent %}
+
+    <div title="Congratulations Master!" id="popupArticleOver" style="display:none;">
+      <p>You are done for the day on this topic</p>
+    </div>
+
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.touchSwipe.min.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
     <script>
@@ -57,18 +69,22 @@ ZippedNews - {{ tag | crsq_unslugify }}
 			    if ($(this).next('.swipeenabled').length > 0) {
 				    $(this).hide("slide", { direction: "left" }, 150, function() { 
 					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
-					    $(this).next().show("slide", { direction: "right" }, 400);
+					    $(this).next().show("slide", { direction: "right" }, 10);
 				    })
+			    }
+			    else {
+				$("#popupArticleOver").dialog();
 			    }
 		  },
 		  swipeRight:function(event, direction, distance, duration, fingerCount) {
 			   if ($(this).prev('.swipeenabled').length > 0) {
 				   $(this).hide("slide", { direction: "right" }, 150, function() {
 				   	$(this).css('left', 'auto'); $(this).css('right', 'auto');
-				   	$(this).prev().show("slide", { direction: "left" }, 400);
+				   	$(this).prev().show("slide", { direction: "left" }, 10);
 				   })
 			   }
-		  }
+		  },
+		  threshold: 30
 	     });
           });
 
