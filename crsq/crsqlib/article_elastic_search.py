@@ -13,7 +13,7 @@ tracer = logging.getLogger('elasticsearch.trace')
 tracer.setLevel(logging.DEBUG)
 
 # add handlers to tracer
-tracer.addHandler(logging.FileHandler('/var/log/elasticsearch/debug.log'))
+tracer.addHandler(logging.FileHandler('/mnt/dbmount/eslogs/debug.log'))
 
 def createarticleindex():
 
