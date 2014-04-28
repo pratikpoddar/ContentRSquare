@@ -24,13 +24,10 @@ ZippedNews: Real-time news on Popular Topics
 	</div>
 
         <div class="row">
-                    {% for listofsearch in google_trends.US %}
-                        <div class="col-sm-3 col-lg-3 col-md-3">
-                                <div class="panel panel-default">
-                                        <div class="panel-heading">Trending Topics</div>
-
-                                          <ul class="list-group">
-                                                {% for s in listofsearch %}
+                    	<div class="panel panel-default" style="text-align:center">
+                        	<div class="panel-heading">Trending Topics</div>
+	                                <ul class="list-group">
+                                                {% for s in google_trends_US %}
                                                         <li class="list-group-item">
                                                                 <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                         </li>
@@ -39,7 +36,6 @@ ZippedNews: Real-time news on Popular Topics
                                 </div>
 
                         </div>
-                    {% endfor %}
                 <br/>
         </div>
 

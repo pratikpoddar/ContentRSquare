@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block navbartitle %}
-ZippedNews - {{ tag | crsq_unslugify }}
+ZippedNews - {{ tag | crsq_unslugify | truncatechars:15}}
 {% endblock %}
 
 {% block bodycontent %}
@@ -37,13 +37,37 @@ body {
 		  </div>
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
-		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if aritlce.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify;font-size:90%"><i>Summary:</i> {{ article.articlesummary }}</p>
 		  <p style="text-align:justify;font-size:90%"><a href="{{ article.url }}" target="_blank"> Read Full Article </a><br/><a href="http://www.zippednews.com" target="_blank"> Go to homepage for new topic </a><br/> Left swipe to get next article </p>
+
+		<span class='st_facebook' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Facebook'></span>
+		<span class='st_twitter' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Tweet'></span>
+		<span class='st_linkedin' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='LinkedIn'></span>
+		<span class='st_email' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Email'></span>
+
 		  
 		  </div>
 		  </div>
 	    {% endfor %}
+
+                  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
+
+                        <div class="panel panel-default">
+                                <div class="panel-heading">That's all on "{{ tag | crsq_unslugify }}" for now. Read more on related topics:</div>
+                                        <ul class="list-group">
+                                                {% for s in relatedtopics %}
+                                                        <li class="list-group-item">
+                                                                <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                        </li>
+                                                {% endfor %}
+                                          </ul>
+                                </div>
+
+                        </div>
+                  </div>
+                  </div>
+
 {% endblock %}
 
 {% block footercontent %}
@@ -53,12 +77,11 @@ body {
 
 {% block jscontent %}
 
-    <div title="Congratulations Master!" id="popupArticleOver" style="display:none;">
-      <p>You are done for the day on this topic</p>
-    </div>
-
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.touchSwipe.min.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "4b197f6a-7356-4b09-ab74-82631d620f28", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
     <script>
 	$(document).ready(function() { 
             $('.articleimage').jail({loadHiddenImages : true});
@@ -71,9 +94,6 @@ body {
 					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
 					    $(this).next().show("slide", { direction: "right" }, 10);
 				    })
-			    }
-			    else {
-				$("#popupArticleOver").dialog();
 			    }
 		  },
 		  swipeRight:function(event, direction, distance, duration, fingerCount) {

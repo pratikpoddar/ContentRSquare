@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 from django.templatetags.static import static
 from django.db.models import Count
 
+from collections import Counter
+
 from django.core.context_processors import csrf
 
 import re
@@ -293,7 +295,8 @@ def zippednewsapp(request, tag):
 
         context = RequestContext(request, {
                 'articles' : article_list,
-                'tag': tag
+                'tag': tag,
+		'relatedtopics': filter(lambda y: (not (y == tag)) and (len(y)>7), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(12)))
         })
 
 	if request.mobile:
@@ -339,7 +342,8 @@ def zippednewsappwelcome(request):
                 template = loader.get_template('crsq/zippednewsapp/welcome.html')
 
         context = RequestContext(request, {
-		'google_trends': gt
+		'google_trends': gt,
+		'google_trends_US': google_trends['US']
         })
 
         return HttpResponse(template.render(context))
