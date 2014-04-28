@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block navbartitle %}
-ZippedNews - {{ tag | crsq_unslugify | truncatechars:15}}
+ZippedNews - {{ tag | crsq_unslugify | truncatechars:22}}
 {% endblock %}
 
 {% block bodycontent %}
@@ -29,6 +29,7 @@ body {
 }
 </style>
 
+	    <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/flick-gray.png' %}" style="position:absolute;top:260px;width:80%;display:none"/>
 	    {% for article in articles %}
 		  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
 		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
@@ -38,13 +39,20 @@ body {
 		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
-                  <p style="text-align:justify;font-size:90%"><i>Summary:</i> {{ article.articlesummary }}</p>
-		  <p style="text-align:justify;font-size:90%"><a href="{{ article.url }}" target="_blank"> Read Full Article </a><br/><a href="http://www.zippednews.com" target="_blank"> Go to homepage for new topic </a><br/> Left swipe to get next article </p>
+                  <p style="text-align:justify;font-size:90%;"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank">Read Full Article</a>)</p>
 
-		<span class='st_facebook' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Facebook'></span>
-		<span class='st_twitter' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Tweet'></span>
-		<span class='st_linkedin' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='LinkedIn'></span>
-		<span class='st_email' st_url="{{ article.url }}" st_title="via ZippedNews" displayText='Email'></span>
+		<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+		<a class="addthis_button_facebook"></a>
+		<a class="addthis_button_twitter"></a>
+		<a class="addthis_button_google_plusone_share"></a>
+		<a class="addthis_button_linkedin"></a>
+		<a class="addthis_button_email"></a>
+		</div>
+
+		<br/><br/>
+		<div class="well">
+			<a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews for new topics and trending news</a>
+		</div>
 
 		  
 		  </div>
@@ -52,7 +60,6 @@ body {
 	    {% endfor %}
 
                   <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
-
                         <div class="panel panel-default">
                                 <div class="panel-heading">That's all on "{{ tag | crsq_unslugify }}" for now. Read more on related topics:</div>
                                         <ul class="list-group">
@@ -66,7 +73,6 @@ body {
 
                         </div>
                   </div>
-                  </div>
 
 {% endblock %}
 
@@ -77,15 +83,12 @@ body {
 
 {% block jscontent %}
 
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.touchSwipe.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
-    <script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "4b197f6a-7356-4b09-ab74-82631d620f28", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535dfc3b5355e5f7"></script>
     <script>
-	$(document).ready(function() { 
+	$(document).ready(function() {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
+	    $("#flickimage").delay(6000).fadeIn("slow").delay(1500).fadeOut("slow", function() {$("#flickimage").remove()});
 	    $('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { $(this).css('left', 'auto'); $(this).css('right', 'auto');  } });
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {

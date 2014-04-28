@@ -239,26 +239,34 @@ def timenews_article(request, articleid):
         return HttpResponse(template.render(context))
 
 def zippednewsapp(request, tag):
-	try:
-		logger.debug(request.GET.keys())
-		if 'elasticsearchfail' in request.GET.keys():
-			if request.GET['elasticsearchfail']=="True":
-				raise
-		searchterm = tag.replace('-',' ').title()
 
-		searchterm2 = '"' + searchterm + '"'
-                urls = article_elastic_search.searchdoc(searchterm2, 30)
-		if urls==[]:
-			searchterm2 = ' AND '.join(searchterm.split(' '))
-			urls = article_elastic_search.searchdoc(searchterm2, 30)
+	if tag=="zippednews-top-trending":
+		ai = ArticleInfo.objects.filter(id__gt=140000)
+		bi = filter(lambda x: x['source'].find('feedanalyzerfromscratchttps://news.google.com/')>=0, filter(lambda y: y['source'], ai.values('url', 'source')))
+		urls = map(lambda x: x['url'], bi)[:-200]
+		urls.shuffle()
+		urls = urls[:25]
+	else:
+		try:
+			logger.debug(request.GET.keys())
+			if 'elasticsearchfail' in request.GET.keys():
+				if request.GET['elasticsearchfail']=="True":
+					raise
+			searchterm = tag.replace('-',' ').title()
+
+			searchterm2 = '"' + searchterm + '"'
+	                urls = article_elastic_search.searchdoc(searchterm2, 30)
 			if urls==[]:
-				searchterm2 = '"' + searchterm + '" ' + searchterm
+				searchterm2 = ' AND '.join(searchterm.split(' '))
 				urls = article_elastic_search.searchdoc(searchterm2, 30)
-                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
-	except:
-		# Elastic Search Failed
-		urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+				if urls==[]:
+					searchterm2 = '"' + searchterm + '" ' + searchterm
+					urls = article_elastic_search.searchdoc(searchterm2, 30)
+	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+		except:
+			# Elastic Search Failed
+			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
+			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 
 	articles = ArticleInfo.objects.filter(url__in=urls).values()
 

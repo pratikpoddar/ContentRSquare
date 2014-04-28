@@ -68,13 +68,13 @@ def load_rss_in_table(rss_url, extractor):
 			if urlutils.is_url_an_article(url):
 				if extractor=="feed":
 					if 'content' in entry.keys() and 'title' in entry.keys():
-						feedanalyzer_put_article_details(entry)
+						feedanalyzer_put_article_details(entry, rss_url)
 					else:
-	                        	        articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
+	                        	        articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor+rss_url)
 
 				if extractor=="fromscratch":
 					url = urlutils.getLongUrl(url)
-					articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor)
+					articleutilsdb.put_article_details(urlutils.getCanonicalUrl(url), source="feedanalyzer"+extractor+rss_url)
 
 				articleutilsdb.put_article_semantics_tags(urlutils.getCanonicalUrl(url))
 
@@ -82,7 +82,7 @@ def load_rss_in_table(rss_url, extractor):
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
 	
-def feedanalyzer_put_article_details(entry):
+def feedanalyzer_put_article_details(entry, rss_url):
 
 	url = pick_appropriate_url(entry)
 	url = urlutils.getCanonicalUrl(url)
@@ -101,7 +101,7 @@ def feedanalyzer_put_article_details(entry):
 				except:
 					articleimage = None
 
-        	                articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(entry['title']), articleimage = articleimage, articlecontent = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), articledate = articledate, articlehtml = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source='feedanalyzer')
+        	                articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(entry['title']), articleimage = articleimage, articlecontent = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), articledate = articledate, articlehtml = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source='feedanalyzer' + rss_url)
 				if len(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))>250:
 					if ArticleInfo.objects.filter(contenthash=str(int(hashlib.md5(removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).hexdigest(), 16))).count()==0:
 						articleinfo.save()
