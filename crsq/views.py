@@ -240,15 +240,16 @@ def timenews_article(request, articleid):
 
 def zippednewsapp(request, tag):
 
-	if tag=="zippednews-top-trending":
+	if tag=="top-trending":
 		ai = ArticleInfo.objects.filter(id__gt=140000)
-		bi = filter(lambda x: x['source'].find('feedanalyzerfromscratchttps://news.google.com/')>=0, filter(lambda y: y['source'], ai.values('url', 'source')))
-		urls = map(lambda x: x['url'], bi)[:-200]
-		urls.shuffle()
-		urls = urls[:25]
+		bi = filter(lambda x: x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0, filter(lambda y: y['source'], ai.values('url', 'source')))
+		urls = map(lambda x: x['url'], bi)[-200:]
+		random.shuffle(urls)
+		urls = urls[:30]
+		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:25])
 	else:
 		try:
-			logger.debug(request.GET.keys())
 			if 'elasticsearchfail' in request.GET.keys():
 				if request.GET['elasticsearchfail']=="True":
 					raise
