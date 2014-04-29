@@ -41,7 +41,7 @@ body {
 		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify;font-size:90%;"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank">Read Full Article</a>)</p>
 
-		<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+		<div class="addthis_toolbox addthis_default_style addthis_16x16_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews">
 		<a class="addthis_button_facebook"></a>
 		<a class="addthis_button_twitter"></a>
 		<a class="addthis_button_google_plusone_share"></a>
@@ -62,16 +62,20 @@ body {
                   <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
                         <div class="panel panel-default">
                                 <div class="panel-heading">That's all on "{{ tag | crsq_unslugify }}" for now. Read more on related topics:</div>
-                                        <ul class="list-group">
-                                                {% for s in relatedtopics %}
-                                                        <li class="list-group-item">
-                                                                <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-                                                        </li>
-                                                {% endfor %}
-                                          </ul>
-                                </div>
+                                <ul class="list-group">
+                                          {% for s in relatedtopics %}
+                                                  <li class="list-group-item">
+                                                          <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                  </li>
+                                           {% endfor %}
+                                </ul>
+                         </div>
 
-                        </div>
+			<br/><br/>
+	                <div class="well">
+        	                <a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews for new topics and trending news</a>
+                	</div>
+
                   </div>
 
 {% endblock %}
