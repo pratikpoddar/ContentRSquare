@@ -10,19 +10,31 @@ ZippedNews: Real-time news on Popular Topics
 {% endblock %}
 
 {% block bodycontent %}
+
 	<div class="jumbotron">
 	  <h1>ZippedNews</h1>
 		<p style="text-align:justify">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
 
-		<p><button class="btn btn-default" onClick="document.location.href='http://www.zippednews.com/top-trending'">Get Trending News</button></p>
+        <div class="row">
+        <div class="col-sm-6 col-lg-6 col-md-6" style="border:#444 1px">
 
-		<form class="form-inline" role="form" action="http://zippednews.com/" method="get">
-		  <div class="form-group">
-		    <label class="sr-only" for="topicsearch">Enter Topic (eg: Microsoft Corp)</label>
-		    <input type="text" class="form-control" name="topicsearch" id="topicsearch" placeholder="Enter Topic (eg: Microsoft Corp)">
-		  </div>
-		  <button type="submit" class="btn btn-default">Search</button>
-		</form>
+                <p><button style="width:100%" class="btn btn-primary" onClick="document.location.href='http://www.zippednews.com/top-trending'">Get Trending News</button></p>
+        </div>      
+        <div class="col-sm-6 col-lg-6 col-md-6">
+                  
+                <form class="form-inline" role="form" action="http://www.zippednews.com/" method="get" style="width:100%">
+                <div class="input-group">
+                      <input name="topicsearch" type="text" class="form-control" placeholder="Enter Topic (eg: Microsoft Corp)">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                      </span>
+                </div>          
+                </form>                 
+                                                
+        </div>                                          
+        </div>
+
+
 	</div>
 
         <div class="row">

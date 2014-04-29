@@ -279,6 +279,8 @@ def zippednewsapp(request, tag):
 	
 	articles = sorted(articles, key=lambda article: -article['id'])
 	article_list = []
+
+	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)))
 	
 	for article in articles:
 
@@ -289,7 +291,7 @@ def zippednewsapp(request, tag):
                 	articlesemantics = {'summary': None, 'topic': None}
 
 	        try:
-			articletags = articletagsdump2[article['url']]
+			articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
 			#articletags = filter(lambda x: x in relevanttags, articletagsdump2[article['url']])
         	        #articletags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=article['url']).values('tag'))
 			#articletags = filter(lambda x: x in relevanttags, articletags)
@@ -305,7 +307,7 @@ def zippednewsapp(request, tag):
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tag': tag,
-		'relatedtopics': filter(lambda y: (not (y == tag)) and (len(y)>5) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(15)))
+		'relatedtopics': relatedtopics[:10]
         })
 
 	if request.mobile:

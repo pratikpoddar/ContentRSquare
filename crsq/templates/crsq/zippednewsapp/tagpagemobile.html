@@ -40,6 +40,7 @@ body {
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p style="text-align:justify;font-size:90%;"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank">Read Full Article</a>)</p>
+		 <p style="text-align:justify" class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
 
 		<div class="addthis_toolbox addthis_default_style addthis_16x16_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews">
 		<a class="addthis_button_facebook"></a>
@@ -51,7 +52,7 @@ body {
 
 		<br/><br/>
 		<div class="well">
-			<a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews for new topics and trending news</a>
+			<a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews homepage for new topics and trending news</a>
 		</div>
 
 		  
@@ -73,7 +74,7 @@ body {
 
 			<br/><br/>
 	                <div class="well">
-        	                <a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews for new topics and trending news</a>
+        	                <a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews homepage for new topics and trending news</a>
                 	</div>
 
                   </div>
