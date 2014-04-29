@@ -17,7 +17,18 @@ ZippedNews: Real-time news on Popular Topics
 	<div class="row">
 	<div class="col-sm-6 col-lg-6 col-md-6" style="border:#444 1px">
 
-		<p><button style="min-width:80%" class="btn btn-primary" onClick="document.location.href='http://www.zippednews.com/top-trending'">Get Trending News</button></p>
+		<p>
+		<button style="min-width:80%" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Get Trending News <span class="caret"></span></button>
+		<ul class="dropdown-menu" role="menu"><!-- ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"] -->
+		    <li><a href="#">Technology</a></li>
+		    <li><a href="#">Sports</a></li>
+		    <li><a href="#">Science</a></li>
+		    <li><a href="#">Health</a></li>
+		    <li><a href="#">World</a></li>
+		    <li><a href="#">Business</a></li>
+		    <li><a href="#">Entertainment</a></li>
+		</ul>
+		</p>
 	</div>
 	<div class="col-sm-6 col-lg-6 col-md-6">
 
