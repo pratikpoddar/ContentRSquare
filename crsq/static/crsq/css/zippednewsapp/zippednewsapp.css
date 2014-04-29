@@ -42,9 +42,8 @@ body {
   margin:0px;
 }
 
-#topicsearch {
-   width: 300px;
-   max-width: 90%;
+.summary {
+  font-size: 90%;
 }
 
 footer {
