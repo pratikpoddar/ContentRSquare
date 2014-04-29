@@ -3,7 +3,7 @@ from crsq.models import ArticleInfo, TweetLinks, ArticleSemantics, ArticleTags, 
 from datetime import datetime
 import logging
 from crsq.crsqlib.article_elastic_search import refreshdbtoes
-
+from random import shuffle
 
 from django_cron import CronJobBase, Schedule
 
@@ -14,6 +14,7 @@ def get_articles():
 	ai = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get article info")
+	shuffle(tobeexpanded)
 
 	for l in tobeexpanded:
 		print "twitter newspaper - getting article_info " + l
