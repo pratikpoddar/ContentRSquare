@@ -241,8 +241,10 @@ def timenews_article(request, articleid):
 def zippednewsapp(request, tag):
 
 	if tag=="top-trending":
+		topic = request.GET['topic']
+		tag = request.GET['name'].lower()+"-"+tag
 		ai = ArticleInfo.objects.filter(id__gt=140000)
-		bi = filter(lambda x: x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0, filter(lambda y: y['source'], ai.values('url', 'source')))
+		bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].find('topic='+topic)>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
 		urls = map(lambda x: x['url'], bi)[-200:]
 		random.shuffle(urls)
 		urls = urls[:30]
