@@ -241,6 +241,9 @@ def timenews_article(request, articleid):
 def zippednewsapp(request, tag):
 
 	if tag=="top-trending":
+		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):
+			return redirect('http://www.zippednews.com')
+
 		topic = request.GET['topic']
 		tag = request.GET['name'].lower()+"-"+tag
 		ai = ArticleInfo.objects.filter(id__gt=140000)
