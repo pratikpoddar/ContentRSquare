@@ -177,12 +177,12 @@ def semantic_closeness_webdice(string1, string2):
 	else:
 		return 0.0
 
-def cluster_articles(urls, level=97):
+def cluster_articles(urls, level=0.4):
 	
 	articles = map(lambda x: es.get(index="article-index", doc_type='article', id=x)['_source'], urls)
 	print len(articles)
 	#cl = HierarchicalClustering(articles, lambda x,y: 1.0-(2.0*float(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' ')))))/float((len(x['tags'].split(' ')) + len(y['tags'].split(' '))))))
-	cl = HierarchicalClustering(articles, lambda x,y: 100-(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' '))))))
+	#cl = HierarchicalClustering(articles, lambda x,y: 100-(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' '))))))
 	cl = HierarchicalClustering(articles, lambda x,y: 1-( ratio(' '.join(sorted(x['tags'])).lower(), ' '.join(sorted(y['tags'])).lower() ) ))
 	clusters = cl.getlevel(level)
 	print len(clusters)
