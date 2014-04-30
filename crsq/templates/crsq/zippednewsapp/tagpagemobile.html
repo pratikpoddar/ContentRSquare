@@ -42,7 +42,7 @@ body {
                   <p style="text-align:justify;" class="summary"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
 		 <p style="text-align:justify" class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
 
-		<div class="addthis_toolbox addthis_default_style addthis_16x16_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews">
+		<div class="addthis_toolbox addthis_default_style addthis_16x16_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews" style="font-size:50%">
 		<a class="addthis_button_facebook"></a>
 		<a class="addthis_button_twitter"></a>
 		<a class="addthis_button_google_plusone_share"></a>
@@ -93,7 +93,7 @@ body {
 	$(document).ready(function() {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
-	    $("#flickimage").delay(6000).fadeIn("slow").delay(1500).fadeOut("slow", function() {$("#flickimage").remove()});
+	    $("#flickimage").delay(5000).fadeIn("slow").delay(2500).fadeOut("slow", function() {$("#flickimage").remove()});
 	    $('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { $(this).css('left', 'auto'); $(this).css('right', 'auto');  } });
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
