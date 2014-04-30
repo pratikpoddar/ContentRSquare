@@ -29,9 +29,8 @@ from crsq.crsqlib.text_summarize import text_topic_brown
 
 from django.template.defaultfilters import slugify
 from nltk.tag.stanford import NERTagger
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 import logging
-
 
 logger = logging.getLogger(__name__)
 
@@ -381,6 +380,12 @@ def get_Freebase_Meaning(term):
 	except Exception as e:
                 logger.exception('text_summarize.py - get_Freebase_Meaning - error - '+ str(e))
 		return None
+
+def distance_matrix_docs(documents):
+	tfidf_vectorizer = TfidfVectorizer(min_df=1)
+	tfidf = tfidf_vectorizer.fit_transform(documents)
+	matrix = (tfidf * tfidf.T).A
+	return matrix
 
 if __name__=="__main__":	
 	text = "In a shake up ahead of the LS polls, environment minister Jayanthi Natarajan resigned from the Union council of ministers. More resignations may be in line for being drafted into party work. The resignation of 59-year-old Natarajan, minister of state with independent charge of environment and forests, has been accepted by the President, a Rashtrapati Bhavan communique said. It also said that oil minister M Veerappa Moily will hold additional charge of the environment ministry. Natarajan, a senior member of Rajya Sabha doing a third term, hails from Tamil Nadu and was brought into the ministry two years ago. Sources said Natarajan, who has, of late, been more visible on television channels defending the party, may be drafted for organisation work. Sources said there could be some more ministers who could resign to be brought to party organisation in preparation for the elections."
