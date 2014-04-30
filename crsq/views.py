@@ -455,8 +455,14 @@ def zopeyesearch(request, keywordstr):
 
 	if keywordstr.strip() == "":
 		return HttpResponse("<html><body>Zop Eye Search - Wrong Input</body></html>")
-		
-	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
+
+        tags = text_summarize.text_summarize.get_text_tags(keywordstr)
+        tags = ' '.join(tags).strip()
+        if tags == '':
+                urldicts = []
+        else:
+		urldicts = article_elastic_search.searchdoc(tags, highlight=True, num=20)
+	
 	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts))
 	clustered_urls = sorted(clustered_urls, key=lambda x: -len(x))
 	result = []
