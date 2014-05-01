@@ -5,7 +5,7 @@ import logging
 from bs4 import BeautifulSoup
 import math
 from cluster import HierarchicalClustering
-from Levenshtein import ratio
+from Levenshtein import ratio as levenshtein_ratio
 
 es = Elasticsearch()
 
@@ -183,9 +183,8 @@ def cluster_articles(urls, level=0.4):
 	print len(articles)
 	#cl = HierarchicalClustering(articles, lambda x,y: 1.0-(2.0*float(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' ')))))/float((len(x['tags'].split(' ')) + len(y['tags'].split(' '))))))
 	#cl = HierarchicalClustering(articles, lambda x,y: 100-(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' '))))))
-	cl = HierarchicalClustering(articles, lambda x,y: 1-( ratio(' '.join(sorted(x['tags'])).lower(), ' '.join(sorted(y['tags'])).lower() ) ))
+	cl = HierarchicalClustering(articles, lambda x,y: 1-( levenshtein_ratio(' '.join(sorted(x['tags'])).lower(), ' '.join(sorted(y['tags'])).lower() ) ))
 	clusters = cl.getlevel(level)
-	print len(clusters)
 	urlclusters = []
 	for clust in clusters:
 		urlclusters.append(map(lambda x: x['url'], clust))
