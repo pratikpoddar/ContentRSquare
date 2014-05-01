@@ -177,7 +177,7 @@ def semantic_closeness_webdice(string1, string2):
 	else:
 		return 0.0
 
-def cluster_articles(urls, level=0.4):
+def cluster_articles(urls, level=0.15):
 	
 	articles = map(lambda x: es.get(index="article-index", doc_type='article', id=x)['_source'], urls)
 	print len(articles)

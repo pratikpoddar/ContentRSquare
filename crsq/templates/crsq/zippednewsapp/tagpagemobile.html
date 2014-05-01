@@ -29,7 +29,7 @@ body {
 }
 </style>
 
-	    <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/flick-gray.png' %}" style="position:absolute;top:260px;width:80%;display:none"/>
+	    <span id="flickimage" class="glyphicon glyphicon-circle-arrow-right" style="position:fixed;right:0px;top:300px;font-size:30px;display:none;z-index:1000"></span>
 	    {% for article in articles %}
 		  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
 		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
@@ -93,7 +93,7 @@ body {
 	$(document).ready(function() {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
-	    $("#flickimage").delay(5000).fadeIn("slow").delay(2500).fadeOut("slow", function() {$("#flickimage").remove()});
+	    $("#flickimage").delay(5000).fadeIn("slow").delay(5000).fadeOut("slow");
 	    $('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { $(this).css('left', 'auto'); $(this).css('right', 'auto');  } });
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {

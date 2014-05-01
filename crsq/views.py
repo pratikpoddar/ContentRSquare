@@ -242,10 +242,12 @@ def zippednewsapp(request, tag):
 
 	if tag=="top-trending":
 		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):
-			return redirect('http://www.zippednews.com')
+			topic = ''
+			tag = tag
+		else:
+			topic = request.GET['topic']
+			tag = request.GET['name'].lower()+"-"+tag
 
-		topic = request.GET['topic']
-		tag = request.GET['name'].lower()+"-"+tag
 		ai = ArticleInfo.objects.filter(id__gt=145000)
 		bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].find('topic='+topic)>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
 		urls = map(lambda x: x['url'], bi)[-200:]
@@ -359,7 +361,7 @@ def zippednewsappwelcome(request):
 
         context = RequestContext(request, {
 		'google_trends': gt,
-		'google_trends_US': google_trends['US']
+		'google_trends_US': filter(lambda x: len(x)>5, sorted(list(set(google_trends['US'] + google_trends['India']))))
         })
 
         return HttpResponse(template.render(context))
