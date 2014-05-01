@@ -74,4 +74,16 @@ ZippedNews: Real-time news on Popular Topics
 
 
 {% block jscontent %}
+    <script>
+        $(document).ready(function() {
+            $('body').swipe({
+                  swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			var imgtag = "<img src=\"{% static 'crsq/img/zippednewsapp/loading.gif' %}\" alt=\"ZippedNews Loading....\" title=\"ZippedNews Loading....\" style=\"width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;\"/>"
+			$('body').html(imgtag)
+			location.href="http://www.zippednews.com/top-trending"
+                  },
+                  threshold: 30
+             });
+          });
+    </script>
 {% endblock %}
