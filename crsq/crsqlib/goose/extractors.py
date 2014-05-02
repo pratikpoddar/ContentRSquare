@@ -104,6 +104,7 @@ class ContentExtractor(object):
             used_delimeter = True
 
         title = MOTLEY_REPLACEMENT.replaceAll(title_text)
+
         return title
 
     def get_publish_date(self, article):
@@ -348,6 +349,7 @@ class ContentExtractor(object):
         large_text_length = 0
         large_text_index = 0
         title_pieces = splitter.split(title)
+	title_pieces = filter(lambda x: x not in ["The Times of India", "Hindustan Times", "The New York Times", "The Wall Street Journal"], title_pieces)
 
         # find the largest title piece
         for i in range(len(title_pieces)):
