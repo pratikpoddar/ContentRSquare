@@ -361,7 +361,7 @@ def zippednewsappwelcome(request):
 
         context = RequestContext(request, {
 		'google_trends': gt,
-		'google_trends_US': filter(lambda x: len(x)>5, sorted(list(set(google_trends['US'] + google_trends['India']))))
+		'google_trends_US': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), sorted(list(set(google_trends['US'] + google_trends['India']))))
         })
 
         return HttpResponse(template.render(context))
