@@ -102,7 +102,7 @@ def get_text_summary(text, title = None, library="sumy"):
 			summarizer.stop_words = get_stop_words(LANGUAGE)
 
 			lastcount = None
-	    		for sentence in summarizer(parser.document, 4):
+	    		for sentence in summarizer(parser.document, 3):
 				if lastcount == None:
 	        			summary += sentence._text
 				elif abs(lastcount - text.find(sentence._text)) < 5:
@@ -119,7 +119,7 @@ def get_text_summary(text, title = None, library="sumy"):
 
 	if library == "pyteaser":
 		try:
-			return ' '.join(Summarize(title, text)[0:4]).strip()
+			return ' '.join(Summarize(title, text)[0:3]).strip()
 		except Exception as e:
 			logger.exception('text_summarize.py - get_text_summary - error - ' + str(e))
 			raise
