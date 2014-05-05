@@ -261,7 +261,6 @@ def zippednewsapp(request, tag):
 				if request.GET['elasticsearchfail']=="True":
 					raise
 			searchterm = tag.replace('-',' ').title()
-
 			searchterm2 = '"' + searchterm + '"'
 	                urls = article_elastic_search.searchdoc(searchterm2, 30)
 			if urls==[]:
@@ -270,21 +269,19 @@ def zippednewsapp(request, tag):
 				if urls==[]:
 					searchterm2 = '"' + searchterm + '" ' + searchterm
 					urls = article_elastic_search.searchdoc(searchterm2, 30)
-	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 		except:
 			# Elastic Search Failed
 			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 
-	articles = ArticleInfo.objects.filter(url__in=urls).values()
+	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
 
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 	articletagsdump2 = collections.defaultdict(list)
 	for article in articletagsdump:
 		articletagsdump2[article['url']].append(article['tag'])
-
 	
-	articles = sorted(articles, key=lambda article: -article['id'])
 	article_list = []
 
 	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)))
@@ -306,7 +303,6 @@ def zippednewsapp(request, tag):
         	        articletags = []
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
-
 
 	if len(article_list)==0:
 		return redirect('http://www.zippednews.com')	
