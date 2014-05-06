@@ -284,7 +284,7 @@ def zippednewsapp(request, tag):
 	
 	article_list = []
 
-	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)))
+	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(50)))
 	
 	for article in articles:
 

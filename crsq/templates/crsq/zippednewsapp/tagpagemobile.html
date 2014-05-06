@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block navbartitle %}
-ZippedNews - {{ tag | crsq_unslugify | truncatechars:22}}
+ZippedNews - {{ tag | crsq_unslugify | truncatechars:22}} | <span class="glyphicon glyphicon-home"></span>
 {% endblock %}
 
 {% block bodycontent %}
@@ -31,7 +31,7 @@ body {
 
 	    {% for article in articles %}
 		  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
-		  <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/swipe.png' %}" style="position:fixed;right:0px;top:300px;z-index:1000;width:70%;display:none;"/>
+		  <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/swipe.png' %}" style="position:fixed;right:0px;top:300px;z-index:1000;width:60%;display:none;"/>
 		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
 		  <div style="width:100%;height:180px;position:relative;overflow:hidden;">
 		  <img class="articleimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" title="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;"/>
@@ -50,17 +50,12 @@ body {
 		<a class="addthis_button_email"></a>
 		</div>
 
-		<br/><br/>
-		<div class="well">
-			<a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews homepage for new topics and trending news</a>
-		</div>
-
-		  
+		<br/>  
 		  </div>
 		  </div>
 	    {% endfor %}
 
-                  <div class="row swipeenabled ui-widget-content" style="margin-top:15px;left:auto;right:auto;display:none;" >
+                  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
                         <div class="panel panel-default">
                                 <div class="panel-heading">That's all on "{{ tag | crsq_unslugify }}" for now. Read more on related topics:</div>
                                 <ul class="list-group">
@@ -72,17 +67,22 @@ body {
                                 </ul>
                          </div>
 
-			<br/><br/>
-	                <div class="well">
-        	                <a href="http://www.zippednews.com" target="_blank" style="font-size:90%">Go to Zippednews homepage for new topics and trending news</a>
-                	</div>
-
+			<br/>
                   </div>
 
 {% endblock %}
 
 {% block footercontent %}
-<br/><br/>
+<br/>
+<div align="center">
+<div id="pager" style="display:none">
+  <a href="#" class="activeSlide">0</a>
+  {% for article in articles %}
+  <a href="#" class="">{{ forloop.counter }}</a>
+  {% endfor %}
+</div>
+</div>
+<br/>
 {% endblock %}
 
 
@@ -93,6 +93,7 @@ body {
 	$(document).ready(function() {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
+	    $('#pager').show();
 	    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
 		
 	    $('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { $(this).css('left', 'auto'); $(this).css('right', 'auto');  } });
@@ -102,6 +103,9 @@ body {
 				    $(this).hide("slide", { direction: "left" }, 150, function() { 
 					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
 					    $(this).next().show("slide", { direction: "right" }, 10);
+					    var presentActive = $('.activeSlide')
+					    $(presentActive).next().addClass('activeSlide');
+					    $(presentActive).removeClass('activeSlide');
 				    })
 			    }
 		  },
@@ -110,6 +114,10 @@ body {
 				   $(this).hide("slide", { direction: "right" }, 150, function() {
 				   	$(this).css('left', 'auto'); $(this).css('right', 'auto');
 				   	$(this).prev().show("slide", { direction: "left" }, 10);
+                                        var presentActive = $('.activeSlide')
+                                        $(presentActive).prev().addClass('activeSlide');
+                                        $(presentActive).removeClass('activeSlide');
+
 				   })
 			   }
 		  },

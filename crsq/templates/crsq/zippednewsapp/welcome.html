@@ -60,7 +60,7 @@ ZippedNews: Real-time news on Popular Topics
                                           <ul class="list-group">
                                                 {% for s in listofsearch %}
                                                         <li class="list-group-item">
-                                                                <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                <a href="/{{ s | slugify }}"><p class="list-group-item-text">{{ s | crsq_unslugify | truncatechars:27}}</p></a>
                                                         </li>
                                                 {% endfor %}
                                           </ul>
