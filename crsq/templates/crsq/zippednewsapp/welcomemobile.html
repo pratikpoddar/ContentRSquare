@@ -17,37 +17,25 @@ ZippedNews: Real-time news on Popular Topics
 		<p style="text-align:justify; font-size:95%">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
 	</div>
 
-<!--
         <div class="row">
-        <div class="col-sm-6 col-lg-6 col-md-6" style="margin-bottom:10px;">
+                        <div class="panel panel-default" style="text-align:center">
+                                <div class="panel-heading">Trending News by Topic</div>
+                                        <ul class="list-group">
 
-                <button style="min-width:100%" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Get Trending News <span class="caret"></span></button>
-                <ul style="min-width:80%;text-align:center" class="dropdown-menu" role="menu"><!-- ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"] -->
-                    <li><a href="http://www.zippednews.com/top-trending?topic=t&name=Technology">Technology</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=s&name=Sports">Sports</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=snc&name=Science">Science</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=m&name=Health">Health</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=w&name=World">World</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=b&name=Business">Business</a></li>
-                    <li><a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment">Entertainment</a></li>
-                </ul>
-		<br/>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=t&name=Technology"><p class="list-group-item-text">Technology</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=s&name=Sports"><p class="list-group-item-text">Sports</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=snc&name=Science"><p class="list-group-item-text">Science</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=m&name=Health"><p class="list-group-item-text">Health</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=w&name=World"><p class="list-group-item-text">World</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=b&name=Business"><p class="list-group-item-text">Business</p></a></li>
+                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment"><p class="list-group-item-text">Entertainment</p></a></li>
+                                          </ul>
+                                </div>
+
+                        </div>
+                <br/>
         </div>
-        <div class="col-sm-6 col-lg-6 col-md-6" style="margin-bottom:10px;">
-                  
-                <form class="form-inline" role="form" action="http://www.zippednews.com/" method="get" style="width:100%">
-                <div class="input-group">
-                      <input name="topicsearch" type="text" class="form-control" placeholder="Enter Topic (eg: Microsoft Corp)">
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                      </span>
-                </div>          
-                </form>                 
-		<br/>
-                                                
-        </div>                                          
-	</div>
--->
+
         <div class="row">
                     	<div class="panel panel-default" style="text-align:center">
                         	<div class="panel-heading">Trending Topics</div>
@@ -64,23 +52,17 @@ ZippedNews: Real-time news on Popular Topics
                 <br/>
         </div>
 
-        <div class="row">
-                        <div class="panel panel-default" style="text-align:center">
-                                <div class="panel-heading">Trending News by Topic</div>
-                                        <ul class="list-group">
+	<div class="row well">
+		or choose a topic of your interest<br/>
+                <form class="form-inline" role="form" action="http://www.zippednews.com/" method="get" style="width:100%">
+                <div class="input-group">
+                      <input name="topicsearch" type="text" class="form-control" placeholder="Enter Topic (eg: Microsoft Corp)">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                      </span>
+                </div>          
+                </form> 
 
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=t&name=Technology"><p class="list-group-item-text">Technology</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=s&name=Sports"><p class="list-group-item-text">Sports</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=snc&name=Science"><p class="list-group-item-text">Science</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=m&name=Health"><p class="list-group-item-text">Health</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=w&name=World"><p class="list-group-item-text">World</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=b&name=Business"><p class="list-group-item-text">Business</p></a></li>
-			                    <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment"><p class="list-group-item-text">Entertainment</p></a></li>
-                                          </ul>
-                                </div>
-
-                        </div>
-                <br/>
 	</div>
 
 {% endblock %}
