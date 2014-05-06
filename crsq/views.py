@@ -250,7 +250,7 @@ def zippednewsapp(request, tag):
 
 		ai = ArticleInfo.objects.filter(id__gt=145000)
 		bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].find('topic='+topic)>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
-		urls = map(lambda x: x['url'], bi)[-200:]
+		urls = map(lambda x: x['url'], bi)[-100:]
 		random.shuffle(urls)
 		urls = urls[:30]
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
@@ -296,9 +296,6 @@ def zippednewsapp(request, tag):
 
 	        try:
 			articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
-			#articletags = filter(lambda x: x in relevanttags, articletagsdump2[article['url']])
-        	        #articletags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=article['url']).values('tag'))
-			#articletags = filter(lambda x: x in relevanttags, articletags)
 	        except:
         	        articletags = []
 
