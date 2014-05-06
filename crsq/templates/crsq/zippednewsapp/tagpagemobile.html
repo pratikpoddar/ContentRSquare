@@ -88,9 +88,10 @@ body {
 
 {% block jscontent %}
 
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535dfc3b5355e5f7"></script>
     <script>
 	$(document).ready(function() {
+
+	    $.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535dfc3b5355e5f7")
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
 	    $('#pager').show();
