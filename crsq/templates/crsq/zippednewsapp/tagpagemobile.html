@@ -97,29 +97,35 @@ body {
 	    $('#pager').show();
 	    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
 		
-	    $('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { $(this).css('left', 'auto'); $(this).css('right', 'auto');  } });
+	    //$('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { if ((ui.position.left < 31) && (ui.position.left > -31)) {$(this).css('left', 'auto'); $(this).css('right', 'auto'); }  } });
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			    if ($(this).next('.swipeenabled').length > 0) {
 				    $(this).hide("slide", { direction: "left" }, 150, function() { 
 					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
-					    $(this).next().show("slide", { direction: "right" }, 10);
+					    $(this).next().show("slide", { direction: "right" }, 60);
 					    var presentActive = $('.activeSlide')
 					    $(presentActive).next().addClass('activeSlide');
 					    $(presentActive).removeClass('activeSlide');
 				    })
+			    }
+			    else {
+				$(this).css('left', 'auto'); $(this).css('right', 'auto');
 			    }
 		  },
 		  swipeRight:function(event, direction, distance, duration, fingerCount) {
 			   if ($(this).prev('.swipeenabled').length > 0) {
 				   $(this).hide("slide", { direction: "right" }, 150, function() {
 				   	$(this).css('left', 'auto'); $(this).css('right', 'auto');
-				   	$(this).prev().show("slide", { direction: "left" }, 10);
+				   	$(this).prev().show("slide", { direction: "left" }, 60);
                                         var presentActive = $('.activeSlide')
                                         $(presentActive).prev().addClass('activeSlide');
                                         $(presentActive).removeClass('activeSlide');
 
 				   })
+			   }
+			   else {
+				$(this).css('left', 'auto'); $(this).css('right', 'auto');
 			   }
 		  },
 		  threshold: 30
