@@ -3,7 +3,11 @@
 {% load tagfilter %}
 
 {% block title %}
-"{{ tag | crsq_unslugify }}" News: ZippedNews
+{% if tag == "technology-top-trending" or tag == "sports-top-trending" or tag == "science-top-trending" or tag == "health-top-trending" or tag == "world-top-trending" or tag == "business-top-trending" or tag == "top-trending" %}
+{{ tag | crsq_unslugify }} News - ZippedNews
+{% else %}
+{{ tag | crsq_unslugify }} - Latest news on {{ tag | crsq_unslugify }} - ZippedNews
+{% endif %}
 {% endblock %}
 
 {% block metadescription %}
