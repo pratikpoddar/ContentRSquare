@@ -100,9 +100,15 @@ def get_text_summary(text, title = None, library="sumy"):
 			stemmer = Stemmer(LANGUAGE)
 			summarizer = Summarizer(stemmer)
 			summarizer.stop_words = get_stop_words(LANGUAGE)
+			
+			sentences = summarizer(parser.document, 4)
+			if len(' '.join(sentences))>700:
+				sentences = summarizer(parser.document, 3)
+				if len(' '.join(sentences))>700:
+					sentences = summarizer(parser.document, 2)
 
 			lastcount = None
-	    		for sentence in summarizer(parser.document, 3):
+	    		for sentence in sentences:
 				if lastcount == None:
 	        			summary += sentence._text
 				elif abs(lastcount - text.find(sentence._text)) < 5:
