@@ -75,7 +75,11 @@ ZippedNews: Real-time news on Popular Topics
 {% block jscontent %}
     <script>
         $(document).ready(function() {
-            $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
+	    var image = new Image()
+	    image.src="{% static 'crsq/img/zippednewsapp/loading.gif' %}"
+	    image.onload = function() {
+	            $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
+	    }
             $('body').swipe({
                   swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			var imgtag = "<img src=\"{% static 'crsq/img/zippednewsapp/loading.gif' %}\" alt=\"ZippedNews Loading....\" title=\"ZippedNews Loading....\" style=\"width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;\"/>"

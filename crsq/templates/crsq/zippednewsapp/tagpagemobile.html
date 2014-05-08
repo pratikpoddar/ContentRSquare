@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block navbartitle %}
-ZippedNews - {{ tag | crsq_unslugify | truncatechars:19}} | <span class="glyphicon glyphicon-home"></span>
+{{ tag | crsq_unslugify | truncatechars:18}} | <span class="glyphicon glyphicon-home"> </span> ZippedNews
 {% endblock %}
 
 {% block bodycontent %}

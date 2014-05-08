@@ -248,13 +248,13 @@ def zippednewsapp(request, tag):
 			topic = request.GET['topic']
 			tag = request.GET['name'].lower()+"-"+tag
 
-		ai = ArticleInfo.objects.filter(id__gt=145000)
-		bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].find('topic='+topic)>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
-		urls = map(lambda x: x['url'], bi)[-100:]
+		ai = ArticleInfo.objects.filter(id__gt=150000)
+		bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].endswith('topic='+topic)), filter(lambda y: y['source'], ai.values('url', 'source')))
+		urls = map(lambda x: x['url'], bi)[-50:]
 		random.shuffle(urls)
-		urls = urls[:30]
+		urls = urls[:20]
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
-		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:25])
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	else:
 		try:
 			if 'elasticsearchfail' in request.GET.keys():
@@ -463,8 +463,7 @@ def zopeyesearch(request, keywordstr):
 	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
 	
 	clustered_urls = article_elastic_search.cluster_articles(map(lambda x: x['url'], urldicts))
-	clustered_urls = sorted(clustered_urls, key=lambda x: -len(x))
-	result = []
+	res = []
 	for clust in clustered_urls:
 		tempresult= []
 		for url in clust:
@@ -476,11 +475,9 @@ def zopeyesearch(request, keywordstr):
 			if urldict['image']:
 				tempresult.append(urldict)
 		if tempresult:
-			result.append(tempresult)
-	logger.debug(len(urldicts))
-	logger.debug(len(clustered_urls))
-		
-	return HttpResponse(json.dumps(result), content_type="application/json")
+			res.append(tempresult)
+	res = sorted(res, key=lambda x: -len(x))
+	return HttpResponse(json.dumps(res), content_type="application/json")
 
 #@ratelimit(ip=False, rate='2/m', keys=lambda req: req.META.get('HTTP_X_FORWARDED_FOR', req.META['REMOTE_ADDR']))
 def crsqsemanticsimilarityapi(request, param1, param2):
