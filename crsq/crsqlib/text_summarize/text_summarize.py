@@ -101,21 +101,21 @@ def get_text_summary(text, title = None, library="sumy"):
 			summarizer = Summarizer(stemmer)
 			summarizer.stop_words = get_stop_words(LANGUAGE)
 			
-			sentences = summarizer(parser.document, 4)
+			sentences = map(lambda x: x._text, summarizer(parser.document, 4))
 			if len(' '.join(sentences))>700:
-				sentences = summarizer(parser.document, 3)
+				sentences = map(lambda x: x._text, summarizer(parser.document, 3))
 				if len(' '.join(sentences))>700:
-					sentences = summarizer(parser.document, 2)
+					sentences = map(lambda x: x._text, summarizer(parser.document, 2))
 
 			lastcount = None
 	    		for sentence in sentences:
 				if lastcount == None:
-	        			summary += sentence._text
-				elif abs(lastcount - text.find(sentence._text)) < 5:
-					summary += " " + sentence._text
+	        			summary += sentence
+				elif abs(lastcount - text.find(sentence)) < 5:
+					summary += " " + sentence
 				else:
-					summary += " ...... " + sentence._text
-				lastcount = text.find(sentence._text) + len(sentence._text) + 1
+					summary += " ...... " + sentence
+				lastcount = text.find(sentence) + len(sentence) + 1
 
 			return summary.strip()
 
