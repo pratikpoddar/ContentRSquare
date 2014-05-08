@@ -279,6 +279,10 @@ https://pypi.python.org/pypi/django-brake
 
 pip install django-ratelimit
 
+bin/plugin --install org.carrot2/elasticsearch-carrot2/1.2.2
+Install carrot2 in elastic search. Take care of versioning from https://github.com/carrot2/elasticsearch-carrot2
+
+
 Install
 https://pypi.python.org/pypi/cluster/1.1.0b1
 
