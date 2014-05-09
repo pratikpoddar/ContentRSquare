@@ -4,8 +4,6 @@ from urlparse import urlparse
 import logging
 from bs4 import BeautifulSoup
 import math
-from cluster import HierarchicalClustering
-from Levenshtein import ratio as levenshtein_ratio
 import requests
 import json
 
@@ -179,28 +177,19 @@ def semantic_closeness_webdice(string1, string2):
 	else:
 		return 0.0
 
-def cluster_articles(urls, level=0.15):
-	
-	articles = map(lambda x: es.get(index="article-index", doc_type='article', id=x)['_source'], urls)
-	print len(articles)
-	#cl = HierarchicalClustering(articles, lambda x,y: 1.0-(2.0*float(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' ')))))/float((len(x['tags'].split(' ')) + len(y['tags'].split(' '))))))
-	#cl = HierarchicalClustering(articles, lambda x,y: 100-(len(list(set(x['tags'].split(' ')) & set(y['tags'].split(' '))))))
-	try:
-		cl = HierarchicalClustering(articles, lambda x,y: 1-( levenshtein_ratio(' '.join(sorted(x['tags'])).lower(), ' '.join(sorted(y['tags'])).lower() ) ))
-		clusters = cl.getlevel(level)
-		urlclusters = []
-		for clust in clusters:
-			urlclusters.append(map(lambda x: x['url'], clust))
-	
-		return urlclusters
-	except:
-		return urls
+def searchdoc_clusters(urls, keywordstr):
 
-def searchdoc_clusters(keywordstr, num=30):
-
-	url = 'http://46.137.209.142:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title^3,text,tags^2'
+	url = 'http://localhost:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title,text,tags,url'
 	clusters = json.loads(requests.get(url).text)['clusters']
-	return clusters
+	clusters = map(lambda x: x['documents'], filter(lambda x: not (x['label']=="Other Topics"), clusters))
+	clusters = map(lambda x: filter(lambda y: y in urls, x), clusters)
+	clusters = sorted(clusters, key=lambda x: -len(x))
+	countedurls = []
+	finalclusters = []
+	for x in clusters:
+		finalclusters.append(filter(lambda y: not y in countedurls, x))
+		countedurls += x
+	return filter(lambda x: len(x)>=2, finalclusters)
 
 
 	
