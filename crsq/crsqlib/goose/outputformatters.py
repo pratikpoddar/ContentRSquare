@@ -22,7 +22,7 @@ limitations under the License.
 """
 from HTMLParser import HTMLParser
 from crsq.crsqlib.goose.text import innerTrim
-
+import re
 
 class OutputFormatter(object):
 
@@ -55,7 +55,10 @@ class OutputFormatter(object):
         self.add_newline_to_br()
         self.replace_with_text()
         self.remove_fewwords_paragraphs(article)
-        return self.convert_to_text()
+        text = self.convert_to_text()
+	## Remove {* .... *}
+	text = re.sub(r'\{\*(.+?)\*\}', r'', text)
+	return text
 
     def convert_to_text(self):
         txts = []
