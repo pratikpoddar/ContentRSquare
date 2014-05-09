@@ -22,6 +22,12 @@ def get_articles():
 		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
 		## hack
 		twitter_newspaper.put_article_semantics_tags(l)
+		## hack
+		if ArticleInfo.objects.filter(url=l).count()==0:
+			if DeleteLinks.objects.filter(url=l).count()==0:
+				dl = DeleteLinks(url=l, reason="Reason could not be figured out")
+				dl.save()
+			TweetLinks.objects.filter(url=l).delete()
 	return
 
 def get_article_semantics_tags():
@@ -44,8 +50,6 @@ def run_twitter_newspaper(tuser, tlist):
 	logger.exception("Get articles done")
 	get_article_semantics_tags()
 	logger.exception("Get article semantics tags done")
-	deletelinks = map(lambda x: x['url'], DeleteLinks.objects.all().values())
-	TweetLinks.objects.filter(url__in=deletelinks).delete()
 	logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 

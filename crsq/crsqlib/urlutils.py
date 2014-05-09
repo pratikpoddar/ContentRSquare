@@ -110,7 +110,7 @@ def isShortUrlPossibly(url):
 	try:
 		url = getCanonicalUrl(crsq_unicode(url))
 		domain = urlparse(url)[1].replace('www.','')
-		if len(domain)<=7:
+		if len(domain)<=8:
 			return True
 		if "tinyurl" in domain.split("."):
 			return True
@@ -130,7 +130,7 @@ def isShortUrlPossibly(url):
 			return True
 
 		tld=urlparse(url)[1].split(".")[-1]
-		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai", "sh", "nl", "at", "in", "asia", "de", "tl", "cc", "us", "ie", "ms", "ws", "ch", "mn", "ps", "ne", "be"]:
+		if tld in ["es", "co", "ly", "me", "it", "bg", "to", "ac", "io", "st", "gs", "mu", "tc", "tw", "ai", "sh", "nl", "at", "in", "asia", "de", "tl", "cc", "us", "ie", "ms", "ws", "ch", "mn", "ps", "ne", "be", "vu", "ve", "se", "er", "re", "ro","or"]:
 			return True
 	
 		subdomain=urlparse(url)[1].split(".")[0]
@@ -157,7 +157,7 @@ def is_url_an_article(url):
 	
 	url = crsq_unicode(url)
 
-	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator', 'wikipedia', 'tv', 'email', 'jobvite', 'theresumator', 'twittercounter', 'sumall', 'flipboard', 'shareable', 'chumly', 'cartrade']
+	blocked_domains = ['instagram', 'imgur', 'pandora', 'facebook', 'twitter', 'i', 'ow', 'twitpic', 'paper', 'stackoverflow', 'github', 'm', 'youtube', 'vimeo', 'flickr', 'kindle', 'fb', 'vine', 'foursquare', 'myemail', 'picasa', 'picasaweb', 'webex', 'maps', 'f6s', 'xkcd', 'windowsphone', 'amazonaws', 'itunes', 'pixable', 'speedtest', 'on-msn', 'craigslist', 'stocktwits', 'rt', 'sharedby', 'kickstarter', 'arxiv', 'stks', 'webcast', 'mobile', 'live', 'pinterest', 'map', 'reddit', 'youtu', 'twishort', 'dailymotion', 'tumblr', 'plus', 'store', 'apple', 'tmblr', 'video', 'smarturl', 'feedburner', 'spoti', 'spotify', 'ycombinator', 'wikipedia', 'tv', 'email', 'jobvite', 'theresumator', 'twittercounter', 'sumall', 'flipboard', 'shareable', 'chumly', 'cartrade', 'path', 'visual']
 
 	if filter(lambda x: x in blocked_domains, urlparse(url)[1].split(".")):
 		return False
