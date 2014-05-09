@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 import math
 from cluster import HierarchicalClustering
 from Levenshtein import ratio as levenshtein_ratio
+import requests
+import json
 
 es = Elasticsearch()
 
@@ -193,4 +195,14 @@ def cluster_articles(urls, level=0.15):
 		return urlclusters
 	except:
 		return urls
+
+def searchdoc_clusters(keywordstr, num=30):
+
+	url = 'http://46.137.209.142:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title^3,text,tags^2'
+	clusters = json.loads(requests.get(url).text)['clusters']
+	return clusters
+
+
+	
+	
 
