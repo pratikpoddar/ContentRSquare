@@ -6,6 +6,7 @@ from django.db.models import Max
 import logging
 from urlparse import urlparse
 import hashlib
+import langid
 
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags, DeleteLinks
 
@@ -33,7 +34,14 @@ def put_article_details(url, source=None):
 			articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(articledict['title']), articleimage = crsq_unicode(articledict['image']), articlecontent = crsq_unicode(articledict['cleaned_text']), articledate = articledict['publish_date'], articlehtml = crsq_unicode(articledict['raw_html']), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source=source)
 			if len(articledict['cleaned_text'].strip())>250:
 				if ArticleInfo.objects.filter(contenthash=str(int(hashlib.md5(removeNonAscii(crsq_unicode(articledict['cleaned_text']))).hexdigest(), 16))).count()==0:
-					articleinfo.save()
+					if langid.classify(removeNonAscii(crsq_unicode(articledict['cleaned_text'])))[0]=='en':
+						articleinfo.save()
+					else:
+						try:
+							dl = DeleteLinks(url=url, reason="Not english text")
+							dl.save()
+						except:
+							pass
 			else:
 				try:
 					dl = DeleteLinks(url=url, reason="Article Clean Text is less than 250 chars")
