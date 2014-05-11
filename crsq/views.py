@@ -248,7 +248,8 @@ def zippednewsapp(request, tag):
 	if tag=="top-trending":
 
 		loggerdebug(request, 1)
-		ai = ArticleInfo.objects.filter(id__gt=150000)
+		maxid = ArticleInfo.objects.all().order_by("-id")[0].id
+		ai = ArticleInfo.objects.filter(id__gt=maxid-750)
 		loggerdebug(request, 2)
 
 		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):
