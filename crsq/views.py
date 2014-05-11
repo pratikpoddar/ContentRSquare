@@ -286,11 +286,13 @@ def zippednewsapp(request, tag):
 				if urls==[]:
 					searchterm2 = '"' + searchterm + '" ' + searchterm
 					urls = article_elastic_search.searchdoc(searchterm2, 20)
+			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 			loggerdebug(request, 9)
 		except:
 			# Elastic Search Failed
 			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
+			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 
 	loggerdebug(request, 10)
