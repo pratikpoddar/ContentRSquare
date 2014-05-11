@@ -9,6 +9,7 @@ import jsonpickle
 import hashlib
 from urlparse import urlparse
 import langid
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -105,7 +106,10 @@ def feedanalyzer_put_article_details(entry, rss_url):
         	                articleinfo = ArticleInfo(url=urlutils.getCanonicalUrl(url), articletitle = crsq_unicode(entry['title']), articleimage = articleimage, articlecontent = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), articledate = articledate, articlehtml = crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text), twitterpower= socialpower['tw'], fbpower = socialpower['fb'], source='feedanalyzer' + rss_url)
 				if len(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))>250:
 					if ArticleInfo.objects.filter(contenthash=str(int(hashlib.md5(removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).hexdigest(), 16))).count()==0:
-						if langid.classify(removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text)))[0]=='en':
+						try:
+							if langid.classify( re.match(r'(?:[^.]*[.]){3}', removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).group())[0]=='en':
+								articleinfo.save()
+						except:
 							articleinfo.save()
 	                except Exception as e:
         	                logger.exception('feedanalyzer - feedanalyzer_put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
