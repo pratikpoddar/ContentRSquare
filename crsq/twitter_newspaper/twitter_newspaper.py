@@ -9,7 +9,7 @@ import hashlib
 from django.db.models import Max
 import logging
 from urlparse import urlparse
-from crsq.crsqlib.articleutilsdb import put_article_details, put_article_semantics_tags
+from crsq.crsqlib.articleutilsdb import *
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, TweetUsers, ArticleInfo, ArticleSemantics, ArticleTags
 from functools32 import lru_cache
 

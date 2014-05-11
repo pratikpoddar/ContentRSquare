@@ -50,7 +50,7 @@ def run_twitter_newspaper(tuser, tlist):
 	logger.exception("Get articles done")
 	get_article_semantics_tags()
 	logger.exception("Get article semantics tags done")
-	logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
+	#logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
 def time_dependent_tw_np(toberun):

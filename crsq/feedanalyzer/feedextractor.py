@@ -11,7 +11,11 @@ from urlparse import urlparse
 import langid
 import re
 
+langid.langid.load_model()
+
 logger = logging.getLogger(__name__)
+
+langid_identifier = langid.langid.identifier
 
 feedanalyzer_blocked_domains= ['guardianlv.com']
 
@@ -107,7 +111,7 @@ def feedanalyzer_put_article_details(entry, rss_url):
 				if len(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))>250:
 					if ArticleInfo.objects.filter(contenthash=str(int(hashlib.md5(removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).hexdigest(), 16))).count()==0:
 						try:
-							if langid.classify( re.match(r'(?:[^.:]*[.:]){2}', removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).group())[0]=='en':
+							if langid_identifier.classify( re.match(r'(?:[^.:]*[.:]){2}', removeNonAscii(crsq_unicode(BeautifulSoup(crsq_unicode(' '.join(map(lambda x: x['value'], entry['content'])))).text))).group())[0]=='en':
 								articleinfo.save()
 						except:
 							articleinfo.save()

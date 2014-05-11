@@ -11,7 +11,11 @@ import re
 
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags, DeleteLinks
 
+langid.langid.load_model()
+
 logger = logging.getLogger(__name__)
+
+langid_identifier = langid.langid.identifier
 
 def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
@@ -36,7 +40,7 @@ def put_article_details(url, source=None):
 			if len(articledict['cleaned_text'].strip())>250:
 				if ArticleInfo.objects.filter(contenthash=str(int(hashlib.md5(removeNonAscii(crsq_unicode(articledict['cleaned_text']))).hexdigest(), 16))).count()==0:
 					try:
-						if langid.classify( re.match(r'(?:[^.:]*[.:]){2}', removeNonAscii(crsq_unicode(articledict['cleaned_text']))).group() )[0]=='en':
+						if langid_identifier.classify( re.match(r'(?:[^.:]*[.:]){2}', removeNonAscii(crsq_unicode(articledict['cleaned_text']))).group() )[0]=='en':
 							articleinfo.save()
 						else:
 							try:

@@ -80,7 +80,7 @@ def fa():
 	nytlist = ["HomePage.xml", "AsiaPacific.xml", "Europe.xml", "MiddleEast.xml", "Africa.xml", "Americas.xml", "World.xml", "US.xml", "Politics.xml", "NYRegion.xml", "Business.xml", "EnergyEnvironment.xml", "MediaandAdvertising.xml", "Economy.xml", "Technology.xml", "PersonalTech.xml", "Health.xml", "Nutrition.xml", "Sports.xml", "Baseball.xml", "InternationalSports.xml", "Arts.xml", "ArtandDesign.xml", "Movies.xml", "Dance.xml", "Television.xml", "Music.xml", "FashionandStyle.xml", "DiningandWine.xml", "Travel.xml", "InternationalOpinion.xml"]
 	#for ny in nytlist:
 		#feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/"+ny, "fromscratch") 
-	logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
+	#logger.exception('run_feedanalyzer: ' + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()))
 	logger.exception("Load RSS in Table Done")
 	refreshdbtoes()
 	logger.exception("Refresh DB to ES Done")
