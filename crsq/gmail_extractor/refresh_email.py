@@ -4,16 +4,11 @@ import email
 import pickle
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+from crsq.crsqlib.stringutils import *
 
 client_id = '292712397025-bh6dhs8n9eluc4me3hujtugg7fndd539.apps.googleusercontent.com'
 client_secret = '4YOc_uf_4Lxyg37QPvZ18HST'
 scope = 'https://mail.google.com/'
-
-def removeNonAscii(s): 
-	try:
-		return "".join(filter(lambda x: ord(x)<128, s))
-	except:
-		return ""
 
 def getUser():
 

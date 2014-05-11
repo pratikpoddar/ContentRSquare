@@ -15,11 +15,11 @@ from random import shuffle
 import email
 import json
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples
+from crsq.crsqlib.stringutils import *
 
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 parser = Parser()
 
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 def getBStext(html): 
 	html = re.sub(r"<br>", ". ", html, flags=re.IGNORECASE)
 	bs = BeautifulSoup(removeNonAscii(html)) 

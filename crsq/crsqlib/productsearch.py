@@ -1,10 +1,9 @@
 from amazon.api import AmazonAPI
 from crsq.models import AmazonProd
 import logging
+from crsq.crsqlib.stringutils import *
 
 logger = logging.getLogger(__name__)
-
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def getAmazonProducts(keywords, index):
 

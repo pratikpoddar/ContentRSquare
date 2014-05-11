@@ -4,20 +4,9 @@ import json
 import logging
 import urllib2
 from bs4 import BeautifulSoup
+from crsq.crsqlib.stringutils import *
 
 logger = logging.getLogger(__name__)
-
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
 
 def get_top_trends(gurl):
 

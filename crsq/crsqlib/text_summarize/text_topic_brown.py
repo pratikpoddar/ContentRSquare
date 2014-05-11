@@ -19,21 +19,9 @@ from sklearn.utils.extmath import density
 from nltk.corpus import brown
 import inspect
 from crsq.crsqlib import text_summarize
+from crsq.crsqlib.stringutils import *
 
 import pickle
-
-def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
-
 
 def get_text_topic(text):
 	

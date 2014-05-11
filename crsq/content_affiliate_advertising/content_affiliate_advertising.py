@@ -7,12 +7,11 @@ import collections
 import sys
 import logging
 import pickle
+from crsq.crsqlib.stringutils import *
 
 from crsq.models import ContentAffiliate
 
 logger = logging.getLogger(__name__)
-
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
 
 def convert(d):
     if isinstance(d, basestring):

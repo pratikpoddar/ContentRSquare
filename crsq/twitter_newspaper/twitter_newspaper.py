@@ -12,18 +12,9 @@ from urlparse import urlparse
 from crsq.crsqlib.articleutilsdb import *
 from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, TweetUsers, ArticleInfo, ArticleSemantics, ArticleTags
 from functools32 import lru_cache
+from crsq.crsqlib.stringutils import *
 
 logger = logging.getLogger(__name__)
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
 
 consumer_key="eULM1PaB0Aw7RQyvWbRzHA"
 consumer_secret="d9h1QnZE7PAh7DVmQO8yapgRptVoIu8yTlzisytR2YQ"
@@ -66,8 +57,6 @@ def tw_np_location_alias(location):
                 location_alias = [location]
 	
 	return location_alias
-
-def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
 
 def search_twitter(keyword, numlinks):
 

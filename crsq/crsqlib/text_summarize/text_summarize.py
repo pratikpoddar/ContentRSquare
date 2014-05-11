@@ -13,6 +13,7 @@ import pickle
 from topia.termextract import extract
 from functools32 import lru_cache
 import inspect
+from crsq.crsqlib.stringutils import *
 
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
@@ -37,18 +38,6 @@ alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
 stanford_ner_tagger = NERTagger('/home/ubuntu/nltk_data/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz', '/home/ubuntu/nltk_data/stanford-ner/stanford-ner.jar')
-
-def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
 
 def get_text_tags(text):
 

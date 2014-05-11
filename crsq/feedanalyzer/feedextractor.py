@@ -10,6 +10,7 @@ import hashlib
 from urlparse import urlparse
 import langid
 import re
+from crsq.crsqlib.stringutils import *
 
 langid.langid.load_model()
 
@@ -18,18 +19,6 @@ logger = logging.getLogger(__name__)
 langid_identifier = langid.langid.identifier
 
 feedanalyzer_blocked_domains= ['guardianlv.com']
-
-def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
 
 def pick_appropriate_url(entry):
 	url = ""

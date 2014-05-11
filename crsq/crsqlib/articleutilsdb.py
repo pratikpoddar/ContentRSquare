@@ -1,6 +1,7 @@
 import json
 import jsonpickle
 from crsq.crsqlib import urlutils, articleutils
+from crsq.crsqlib.stringutils import *
 import hashlib
 from django.db.models import Max
 import logging
@@ -16,19 +17,6 @@ langid.langid.load_model()
 logger = logging.getLogger(__name__)
 
 langid_identifier = langid.langid.identifier
-
-def removeNonAscii(s): return "".join(i for i in s if ord(i)<128)
-
-def crsq_unicode(s):
-
-        if s  == None:
-                return s
-
-        if isinstance(s, unicode):
-                return s
-        else:
-                return s.decode('utf-8')
-
 
 def put_article_details(url, source=None):
 	url = urlutils.getCanonicalUrl(url)
