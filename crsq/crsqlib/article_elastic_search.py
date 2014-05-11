@@ -179,7 +179,7 @@ def semantic_closeness_webdice(string1, string2):
 
 def searchdoc_clusters(urls, keywordstr):
 
-	url = 'http://localhost:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title,text,tags,url&algorithm=kmeans'
+	url = 'http://localhost:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title,text,tags,url&algorithm=stc'
 	clusters = json.loads(requests.get(url).text)['clusters']
 	clusters = map(lambda x: x['documents'], filter(lambda x: not (x['label']=="Other Topics"), clusters))
 	clusters = map(lambda x: filter(lambda y: y in urls, x), clusters)
