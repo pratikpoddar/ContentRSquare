@@ -5,7 +5,10 @@ def removeNonAscii(s):
 		s = unidecode(s)
 	except:
 		pass
-	return "".join(i for i in s if ord(i)<128)
+	try:
+		return "".join(i for i in s if ord(i)<128)
+	except:
+		return ""
 
 def crsq_unicode(s):
 
