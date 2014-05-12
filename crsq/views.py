@@ -483,7 +483,7 @@ def zopeyesearch(request, keywordstr):
 		urldicts = article_elastic_search.searchdoc(tags, highlight=True, num=20)
 	"""
 
-	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=20)
+	urldicts = article_elastic_search.searchdoc(keywordstr, highlight=True, num=50)
 	
 	clustered_urls = article_elastic_search.searchdoc_clusters(map(lambda x: x['url'], urldicts), keywordstr)
 	res = []
