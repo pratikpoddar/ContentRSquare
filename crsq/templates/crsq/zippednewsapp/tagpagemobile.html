@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block navbartitle %}
-{{ tag | crsq_unslugify | truncatechars:21}} | <span class="glyphicon glyphicon-home"> </span> ZippedNews
+{{ tag | crsq_unslugify | truncatechars:22}}
 {% endblock %}
 
 {% block bodycontent %}
@@ -28,6 +28,10 @@
 	margin-bottom: 0px;
 	height: 28px;
 	overflow-y: hidden;
+}
+
+.navbar-image {
+	height: 20px!important;
 }
 
 body {
