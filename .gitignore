@@ -1,2 +1,6 @@
 *.pyc
 pratikphodugmailcom_emaildump.pickle
+*.dex
+*.class
+*.ap_
+*.jar
