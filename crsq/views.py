@@ -267,9 +267,9 @@ def zippednewsapp(request, tag):
 
 		urls = map(lambda x: x['url'], bi)[-40:]
 		random.shuffle(urls)
-		urls = urls[:15]
+		urls = urls[:14]
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
-		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
 		loggerdebug(request, 7)
 	else:
 		try:
