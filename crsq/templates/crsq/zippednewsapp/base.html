@@ -37,7 +37,9 @@
    {% endblock %}
 
     <div class="container">
-	<img id="loadingspinner" src="{% static 'crsq/img/zippednewsapp/ajax-loader.gif' %}" style="position:absolute;top:250px;z-index:100;width:50px;left:10px;display:none">
+	<div class="row" style="text-align:center">
+	<img id="loadingspinner" src="{% static 'crsq/img/zippednewsapp/ajax-loader.gif' %}" style="position:fixed;top:250px;z-index:100;width:50px;display:none">
+	</div>
 	{% block bodycontent %}
 	{% endblock %}
     </div><!-- /.container -->    
