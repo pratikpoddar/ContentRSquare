@@ -50,17 +50,17 @@ body {
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
                   <p class="summary"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
-		 <p class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
+		  <p class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
 
-		<div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews" style="font-size:50%">
-		<a class="addthis_button_facebook"></a>
-		<a class="addthis_button_twitter"></a>
-		<a class="addthis_button_google_plusone_share"></a>
-		<a class="addthis_button_linkedin"></a>
-		<a class="addthis_button_email"></a>
-		</div>
+		  <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews" style="font-size:50%">
+		  <a class="addthis_button_facebook"></a>
+		  <a class="addthis_button_twitter"></a>
+		  <a class="addthis_button_google_plusone_share"></a>
+		  <a class="addthis_button_linkedin"></a>
+		  <a class="addthis_button_email"></a>
+		  </div>
 
-		<br/>  
+		  <br/>  
 		  </div>
 		  </div>
 	    {% endfor %}
@@ -104,8 +104,6 @@ body {
 	    $('.swipeenabled').first().show();
 	    $('#pager').show();
 	    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
-		
-	    //$('.swipeenabled').draggable({ axis: "x", stop: function( event, ui ) { if ((ui.position.left < 31) && (ui.position.left > -31)) {$(this).css('left', 'auto'); $(this).css('right', 'auto'); }  } });
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			    if ($(this).next('.swipeenabled').length > 0) {
