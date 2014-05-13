@@ -16,10 +16,7 @@ def crsq_unicode(s):
                 return s
 
         if isinstance(s, unicode):
-		try:
-			return unidecode(s)
-		except:
-			return s
+		return s
         else:
 		try:
 			return unidecode(s.decode('utf-8'))
