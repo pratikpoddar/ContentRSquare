@@ -21,14 +21,13 @@ ZippedNews: Real-time news on Popular Topics
                         <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Trending News by Topic</div>
                                         <ul class="list-group">
-
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=t&name=Technology" title="Technology - Real Time News"><p class="list-group-item-text">Technology</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=s&name=Sports" title="Sports - Real Time News"><p class="list-group-item-text">Sports</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=snc&name=Science" title="Science - Real Time News"><p class="list-group-item-text">Science</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=m&name=Health" title="Health - Real Time News"><p class="list-group-item-text">Health</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=w&name=World" title="World - Real Time News"><p class="list-group-item-text">World</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=b&name=Business" title="Business - Real Time News"><p class="list-group-item-text">Business</p></a></li>
-                                            <li class="list-group-item"><a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment" title="Entertainment - Real Time News"><p class="list-group-item-text">Entertainment</p></a></li>
+                                            <a href="http://www.zippednews.com/top-trending?topic=t&name=Technology" title="Technology - Real Time News" class="list-group-item"><p class="list-group-item-text">Technology</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=s&name=Sports" title="Sports - Real Time News" class="list-group-item"><p class="list-group-item-text">Sports</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=snc&name=Science" title="Science - Real Time News" class="list-group-item"><p class="list-group-item-text">Science</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=m&name=Health" title="Health - Real Time News" class="list-group-item"><p class="list-group-item-text">Health</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=w&name=World" title="World - Real Time News" class="list-group-item"><p class="list-group-item-text">World</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=b&name=Business" title="Business - Real Time News" class="list-group-item"><p class="list-group-item-text">Business</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment" title="Entertainment - Real Time News" class="list-group-item"><p class="list-group-item-text">Entertainment</p></a>
                                           </ul>
                                 </div>
 
@@ -41,9 +40,7 @@ ZippedNews: Real-time news on Popular Topics
                         	<div class="panel-heading">Trending Topics</div>
 	                                <ul class="list-group">
                                                 {% for s in google_trends_US %}
-                                                        <li class="list-group-item">
-                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-                                                        </li>
+                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                 {% endfor %}
                                           </ul>
                                 </div>

@@ -70,3 +70,7 @@ footer {
 #pager a.activeSlide {
   background: #707173; /* color when active */
 }
+
+a.list-group-item {
+  color: cadetblue;
+}

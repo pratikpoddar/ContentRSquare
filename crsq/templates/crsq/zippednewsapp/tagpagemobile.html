@@ -70,9 +70,7 @@ body {
                                 <div class="panel-heading">That's all on "{{ tag | crsq_unslugify }}" for now. Read more on related topics:</div>
                                 <ul class="list-group">
                                           {% for s in relatedtopics %}
-                                                  <li class="list-group-item">
-                                                          <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-                                                  </li>
+                                          	<a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                            {% endfor %}
                                 </ul>
                          </div>
