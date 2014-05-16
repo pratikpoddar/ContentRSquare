@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from crsq.models import ArticleInfo, ArticleTags
+from crsq.models import ArticleInfo, ArticleTags, ArticleChanged
 from urlparse import urlparse
 import logging
 from bs4 import BeautifulSoup
@@ -143,17 +143,31 @@ def indexurl(url):
 
 def refreshdbtoes():
 
+	urls = map(lambda x:x ['url'], ArticleChanged.objects.all().values('url'))
+	for url in urls:
+		if ArticleInfo.objects.filter(url=url).count()>0:
+			try:
+				deleteurl(url)
+			except:	
+				pass
+			indexurl(url)
+		else:
+			try:
+				deleteurl(url)
+			except:
+				pass
+
+	ArticleChanged.objects.filter(url__in=urls).delete()
+	return
+
+def force_refreshdbtoes():
+	
 	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
 	indexurls = getall()
-	#for url in list(indexurls):
-	#	deleteurl(url)
-	#for url in list(dburls):
-	#	indexurl(url)
 	for url in list(set(indexurls)-set(dburls)):
 		deleteurl(url)
 	for url in list(set(dburls)-set(indexurls)):
 		indexurl(url)
-
 	return
 
 def num_articles_search_exact(string):
