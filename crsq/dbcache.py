@@ -1,7 +1,6 @@
 from crsq.models import *
 from functools32 import lru_cache
 
-# For ArticleGroup - welcome.html, tagpage.html, taglist.html
 @lru_cache(maxsize=1024)
 def getRelevantTags():
 

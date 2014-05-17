@@ -11,7 +11,6 @@ ZippedNews: Real-time news on Popular Topics
 
 {% block bodycontent %}
 
-	<img id="flickimage" src="{% static 'crsq/img/zippednewsapp/swipe.png' %}"/>
 	<div class="jumbotron">
 	  <h1><img src="{% static 'crsq/img/zippednewsapp/zippednewslogo.svg' %}" style="height:34px;padding-right:8px;"/>ZippedNews</h1>
 		<p style="text-align:justify; font-size:95%">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
@@ -65,27 +64,3 @@ ZippedNews: Real-time news on Popular Topics
 <br/><br/>
 {% endblock %}
 
-
-{% block jscontent %}
-    <script>
-        $(document).ready(function() {
-	    var image = new Image()
-	    image.src="{% static 'crsq/img/zippednewsapp/loading.gif' %}"
-	    image.onload = function() {
-	            $("#flickimage").delay(6000).fadeIn("slow").delay(3000).fadeOut("slow");
-	    }
-            $('body').swipe({
-                  swipeLeft:function(event, direction, distance, duration, fingerCount) {
-			var image = new Image()
-			image.src = "{% static 'crsq/img/zippednewsapp/loading.gif' %}"
-			image.onload = function() {
-				var imgtag = "<img src=\"{% static 'crsq/img/zippednewsapp/loading.gif' %}\" alt=\"ZippedNews Loading....\" title=\"ZippedNews Loading....\" style=\"width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;\"/>"
-				$('body').html(imgtag)
-				location.href="http://www.zippednews.com/top-trending"
-			}
-                  },
-                  threshold: 30
-             });
-          });
-    </script>
-{% endblock %}

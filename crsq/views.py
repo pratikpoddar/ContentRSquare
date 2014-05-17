@@ -40,7 +40,8 @@ from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 
 logger = logging.getLogger(__name__)
 
-relevanttags = dbcache.getRelevantTags()
+#relevanttags = dbcache.getRelevantTags()
+relevanttags = article_elastic_search.gettopterms()
 
 def loggerdebug(request, string):
 	if 'pratik' in request.GET.keys():
@@ -306,7 +307,8 @@ def zippednewsapp(request, tag):
 	loggerdebug(request, 13)
 	article_list = []
 
-	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)))
+	relatedtopics = filter(lambda y: (len(y)>5) and (not y in tag) and (not tag in y),map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40))) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[]))
+	relatedtopics = list(set(relatedtopics))
 	loggerdebug(request, 14)
 	for article in articles:
 

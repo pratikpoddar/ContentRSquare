@@ -123,6 +123,25 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 				return urls
 		return urls
 
+def gettopterms():
+
+	body = 	{
+		"query" : {
+			"match_all" : {  }
+			},
+		"facets" : {
+			"tag" : {
+				"terms" : {
+					"field" : "tags",
+					"size" : 10000
+					}
+				}
+			}
+	}
+
+	res = es.search(index="article-index", body=body)
+	return map(lambda x: x['term'], res['facets']['tag']['terms'])
+
 def getall():
 	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=500000, fields="")
         print("Getting all elements indexed - Got %d Hits" % res['hits']['total'])
@@ -135,7 +154,7 @@ def getall():
 def indexurl(url):
 	
 	articledict = ArticleInfo.objects.filter(url=url).values()[0]
-	tags = ' '.join(map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag')))
+	tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
 	domain = urlparse(url)[1]
 	if len(articledict) and len(tags)>0:
 		indexdoc(dict(articledict.items() + [('tags', tags), ('domain', domain)]))
