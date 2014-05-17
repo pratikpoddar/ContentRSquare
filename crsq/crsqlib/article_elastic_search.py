@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from crsq.models import ArticleInfo, ArticleTags
+from crsq.models import ArticleInfo, ArticleTags, ArticleChanged
 from urlparse import urlparse
 import logging
 from bs4 import BeautifulSoup
@@ -123,6 +123,25 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 				return urls
 		return urls
 
+def gettopterms():
+
+	body = 	{
+		"query" : {
+			"match_all" : {  }
+			},
+		"facets" : {
+			"tag" : {
+				"terms" : {
+					"field" : "tags",
+					"size" : 10000
+					}
+				}
+			}
+	}
+
+	res = es.search(index="article-index", body=body)
+	return map(lambda x: x['term'], res['facets']['tag']['terms'])
+
 def getall():
 	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=500000, fields="")
         print("Getting all elements indexed - Got %d Hits" % res['hits']['total'])
@@ -135,7 +154,7 @@ def getall():
 def indexurl(url):
 	
 	articledict = ArticleInfo.objects.filter(url=url).values()[0]
-	tags = ' '.join(map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag')))
+	tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
 	domain = urlparse(url)[1]
 	if len(articledict) and len(tags)>0:
 		indexdoc(dict(articledict.items() + [('tags', tags), ('domain', domain)]))
@@ -143,17 +162,31 @@ def indexurl(url):
 
 def refreshdbtoes():
 
+	urls = map(lambda x:x ['url'], ArticleChanged.objects.all().values('url'))
+	for url in urls:
+		if ArticleInfo.objects.filter(url=url).count()>0:
+			try:
+				deleteurl(url)
+			except:	
+				pass
+			indexurl(url)
+		else:
+			try:
+				deleteurl(url)
+			except:
+				pass
+
+	ArticleChanged.objects.filter(url__in=urls).delete()
+	return
+
+def force_refreshdbtoes():
+	
 	dburls = map(lambda x:x ['url'], ArticleInfo.objects.all().values('url'))
 	indexurls = getall()
-	#for url in list(indexurls):
-	#	deleteurl(url)
-	#for url in list(dburls):
-	#	indexurl(url)
 	for url in list(set(indexurls)-set(dburls)):
 		deleteurl(url)
 	for url in list(set(dburls)-set(indexurls)):
 		indexurl(url)
-
 	return
 
 def num_articles_search_exact(string):

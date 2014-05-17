@@ -67,7 +67,19 @@ class ArticleInfo(models.Model):
     def save(self):
         self.contentlength = len(self.articlecontent)
 	self.contenthash = str(int(hashlib.md5(removeNonAscii(self.articlecontent)).hexdigest(), 16))
+	ac = ArticleChanged(url=self.url)
+	try:
+		ac.save()
+	except:
+		pass
         super(ArticleInfo, self).save()
+    def delete(self):
+	ac = ArticleChanged(url=self.url)
+	try:
+		ac.save()
+	except:
+		pass
+	super(ArticleInfo, self).delete()
     def domainname(self):
         return urlparse(self.url)[1]
 
@@ -76,12 +88,43 @@ class ArticleSemantics(models.Model):
     summary = models.TextField()
     topic = models.CharField(max_length=1000L, null=True, default=None)
     time = models.DateTimeField(auto_now_add=True, blank=True)
+    def save(self):
+        ac = ArticleChanged(url=self.url)
+        try:
+                ac.save()
+        except:
+                pass
+        super(ArticleSemantics, self).save()
+    def delete(self):
+        ac = ArticleChanged(url=self.url)
+        try:
+                ac.save()
+        except:
+                pass
+        super(ArticleSemantics, self).delete()
 
 class ArticleTags(models.Model):
     url = models.CharField(max_length=255L, null=False, db_index=True)
     tag = models.CharField(max_length=255L, null=False, db_index=True)
+    def save(self):
+        ac = ArticleChanged(url=self.url)
+        try:
+                ac.save()
+        except:
+                pass
+        super(ArticleTags, self).save()
+    def delete(self):
+        ac = ArticleChanged(url=self.url)
+        try:
+                ac.save()
+        except:
+                pass
+        super(ArticleTags, self).delete()
     class Meta:
         unique_together = (("url", "tag"),)
+
+class ArticleChanged(models.Model):
+    url = models.CharField(max_length=255L, null=False, db_index=True)
 
 class ImportantTags(models.Model):
     tag = models.CharField(max_length=255L, null=False)
@@ -141,6 +184,7 @@ class EmailLinks(models.Model):
     link = models.CharField(max_length=255L, db_index=True)
     class Meta:
         unique_together = (("emailhash", "link"),)
+
 
  
 	

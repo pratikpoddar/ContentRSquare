@@ -74,3 +74,12 @@ footer {
 a.list-group-item {
   color: #428bca;
 }
+
+#flickimage {
+	position:fixed;
+	right:0px;
+	top:220px;
+	z-index:1000;
+	width:60%;
+	display:none;"
+}
