@@ -1,7 +1,9 @@
 package com.example.zippednews;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -31,7 +33,14 @@ public class MainActivity extends Activity {
     private class MyCustomWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+            if (Uri.parse(url).getHost().contains("zippednews.com")) {
+                // This is my web site, so do not override; let my WebView load the page
+            	view.loadUrl(url);
+                return false;
+            }
+            // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
             return true;
         }
     }
