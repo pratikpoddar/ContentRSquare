@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 #relevanttags = dbcache.getRelevantTags()
 relevanttags = article_elastic_search.gettopterms()
 
-gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat', 'r')
+gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat')
 
 def loggerdebug(request, string):
 	if 'pratik' in request.GET.keys():
@@ -249,11 +249,15 @@ def timenews_article(request, articleid):
 
 def zippednewsapp(request, tag):
 
-	gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat', 'r')
-	ip = request.META.get('REMOTE_ADDR', None)
+	## TODO: This is not giving correct results
+	ip = None
+	if 'HTTP_X_FORWARDED_FOR' in request.META:
+            ip = request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip()
+	else:
+	    ip = request.META['REMOTE_ADDR']
 	if ip:
 		country = gi.country_code_by_addr(ip)
-		if country in ['US', 'IN']:
+		if country not in ['US', 'IN']:
 			country = 'XX'
 	else:
 		country = 'XX'

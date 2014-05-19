@@ -44,8 +44,24 @@ def createarticleindex():
             					}
         				}
             			}
-          		}
-        	},
+          		},
+			    'mappings': {
+				'my_mapping_type': {
+					'_all': {
+				        	'enabled': False
+					},
+					'_source': {
+						'compressed': True
+					},
+					'properties': {
+						'tags': {
+							'type': 'string',
+							'index': 'not_analyzed'
+					        }
+					}
+				}
+        		}
+		},
         	# ignore already existing index
         	ignore=400
     	)
@@ -154,7 +170,7 @@ def getall():
 def indexurl(url):
 	
 	articledict = ArticleInfo.objects.filter(url=url).values()[0]
-	tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
+	tags = ', '.join(map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag')))
 	domain = urlparse(url)[1]
 	if len(articledict) and len(tags)>0:
 		indexdoc(dict(articledict.items() + [('tags', tags), ('domain', domain)]))
