@@ -280,13 +280,13 @@ def zippednewsapp(request, tag):
 					raise
 			searchterm = tag.replace('-',' ').title()
 			searchterm2 = '"' + searchterm + '"'
-	                urls = article_elastic_search.searchdoc(searchterm2, 20)
+	                urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=40.0)
 			if urls==[]:
 				searchterm2 = ' AND '.join(searchterm.split(' '))
-				urls = article_elastic_search.searchdoc(searchterm2, 20)
+				urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=15.0)
 				if urls==[]:
 					searchterm2 = '"' + searchterm + '" ' + searchterm
-					urls = article_elastic_search.searchdoc(searchterm2, 20)
+					urls = article_elastic_search.searchdoc(searchterm2, 20, recencyweight=15.0)
 			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 			loggerdebug(request, 9)
