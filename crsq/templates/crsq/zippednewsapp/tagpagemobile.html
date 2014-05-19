@@ -103,7 +103,14 @@ body {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
 	    $('#pager').show();
-	    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
+	    if ($.cookie("swipeintroduced")==1) {		
+		console.log("ZippedNews - CRSQ - Swipe Introduction is already done")
+		}
+	    else {
+		    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
+		    $.cookie("swipeintroduced", 1)
+		    console.log("ZippedNews - CRSQ - Swipe Introduction now done for the first time")
+		}
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			    if ($(this).next('.swipeenabled').length > 0) {
