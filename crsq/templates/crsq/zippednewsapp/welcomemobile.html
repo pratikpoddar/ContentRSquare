@@ -20,14 +20,14 @@ ZippedNews: Real-time news on Popular Topics
                         <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Trending News by Topic</div>
                                         <ul class="list-group">
-                                            <a href="http://www.zippednews.com/top-trending?topic=t&name=Technology" title="Technology - Real Time News" class="list-group-item"><p class="list-group-item-text">Technology</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=s&name=Sports" title="Sports - Real Time News" class="list-group-item"><p class="list-group-item-text">Sports</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=snc&name=Science" title="Science - Real Time News" class="list-group-item"><p class="list-group-item-text">Science</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=m&name=Health" title="Health - Real Time News" class="list-group-item"><p class="list-group-item-text">Health</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=w&name=World" title="World - Real Time News" class="list-group-item"><p class="list-group-item-text">World</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=b&name=Business" title="Business - Real Time News" class="list-group-item"><p class="list-group-item-text">Business</p></a>
-                                            <a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment" title="Entertainment - Real Time News" class="list-group-item"><p class="list-group-item-text">Entertainment</p></a>
-					    <a href="http://www.zippednews.com/top-trending?topic=p&name=Politics" title="Politics - Real Time News" class="list-group-item"><p class="list-group-item-text">Politics</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=t&name=Technology" title="Technology - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqt" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Technology</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=s&name=Sports" title="Sports - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqs" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Sports</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=snc&name=Science" title="Science - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqsnc" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Science</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=m&name=Health" title="Health - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqm" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Health</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=w&name=World" title="World - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqw" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">World</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=b&name=Business" title="Business - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqb" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Business</p></a>
+                                            <a href="http://www.zippednews.com/top-trending?topic=e&name=Entertainment" title="Entertainment - Real Time News" class="list-group-item"><img class="descimage" style="max-width:90%;padding:5px;max-height:120px;" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqe" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Entertainment</p></a>
+					    <a href="http://www.zippednews.com/top-trending?topic=p&name=Politics" title="Politics - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqp" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Politics</p></a>
                                           </ul>
                         </div>
                 <br/>
@@ -37,8 +37,8 @@ ZippedNews: Real-time news on Popular Topics
                     	<div class="panel panel-default" style="text-align:center">
                         	<div class="panel-heading">Trending Topics</div>
 	                                <ul class="list-group">
-                                                {% for s in google_trends_US %}
-                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                {% for s in google_trends_mobile %}
+                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic s %}{{ image }}{% endifequal %}{% endfor %}" alt="{{ s | crsq_unslugify }} News" title="{{ s | crsq_unslugify }} News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                                 {% endfor %}
                                           </ul>
                         </div>
@@ -63,4 +63,16 @@ ZippedNews: Real-time news on Popular Topics
 {% block footercontent %}
 <br/><br/>
 {% endblock %}
+
+{% block jscontent %}
+
+    <script>
+        $(window).ready(function() {
+            $('.descimage').jail({loadHiddenImages : true});
+	})
+    </script>
+
+{% endblock %}
+
+
 

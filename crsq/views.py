@@ -371,7 +371,14 @@ def zippednewsappwelcome(request):
 			return len(p)
 
 	gt = sorted(google_trends.items(), key=lambda x: positioning(x[0]))
-
+	
+	imagedict = {}
+	topics = filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), sorted(list(set(google_trends['US'] + google_trends['India']))))
+	for topic in topics:
+		imagedict[topic] = dbcache.getAppropriateImageTag(topic)
+	for topic in ["t", "s", "snc", "m", "w", "b", "e", "p"]:
+		imagedict["zippednewscrsq"+topic] = dbcache.getAppropriateImageTopic(topic)
+	
         if request.mobile:
                 template = loader.get_template('crsq/zippednewsapp/welcomemobile.html')
         else:
@@ -379,7 +386,8 @@ def zippednewsappwelcome(request):
 
         context = RequestContext(request, {
 		'google_trends': gt,
-		'google_trends_US': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), sorted(list(set(google_trends['US'] + google_trends['India']))))
+		'google_trends_mobile': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), sorted(list(set(google_trends['US'] + google_trends['India'])))),
+		'topicimages': imagedict.items()
         })
 
         return HttpResponse(template.render(context))

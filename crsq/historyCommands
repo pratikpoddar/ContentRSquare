@@ -301,3 +301,5 @@ Crontab as root:
 0 0 * * * rm /home/ubuntu/django_log/debug.log.*
 0 0 * * * rm /home/ubuntu/django_log/error.log.*
 
+pip install PIL
+
