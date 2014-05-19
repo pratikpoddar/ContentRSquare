@@ -32,6 +32,7 @@ from crsq.crsqlib import article_elastic_search, email_elastic_search, text_summ
 from dateutil.parser import parse as dateutilparse
 
 import collections
+import pygeoip
 
 #from ratelimit.decorators import ratelimit
 
@@ -42,6 +43,8 @@ logger = logging.getLogger(__name__)
 
 #relevanttags = dbcache.getRelevantTags()
 relevanttags = article_elastic_search.gettopterms()
+
+gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat', 'r')
 
 def loggerdebug(request, string):
 	if 'pratik' in request.GET.keys():
@@ -245,6 +248,15 @@ def timenews_article(request, articleid):
         return HttpResponse(template.render(context))
 
 def zippednewsapp(request, tag):
+
+	gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat', 'r')
+	ip = request.META.get('REMOTE_ADDR', None)
+	if ip:
+		country = gi.country_code_by_addr(ip)
+		if country in ['US', 'IN']:
+			country = 'XX'
+	else:
+		country = 'XX'
 
 	if tag=="top-trending":
 
