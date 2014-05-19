@@ -103,13 +103,9 @@ body {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
 	    $('#pager').show();
-	    if ($.cookie("swipeintroduced")==1) {		
-		console.log("ZippedNews - CRSQ - Swipe Introduction is already done")
-		}
-	    else {
+	    if not ($.cookie("returnuser")==1) {		
 		    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
-		    $.cookie("swipeintroduced", 1)
-		    console.log("ZippedNews - CRSQ - Swipe Introduction now done for the first time")
+		    $.cookie("returnuser", 1)
 		}
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
