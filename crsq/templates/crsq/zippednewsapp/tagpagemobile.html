@@ -103,9 +103,9 @@ body {
             $('.articleimage').jail({loadHiddenImages : true});
 	    $('.swipeenabled').first().show();
 	    $('#pager').show();
-	    if not ($.cookie("returnuser")==1) {		
+	    if (!($.cookie("returnuser")==1)) {		
 		    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
-		    $.cookie("returnuser", 1)
+		    $.cookie("returnuser", 1);
 		}
 	    $('.swipeenabled').swipe({
 		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
