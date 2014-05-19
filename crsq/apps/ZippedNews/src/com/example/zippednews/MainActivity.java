@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
 		mainWebView = (WebView) findViewById(R.id.mainWebView);
         WebSettings webSettings = mainWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
+		CookieManager.getInstance().setAcceptCookie(true);
 		mainWebView.setWebViewClient(new MyCustomWebViewClient());
 		mainWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 		
