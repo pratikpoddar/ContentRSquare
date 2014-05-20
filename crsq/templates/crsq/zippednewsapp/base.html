@@ -14,6 +14,7 @@
     {% compress css %}
     <!-- Bootstrap core CSS -->
     <link href="{% static "crsq/css/zippednewsapp/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "crsq/css/zippednewsapp/idangerous.swiper.css" %}" rel="stylesheet">
     <!-- Add custom CSS here -->
     <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet">
     {% endcompress %}
@@ -36,7 +37,7 @@
     </nav>
    {% endblock %}
 
-    <div class="container">
+    <div id="bodyarea" class="container">
 	<div class="row" align="center" style="text-align:center">
 	<img id="loadingspinner" src="{% static 'crsq/img/zippednewsapp/loading_gif_30x30.gif' %}" style="position:fixed;top:250px;z-index:100;display:none;left:47%;right:48%;width:5%"/>
 	</div>
@@ -71,8 +72,7 @@
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jail.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.touchSwipe.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.ui.touch-punch.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/idangerous.swiper.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.cookie.js" %}"></script>
     {% endcompress %}
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

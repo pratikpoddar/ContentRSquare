@@ -17,6 +17,10 @@
 {% block bodycontent %}
 
 <style type="text/css">
+#bodyarea.container {
+	padding-right:0px;
+	padding-left:0px;
+}
 .navbar-brand {
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -37,10 +41,21 @@
 body {
 	padding-top:30px!important;
 }
+
+.pagination {
+	position:absolute;
+	z-index:20;
+	left:0px;
+	bottom:10px;
+	right:0px;
+}
+
 </style>
 
+	<div class="swiper-container">
+	  <div class="swiper-wrapper">
 	    {% for article in articles %}
-		  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
+		  <div class="swiper-slide" style="margin-top:15px;" >
 		  <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/swipe.png' %}"/>
 		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
 		  <div style="width:100%;height:180px;position:relative;overflow:hidden;">
@@ -60,12 +75,12 @@ body {
 		  <a class="addthis_button_email"></a>
 		  </div>
 
-		  <br/>  
+		  <br/><br/><br/><br/>
 		  </div>
 		  </div>
 	    {% endfor %}
 
-                  <div class="row swipeenabled" style="margin-top:15px;left:auto;right:auto;display:none;" >
+                  <div class="swiper-slide" style="margin-top:15px;" >
                         <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Related topics</div>
                                 <ul class="list-group">
@@ -77,20 +92,15 @@ body {
 
 			<br/>
                   </div>
+	</div>
+	<div align="center">
+	<div class="pagination"></div>
+	</div>
+	</div>
 
 {% endblock %}
 
 {% block footercontent %}
-<br/>
-<div align="center">
-<div id="pager" style="display:none">
-  <a href="#" class="activeSlide">0</a>
-  {% for article in articles %}
-  <a href="#" class="">{{ forloop.counter }}</a>
-  {% endfor %}
-</div>
-</div>
-<br/>
 {% endblock %}
 
 
@@ -101,44 +111,20 @@ body {
 
 	    $.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535dfc3b5355e5f7")
             $('.articleimage').jail({loadHiddenImages : true});
-	    $('.swipeenabled').first().show();
+	    //$('.swipeenabled').first().show();
 	    $('#pager').show();
 	    if (!($.cookie("returnuser")==1)) {		
 		    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
 		    $.cookie("returnuser", 1);
 		}
-	    $('.swipeenabled').swipe({
-		  swipeLeft:function(event, direction, distance, duration, fingerCount) {
-			    if ($(this).next('.swipeenabled').length > 0) {
-				    $(this).hide("slide", { direction: "left" }, 150, function() { 
-					    $(this).css('left', 'auto'); $(this).css('right', 'auto');
-					    $(this).next().show("slide", { direction: "right" }, 60);
-					    var presentActive = $('.activeSlide')
-					    $(presentActive).next().addClass('activeSlide');
-					    $(presentActive).removeClass('activeSlide');
-				    })
-			    }
-			    else {
-				$(this).css('left', 'auto'); $(this).css('right', 'auto');
-			    }
-		  },
-		  swipeRight:function(event, direction, distance, duration, fingerCount) {
-			   if ($(this).prev('.swipeenabled').length > 0) {
-				   $(this).hide("slide", { direction: "right" }, 150, function() {
-				   	$(this).css('left', 'auto'); $(this).css('right', 'auto');
-				   	$(this).prev().show("slide", { direction: "left" }, 60);
-                                        var presentActive = $('.activeSlide')
-                                        $(presentActive).prev().addClass('activeSlide');
-                                        $(presentActive).removeClass('activeSlide');
-
-				   })
-			   }
-			   else {
-				$(this).css('left', 'auto'); $(this).css('right', 'auto');
-			   }
-		  },
-		  threshold: 30
-	     });
+		$(function() {
+	      		var mySwiper = $('.swiper-container').swiper({
+				pagination: '.pagination',
+				paginationClickable: true,
+				mode:'horizontal',
+				loop: false,
+			  });
+		});
           });
 
     </script>

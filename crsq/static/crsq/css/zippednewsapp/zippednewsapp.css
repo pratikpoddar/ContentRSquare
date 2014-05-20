@@ -51,33 +51,6 @@ footer {
 	height:130px;
 }
 
-#pager {
-    width: 100%;
-    padding: 0;
-    height: 14px;
-    z-index: 999;
-}
-#pager a {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    text-indent: -999em;
-    background: #fff;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    box-shadow: 0 0 1px 1px #707173;
-    margin-right: 10px;
-}
-
-#pager a {
-  background: #c0c0c0; /* optional: color when hovered */
-}
-
-#pager a.activeSlide {
-  background: #707173; /* color when active */
-}
-
 a.list-group-item {
   color: #428bca;
 }
