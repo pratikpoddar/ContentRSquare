@@ -25,7 +25,7 @@ def createarticleindex():
 				'analysis': {
 					'analyzer': {
 						'my_ngram_analyzer' : {
- 					               	'tokenizer' : 'my_ngram_tokenizer',
+ 					               	'tokenizer' : 'my_whitespace_tokenizer',
 							'filter': ['my_synonym_filter']
  	  					}
               				},
@@ -40,27 +40,15 @@ def createarticleindex():
 						'my_ngram_tokenizer' : {
 					                'type' : 'nGram',
 							'min_gram' : '1',
-							'max_gram' : '50'
-            					}
+							'max_gram' : '50',
+							'token_chars': ["whitespace", "punctuation", "symbol"]
+            					},
+						'my_whitespace_tokenizer': {
+							'type' : 'whitespace'
+						}
         				}
             			}
           		},
-			    'mappings': {
-				'my_mapping_type': {
-					'_all': {
-				        	'enabled': False
-					},
-					'_source': {
-						'compressed': True
-					},
-					'properties': {
-						'tags': {
-							'type': 'string',
-							'index': 'not_analyzed'
-					        }
-					}
-				}
-        		}
 		},
         	# ignore already existing index
         	ignore=400
