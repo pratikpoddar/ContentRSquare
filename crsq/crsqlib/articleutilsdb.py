@@ -49,6 +49,9 @@ def put_article_details(url, source=None):
 				if str(e).find('Read timed out. (read timeout=8)')>-1:
 					dl = DeleteLinks(url=url, reason="Time out")
                                         dl.save()
+				if str(e).find('Duplicate entry')>-1:
+					dl = DeleteLinks(url=url, reason="Duplicate Entry")
+					dl.save()
 			except:
 				pass
 			logger.exception('articleutilsdb - put_article_details - error saving article - ' + removeNonAscii(url) + ' - ' + str(e))
