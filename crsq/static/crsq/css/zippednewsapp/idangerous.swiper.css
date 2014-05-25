@@ -17,6 +17,7 @@ Basic Swiper Styles
 	position:relative;
 	width:100%;
 	height: auto!important;
+	border: #999;
 	-webkit-transition-property:-webkit-transform, left, top;
 	-webkit-transition-duration:0s;
 	-webkit-transform:translate3d(0px,0,0);
@@ -73,24 +74,26 @@ sizes, pagination, etc.
 ================================================================*/
 .swiper-container {
 	/* Specify Swiper's Size: */
-
 	/*width:200px;
 	height: 100px;*/
 	height: auto!important;
 }
+
 .swiper-slide {
 	/* Specify Slides's Size: */
 	width: 100%;
-	height: auto!important;
+	height: 500px!important;
 }
-.swiper-slide-active {
-	/* Specific active slide styling: */
-	
-}
-.swiper-slide-visible {
-	/* Specific visible slide styling: */	
 
+.swiper-slide-active {
+	height: auto!important;
+	/* Specific active slide styling: */	
 }
+
+.swiper-slide-visible {
+	/* Specific visible slide styling: */
+}
+
 /* ===============================================================
 Pagination Styles
 ================================================================*/

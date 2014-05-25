@@ -27,7 +27,8 @@ def getAppropriateImageTag(tag):
 		imsize = imageutils.imagesize(x) 
 		if sum(imsize, 0) > 550:
 			if imsize[1]>200:
-				return x
+				if len(filter(lambda y: x.find(y)>=0, ['mobiletor']))==0:
+					return x
 	return ""
 
 @lru_cache(maxsize=1024)

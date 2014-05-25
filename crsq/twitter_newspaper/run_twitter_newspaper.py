@@ -10,8 +10,8 @@ from django_cron import CronJobBase, Schedule
 logger = logging.getLogger(__name__)
 
 def get_articles():
-	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
-	ai = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[:-1000]
+	ai = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get article info")
 	shuffle(tobeexpanded)
@@ -31,8 +31,8 @@ def get_articles():
 	return
 
 def get_article_semantics_tags():
-	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
-	ase = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[:-1000]
+	ase = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ase))
 
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get sematics tags")

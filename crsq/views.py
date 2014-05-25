@@ -262,7 +262,7 @@ def zippednewsapp(request, tag):
 	else:
 		country = 'XX'
 
-	if tag=="top-trending":
+	if tag=="latest-news" or tag=="top-trending":
 
 		loggerdebug(request, 1)
 		maxid = ArticleInfo.objects.all().order_by("-id")[0].id
@@ -402,7 +402,7 @@ def zippednewsappwelcome(request):
 
         context = RequestContext(request, {
 		'google_trends': gt,
-		'google_trends_mobile': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), sorted(list(set(google_trends['US'] + google_trends['India'])))),
+		'google_trends_mobile': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), list(set(google_trends['US'] + google_trends['India']))),
 		'topicimages': imagedict.items()
         })
 
