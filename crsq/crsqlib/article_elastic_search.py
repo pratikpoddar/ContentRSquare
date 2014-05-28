@@ -177,6 +177,7 @@ def indexurl(url):
 def refreshdbtoes():
 
 	urls = map(lambda x:x ['url'], ArticleChanged.objects.all().values('url'))
+	urls = list(set(urls))
 	for url in urls:
 		if ArticleInfo.objects.filter(url=url).count()>0:
 			try:
@@ -189,8 +190,7 @@ def refreshdbtoes():
 				deleteurl(url)
 			except:
 				pass
-
-	ArticleChanged.objects.filter(url__in=urls).delete()
+		ArticleChanged.objects.filter(url=url).delete()
 	return
 
 def force_refreshdbtoes():

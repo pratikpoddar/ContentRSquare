@@ -20,7 +20,7 @@ class AmazonProd(models.Model):
         unique_together = (("text", "index"),)
 
 class DeleteLinks(models.Model):
-    url = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
+    url = models.CharField(max_length=255L, null=False, db_index=True)
     reason = models.TextField()
 
 class TweetLinks(models.Model):

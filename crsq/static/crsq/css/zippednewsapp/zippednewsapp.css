@@ -37,7 +37,6 @@ body {
 }
 
 .summary {
-  text-align: justify;
 }
 
 footer {
@@ -57,9 +56,8 @@ a.list-group-item {
 
 #flickimage {
 	position:fixed;
-	right:0px;
-	top:220px;
+	top:160px;
 	z-index:1000;
-	width:60%;
-	display:none;"
+	width:300px;
+	display:none;
 }
