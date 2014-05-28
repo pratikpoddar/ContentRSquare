@@ -23,13 +23,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		mainWebView = (WebView) findViewById(R.id.mainWebView);
-        WebSettings webSettings = mainWebView.getSettings();
+			
+		WebSettings webSettings = mainWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		CookieManager.getInstance().setAcceptCookie(true);
 		mainWebView.setWebViewClient(new MyCustomWebViewClient());
 		mainWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-		
-        mainWebView.loadUrl("http://www.zippednews.com");
+		mainWebView.loadUrl("http://www.zippednews.com");
 	}
 	
     private class MyCustomWebViewClient extends WebViewClient {
