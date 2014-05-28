@@ -91,9 +91,9 @@ def get_text_summary(text, title = None, library="sumy"):
 			summarizer.stop_words = get_stop_words(LANGUAGE)
 			
 			sentences = map(lambda x: x._text, summarizer(parser.document, 4))
-			if len(' '.join(sentences))>550:
+			if len(' '.join(sentences))>480:
 				sentences = map(lambda x: x._text, summarizer(parser.document, 3))
-				if len(' '.join(sentences))>550:
+				if len(' '.join(sentences))>480:
 					sentences = map(lambda x: x._text, summarizer(parser.document, 2))
 
 			lastcount = None

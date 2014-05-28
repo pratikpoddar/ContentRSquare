@@ -41,8 +41,11 @@ from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 
 logger = logging.getLogger(__name__)
 
-#relevanttags = dbcache.getRelevantTags()
-relevanttags = article_elastic_search.gettopterms()
+relevanttags = []
+try:
+	relevanttags = article_elastic_search.gettopterms()
+except:
+	relevanttags = dbcache.getRelevantTags()
 
 gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat')
 
@@ -296,14 +299,18 @@ def zippednewsapp(request, tag):
 					raise
 			searchterm = tag.replace('-',' ').title()
 			searchterm2 = '"' + searchterm + '"'
+			loggerdebug(request, 8.1)
 	                urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=40.0)
+			loggerdebug(request, 8.2)
 			if urls==[]:
 				searchterm2 = ' AND '.join(searchterm.split(' '))
 				urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=15.0)
 				if urls==[]:
 					searchterm2 = '"' + searchterm + '" ' + searchterm
 					urls = article_elastic_search.searchdoc(searchterm2, 20, recencyweight=15.0)
-			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
+			loggerdebug(request, 8.3)
+			urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
+			loggerdebug(request, 8.4)
 	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 			loggerdebug(request, 9)
 		except:

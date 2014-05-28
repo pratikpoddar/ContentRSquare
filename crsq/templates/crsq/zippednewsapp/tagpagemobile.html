@@ -123,6 +123,12 @@ body {
 				paginationClickable: true,
 				mode:'horizontal',
 				loop: false,
+				onSlideChangeEnd: function() {
+					if ($(window).scrollTop() > 50) {
+						$('html,body').animate({ scrollTop: 0 }, 'slow');
+					}
+				        return false; 
+				}
 			  });
 		});
           });
