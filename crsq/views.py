@@ -269,7 +269,7 @@ def zippednewsapp(request, tag):
 
 		loggerdebug(request, 1)
 		maxid = ArticleInfo.objects.all().order_by("-id")[0].id
-		ai = ArticleInfo.objects.filter(id__gt=maxid-400)
+		ai = ArticleInfo.objects.filter(id__gt=maxid-500)
 		loggerdebug(request, 2)
 
 		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):

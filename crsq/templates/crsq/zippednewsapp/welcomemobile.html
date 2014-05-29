@@ -35,19 +35,23 @@ ZippedNews: Real-time news on Popular Topics
 			padding-top: 0px;
 			padding-bottom:9px;
 		}
+		.list-group {
+			margin-top:5px;
+			margin-bottom: 5px;
+		}
 		body {
 			padding-top:10px!important;
 		}
 		
 	</style>
-	<div class="jumbotron" style="padding:10px;margin-bottom:10px;">
+	<div class="jumbotron" style="padding-right:10px;padding-left:10px;padding-top:5px;padding-bottom:5px;margin-bottom:10px;">
 	  <h1><img src="{% static 'crsq/img/zippednewsapp/zippednewslogo.svg' %}" style="height:34px;padding-right:8px;"/>ZippedNews</h1>
-		<p style="text-align:justify; font-size:95%">Hate reading full page long articles? Get <u>summary</u> of a <u>comprehensive list</u> of articles by topic! Zip through News :)</p>
+		<p style="text-align:justify; font-size:95%; display:none;" id="jumbotrontext">Hate reading full page long articles? Get <em>summary</em> of a <em>comprehensive list</em> of articles by topic! Zip through News :)</p>
 	</div>
 
         <div class="row">
                         <div class="panel panel-default" style="text-align:center">
-                                <div class="panel-heading">Latest News by Interest</div>
+                                <div class="panel-heading">Latest News by Category</div>
                                         <ul class="list-group list-group-left col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
                                             <a href="http://www.zippednews.com/latest-news?topic=t&name=Technology" title="Technology - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqt" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Technology</p></a>
                                             <a href="http://www.zippednews.com/latest-news?topic=s&name=Sports" title="Sports - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqs" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Sports</p></a>
@@ -68,7 +72,7 @@ ZippedNews: Real-time news on Popular Topics
 	<br/>
         <div class="row">
                     	<div class="panel panel-default" style="text-align:center">
-                        	<div class="panel-heading">Latest News by Topic</div>
+                        	<div class="panel-heading">Latest News on Trending Topics</div>
 	                                <ul class="list-group list-group-left col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
                                                 {% for s in google_trends_mobile %}
 							{% cycle "1" "0" as row silent %}
@@ -114,8 +118,13 @@ ZippedNews: Real-time news on Popular Topics
     <script>
         $(window).ready(function() {
             $('.descimage').jail({loadHiddenImages : true});
+            if (!($.cookie("returnuser")==1)) {         
+                    $("#jumbotrontext").show();
+             }
 	})
     </script>
+
+
 
 {% endblock %}
 

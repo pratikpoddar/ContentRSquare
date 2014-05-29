@@ -298,8 +298,10 @@ Crontab as root:
 * * * * * chmod 777 /home/ubuntu/elasticsearch-0.90.10/logs/*
 0 0 * * * rm /home/ubuntu/elasticsearch-0.90.10/logs/elasticsearch.log.*
 0 0 * * * echo "" > /var/log/elasticsearch/debug.log
+0 0 * * * echo "" > /mnt/dbmount/eslogs/debug.log
 0 0 * * * rm /home/ubuntu/django_log/debug.log.*
 0 0 * * * rm /home/ubuntu/django_log/error.log.*
+* * * * * killall -9 .IptabLes
 
 pip install PIL
 pip install pygeoip
