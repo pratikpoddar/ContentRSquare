@@ -38,9 +38,8 @@ public class MainActivity extends Activity {
 			mainWebView.loadUrl("http://www.zippednews.com");
 			
 		} else {
-		    Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. Internet is not available.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. No Internet Connection", Toast.LENGTH_SHORT).show();
 		}
-		
 	}
 	
 	public static boolean isNetworkStatusAvialable (Context context) {
@@ -64,7 +63,7 @@ public class MainActivity extends Activity {
             		view.loadUrl(url);
             	}
             	else {
-            		Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. Internet is not available.", Toast.LENGTH_SHORT).show();
+            		Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. No Internet Connection", Toast.LENGTH_SHORT).show();
             	}
                 return false;
             }
