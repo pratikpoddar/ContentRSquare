@@ -1,8 +1,11 @@
 package com.example.zippednews;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -21,15 +25,33 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
-
-		mainWebView = (WebView) findViewById(R.id.mainWebView);
+		
+		if(isNetworkStatusAvialable (getApplicationContext())) {
+		    Toast.makeText(getApplicationContext(), "Loading ZippedNews", Toast.LENGTH_SHORT).show();
+		    mainWebView = (WebView) findViewById(R.id.mainWebView);
 			
-		WebSettings webSettings = mainWebView.getSettings();
-		webSettings.setJavaScriptEnabled(true);
-		CookieManager.getInstance().setAcceptCookie(true);
-		mainWebView.setWebViewClient(new MyCustomWebViewClient());
-		mainWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-		mainWebView.loadUrl("http://www.zippednews.com");
+			WebSettings webSettings = mainWebView.getSettings();
+			webSettings.setJavaScriptEnabled(true);
+			CookieManager.getInstance().setAcceptCookie(true);
+			mainWebView.setWebViewClient(new MyCustomWebViewClient());
+			mainWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+			mainWebView.loadUrl("http://www.zippednews.com");
+			
+		} else {
+			Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. No Internet Connection", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	public static boolean isNetworkStatusAvialable (Context context) {
+	    ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    if (connectivityManager != null) 
+	    {
+	        NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+	        if(netInfos != null)
+	        if(netInfos.isConnected()) 
+	            return true;
+	    }
+	    return false;
 	}
 	
     private class MyCustomWebViewClient extends WebViewClient {
@@ -37,7 +59,12 @@ public class MainActivity extends Activity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             if (Uri.parse(url).getHost().contains("zippednews.com")) {
                 // This is my web site, so do not override; let my WebView load the page
-            	view.loadUrl(url);
+            	if(isNetworkStatusAvialable (getApplicationContext())) { 
+            		view.loadUrl(url);
+            	}
+            	else {
+            		Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. No Internet Connection", Toast.LENGTH_SHORT).show();
+            	}
                 return false;
             }
             // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
