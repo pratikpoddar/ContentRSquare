@@ -74,6 +74,7 @@
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/idangerous.swiper.js" %}"></script>
     <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/Hyphenator.js" %}"></script>
     {% endcompress %}
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
@@ -110,6 +111,9 @@
 	    var s = document.getElementsByTagName('script')[0];
 	    s.parentNode.insertBefore(wf, s);
 	  })(); 
+     </script>
+     <script type="text/javascript">
+	Hyphenator.run();
      </script>
 
   </body>
