@@ -5,6 +5,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
@@ -19,15 +20,20 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	WebView mainWebView;
+	ProgressDialog pd;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
 		
+		pd = ProgressDialog.show(this, "", "Loading...",true);
+		
 		if(isNetworkStatusAvialable (getApplicationContext())) {
 		    Toast.makeText(getApplicationContext(), "Loading ZippedNews", Toast.LENGTH_SHORT).show();
+
 		    mainWebView = (WebView) findViewById(R.id.mainWebView);
 			
 			WebSettings webSettings = mainWebView.getSettings();
@@ -72,6 +78,15 @@ public class MainActivity extends Activity {
             startActivity(intent);
             return true;
         }
+        
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if(pd.isShowing()&&pd!=null)
+            {
+                pd.dismiss();
+            }
+        }
+        
     }
     
     @Override
