@@ -253,17 +253,20 @@ def timenews_article(request, articleid):
 def zippednewsapp(request, tag):
 
 	## TODO: This is not giving correct results
-	ip = None
-	if 'HTTP_X_FORWARDED_FOR' in request.META:
-            ip = request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip()
-	else:
-	    ip = request.META['REMOTE_ADDR']
-	if ip:
-		country = gi.country_code_by_addr(ip)
-		if country not in ['US', 'IN']:
+	try:
+		ip = None
+		if 'HTTP_X_FORWARDED_FOR' in request.META:
+	            ip = request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip()
+		else:
+		    ip = request.META['REMOTE_ADDR']
+		if ip:
+			country = gi.country_code_by_addr(ip)
+			if country not in ['US', 'IN']:
+				country = 'XX'
+		else:
 			country = 'XX'
-	else:
-		country = 'XX'
+	except:
+		pass
 
 	if tag=="latest-news" or tag=="top-trending":
 
