@@ -2,6 +2,7 @@
 Installation
 #######
 sudo apt-get install python
+sudo apt-get install python-dev
 sudo apt-get install python-setuptools 
 sudo apt-get install mysql-server
 sudo apt-get install libmysqlclient-dev
@@ -15,6 +16,7 @@ pip install functools32
 pip install mysql-python
 pip install simplejson
 pip install gunicorn
+easy_install South
 
 #######
 Setting server and db
