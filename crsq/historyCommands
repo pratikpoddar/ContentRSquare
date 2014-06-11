@@ -18,6 +18,7 @@ pip install simplejson
 pip install gunicorn
 easy_install South
 
+sudo apt-get install postfix
 #######
 Setting server and db
 #######
