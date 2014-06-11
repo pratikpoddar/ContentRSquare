@@ -22,7 +22,6 @@ limitations under the License.
 """
 from crsq.crsqlib.goose.utils import ReplaceSequence
 
-
 class DocumentCleaner(object):
 
     def __init__(self, config):
@@ -52,7 +51,7 @@ class DocumentCleaner(object):
         self.google_re = " google "
         self.entries_re = "^[^entry-]more.*$"
         self.facebook_re = "[^-]facebook"
-        self.facebook_braodcasting_re = "facebook-broadcasting"
+        self.facebook_broadcasting_re = "facebook-broadcasting"
         self.twitter_re = "[^-]twitter"
         self.tablines_replacements = ReplaceSequence()\
                                             .create("\n", "\n\n")\
@@ -72,7 +71,7 @@ class DocumentCleaner(object):
         doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.google_re)
         doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.entries_re)
         doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.facebook_re)
-        doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.facebook_braodcasting_re)
+        doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.facebook_broadcasting_re)
         doc_to_clean = self.remove_nodes_regex(doc_to_clean, self.twitter_re)
         doc_to_clean = self.clean_para_spans(doc_to_clean)
         doc_to_clean = self.div_to_para(doc_to_clean, 'div')
@@ -173,7 +172,7 @@ class DocumentCleaner(object):
             # node is a p
             # and already have some replacement text
             if self.parser.getTag(kid) == 'p' and len(replacement_text) > 0:
-                newNode = self.get_flushed_buffer(''.join(replacement_text), doc)
+                newNode = self.get_flushed_buffer(' '.join(replacement_text), doc)
                 nodes_to_return.append(newNode)
                 replacement_text = []
                 nodes_to_return.append(kid)
@@ -215,7 +214,7 @@ class DocumentCleaner(object):
 
         # flush out anything still remaining
         if(len(replacement_text) > 0):
-            new_node = self.get_flushed_buffer(''.join(replacement_text), doc)
+            new_node = self.get_flushed_buffer(' '.join(replacement_text), doc)
             nodes_to_return.append(new_node)
             replacement_text = []
 
@@ -241,12 +240,12 @@ class DocumentCleaner(object):
             elif div is not None:
                 replaceNodes = self.get_replacement_nodes(doc, div)
                 div.clear()
-
+		
                 for c, n in enumerate(replaceNodes):
                     div.insert(c, n)
-
+	    
                 else_divs += 1
-
+ 
         return doc
 
 

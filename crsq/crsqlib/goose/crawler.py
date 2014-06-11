@@ -81,6 +81,7 @@ class Crawler(object):
         article.canonical_link = extractor.get_canonical_link(article)
         article.domain = extractor.get_domain(article.final_url)
         article.tags = extractor.extract_tags(article)
+
         # # before we do any calcs on the body itself let's clean up the document
         article.doc = document_cleaner.clean(article)
 

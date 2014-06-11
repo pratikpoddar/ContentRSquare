@@ -35,7 +35,7 @@ def innerTrim(value):
     if isinstance(value, (unicode, str)):
         # remove tab and white space
         value = re.sub(TABSSPACE, ' ', value)
-        value = ''.join(value.splitlines())
+        value = ' '.join(value.splitlines())
         return value.strip()
     return ''
 
