@@ -1,4 +1,5 @@
 body {
+  font-family: 'Arvo', serif;;
   padding-top: 50px;
 }
 
@@ -12,36 +13,38 @@ body {
 }
 
 .ratings {
-  /*color: #d17581;*/
-  font-size: 90%;
   margin:0px;
 }
 
 .domain {
-  font-size: 90%;
   margin:0px;
 }
 
 .articledate {
-  font-size: 90%;
   margin:0px;
 }
 
 .sharers {
-  font-size: 90%;
   margin:0px;
 }
 
 .tags {
-  font-size: 90%;
   margin:0px;
 }
 
 .topic {
-  font-size: 90%;
   margin:0px;
+}
+
+.summary {
+	text-align: justify;
 }
 
 footer {
   margin: 50px 0;
 }
+
+a.list-group-item {
+  color: #428bca;
+}
+
