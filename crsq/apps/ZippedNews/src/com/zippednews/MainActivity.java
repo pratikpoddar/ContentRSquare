@@ -1,4 +1,6 @@
-package com.example.zippednews;
+package com.zippednews;
+
+import com.zippednews.R;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
