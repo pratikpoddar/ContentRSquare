@@ -31,9 +31,10 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
-		pd = ProgressDialog.show(this, "", "Loading...",true);
-		
 		if(isNetworkStatusAvialable (getApplicationContext())) {
+			
+			pd = ProgressDialog.show(this, "", "Loading...",true);
+			
 		    Toast.makeText(getApplicationContext(), "Loading ZippedNews", Toast.LENGTH_SHORT).show();
 
 		    mainWebView = (WebView) findViewById(R.id.mainWebView);
@@ -46,6 +47,9 @@ public class MainActivity extends Activity {
 			mainWebView.loadUrl("http://www.zippednews.com");
 			
 		} else {
+			
+			pd = ProgressDialog.show(this, "", "No Internet Connection",true);
+			
 			Toast.makeText(getApplicationContext(), "Cannot load ZippedNews. No Internet Connection", Toast.LENGTH_SHORT).show();
 		}
 	}
