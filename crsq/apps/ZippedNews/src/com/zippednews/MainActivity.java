@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -31,6 +32,15 @@ public class MainActivity extends Activity {
 		
 		setContentView(R.layout.activity_main);
 		
+		Intent intent = getIntent();
+	    String datastr = intent.getDataString();
+	    if (datastr == null) {
+	    	datastr = "";
+	    }
+	    if (datastr.contains("android-app://com.zippednews/?q=") == true) {
+	    	datastr = datastr.replace("android-app://com.zippednews/?q=", "http://www.zippednews.com/");
+	    }
+
 		if(isNetworkStatusAvialable (getApplicationContext())) {
 			
 			pd = ProgressDialog.show(this, "", "Loading...",true);
@@ -44,7 +54,12 @@ public class MainActivity extends Activity {
 			CookieManager.getInstance().setAcceptCookie(true);
 			mainWebView.setWebViewClient(new MyCustomWebViewClient());
 			mainWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-			mainWebView.loadUrl("http://www.zippednews.com");
+			if (datastr=="")  {
+				mainWebView.loadUrl("http://www.zippednews.com");
+			}
+			else {
+				mainWebView.loadUrl(datastr);
+			}
 			
 		} else {
 			
