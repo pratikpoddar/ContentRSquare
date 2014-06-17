@@ -19,7 +19,7 @@
     <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet"/>
     {% endcompress %}
     <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'/>
-    <link rel="alternate" href="android-app://com.zippednews/http/{{ request.path }}" />
+    <link rel="alternate" href="android-app://com.zippednews/?q={{ request.path | cut:'/zippednewsapp/'}}" />
   </head>
 
   <body>
