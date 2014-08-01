@@ -27,28 +27,35 @@ def pick_appropriate_url(entry):
         	urlcheck = urlutils.getCanonicalUrl(entry['link'])
 		if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
 			url = urlcheck
-			return url
+			if urlparse(url)[0]:
+				return url
 			
 	if 'feedburner_origlink' in entry.keys():
 		urlcheck = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
                 if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
 			url = urlcheck
-			return url
+                        if urlparse(url)[0]:
+                                return url
 
         if 'id' in entry.keys():
 		try:
 	                urlcheck = urlutils.getCanonicalUrl(entry['id'])
         	        if (urlcheck.find('feeds.')==-1) and (urlcheck.find('feedburner.')==-1) and (urlcheck.find('feedproxy.')==-1) and (urlcheck.find('feedsportal.')==-1):
                 	        url = urlcheck
-	                        return url
+	                        if urlparse(url)[0]:
+        	                        return url
 		except:
 			pass
 
 	if 'link' in entry.keys():
-		return urlutils.getCanonicalUrl(entry['link'])
+		url = urlutils.getCanonicalUrl(entry['link'])
+		if urlparse(url)[0]:
+                	return url
 
 	if 'feedburner_origlink' in entry.keys():
-		return urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+		url = urlutils.getCanonicalUrl(entry['feedburner_origlink'])
+                if urlparse(url)[0]:
+                        return url
 		
 	return None	
 	
