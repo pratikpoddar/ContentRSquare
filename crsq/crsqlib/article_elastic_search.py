@@ -26,14 +26,16 @@ def createarticleindex():
                                     'analyzer': {
                                             'my_ngram_analyzer' : {
                                                     'tokenizer' : 'my_ngram_tokenizer',
-                                                    'filter': ['my_synonym_filter']
+                                                    'filter': ['my_filter']
                                             }
                                     },
                                     'filter': {
-                                            'my_synonym_filter': {
-                                                    'type': 'synonym',
-                                                    'format': 'wordnet',
-                                                    'synonyms_path': 'analysis/wn_s.pl'
+                                            'my_filter': {
+                                                    'type': 'edgeNGram',
+                                                    'side': 'front',
+                                                    'min_gram': '1',
+                                                    'max_gram': '25'
+
                                             }
                                     },
                                     'tokenizer' : {
