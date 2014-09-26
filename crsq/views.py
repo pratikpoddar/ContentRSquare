@@ -38,8 +38,11 @@ import pygeoip
 
 import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
+import time
 
 logger = logging.getLogger(__name__)
+
+time.sleep(60)  # Delay for 1 minute (60 seconds)
 
 relevanttags = []
 try:
