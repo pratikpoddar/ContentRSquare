@@ -58,7 +58,7 @@ def get_Content_Affliate_Advertising(content, index):
 	keywords = []
 
         try:
-                keywords += map(lambda x: x['text'], text_summarize.get_topia_termextract(content))
+                keywords = text_summarize.get_topia_termextract(content, tag_meaning=False)
         except Exception as e:
 		logger.exception('content-affiliate-advertising.py - get_Content_Affiliate_Advertising - ' + str(e) + ' - get_topia_termextract')
                 pass
