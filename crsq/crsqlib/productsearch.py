@@ -19,9 +19,12 @@ def getAmazonProducts(keywords, index):
 		if not amazonlink:
 	                try:
         	                response = amazon.search_n(1, Keywords=removeNonAscii(kw), SearchIndex=index)
-				product = response[0]
-				link = "http://www.amazon.com/dp/"+("000000"+str(product.asin)+"/")[-11:-1]+"?tag=cb02-20"
-	                        output.append({'keyword': kw, 'link': link})
+                                if response:
+    					product = response[0]
+					link = "http://www.amazon.com/dp/"+("000000"+str(product.asin)+"/")[-11:-1]+"?tag=cb02-20"
+				else:
+					link = ''
+	       	                output.append({'keyword': kw, 'link': link})
 				try:
 					amazonprod = AmazonProd()
 					amazonprod.text = kw
