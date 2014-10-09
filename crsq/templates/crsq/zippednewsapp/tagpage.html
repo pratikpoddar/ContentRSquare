@@ -21,7 +21,8 @@
 
 {% block bodycontent %}
 	    <h1>Real-time news related to "{{ tag | crsq_unslugify }}"</h1>
-
+	    
+	    <div style="text-align:center">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- zippednews_web_leaderboard_1 -->
             <ins class="adsbygoogle"
@@ -31,6 +32,7 @@
             <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
+            </div>
 
 	    {% for article in articles %}
 		  <div class="row" style="margin-top:35px;">
