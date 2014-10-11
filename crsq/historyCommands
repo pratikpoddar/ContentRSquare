@@ -301,11 +301,15 @@ https://pypi.python.org/packages/source/U/Unidecode/Unidecode-0.04.16.tar.gz
 
 Crontab as root:
 * * * * * chmod 777 /home/ubuntu/elasticsearch-0.90.10/logs/*
-0 0 * * * rm /home/ubuntu/elasticsearch-0.90.10/logs/elasticsearch.log.*
-0 0 * * * echo "" > /var/log/elasticsearch/debug.log
-0 0 * * * echo "" > /mnt/dbmount/eslogs/debug.log
-0 0 * * * rm /home/ubuntu/django_log/debug.log.*
-0 0 * * * rm /home/ubuntu/django_log/error.log.*
+15 * * * * rm /home/ubuntu/elasticsearch-0.90.10/logs/elasticsearch.log.*
+15 * * * * echo "" > /var/log/elasticsearch/debug.log
+15 * * * * echo "" > /mnt/dbmount/eslogs/debug.log
+15 * * * * echo "" > /home/ubuntu/crsq-access.log
+15 * * * * echo "" > /home/ubuntu/crsq-error.log
+15 * * * * echo "" > /home/ubuntu/gunicorn-access.log
+15 * * * * echo "" > /home/ubuntu/gunicorn-log.log
+15 * * * * rm /home/ubuntu/django_log/debug.log.*
+15 * * * * rm /home/ubuntu/django_log/error.log.*
 * * * * * killall -9 .IptabLes
 
 pip install PIL
