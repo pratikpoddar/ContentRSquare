@@ -6,6 +6,18 @@
 ZippedNews: Real-time news on Popular Topics
 {% endblock %}
 
+{% block metadescription %}
+	Real Time News starting with '{{ tagsearch }}'
+        {% for tag in taglist %}
+                  - {{ tag | crsq_unslugify }}
+        {% endfor %}
+{% endblock %}
+
+{% block canonicalurl %}
+http://www.zippednews.com/crsqsearch/{{ tagsearch }}
+{% endblock %}
+
+
 {% block navcontent %}
 {% endblock %}
 
@@ -24,7 +36,7 @@ ZippedNews: Real-time news on Popular Topics
         <div class="row">
                     {% for tag in taglist %}
                         <div class="col-sm-3 col-lg-3 col-md-3">
-                        	<a href="/{{ tag | slugify }}" target="_blank"><p class="list-group-item-text">{{ tag | crsq_unslugify }}</p></a>
+                        	<p class="list-group-item-text"><a href="/{{ tag | slugify }}">{{ tag | crsq_unslugify }}</a></p>
                         </div>
                     {% endfor %}
                 <br/>

@@ -14,6 +14,21 @@
 {{ tag | crsq_unslugify | truncatechars:28}}
 {% endblock %}
 
+
+{% block metadescription %}
+        {% if articles %}
+        Real Time News related to '{{ tag | crsq_unslugify }}'
+        {% endif %}
+        {% for article in articles %}
+                 - {{ article.articletitle }}
+        {% endfor %}
+{% endblock %}
+
+{% block canonicalurl %}
+http://www.zippednews.com/{{ tag }}
+{% endblock %}
+
+
 {% block bodycontent %}
 
 <div style="text-align:center">

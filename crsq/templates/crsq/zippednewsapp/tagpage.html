@@ -19,6 +19,10 @@
 	{% endfor %}
 {% endblock %}
 
+{% block canonicalurl %}
+http://www.zippednews.com/{{ tag }}
+{% endblock %}
+
 {% block bodycontent %}
 	    <h1>Real-time news related to "{{ tag | crsq_unslugify }}"</h1>
 	    
