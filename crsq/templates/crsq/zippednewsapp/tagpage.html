@@ -25,11 +25,12 @@ http://www.zippednews.com/{{ tag }}
 
 {% block bodycontent %}
 	    <h1>Real-time news related to "{{ tag | crsq_unslugify }}"</h1>
+	    <hr/>
 	    
 
 	    {% for article in articles %}
 
-		{% if forloop.counter == 1 or forloop.counter|divisibleby:"5" %}
+		{% if forloop.counter == 1 or forloop.counter|divisibleby:"4" %}
 	            <div>
 	            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	            <!-- zippednews_web_leaderboard_1 -->
@@ -41,6 +42,7 @@ http://www.zippednews.com/{{ tag }}
 	            (adsbygoogle = window.adsbygoogle || []).push({});
         	    </script>
 	            </div>
+		    <hr/>
 		{% endif %}
 
 		  <div class="row" style="margin-top:35px;">
