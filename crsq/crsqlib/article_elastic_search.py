@@ -26,7 +26,7 @@ def createarticleindex():
                                     'analyzer': {
                                             'my_ngram_analyzer' : {
                                                     'tokenizer' : 'my_ngram_tokenizer',
-                                                    'filter': ['my_filter']
+                                                    'filter': ['my_filter', 'lowercase']
                                             }
                                     },
                                     'filter': {
