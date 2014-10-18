@@ -273,72 +273,54 @@ def zippednewsapp(request, tag):
 
 	if tag=="latest-news" or tag=="top-trending":
 
-		loggerdebug(request, 1)
 		maxid = ArticleInfo.objects.all().order_by("-id")[0].id
 		ai = ArticleInfo.objects.filter(id__gt=maxid-500)
-		loggerdebug(request, 2)
 
 		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):
-			loggerdebug(request, 3)
 			topic = ''
 			tag = tag
                         bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
-			loggerdebug(request, 4)
 		else:
-			loggerdebug(request, 5)
 			topic = request.GET['topic']
 			tag = request.GET['name'].lower()+"-"+tag
 			bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].endswith('topic='+topic)), filter(lambda y: y['source'], ai.values('url', 'source')))
-			loggerdebug(request, 6)
 
 		urls = map(lambda x: x['url'], bi)[-40:]
 		random.shuffle(urls)
 		urls = urls[:14]
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
-		loggerdebug(request, 7)
 	else:
 		try:
-			loggerdebug(request, 8)
 			if 'elasticsearchfail' in request.GET.keys():
 				if request.GET['elasticsearchfail']=="True":
 					raise
 			searchterm = tag.replace('-',' ').title()
 			searchterm2 = '"' + searchterm + '"'
-			loggerdebug(request, 8.1)
 	                urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=40.0)
-			loggerdebug(request, 8.2)
 			if urls==[]:
 				searchterm2 = ' AND '.join(searchterm.split(' '))
 				urls = article_elastic_search.searchdoc(searchterm2, num=20, recencyweight=15.0)
 				if urls==[]:
 					searchterm2 = '"' + searchterm + '" ' + searchterm
 					urls = article_elastic_search.searchdoc(searchterm2, 20, recencyweight=15.0)
-			loggerdebug(request, 8.3)
 			urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
-			loggerdebug(request, 8.4)
 	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
-			loggerdebug(request, 9)
 		except:
 			# Elastic Search Failed
 			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
 
-	loggerdebug(request, 10)
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
-	loggerdebug(request, 11)
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 	articletagsdump2 = collections.defaultdict(list)
-	loggerdebug(request, 12)
 	for article in articletagsdump:
 		articletagsdump2[article['url']].append(article['tag'])
-	loggerdebug(request, 13)
 	article_list = []
 
 	relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
 	relatedtopics = list(set(relatedtopics))
-	loggerdebug(request, 14)
 	for article in articles:
 
 		domain = urlparse.urlparse(article['url'])[1]
@@ -353,7 +335,6 @@ def zippednewsapp(request, tag):
         	        articletags = []
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
-	loggerdebug(request, 15)
 
 	if len(article_list)==0:
 		return redirect('http://www.zippednews.com')	
