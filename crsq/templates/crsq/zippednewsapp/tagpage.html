@@ -25,6 +25,7 @@ http://www.zippednews.com/{{ tag }}
 
 {% block bodycontent %}
 
+		    <br/>
                     <div>
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- zippednews_web_leaderboard_1 -->
@@ -44,7 +45,7 @@ http://www.zippednews.com/{{ tag }}
 
 	    {% for article in articles %}
 
-		{% if forloop.counter|divisibleby:"5" %}
+		{% if forloop.counter == 2 or forloop.counter|divisibleby:"5" %}
 	            <div>
 	            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	            <!-- zippednews_web_leaderboard_1 -->
