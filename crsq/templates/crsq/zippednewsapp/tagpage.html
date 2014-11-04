@@ -26,17 +26,18 @@ http://www.zippednews.com/{{ tag }}
 {% block bodycontent %}
 
 		    <br/>
-                    <div class="text-center well">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- zippednews_web_leaderboard_1 -->
-                    <ins class="adsbygoogle"
-                             style="display:inline-block;width:728px;height:90px"
+                    <div style="border:1px solid;">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- zippednews_web_large_leaderboard_1 -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:970px;height:90px"
                              data-ad-client="ca-pub-2782255430730944"
-                             data-ad-slot="9119995102"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                             data-ad-slot="6089353108"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
+
 
 	    <h1>Real-time news related to "{{ tag | crsq_unslugify }}" </h1>
 	    <h2 style="font-size:100%"><em>Related to "{{ tag | crsq_unslugify }}"</em>:  {% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
@@ -45,17 +46,17 @@ http://www.zippednews.com/{{ tag }}
 
 	    {% for article in articles %}
 
-		{% if forloop.counter == 2 or forloop.counter|divisibleby:"5" %}
-	            <div class="text-center well">
-	            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	            <!-- zippednews_web_leaderboard_1 -->
-        	    <ins class="adsbygoogle"
-	                     style="display:inline-block;width:728px;height:90px"
-	                     data-ad-client="ca-pub-2782255430730944"
-	                     data-ad-slot="9119995102"></ins>
-	            <script>
-	            (adsbygoogle = window.adsbygoogle || []).push({});
-        	    </script>
+		{% if forloop.counter == 2 or forloop.counter|divisibleby:"4" %}
+	            <div style="border:1px solid;">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- zippednews_web_large_leaderboard_1 -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:970px;height:90px"
+			     data-ad-client="ca-pub-2782255430730944"
+			     data-ad-slot="6089353108"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 	            </div>
 		    <hr/>
 		{% endif %}
