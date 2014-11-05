@@ -27,6 +27,7 @@ server {
 
   location / {
    	    proxy_pass http://localhost:8000/zippednewsapp/;
+            proxy_read_timeout 300;
   }
 
   location /static/ {
@@ -71,6 +72,8 @@ server {
 
   location / {
             proxy_pass http://localhost:8000/penpatron/;
+            proxy_read_timeout 300;
+
   }
 
   location /static/ {
@@ -115,6 +118,8 @@ server {
 
   location / {
             proxy_pass http://localhost:8000/twitterstreetjournal/;
+            proxy_read_timeout 300;
+
   }
 
   location /static/ {
