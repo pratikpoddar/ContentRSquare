@@ -45,7 +45,7 @@ def get_article_semantics_tags():
 def run_twitter_newspaper(tuser, tlist):
 	logger.exception("Starting to run twitter newspaper")
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
-	twitter_newspaper.get_list_timeline(tuser, tlist, 250)
+	twitter_newspaper.get_list_timeline(tuser, tlist, 10)
 	get_articles()
 	logger.exception("Get articles done")
 	get_article_semantics_tags()
