@@ -72,27 +72,6 @@ def fa():
         feedextractor.load_rss_in_table("http://www.business-standard.com/rss/economy-policy-102.rss", "fromscratch")
         feedextractor.load_rss_in_table("http://www.business-standard.com/rss/finance-103.rss", "fromscratch")
         feedextractor.load_rss_in_table("http://www.business-standard.com/rss/management-107.rss", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-        feedextractor.load_rss_in_table("", "fromscratch")
-
-
-http://www.business-standard.com/rss/home_page_top_stories.rss
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
