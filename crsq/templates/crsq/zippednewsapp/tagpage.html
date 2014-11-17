@@ -69,7 +69,7 @@
 		  <h4 style="margin-top:0px;"><a rel="nofollow" title="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" target="_blank" href="{{ article.url }}">{{ article.articletitle }} <br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %} </small></a></h4>
                   <p class="summary hyphenate">Summary: {{ article.articlesummary }} </p><br/>
                   {% comment %}<p class="ratings">{{ article.fbpower }} shares / {{ article.twitterpower }} tweets</p>{% endcomment %}
-		  <p class="tags">{% if article.tags %}Related Topics: {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} <span style="float:right"><a href="https://twitter.com/intent/tweet?button_hashtag=ZippedNews&text={{ article.articletitle}}%20{{ article.url }}%20via%20http%3A%2F%2Fwww.zippednews.com%2F{{ tag }}" class="twitter-hashtag-button" data-lang="en" data-related="pratikpoddar">Tweet #ZippedNews</a></span></p>
+		  <p class="tags">{% if article.tags %}Related Topics: {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} <span style="float:right"><a href="https://twitter.com/intent/tweet?button_hashtag=ZippedNews&amp;text={{ article.articletitle}}%20{{ article.url }}%20via%20http%3A%2F%2Fwww.zippednews.com%2F{{ tag }}" class="twitter-hashtag-button" data-lang="en" data-related="pratikpoddar">Tweet #ZippedNews</a></span></p>
 
 		  </div>
 		  </div>

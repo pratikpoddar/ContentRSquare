@@ -41,7 +41,7 @@
 
     <div id="bodyarea" class="container">
 	<div class="row" style="text-align:center">
-	<img id="loadingspinner" src="{% static 'crsq/img/zippednewsapp/loading_gif_64x64.gif' %}" style="position:fixed;top:250px;z-index:100;display:none;left:47%;right:48%;width:5%"/>
+	<img id="loadingspinner" src="{% static 'crsq/img/zippednewsapp/loading_gif_64x64.gif' %}" style="position:fixed;top:250px;z-index:100;display:none;left:47%;right:48%;width:5%" alt="Loading..."/>
 	</div>
 	{% block bodycontent %}
 	{% endblock %}
@@ -68,7 +68,7 @@
       </footer>
     </div><!-- /.container -->
     <div style="position:fixed;right:0px;bottom:0px;">
-                <a href="https://play.google.com/store/apps/details?id=com.zippednews"><img src="{% static 'crsq/img/zippednewsapp/gplay.png' %}"/></a>
+                <a href="https://play.google.com/store/apps/details?id=com.zippednews"><img src="{% static 'crsq/img/zippednewsapp/gplay.png' %}" alt="ZippedNews Google Play App" /></a>
     </div>
 
     {% endblock %}
