@@ -43,11 +43,11 @@
 	<br/><br/>
 
 	<div class="row text-center">
-		<a href="/?typeofrequest=google">Google Trends</a><br/>
-		<a href="/?typeofrequest=twitter">Twitter Trends</a><br/>
-		<a href="/?typeofrequest=youtube">Youtube Trends</a><br/>
-		<a href="/?typeofrequest=trends">All Trends</a><br/>
-		<a href="/?typeofrequest=topic&topic=cricket">Topic Pages</a><br/>
+		<a href="?typeofrequest=google">Google Trends</a><br/>
+		<a href="?typeofrequest=twitter">Twitter Trends</a><br/>
+		<a href="?typeofrequest=youtube">Youtube Trends</a><br/>
+		<a href="?typeofrequest=trends">All Trends</a><br/>
+		<a href="?typeofrequest=topic&topic=cricket">Topic Pages</a><br/>
 	</div>
 
 
@@ -148,12 +148,16 @@
 		<div class="input-group">
                       <input name="topicname" id="topicname" type="text" class="form-control" placeholder="Enter Topic">
                       <span class="input-group-btn">
-                        <a class="btn btn-primary" onclick="location.href='/?typeofrequest=topic&topic='+document.getElementById('topicname')">Create Topic Pages</a>
+                        <a class="btn btn-primary" onclick="location.href='?typeofrequest=topic&topic='+document.getElementById('topicname')">Create Topic Pages</a>
                       </span>
                 </div>
 	</div>
 	<div class="row">
-		<div id="topicpages"></div>
+		<div id="topicpages">
+			Twitter Search Page: <a href="{{ tp }}" target="_blank">{{ tp }}</a><br/>
+                        Quora Search Page: <a href="{{ tp }}" target="_blank">{{ qp }}</a><br/>
+                        Twitter Handles: {% for ths in th %}<a href="http://www.twitter.com/{{ ths }}" target="_blank">{{ ths }}</a> &nbsp;&nbsp;{% endfor %}<br/>
+		</div>
 	</div>
 	{% endif %}
 

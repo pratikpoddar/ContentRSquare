@@ -408,7 +408,7 @@ def zippednewsappwelcome(request):
 def viewwhatistrending(request):
 
     try:
-        typeofrequest = request.GET.get('type')
+        typeofrequest = request.GET.get('typeofrequest')
     except:
         typeofrequest = ''
 
