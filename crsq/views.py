@@ -439,7 +439,7 @@ def viewwhatistrending(request):
 	'gt': gt,
 	'tt': tt,
 	'yt': yt,
-	'gp': qp,
+	'qp': qp,
 	'tp': tp,
 	'th': th
     })
