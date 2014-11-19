@@ -154,9 +154,17 @@
 	</div>
 	<div class="row">
 		<div id="topicpages">
-			Twitter Search Page: <a href="{{ tp }}" target="_blank">{{ tp }}</a><br/>
-                        Quora Search Page: <a href="{{ tp }}" target="_blank">{{ qp }}</a><br/>
-                        Twitter Handles: {% for ths in th %}<a href="http://www.twitter.com/{{ ths }}" target="_blank">{{ ths }}</a> &nbsp;&nbsp;{% endfor %}<br/>
+			<table>
+			<tr>
+				<td>Twitter Search Page</td><td><a href="{{ tp }}" target="_blank">{{ tp }}</a></td>
+			</tr>
+			<tr>
+				<td>Quora Search Page</td><td><a href="{{ tp }}" target="_blank">{{ qp }}</a></td>
+			</tr>
+			<tr>
+				<td>Twitter Handles</td><td>{% for ths in th %}<a href="http://www.twitter.com/{{ ths }}" target="_blank">{{ ths }}</a><br/>{% endfor %}</td>
+			</tr>
+			</table>
 		</div>
 	</div>
 	{% endif %}
