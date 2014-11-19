@@ -40,6 +40,9 @@ import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 import time
 
+
+from crsq import whatistrending
+
 logger = logging.getLogger(__name__)
 
 time.sleep(60)  # Delay for 1 minute (60 seconds)
@@ -78,6 +81,7 @@ def gmailemailjs_imap(request):
 
 	def getemailaddr(string):
 		return filter(lambda x: x.find('@')>0, string.split(' '))[-1].strip()
+
 
 	def getemailhash(username, fromaddr, subject, dateemail):
 
@@ -363,7 +367,6 @@ def zippednewsapptaglist(request, tagsearch):
 
         return HttpResponse(template.render(context))
 
-
 	
 def zippednewsappwelcome(request):
 
@@ -401,6 +404,27 @@ def zippednewsappwelcome(request):
         })
 
         return HttpResponse(template.render(context))
+
+def viewwhatistrending(request):
+
+    topic = 'cricket'
+
+    g = whatistrending.google_trends.get_all_google_trends().items()
+    t = whatistrending.twitter_trends.get_all_twitter_trends().items()
+    y = whatistrending.youtube_trends.get_all_youtube_trends().items()
+    q = whatistrending.search.get_quora_page(topic)
+    tp = whatistrending.search.get_twitter_page(topic)
+    th = whatistrending.search.get_twitter_handles_from_topic(topic)
+
+    context = RequestContext(request, {
+           'g': g,
+	   't': t,
+           'y': y
+    })
+
+    template = loader.get_template('crsq/whatistrending/index.html')
+
+    return HttpResponse(template.render(context))
 	
 def dbchecker(request, extraparam=0):
 
@@ -420,13 +444,6 @@ def dbchecker(request, extraparam=0):
 				html+= "<tr><td style='width:70%'><a href='" + aud['url']+ "'>"+aud['url']+"</a></td><td style='width:30%'>"+aud['articledate'].strftime("%B %d, %Y") + "</td></tr>"
 
 		html += "</table></body></html>"
-
-	if extraparam == "doga":
-		articles = ArticleInfo.objects.filter(url__contains="techcrunch.com").values('url', 'articleimage', 'articletitle')
-		html = "<html><body>"
-		for article in articles:
-			html += "<pre>"+str(article)+"</pre><br/>"
-		html += "</body></html>"
 
         return HttpResponse(html)
 

@@ -1,0 +1,86 @@
+{% load staticfiles %}
+{% load tagfilter %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block metadescription %}{% endblock %}">
+    {% block canonicalurl %}{% endblock %}
+
+    <title>{% block title %}ZippedNews{% endblock %}</title>
+    {% compress css %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "crsq/css/zippednewsapp/bootstrap.min.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/zippednewsapp/idangerous.swiper.css" %}" rel="stylesheet"/>
+    <!-- Add custom CSS here -->
+    <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet"/>
+    {% endcompress %}
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'/>
+  </head>
+
+  <body>
+
+    {% block navcontent %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" style="height:31px;" href="/">{% block navbartitle %}What is Trending{% endblock %}</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+   {% endblock %}
+
+    <div id="bodyarea" class="container">
+	{{ g }}
+	{{ t }}
+    </div><!-- /.container -->
+
+    {% block footercontent %}
+    <div class="container">
+      <hr>
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Pratik Poddar</p>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /.container -->
+
+    {% endblock %}
+
+    <!-- JavaScript -->
+    {% compress js %}
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jail.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/idangerous.swiper.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/Hyphenator.js" %}"></script>
+    {% endcompress %}
+	{% block jscontent %}
+	{% endblock %}
+
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-48400385-1', 'zippednews.com');
+	  ga('send', 'pageview');
+
+    </script>
+
+  </body>
+
+</html>

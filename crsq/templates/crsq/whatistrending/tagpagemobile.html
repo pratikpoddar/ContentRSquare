@@ -1,0 +1,202 @@
+{% extends "crsq/zippednewsapp/base.html" %}
+{% load staticfiles %}
+{% load tagfilter %}
+
+{% block title %}
+{% if tag == "technology-top-trending" or tag == "sports-top-trending" or tag == "science-top-trending" or tag == "health-top-trending" or tag == "world-top-trending" or tag == "business-top-trending" or tag == "politics-top-trending" or tag == "top-trending" or tag == "technology-latest-news" or tag == "sports-latest-news" or tag == "science-latest-news" or tag == "health-latest-news" or tag == "world-latest-news" or tag == "business-latest-news" or tag == "politics-latest-news" or tag == "latest-news" %}
+{{ tag | crsq_unslugify }} News - ZippedNews
+{% else %}
+{{ tag | crsq_unslugify }} - Latest news on {{ tag | crsq_unslugify }} - ZippedNews
+{% endif %}
+{% endblock %}
+
+{% block navbartitle %}
+{{ tag | crsq_unslugify | truncatechars:28}}
+{% endblock %}
+
+
+{% block metadescription %}
+        {% if articles %}
+        Real Time News related to '{{ tag | crsq_unslugify }}'
+        {% endif %}
+        {% for article in articles %}
+                 - {{ article.articletitle }}
+        {% endfor %}
+{% endblock %}
+
+{% block canonicalurl %}
+<link rel="canonical" href="http://www.zippednews.com/{{ tag }}" />
+{% endblock %}
+
+
+{% block bodycontent %}
+
+<style type="text/css">
+#bodyarea.container {
+	font-size:120%;
+	padding-right:0px;
+	padding-left:0px;
+}
+.navbar-brand {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	height: auto!important;
+}
+
+.navbar {
+	min-height: 0px;
+	margin-bottom: 0px;
+	height: 28px;
+	overflow-y: hidden;
+}
+
+.navbar-image {
+	height: 20px!important;
+}
+
+body {
+	padding-top:30px!important;
+}
+
+.pagination {
+	position:absolute;
+	z-index:20;
+	left:0px;
+	bottom:10px;
+	right:0px;
+}
+
+</style>
+
+	<div class="swiper-container">
+	  <div class="swiper-wrapper">
+	    {% for article in articles %}
+
+                  {% if forloop.counter|divisibleby:"5" %}
+                  <div class="swiper-slide" style="margin-top:15px;text-align:center" >
+                     <br/><br/><br/><br/>
+                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                     <!-- zippednews_mobile_medium_rectangle_1 -->
+                     <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-2782255430730944"
+                     data-ad-slot="3704086709"></ins>
+                     <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                     </script>
+                     <br/><br/><br/><br/>
+                  </div>
+                  {% endif %}
+
+		  <div class="swiper-slide" style="margin-top:15px;" >
+		  <img id="flickimage" src="{% static 'crsq/img/zippednewsapp/swipe.png' %}"/>
+		  <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
+		  <div style="width:100%;height:180px;position:relative;overflow:hidden;">
+		  <img class="articleimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" title="{{ tag | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0px;background-color:#ddd;"/>
+		  </div>
+		  </div>
+		  <div class="col-sm-9 col-lg-9 col-md-9">
+		  <h4 style="margin:0px;"><a rel="nofollow" target="_blank" href="{{ article.url }}">{{ article.articletitle }}<br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %}</small></a></h4>
+                  <p class="summary hyphenate"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
+		  <p class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
+
+		  <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews" style="font-size:50%">
+		  <a class="addthis_button_facebook"></a>
+		  <a class="addthis_button_twitter"></a>
+		  <a class="addthis_button_google_plusone_share"></a>
+		  <a class="addthis_button_linkedin"></a>
+		  <a class="addthis_button_email"></a>
+		  </div>
+
+		  <br/><br/><br/><br/>
+		  </div>
+		  </div>
+	    {% endfor %}
+
+                  <div class="swiper-slide" style="margin-top:15px;text-align:center" >
+		     <br/><br/><br/><br/>
+                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                     <!-- zippednews_mobile_medium_rectangle_1 -->
+                     <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-2782255430730944"
+                     data-ad-slot="3704086709"></ins>
+                     <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                     </script>
+                     <br/><br/><br/><br/>
+                  </div>
+
+                  <div class="swiper-slide" style="margin-top:15px;" >
+                        <div class="panel panel-default" style="text-align:center">
+                                <div class="panel-heading">Related topics</div>
+                                <ul class="list-group">
+                                          {% for s in relatedtopics %}
+                                          	<a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                           {% endfor %}
+                                </ul>
+                         </div>
+			<br/><br/><br/>
+                  </div>
+
+                  <div class="swiper-slide" style="margin-top:15px;text-align:center" >
+                     <br/><br/><br/><br/>
+                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                     <!-- zippednews_mobile_medium_rectangle_1 -->
+                     <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-2782255430730944"
+                     data-ad-slot="3704086709"></ins>
+                     <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                     </script>
+                     <br/><br/><br/><br/>
+                  </div>
+
+	</div>
+	<div align="center">
+	<div class="pagination"></div>
+	</div>
+	</div>
+
+{% endblock %}
+
+{% block footercontent %}
+{% endblock %}
+
+
+{% block jscontent %}
+
+    <script>
+	$(window).ready(function() {
+
+            $('.articleimage').jail({loadHiddenImages : true});
+	    $('#pager').show();
+	    if (!($.cookie("returnuser")==1)) {		
+		    $("#flickimage").delay(3000).fadeIn("slow").delay(3000).fadeOut("slow");
+		    $.cookie("returnuser", 1);
+		}
+	    $(function() {
+	      		var mySwiper = $('.swiper-container').swiper({
+				pagination: '.pagination',
+				paginationClickable: true,
+				mode:'horizontal',
+				loop: false,
+ 				speed: 700,
+				freeModeFluid: true,
+				onSlideChangeEnd: function() {
+					if ($(window).scrollTop() > 50) {
+						$('html,body').animate({ scrollTop: 0 }, 'slow');
+					}
+				        return false; 
+				}
+			  });
+	  });
+          $.getScript("//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-535dfc3b5355e5f7")
+
+      });
+
+    </script>
+
+{% endblock %}
+

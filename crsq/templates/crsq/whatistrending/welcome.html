@@ -1,0 +1,83 @@
+{% extends "crsq/zippednewsapp/base.html" %}
+{% load staticfiles %}
+{% load tagfilter %}
+
+{% block title %}
+ZippedNews - Real-time news on Popular Topics
+{% endblock %}
+
+{% block metadescription %}
+ZippedNews: Real-time news on Popular Topics - Hate reading full page long articles? Want quick four sentence summary of articles? Want comprehensive news by topic? You are at the right place! Here, you can Zip through News :)
+{% endblock %}
+
+{% block canonicalurl %}
+<link rel="canonical" href="http://www.zippednews.com" />
+{% endblock %}
+
+{% block navcontent %}
+{% endblock %}
+
+{% block bodycontent %}
+	<div class="jumbotron">
+	  <h1><img src="{% static 'crsq/img/zippednewsapp/zippednewslogo.svg' %}" style="height:69px;padding-right:15px;"/>ZippedNews</h1>
+		<p style="text-align:justify">Hate reading full page long articles? Want quick four sentence summary of articles? Want comprehensive news by topic? You are at the right place! Here, you can Zip through News :). Available on <a href="https://play.google.com/store/apps/details?id=com.zippednews"><img src="{% static 'crsq/img/zippednewsapp/gplay.png' %}"/></a></p>
+	<div class="row">
+	<div class="col-sm-6 col-lg-6 col-md-6" style="margin-bottom:10px;">
+
+		<button style="min-width:80%" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Get Latest News <span class="caret"></span></button>
+		<ul style="min-width:80%;text-align:center" class="dropdown-menu" role="menu"><!-- ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"] -->
+		    <li><a href="http://www.zippednews.com/latest-news?topic=t&name=Technology">Technology</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=s&name=Sports">Sports</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=snc&name=Science">Science</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=m&name=Health">Health</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=w&name=World">World</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=b&name=Business">Business</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=e&name=Entertainment">Entertainment</a></li>
+		    <li><a href="http://www.zippednews.com/latest-news?topic=p&name=Politics">Politics</a></li>
+		</ul>
+		<br/>
+	</div>
+	<div class="col-sm-6 col-lg-6 col-md-6" style="margin-bottom:10px;">
+
+                <form class="form-inline" role="form" action="http://www.zippednews.com/" method="get">
+                <div class="input-group">
+                      <input name="topicsearch" type="text" class="form-control" placeholder="Enter Topic (eg: Microsoft Corp)">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                      </span>
+                </div>
+                </form>
+		<br/>
+
+	</div>
+	</div>
+	</div>
+
+
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12">
+                        <h4>Trending Topics on Google Search:</h4>
+                </div>
+        </div>
+        <div class="row">
+                    {% for country, listofsearch in google_trends %}
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="panel panel-default">
+                                        <div class="panel-heading">{{ country }} News</div>
+
+                                          <ul class="list-group">
+                                                {% for s in listofsearch %}
+                                                        <li class="list-group-item">
+                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News"><p class="list-group-item-text">{{ s | crsq_unslugify | truncatechars:27}}</p></a>
+                                                        </li>
+                                                {% endfor %}
+                                          </ul>
+                                </div>
+
+                        </div>
+                    {% endfor %}
+                <br/>
+        </div>
+
+{% endblock %}
+
