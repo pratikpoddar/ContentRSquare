@@ -407,14 +407,33 @@ def zippednewsappwelcome(request):
 
 def viewwhatistrending(request):
 
-    topic = 'cricket'
+    try:
+        typeofrequest = request.GET.get('type')
+    except:
+        typeofrequest = ''
 
-    gt = whatistrending.google_trends.get_all_google_trends().items()
-    tt = whatistrending.twitter_trends.get_all_twitter_trends().items()
-    yt = whatistrending.youtube_trends.get_all_youtube_trends().items()
-    qp = whatistrending.search.get_quora_page(topic)
-    tp = whatistrending.search.get_twitter_page(topic)
-    th = whatistrending.search.get_twitter_handles_from_topic(topic)
+    if typeofrequest in ['google', 'trends']:
+        gt = whatistrending.google_trends.get_all_google_trends().items()
+    else:
+        gt = None
+
+    if typeofrequest in ['twitter', 'trends']:
+        tt = whatistrending.twitter_trends.get_all_twitter_trends().items()
+    else:
+        tt = None
+
+    if typeofrequest in ['youtube', 'trends']:
+        yt = whatistrending.youtube_trends.get_all_youtube_trends().items()
+    else:
+        yt = None
+
+    if typeofrequest in ['topic']:
+        topic = request.GET.get('topic')
+        qp = whatistrending.search.get_quora_page(topic)
+        tp = whatistrending.search.get_twitter_page(topic)
+        th = whatistrending.search.get_twitter_handles_from_topic(topic)
+    else:
+        (qp, tp, th) = (None, None, None)
 
     context = RequestContext(request, {
 	'gt': gt,

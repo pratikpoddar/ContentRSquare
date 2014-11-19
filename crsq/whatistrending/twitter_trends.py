@@ -61,13 +61,12 @@ def get_top_trends(location_name='India'):
 
     try:
         trends = api.trends_place(woeid)[0]['trends']
-    except Exception as e
+    except Exception as e:
         trends = []
 
     trends = map(lambda x: x['name'], trends)
     return trends
 
-@lru_cache(maxsize=1024)
 def get_all_twitter_trends():
     output = {}
     for location in location_woeid.keys():

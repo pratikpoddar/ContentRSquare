@@ -41,6 +41,19 @@
     <div id="bodyarea" class="container">
 
 	<br/><br/>
+
+	<div class="row text-center">
+		<a href="/?typeofrequest=google">Google Trends</a><br/>
+		<a href="/?typeofrequest=twitter">Twitter Trends</a><br/>
+		<a href="/?typeofrequest=youtube">Youtube Trends</a><br/>
+		<a href="/?typeofrequest=trends">All Trends</a><br/>
+		<a href="/?typeofrequest=topic&topic=cricket">Topic Pages</a><br/>
+	</div>
+
+
+	<br/><br/>
+	
+	{% if gt %}
         <div class="row">
                 <div class="col-sm-12 col-lg-12 col-md-12 text-center">
                         <h3>Google Trends</h3>
@@ -66,8 +79,10 @@
                     {% endfor %}
                 <br/>
         </div>
+	{% endif %}
 
 
+	{% if tt %}
         <div class="row">
                 <div class="col-sm-12 col-lg-12 col-md-12 text-center">
                         <h3>Twitter Trends</h3>
@@ -93,8 +108,9 @@
                     {% endfor %}
                 <br/>
         </div>
+	{% endif %}
 
-
+	{% if yt %}
         <div class="row">
                 <div class="col-sm-12 col-lg-12 col-md-12 text-center">
                         <h3>Youtube Trends</h3>
@@ -120,6 +136,27 @@
                     {% endfor %}
                 <br/>
         </div>
+	{% endif %}
+
+	{% if tp or qp or th %}
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+                        <h3>Topic Pages</h3>
+                </div>
+        </div>
+        <div class="row">
+		<div class="input-group">
+                      <input name="topicname" id="topicname" type="text" class="form-control" placeholder="Enter Topic">
+                      <span class="input-group-btn">
+                        <a class="btn btn-primary" onclick="location.href='/?typeofrequest=topic&topic='+document.getElementById('topicname')">Create Topic Pages</a>
+                      </span>
+                </div>
+	</div>
+	<div class="row">
+		<div id="topicpages"></div>
+	</div>
+	{% endif %}
+
 
     </div><!-- /.container -->
 
