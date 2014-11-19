@@ -409,17 +409,20 @@ def viewwhatistrending(request):
 
     topic = 'cricket'
 
-    g = whatistrending.google_trends.get_all_google_trends().items()
-    t = whatistrending.twitter_trends.get_all_twitter_trends().items()
-    y = whatistrending.youtube_trends.get_all_youtube_trends().items()
-    q = whatistrending.search.get_quora_page(topic)
+    gt = whatistrending.google_trends.get_all_google_trends().items()
+    tt = whatistrending.twitter_trends.get_all_twitter_trends().items()
+    yt = whatistrending.youtube_trends.get_all_youtube_trends().items()
+    qp = whatistrending.search.get_quora_page(topic)
     tp = whatistrending.search.get_twitter_page(topic)
     th = whatistrending.search.get_twitter_handles_from_topic(topic)
 
     context = RequestContext(request, {
-           'g': g,
-	   't': t,
-           'y': y
+	'gt': gt,
+	'tt': tt,
+	'yt': yt,
+	'gp': qp,
+	'tp': tp,
+	'th': th
     })
 
     template = loader.get_template('crsq/whatistrending/index.html')

@@ -10,7 +10,7 @@
     <meta name="description" content="{% block metadescription %}{% endblock %}">
     {% block canonicalurl %}{% endblock %}
 
-    <title>{% block title %}ZippedNews{% endblock %}</title>
+    <title>{% block title %}What is Trending{% endblock %}</title>
     {% compress css %}
     <!-- Bootstrap core CSS -->
     <link href="{% static "crsq/css/zippednewsapp/bootstrap.min.css" %}" rel="stylesheet"/>
@@ -39,8 +39,88 @@
    {% endblock %}
 
     <div id="bodyarea" class="container">
-	{{ g }}
-	{{ t }}
+
+
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+                        <h4>Google Trends</h4>
+                </div>
+        </div>
+        <div class="row">
+                    {% for country, listofsearch in gt %}
+			{% if listofsearch %}
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="panel panel-default">
+                                        <div class="panel-heading">{{ country }}</div>
+
+                                          <ul class="list-group">
+                                                {% for s in listofsearch %}
+                                                        <li class="list-group-item">
+                                                                <a href="https://www.google.co.in/#q={{ s | crsq_unslugify }}" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify | truncatechars:27}}</p></a>
+                                                        </li>
+                                                {% endfor %}
+                                          </ul>
+                                </div>
+                        </div>
+			{% endif %}
+                    {% endfor %}
+                <br/>
+        </div>
+
+
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+                        <h4>Twitter Trends</h4>
+                </div>
+        </div>
+        <div class="row">
+                    {% for location, listoftrends in tt %}
+			{% if listoftrends %}
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="panel panel-default">
+                                        <div class="panel-heading">{{ location }}</div>
+
+                                          <ul class="list-group">
+                                                {% for s in listoftrends %}
+                                                        <li class="list-group-item">
+                                                                <a href="https://twitter.com/search?q={{ s | crsq_unslugify }}&src=tren" target="_blank"><p class="list-group-item-text">{{ s | crsq_unslugify | truncatechars:27}}</p></a>
+                                                        </li>
+                                                {% endfor %}
+                                          </ul>
+                                </div>
+                        </div>
+			{% endif %}
+                    {% endfor %}
+                <br/>
+        </div>
+
+
+        <div class="row">
+                <div class="col-sm-12 col-lg-12 col-md-12 text-center">
+                        <h4>Youtube Trends</h4>
+                </div>
+        </div>
+        <div class="row">
+                    {% for location, listoftrends in yt %}
+			{% if listoftrends %}
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                                <div class="panel panel-default">
+                                        <div class="panel-heading">{{ location }}</div>
+
+                                          <ul class="list-group">
+                                                {% for s in listoftrends %}
+                                                        <li class="list-group-item">
+                                                                <a href="{{ s.1 }}" target="_blank"><p class="list-group-item-text">{{ s.0 | crsq_unslugify | truncatechars:27}}</p></a>
+                                                        </li>
+                                                {% endfor %}
+                                          </ul>
+                                </div>
+                        </div>
+			{% endif %}
+                    {% endfor %}
+                <br/>
+        </div>
+
     </div><!-- /.container -->
 
     {% block footercontent %}
