@@ -56,6 +56,8 @@ location_woeid = {
 def get_top_trends(location_name='India'):
     ## woeid for india is 23424848
 
+    return ['No Results. Team working']
+
     time.sleep(20)
     woeid = location_woeid[location_name]
 
