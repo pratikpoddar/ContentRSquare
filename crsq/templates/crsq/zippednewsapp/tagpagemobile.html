@@ -68,11 +68,22 @@ body {
 
 </style>
 
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- zippednews_mobile_banner -->
+	<ins class="adsbygoogle"
+	     style="display:inline-block;width:320px;height:100px"
+	     data-ad-client="ca-pub-2782255430730944"
+	     data-ad-slot="3874466305"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+
 	<div class="swiper-container">
 	  <div class="swiper-wrapper">
 	    {% for article in articles %}
 
-                  {% if forloop.counter|divisibleby:"5" %}
+                {% if forloop.counter == 2 or forloop.counter|divisibleby:"4" %}
+
                   <div class="swiper-slide" style="margin-top:15px;text-align:center" >
                      <br/><br/><br/><br/>
                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
