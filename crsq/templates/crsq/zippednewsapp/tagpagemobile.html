@@ -113,8 +113,8 @@ body {
 		  </div>
 		  </div>
 		  <div class="col-sm-6 col-lg-6 col-md-6">
-                  <p class="summary hyphenate"><i>Summary:</i> {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
-		  <p class="tags">{% if article.tags %}<i>Related Topics:</i> {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
+                  <p class="summary hyphenate">Summary: {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
+		  <p class="tags">{% if article.tags %}Related Topics: {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
 
 		  <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ article.url }}" addthis:title="{{ article.articletitle | truncatechars:100 }} - via #ZippedNews" style="font-size:50%">
 		  <a class="addthis_button_facebook"></a>
