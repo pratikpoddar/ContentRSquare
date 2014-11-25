@@ -260,6 +260,7 @@ def timenews_article(request, articleid):
 def zippednewsapp(request, tag):
 
 	## TODO: This is not giving correct results
+	"""
 	try:
 		ip = None
 		if 'HTTP_X_FORWARDED_FOR' in request.META:
@@ -274,6 +275,7 @@ def zippednewsapp(request, tag):
 			country = 'XX'
 	except:
 		pass
+	"""
 
 	if tag=="latest-news" or tag=="top-trending":
 
