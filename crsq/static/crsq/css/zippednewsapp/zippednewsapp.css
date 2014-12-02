@@ -58,8 +58,9 @@ a.list-group-item {
 
 #flickimage {
 	position:fixed;
-	top:160px;
+	top:200px;
 	z-index:1000;
 	width:300px;
 	display:none;
+	opacity:0.8;	
 }
