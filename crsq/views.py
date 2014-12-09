@@ -346,7 +346,7 @@ def zippednewsapp(request, tag):
         })
 
 	if request.mobile:
-		template = loader.get_template('crsq/zippednewsapp/tagpagemobile.html')
+		template = loader.get_template('crsq/zippednewsapp/tagpagemobile2.html')
 	else:
 		template = loader.get_template('crsq/zippednewsapp/tagpage.html')
 
