@@ -77,7 +77,6 @@ body {
  		  {% if forloop.counter == 3 or forloop.counter|divisibleby:"5" %}
 
                    <div style="margin-top:15px;text-align:center" >
-                     <br/><br/>
                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                      <!-- zippednews_mobile_medium_rectangle_1 -->
                      <ins class="adsbygoogle"
@@ -87,7 +86,6 @@ body {
                      <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                      </script>
-                     <br/><br/>
                   </div>
 
                   {% endif %}
@@ -105,13 +103,11 @@ body {
                   <p class="summary hyphenate">Summary: {{ article.articlesummary }} (<a href="{{ article.url }}" target="_blank" rel="nofollow">Read Full Article</a>)</p>
 		  <p class="tags">{% if article.tags %}Related Topics: {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p><br/>
 
-		  <br/><br/>
 		  </div>
 		  </div>
 		{% endfor %}
 
                 <div style="margin-top:15px;text-align:center" >
-		     <br/><br/>
                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                      <!-- zippednews_mobile_medium_rectangle_1 -->
                      <ins class="adsbygoogle"
@@ -121,7 +117,6 @@ body {
                      <script>
                      (adsbygoogle = window.adsbygoogle || []).push({});
                      </script>
-                     <br/><br/>
                 </div>
 
                 <div style="margin-top:15px;" >
@@ -133,7 +128,6 @@ body {
                                            {% endfor %}
                                 </ul>
                          </div>
-			<br/><br/>
                 </div>
 
 {% endblock %}
