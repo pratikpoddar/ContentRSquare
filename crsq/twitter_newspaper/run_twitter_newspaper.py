@@ -13,6 +13,9 @@ def get_articles():
 	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-1000:]
 	ai = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
+	tobedeleted = map(lambda x: x['url'], DeleteLinks.objects.filter(url__in=tobeexpanded).values('url'))
+	TweetLinks.objects.filter(url__in=tobedeleted).delete()
+	tobeexpanded = list(set(tobeexpanded)-set(tobedeleted))
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get article info")
 	shuffle(tobeexpanded)
 
@@ -45,7 +48,7 @@ def get_article_semantics_tags():
 def run_twitter_newspaper(tuser, tlist):
 	logger.exception("Starting to run twitter newspaper")
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
-	twitter_newspaper.get_list_timeline(tuser, tlist, 10)
+	twitter_newspaper.get_list_timeline(tuser, tlist, 200)
 	get_articles()
 	logger.exception("Get articles done")
 	get_article_semantics_tags()
