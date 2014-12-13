@@ -25,7 +25,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="sectordropdown">
 		  {% for s in sector_list %}
-			<li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ s | slugify }}/{{ location }}">{{ s }}</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="/twitterstreetjournal/{{ s | slugify }}/{{ location }}">{{ s }}</a></li>
         	  {% endfor %}
 		  </ul>
 		</span>
@@ -38,7 +38,7 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="locationdropdown">
                   {% for l in location_list %}
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/twitterstreetjournal/{{ sector }}/{{ l | slugify }}">{{ l }}</a></li>
                   {% endfor %}
                   </ul>
                 </span>
@@ -63,8 +63,8 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 
 	<div class="row" style="text-align:center">
 	    <ul class="pager">
-		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href={% if page == 1 %}#{% endif %}{% if page > 1 %}"/{{ sector }}/{{ location }}/{{ page | add:"-1" }}"{% endif %}>&larr; Recent</a></li>
-		  <li class="next"><a href="/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
+		  <li class="previous {% if page == 1 %}disabled{% endif %}"><a href={% if page == 1 %}#{% endif %}{% if page > 1 %}"/twitterstreetjournal/{{ sector }}/{{ location }}/{{ page | add:"-1" }}"{% endif %}>&larr; Recent</a></li>
+		  <li class="next"><a href="/twitterstreetjournal/{{ sector }}/{{ location }}/{{ page | add:"1" }}">Older &rarr;</a></li>
 	    </ul>
         </div>
 	
@@ -72,13 +72,13 @@ Real-time {{ sectorname }} news from {{ locationname }} - Twitter Street Journal
 		<div class="col-sm-6 col-lg-6 col-md-6">
 		 "{{ locationname }}" News:<br/>
                   {% for s in sector_list %}
-                 	<a href="/{{ s | slugify }}/{{ location }}">{{ s }}</a><br/>
+                 	<a href="/twitterstreetjournal/{{ s | slugify }}/{{ location }}">{{ s }}</a><br/>
                   {% endfor %}
 		</div>
 		<div class="col-sm-6 col-lg-6 col-md-6">
 		 "{{ sectorname }}" News:<br/>
                   {% for l in location_list %}
-                  	<a href="/{{ sector }}/{{ l | slugify }}">{{ l }}</a><br/>
+                  	<a href="/twitterstreetjournal/{{ sector }}/{{ l | slugify }}">{{ l }}</a><br/>
                   {% endfor %}
 		</div>
 	</div>
