@@ -96,12 +96,13 @@ def fa():
 class getFeedAnalyzer(CronJobBase):
 
 	RUN_EVERY_MINS = 1 # every 1 min
-
+	
 	schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
 	code = 'crsq.feedanalyzer_run_feedanalyzer_getFeedAnalyzer'    # a unique code
 
-        def do(self):
-                logger.debug("feedanalyzer.run_feedanalyzer - getFeedAnalyzer starts")
-                fa()
-                return
+	def do(self):
+		logger.debug("feedanalyzer.run_feedanalyzer - getFeedAnalyzer starts")
+		fa()
+		logger.exception("cron job getFeedAnalyzer done")
+		return
 

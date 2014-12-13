@@ -20,7 +20,6 @@ def get_articles():
 	shuffle(tobeexpanded)
 
 	for l in tobeexpanded:
-		print "twitter newspaper - getting article_info " + l
 		logger.debug("twitter newspaper - getting article_info " + l)
 		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
 		## hack
@@ -40,7 +39,6 @@ def get_article_semantics_tags():
 
 	logger.exception(str(len(tobeexpanded)) + " articles left from tweetlinks to get sematics tags")
 	for l in tobeexpanded:
-		print "twitter newspaper - getting article_semantics_tags " + l
 		logger.debug("twitter newspaper - getting article_semantics_tags " + l)
 		twitter_newspaper.put_article_semantics_tags(l)
 	return
@@ -71,8 +69,10 @@ class getTwitterNewspaper(CronJobBase):
 	schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
 	code = 'crsq.twitter_newspaper_run_twitter_newspaper_getTwitterNewspaper'    # a unique code
 
-        def do(self):
-                logger.debug("twitter_newspaper.run_twitter_newspaper - getTwitterNewspaper starts")
-                time_dependent_tw_np(datetime.now().hour)
-                return
+	def do(self):
+		logger.debug("twitter_newspaper.run_twitter_newspaper - getTwitterNewspaper starts")
+		time_dependent_tw_np(datetime.now().hour)
+		logger.exception("cron job getTwitterNewspaper done")
+		return
+
 
