@@ -81,6 +81,21 @@
     <script>
 	$(window).load(function() { 
 	    $('.articleimage').jail({loadHiddenImages : true});
+
+    
+	    var tweetplease = new jBox('Modal', {
+	        width: 400,
+	        height: 100,
+	        position:{x: 'right', y: 'bottom'},
+	        title: 'Please pay us with a tweet',
+	        overlay: false,
+	        createOnInit: true,
+	        content: 'You are saving <span style="font-size:120%"><b>72%</b></span> time reading news quickly at Zipped News - Yayy! <a href="http://ctt.ec/21ze0">Please tweet about us!</a>',
+	        draggable: true
+	    });
+	    tweetplease.open();
+    
+
           });
     </script>
 
