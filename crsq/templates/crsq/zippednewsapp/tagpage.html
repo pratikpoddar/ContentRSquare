@@ -84,13 +84,14 @@
 
     
 	    var tweetplease = new jBox('Modal', {
-	        width: 300,
-	        position:{x: 'left', y: 'bottom'},
+	        width: 400,
+	        position:{x: 'right', y: 'bottom'},
 	        title: 'Please pay us with a tweet',
 	        overlay: false,
 	        createOnInit: true,
 	        content: 'You are reading news quickly at Zipped News and saving <span style="font-size:110%"><b>72%</b></span> of your time - Yayy! <a href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a>',
-	        draggable: true
+	        draggable: true,
+		animation: {open:'slide:left', close:'slide:right'}
 	    });
 	    tweetplease.open();
     
