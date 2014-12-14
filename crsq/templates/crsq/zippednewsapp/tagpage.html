@@ -83,12 +83,12 @@
 	    $('.articleimage').jail({loadHiddenImages : true});
 
 	    var tweetplease = new jBox('Notice', {
-	        attributes:{x: 'right', y: 'bottom'},
-	        title: 'Please pay us with a tweet',
-	        createOnInit: true,
-	        content: 'You are reading news quickly at Zipped News and saving <span style="font-size:110%"><b>72%</b></span> of your time - Yayy! <a href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a>',
-		delayOpen:5000,
+	        attributes:{x: 'right', y: 'top'},
+	        title: 'Yayy! You are saving <span style="font-size:120%">72%</span> of your time',
+	        content: 'You are reading news quickly at Zipped News and saving time. <u><a style="color:inherit;" href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a></u>',
+		delayOpen:1000,
 		autoClose:6000,
+		onInit:function(){this.options.color="blue"},
 		animation: {open:'slide:left', close:'slide:right'}
 	    });
 	    tweetplease.open();
