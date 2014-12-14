@@ -43,10 +43,14 @@
 	    <h2 style="font-size:100%"><em>Related to "{{ tag | crsq_unslugify }}"</em>:  {% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
 	    <hr/>
 	    
+	<script src="http://serve.vdopia.com/adserver/bannerjs/62afe7a5dc8062a98a8b2666f26760ab/468x60/true"></script><noscript>
+	<a href="http://serve.vdopia.com/adserver/bannerjs/62afe7a5dc8062a98a8b2666f26760ab/468x60/cl/static/[timestamp]">
+	<img src="http://serve.vdopia.com/adserver/bannerjs/62afe7a5dc8062a98a8b2666f26760ab/468x60/vi/static/[timestamp]" border="0" />
+	</a><img src="http://serve.vdopia.com/adserver/bannerjs/62afe7a5dc8062a98a8b2666f26760ab/468x60/tpvi/static/[timestamp]" border="0" width="0" height="0" /></noscript>
 
 	    {% for article in articles %}
 
-		{% if forloop.counter == 2 or forloop.counter|divisibleby:"4" %}
+		{% if forloop.counter == 3 or forloop.counter|divisibleby:"4" %}
 	            <div class="text-center">
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- zippednews_web_large_leaderboard_1 -->
