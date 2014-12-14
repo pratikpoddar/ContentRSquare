@@ -303,14 +303,14 @@ def zippednewsapp(request, tag):
 					raise
 			searchterm = tag.replace('-',' ').title()
 			searchterm2 = '"' + searchterm + '" ' + searchterm
-			urls = article_elastic_search.searchdoc(searchterm2, 20, recencyweight=15.0)
+			urls = article_elastic_search.searchdoc(searchterm2, 15, recencyweight=15.0)
 			urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
-	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
+	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 		except:
 			# Elastic Search Failed
 			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
-			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:10])
+			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
@@ -325,16 +325,16 @@ def zippednewsapp(request, tag):
 
 		domain = urlparse.urlparse(article['url'])[1]
 		try:
-                	articlesemantics = ArticleSemantics.objects.filter(url=article['url']).values('summary', 'topic')[0]
+                	articlesummary = ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]['summary']
 		except:
-                	articlesemantics = {'summary': None, 'topic': None}
+                	articlesummary = None
 
 	        try:
 			articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
 	        except:
         	        articletags = []
 
-		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesemantics['summary'], 'topic': articlesemantics['topic'], 'tags': articletags}))
+		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
 	if len(article_list)==0:
 		return redirect('http://www.zippednews.com')	
