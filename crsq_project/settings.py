@@ -232,9 +232,6 @@ META_SITE_PROTOCOL = 'http'
 NLTK_DATA = '/home/ubuntu/nltk_data/'
 ES_LOGS = '/mnt/dbmount/eslogs/'
 
-#NLTK_DATA = '/home/gauri/nltk_data/'
-#ES_LOGS = '/home/gauri/eslogs/'
-
 
 
 
