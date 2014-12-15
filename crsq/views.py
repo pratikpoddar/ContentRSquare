@@ -33,8 +33,6 @@ from dateutil.parser import parse as dateutilparse
 import collections
 import pygeoip
 
-#from ratelimit.decorators import ratelimit
-
 import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 import time
@@ -52,7 +50,9 @@ try:
 except:
 	relevanttags = dbcache.getRelevantTags()
 
-gi = pygeoip.GeoIP('/home/ubuntu/crsq/crsq/static/crsq/data/GeoIP.dat')
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
 def loggerdebug(request, string):
 	if 'pratik' in request.GET.keys():
@@ -64,6 +64,10 @@ def index(request):
         html = "<html><body>It is now %s.</body></html>" % now
         return HttpResponse(html)
 
+##########################################################################################
+##########################################################################################
+##########################################################################################
+
 def caa(request):
 
 	if filter(lambda x: x not in request.GET.keys(), ['text','index','jsonp_callback']):
@@ -74,6 +78,27 @@ def caa(request):
 
         jsonresponse = request.GET['jsonp_callback'] + '({"keywords":' + str(keywords) + '})'
 	
+        return HttpResponse(jsonresponse)
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
+
+def gmailemailjs(request):
+
+        emailcontent = request.GET['emailcontent']
+        tags = text_summarize.text_summarize.get_text_tags(emailcontent)
+        tags = ' '.join(tags).strip()
+        logger.debug("Gmail Email JS Tags: " + tags)
+        if tags == '':
+                urls = []
+        else:
+                urls = article_elastic_search.searchdoc(tags, num=10, threshold=0.4)
+
+        output = ArticleInfo.objects.filter(url__in=urls).values('url', 'articletitle')
+        output = json.dumps([dict(x) for x in output])
+
+        jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
         return HttpResponse(jsonresponse)
 
 def gmailemailjs_imap(request):
@@ -99,21 +124,6 @@ def gmailemailjs_imap(request):
 	username = request.GET['username']
 	offset = timedelta(hours=5, minutes=30)
 
-	"""
-	openemails = emailidentifier.split(';;||;;||crsq||;;||;;')
-	openemails = filter(lambda x: len(x)>0, openemails)
-	emailhashes = []
-	for openemail in openemails:
-		openemailelems = openemail.split('--||--||crsq||--||--')
-		fromaddr = getemailaddr(filter(lambda x: x.find('from:')>-1, openemailelems)[0][5:].strip())
-		subject = filter(lambda x: x.find('subject:')>-1, openemailelems)[0][8:].strip()
-		try:
-			dateemail = dateutilparse(filter(lambda x: x.find('date:')>-1, openemailelems)[0][5:].strip())-offset
-			dateemail = datetime(dateemail.year, dateemail.month, dateemail.day, dateemail.hour, dateemail.minute, tzinfo=pytz.utc)
-		except:
-			dateemail = None
-		emailhashes += getemailhash(username, fromaddr, subject, dateemail)
-	"""
 	emailhashes = []
 	for openemail in openthread:
                 try:
@@ -137,6 +147,10 @@ def gmailemailjs_imap(request):
 	
 	jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
         return HttpResponse(jsonresponse)
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
 def tw_np(request, sector, location, page=1):
 
@@ -164,25 +178,12 @@ def tw_np(request, sector, location, page=1):
         })
 	return HttpResponse(template.render(context))
 
-def gmailemailjs(request):
-
-	emailcontent = request.GET['emailcontent']
-	tags = text_summarize.text_summarize.get_text_tags(emailcontent)
-	tags = ' '.join(tags).strip()
-	logger.debug("Gmail Email JS Tags: " + tags)
-	if tags == '':
-		urls = []
-	else:
-		urls = article_elastic_search.searchdoc(tags, num=10, threshold=0.4)
-
-        output = ArticleInfo.objects.filter(url__in=urls).values('url', 'articletitle')
-        output = json.dumps([dict(x) for x in output])
-
-        jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
-        return HttpResponse(jsonresponse)
-
 def tw_np_redirect(request):
 	return redirect('/twitterstreetjournal/technology/san-francisco-usa')
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
 def timenews(request, timeline_news_name):
 	
@@ -216,25 +217,11 @@ def timenews_article(request, articleid):
         })
         return HttpResponse(template.render(context))
 
-def zippednewsapp(request, tag):
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
-	## TODO: This is not giving correct results
-	"""
-	try:
-		ip = None
-		if 'HTTP_X_FORWARDED_FOR' in request.META:
-	            ip = request.META['HTTP_X_FORWARDED_FOR'].split(",")[0].strip()
-		else:
-		    ip = request.META['REMOTE_ADDR']
-		if ip:
-			country = gi.country_code_by_addr(ip)
-			if country not in ['US', 'IN']:
-				country = 'XX'
-		else:
-			country = 'XX'
-	except:
-		pass
-	"""
+def zippednewsapp(request, tag):
 
 	if tag=="latest-news" or tag=="top-trending":
 
@@ -357,6 +344,10 @@ def zippednewsappwelcome(request):
 
         return HttpResponse(template.render(context))
 
+##########################################################################################
+##########################################################################################
+##########################################################################################
+
 def viewwhatistrending(request):
 
     try:
@@ -399,6 +390,10 @@ def viewwhatistrending(request):
     template = loader.get_template('crsq/whatistrending/index.html')
 
     return HttpResponse(template.render(context))
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
 	
 def dbchecker(request, extraparam=0):
 
@@ -420,6 +415,10 @@ def dbchecker(request, extraparam=0):
 		html += "</table></body></html>"
 
         return HttpResponse(html)
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
 
 def emailrecommender(request, emailhash):
@@ -479,6 +478,10 @@ def emailrecommender(request, emailhash):
         })
 
         return HttpResponse(template.render(context))
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
 	
 def zopeyesearch(request, keywordstr):
 
@@ -513,7 +516,10 @@ def zopeyesearch(request, keywordstr):
 	res = sorted(res, key=lambda x: -len(x))
 	return HttpResponse(json.dumps(res), content_type="application/json")
 
-#@ratelimit(ip=False, rate='2/m', keys=lambda req: req.META.get('HTTP_X_FORWARDED_FOR', req.META['REMOTE_ADDR']))
+##########################################################################################
+##########################################################################################
+##########################################################################################
+
 def crsqsemanticsimilarityapi(request, param1, param2):
 
 	# Will be true if the same IP makes more than rate.
@@ -551,4 +557,7 @@ def crsqsemanticsimilarity(request):
         return HttpResponse(template.render(context))
 
 
+##########################################################################################
+##########################################################################################
+##########################################################################################
 
