@@ -336,9 +336,6 @@ def zippednewsapp(request, tag):
 
 		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
-	if len(article_list)==0:
-		return redirect('http://www.zippednews.com')	
-
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tag': tag,
