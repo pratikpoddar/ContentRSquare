@@ -3,7 +3,10 @@ from functools32 import lru_cache
 from crsq.crsqlib import article_elastic_search
 from crsq.crsqlib import imageutils
 
-maxid = ArticleInfo.objects.all().order_by("-id")[0].id
+try:
+	maxid = ArticleInfo.objects.all().order_by("-id")[0].id
+except:
+	maxid = 0
 ai = ArticleInfo.objects.filter(id__gt=maxid-400)
 
 @lru_cache(maxsize=1024)

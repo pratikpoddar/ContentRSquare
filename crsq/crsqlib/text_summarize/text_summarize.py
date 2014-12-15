@@ -31,13 +31,17 @@ from crsq.crsqlib.text_summarize import text_topic_brown
 from django.template.defaultfilters import slugify
 from nltk.tag.stanford import NERTagger
 import logging
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
 alchemyapi = AlchemyAPI()
 calais = Calais("rjfq8eq99bwum4fp3ncjafdw", submitter="python-calais-content-r-square")
 
-stanford_ner_tagger = NERTagger('/home/ubuntu/nltk_data/stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz', '/home/ubuntu/nltk_data/stanford-ner/stanford-ner.jar')
+try:
+	stanford_ner_tagger = NERTagger(settings.NLTK_DATA + 'stanford-ner/classifiers/english.all.3class.distsim.crf.ser.gz', settings.NLTK_DATA + 'stanford-ner/stanford-ner.jar')
+except:
+	stanford_ner_tagger = None
 
 def get_text_tags(text):
 

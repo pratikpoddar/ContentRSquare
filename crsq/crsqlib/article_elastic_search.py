@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import math
 import requests
 import json
-
+from django.conf import settings
 es = Elasticsearch()
 
 # get trace logger and set level
@@ -14,7 +14,7 @@ tracer = logging.getLogger('elasticsearch.trace')
 tracer.setLevel(logging.DEBUG)
 
 # add handlers to tracer
-tracer.addHandler(logging.FileHandler('/mnt/dbmount/eslogs/debug.log'))
+tracer.addHandler(logging.FileHandler(settings.ES_LOGS+'debug.log'))
 
 def createarticleindex():
 

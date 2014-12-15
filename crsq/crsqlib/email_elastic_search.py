@@ -2,6 +2,7 @@ from elasticsearch import Elasticsearch
 from crsq.models import *
 from urlparse import urlparse
 import logging
+from django.conf import settings
 
 es = Elasticsearch()
 
@@ -10,7 +11,7 @@ tracer = logging.getLogger('elasticsearch.trace')
 tracer.setLevel(logging.DEBUG)
 
 # add handlers to tracer
-tracer.addHandler(logging.FileHandler('/var/log/elasticsearch/debug.log'))
+tracer.addHandler(logging.FileHandler(settings.ES_LOGS+'debug.log'))
 
 def createemailindex():
 
