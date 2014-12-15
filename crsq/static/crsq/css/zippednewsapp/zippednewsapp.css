@@ -64,3 +64,10 @@ a.list-group-item {
 	display:none;
 	opacity:0.8;	
 }
+
+.jBox-Notice {
+	position:fixed!important;
+	right: 0px!important;
+	bottom: 0px!important;
+	margin: 20px!important;
+}
