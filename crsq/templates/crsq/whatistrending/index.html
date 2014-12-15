@@ -13,12 +13,11 @@
     <title>{% block title %}What is Trending{% endblock %}</title>
     {% compress css %}
     <!-- Bootstrap core CSS -->
-    <link href="{% static "crsq/css/zippednewsapp/bootstrap.min.css" %}" rel="stylesheet"/>
-    <link href="{% static "crsq/css/zippednewsapp/idangerous.swiper.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/whatistrending/bootstrap.min.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/whatistrending/bootstrap.readable.min.css" %}" rel="stylesheet"/>
     <!-- Add custom CSS here -->
-    <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/whatistrending/style.css" %}" rel="stylesheet"/>
     {% endcompress %}
-    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'/>
   </head>
 
   <body>
@@ -189,12 +188,9 @@
 
     <!-- JavaScript -->
     {% compress js %}
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-1.10.2.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/bootstrap.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jail.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery-ui.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/idangerous.swiper.js" %}"></script>
-    <script type="text/javascript" src="{% static "crsq/js/zippednewsapp/jquery.cookie.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/jquery-ui.js" %}"></script>
     {% endcompress %}
 	{% block jscontent %}
 	{% endblock %}
