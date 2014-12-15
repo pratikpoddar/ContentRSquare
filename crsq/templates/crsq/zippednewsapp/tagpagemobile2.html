@@ -72,6 +72,7 @@ body {
 	</script>
 	</div>
 
+		{% if articles %}
 		{% for article in articles %}
 
  		  {% if forloop.counter == 2 or forloop.counter|divisibleby:"4" %}
@@ -109,6 +110,11 @@ body {
 		  <hr/>
 
 		{% endfor %}
+		{% else %}
+                <div class="col-sm-3 col-lg-3 col-md-3" style="margin-bottom:2px;">
+		<h4>No results found! Please go to the homepage - <a href="http://www.zippednews.com" title="Zipped News">Zipped News</a>.</h4><br/><br/><br/>
+		</div>
+		{% endif %}
 
                 <div style="margin-top:15px;text-align:center" >
                      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -123,6 +129,7 @@ body {
                 </div>
 		<hr/>
 
+		{% if relatedtopics %}
                 <div style="margin-top:15px;" >
                         <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Related topics</div>
@@ -133,6 +140,7 @@ body {
                                 </ul>
                          </div>
                 </div>
+		{% endif %}
 
 {% endblock %}
 

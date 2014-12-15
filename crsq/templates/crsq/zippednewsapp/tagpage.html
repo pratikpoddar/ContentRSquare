@@ -40,9 +40,12 @@
 
 
 	    <h1>Real-time news related to "{{ tag | crsq_unslugify }}" </h1>
-	    <h2 style="font-size:100%"><em>Related to "{{ tag | crsq_unslugify }}"</em>:  {% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+	    {% if relatedtopics %}
+	    <h2 style="font-size:100%"><em>Related to "{{ tag | crsq_unslugify }}"</em>:{% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+	    {% endif %}
 	    <hr/>
 	    
+	    {% if articles %}
 	    {% for article in articles %}
 
 		{% if forloop.counter == 2 or forloop.counter|divisibleby:"4" %}
@@ -74,6 +77,11 @@
 		  </div>
 		  <hr/>
 	    {% endfor %}
+	    {% else %}
+	     <h4>
+	     No results found! Please go to the homepage - <a href="http://www.zippednews.com" title="Zipped News">Zipped News</a>.
+	     </h4>
+	    {% endif %}
 
 {% endblock %}
 
