@@ -131,15 +131,6 @@ class ImportantTags(models.Model):
     source = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
     
-class PenPatronUser(models.Model):
-    name = models.CharField(max_length=255L, null=False)
-    email = models.CharField(max_length=255L, null=False)
-    phone = models.CharField(max_length=255L, null=False)
-    college = models.CharField(max_length=1000L, null=False)
-    blog = models.CharField(max_length=1000L, null=False)
-    message = models.CharField(max_length=1000L, null=False)
-    time = models.DateTimeField(auto_now_add=True, blank=True)
-
 class EmailUser(models.Model):
     name = models.CharField(max_length=255L, null=False)
     email = models.CharField(max_length=255L, null=False, db_index=True, unique=True)

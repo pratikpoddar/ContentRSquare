@@ -23,9 +23,8 @@ import urlparse
 import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
-from crsq.linkbook import linkbook
 from crsq import dbcache
-from crsq.models import ArticleInfo, PenPatronUser, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo
+from crsq.models import ArticleInfo, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo
 
 from crsq.crsqlib import article_elastic_search, email_elastic_search, text_summarize
 
@@ -182,49 +181,9 @@ def gmailemailjs(request):
         jsonresponse = request.GET['jsonp_callback'] + '({"output":' + output + '})'
         return HttpResponse(jsonresponse)
 
-def linkbook_view(request):
-
-	sharer= {'name': "Zlemma Inc", 'link': "http://www.zlemma.com", 'image': "http://www.zlemma.com/static/common/img/logo.png"}
-	topic = "Recruting Industry is Changing"
-	quote = "Recruiting industry is evolving rapidly. We are moving towards technical recruitment. Recruiting market is being disrupted using algorithms and big data."
-	links = ["http://blogs.hbr.org/2012/10/digital-staffing-the-future-of/", "http://www.forbes.com/sites/georgeanders/2013/04/10/who-should-you-hire-linkedin-says-try-our-algorithm/", "http://www.nytimes.com/2013/04/28/technology/how-big-data-is-playing-recruiter-for-specialized-workers.html", "http://knowledge.wharton.upenn.edu/article/mind-your-social-presence-big-data-recruiting-has-arrived/", "http://www.nytimes.com/2007/01/03/technology/03google.html", "http://www.hackdiary.com/2010/02/10/algorithmic-recruitment-with-github/", "http://proofcommunication.com/proof-to-help-zlemma-the-latest-in-stem-talent-identification/1251"]
-
-        articles = linkbook.get_linkbook_articles(links)
-
-        template = loader.get_template('crsq/linkbook/index.html')
-
-        context = RequestContext(request, {
-                'article_list': articles,
-		'sharername': sharer['name'],
-		'sharerlink': sharer['link'],
-		'sharertopic': topic,
-		'sharerquote': quote,
-		'sharerimage': sharer['image']
-        })
-        return HttpResponse(template.render(context))
-	
 def tw_np_redirect(request):
 	return redirect('/twitterstreetjournal/technology/san-francisco-usa')
 
-def penp(request, notice=None):
-
-        template = loader.get_template('crsq/penpatron/index.html')
-        context = RequestContext(request, {'notice': notice})
-	return HttpResponse(template.render(context))
-
-def penpmessage(request):
-
-        if filter(lambda x: x not in request.GET.keys(), ['postName', 'postEmail', 'postPhone', 'postCollege', 'postBlog', 'postMessage']):
-		raise Http404
-
-	try:
-		ppuser = PenPatronUser(name=request.GET['postName'], email = request.GET['postEmail'], phone = request.GET['postPhone'], college = request.GET['postCollege'], blog = request.GET['postBlog'], message = request.GET['postMessage'])
-		ppuser.save()
-	except Exception as e:
-		logger.exception('views.py - penpmessage - error saving user details - ' + str(e) + ' ' + str(request.GET))
-	
-	return penp(request, notice="Thanks for your interest. One of our teammates will reach out to you in sometime")
-                
 def timenews(request, timeline_news_name):
 	
 	template = loader.get_template('crsq/timeline-news/timeline.html')

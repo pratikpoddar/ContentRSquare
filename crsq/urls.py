@@ -16,11 +16,6 @@ urlpatterns = patterns('',
 	url(r'^timeline-news/article/[a-zA-Z0-9-]+/([0-9]+)/?$', views.timenews_article, name='timenews_article'),
 	url(r'^timeline-news/([a-zA-Z0-9-]+)/?$', views.timenews, name='timenews'),
 
-	url(r'^penpatron/?$', views.penp, name='penp'),
-	url(r'^penpatron-message/?$', views.penpmessage, name='penpmessage'),
-
-        url(r'^linkbook/?$', views.linkbook_view, name='linkbook'),
-
 	url(r'^zippednewsapp/?$', views.zippednewsappwelcome, name='znw'),
 	url(r'^zippednewsapp/crsqsearch/([a-zA-Z0-9-]+)/?$', views.zippednewsapptaglist, name='zntl'),
 	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
