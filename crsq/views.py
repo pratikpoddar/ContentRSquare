@@ -61,7 +61,7 @@ def loggerdebug(request, string):
 
 def index(request):
 	now = datetime.now()
-        html = "<html><body>It is now %s.</body></html>" % now
+        html = "<html><body>It is now %s. Please contact Pratik Poddar - pratik 'dot' phodu 'at' gmail 'dot' com - for any query</body></html>" % now
         return HttpResponse(html)
 
 ##########################################################################################
