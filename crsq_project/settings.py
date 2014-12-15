@@ -1,4 +1,5 @@
 # Django settings for crsq_project project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -34,6 +35,8 @@ EMAIL_SUBJECT_PREFIX = "[CRSQ Django] "
 #        'PORT': '',                      # Set to empty string for default.
 #    }
 #}
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DATABASES = {
     'default': {

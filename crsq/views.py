@@ -36,7 +36,7 @@ import pygeoip
 import random
 from crsq.crsqlib.emailutils.emailutils import emailstr2tuples, relatedemailaddr
 import time
-
+from django.conf import settings
 
 from crsq import whatistrending
 
@@ -312,7 +312,7 @@ def zippednewsappwelcome(request):
 	if 'topicsearch' in request.GET.keys():
 		return redirect('http://www.zippednews.com/' + slugify(request.GET['topicsearch']))
 
-	googletrendsfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
+	googletrendsfile = open(settings.BASE_DIR+'/crsq/static/crsq/data/tags/googletrendstags.txt', 'r')
 	google_trends = pickle.load(googletrendsfile)
 	
 	def positioning(loc):
