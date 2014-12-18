@@ -3,13 +3,13 @@
 {% load tagfilter %}
 
 {% block title %}
-{{ title }}
+{{ title | truncatechars:65}}
 {% endblock %}
 
 {% block metadescription %}
 	{{ h1title }}
 	{% for article in articles %}
-		 - {{ article.articletitle }}
+		 - {{ article.articletitle | truncatechars:20 }}
 	{% endfor %}
 {% endblock %}
 
