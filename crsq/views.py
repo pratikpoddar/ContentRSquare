@@ -221,42 +221,81 @@ def timenews_article(request, articleid):
 ##########################################################################################
 ##########################################################################################
 
+def zippednewsapptrending(request, topic, topicname):
+
+	maxid = ArticleInfo.objects.all().order_by("-id")[0].id
+	ai = ArticleInfo.objects.filter(id__gt=maxid-500)
+	tagname = "top-trending-"+topicname
+	tag = tagname
+	bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].endswith('topic='+topic)), filter(lambda y: y['source'], ai.values('url', 'source')))
+
+	urls = map(lambda x: x['url'], bi)[-40:]
+       	random.shuffle(urls)
+	urls = urls[:14]
+	urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
+	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
+	title = tag.replace('-',' ').title()+ " News - ZippedNews"
+	h1title = tag.replace('-',' ').title()+ " News"
+
+        articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
+        articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
+        articletagsdump2 = collections.defaultdict(list)
+        for article in articletagsdump:
+                articletagsdump2[article['url']].append(article['tag'])
+        article_list = []
+
+        relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
+        relatedtopics = list(set(relatedtopics))
+        for article in articles:
+
+                domain = urlparse.urlparse(article['url'])[1]
+                try:
+                        articlesummary = ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]['summary']
+                except:
+                        articlesummary = None
+
+                try:
+                        articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+                except:
+                        articletags = []
+
+                article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
+
+        context = RequestContext(request, {
+                'articles' : article_list,
+                'tagname': tagname,
+                'relatedtopics': relatedtopics[:10],
+                'title': title,
+                'h1title': h1title,
+		'canonicalurl': 'http://www.zippednews.com/crsqtrending/'+topic+'/'+topicname
+        })
+
+        if request.mobile:
+                template = loader.get_template('crsq/zippednewsapp/tagpagemobile2.html')
+        else:
+                template = loader.get_template('crsq/zippednewsapp/tagpage.html')
+
+        return HttpResponse(template.render(context))
+
 def zippednewsapp(request, tag):
 
-	if tag=="latest-news" or tag=="top-trending":
-
-		maxid = ArticleInfo.objects.all().order_by("-id")[0].id
-		ai = ArticleInfo.objects.filter(id__gt=maxid-500)
-
-		if not(('topic' in request.GET.keys()) and ('name' in request.GET.keys())):
-			topic = ''
-			tag = tag
-                        bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0), filter(lambda y: y['source'], ai.values('url', 'source')))
-		else:
-			topic = request.GET['topic']
-			tag = request.GET['name'].lower()+"-"+tag
-			bi = filter(lambda x: (x['source'].find('feedanalyzerfromscratchhttps://news.google.com/')>=0) and (x['source'].endswith('topic='+topic)), filter(lambda y: y['source'], ai.values('url', 'source')))
-
-		urls = map(lambda x: x['url'], bi)[-40:]
-		random.shuffle(urls)
-		urls = urls[:14]
+	try:
+		if 'elasticsearchfail' in request.GET.keys():
+			if request.GET['elasticsearchfail']=="True":
+				raise
+		searchterm = tag.replace('-',' ').title()
+		searchterm2 = '"' + searchterm + '" ' + searchterm
+		urls = article_elastic_search.searchdoc(searchterm2, 15, recencyweight=15.0)
+		urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
+	except:
+		# Elastic Search Failed
+		urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
-		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
-	else:
-		try:
-			if 'elasticsearchfail' in request.GET.keys():
-				if request.GET['elasticsearchfail']=="True":
-					raise
-			searchterm = tag.replace('-',' ').title()
-			searchterm2 = '"' + searchterm + '" ' + searchterm
-			urls = article_elastic_search.searchdoc(searchterm2, 15, recencyweight=15.0)
-			urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
-	                urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
-		except:
-			# Elastic Search Failed
-			urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
-			urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
-			urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
+		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
+
+	title = tag.replace('-',' ').title() + " - Latest news on " + tag.replace('-',' ').title() + " - ZippedNews"
+	h1title = "Real-time news related to '" + tag.replace('-',' ').title() + "'"
 
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
@@ -284,8 +323,11 @@ def zippednewsapp(request, tag):
 
         context = RequestContext(request, {
                 'articles' : article_list,
-                'tag': tag,
-		'relatedtopics': relatedtopics[:10]
+                'tagname': tag,
+		'relatedtopics': relatedtopics[:10],
+		'title': title,
+		'h1title': h1title,
+		'canonicalurl': 'http://www.zippednews.com/'+tag
         })
 
 	if request.mobile:

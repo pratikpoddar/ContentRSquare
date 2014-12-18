@@ -15,6 +15,7 @@ urlpatterns = patterns('',
 
 	url(r'^zippednewsapp/?$', views.zippednewsappwelcome, name='znw'),
 	url(r'^zippednewsapp/crsqsearch/([a-zA-Z0-9-]+)/?$', views.zippednewsapptaglist, name='zntl'),
+        url(r'^zippednewsapp/crsqtrending/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?$', views.zippednewsapptrending, name='zntp'),
 	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
 
         url(r'^crsqsemanticsimilarityapi/([a-zA-Z0-9 ]+)/([a-zA-Z0-9 ]+)/?$', views.crsqsemanticsimilarityapi, name='crsqssapi'),
