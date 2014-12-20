@@ -85,10 +85,10 @@ def get_twitter_stories(topic):
 	all_words = []
 	n=0
 	stop = stopwords.words('english')
-	keyword = 'Shah Rukh Khan'
+	keyword = topic
 	for tweet in tweepy.Cursor(api.search, q=keyword, rpp=200, result_type="recent", include_entities=True, geocode="", lang="en").items():
 		n+=1
-		if n==600:
+		if n==20:
 			break
 		text_string = tweet.text
 		print text_string
@@ -113,8 +113,7 @@ def get_twitter_stories(topic):
 	words = [i for i in words if len(i)>2]
 
 	text = nltk.Text(words)
-	most_common = nltk.FreqDist(text).most_common(50)
-
+	most_common = sorted(nltk.FreqDist(text).items(), key=lambda x: -x[1])[:50]
 	tokens_bigram = re.split(r'\W+', read_data)
 	wnl = nltk.WordNetLemmatizer()
 	wnl_tokens = [wnl.lemmatize(t) for t in tokens_bigram]
