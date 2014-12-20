@@ -37,10 +37,13 @@ public class MainActivity extends Activity {
 	    if (datastr == null) {
 	    	datastr = "";
 	    }
-	    if (datastr.contains("android-app://com.zippednews/?q=") == true) {
+	    else if (datastr.contains("android-app://com.zippednews/?q=") == true) {
 	    	datastr = datastr.replace("android-app://com.zippednews/?q=", "http://www.zippednews.com/");
 	    }
-
+	    else {
+	    	datastr = "";
+	    }
+	    
 		if(isNetworkStatusAvialable (getApplicationContext())) {
 			
 			pd = ProgressDialog.show(this, "", "Loading...",true);
