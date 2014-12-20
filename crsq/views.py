@@ -231,7 +231,10 @@ def zippednewsapptrending(request, topic, topicname):
 
 	urls = map(lambda x: x['url'], bi)[-40:]
        	random.shuffle(urls)
-	urls = urls[:14]
+	if request.mobile:
+		urls = urls[:9]
+	else:
+		urls = urls[:12]
 	urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
 	title = tag.replace('-',' ').title()+ " News - ZippedNews"
@@ -293,6 +296,11 @@ def zippednewsapp(request, tag):
 		urls = map(lambda x: x['url'], ArticleTags.objects.filter(tag=tag).values('url'))
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
+
+        if request.mobile:
+                urls = urls[:6]
+        else:
+                urls = urls[:9]
 
 	title = tag.replace('-',' ').title() + " - Latest news on " + tag.replace('-',' ').title() + " - ZippedNews"
 	h1title = "Real-time news related to '" + tag.replace('-',' ').title() + "'"
