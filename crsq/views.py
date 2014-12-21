@@ -444,9 +444,10 @@ def viewwhatistrending(request):
 def whatistrendingwhattowrite(request):
 
     trends = [
-	{'country': 'Australia', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('au','tc')},
-        {'country': 'India', 'sector': 'Business', 'topics': whatistrending.google_trends.get_google_trends_topic_location('au','tc')}, 
-        {'country': 'Australia', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('au','tc')}, 	
+	{'country': 'India', 'sector': 'Business', 'topics': whatistrending.google_trends.get_google_trends_topic_location('in','b')},
+        {'country': 'India', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('in','tc')}, 
+        {'country': 'U.S.', 'sector': 'Business', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','b')}, 	
+        {'country': 'U.S.', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','tc')}, 
 	]
     context = RequestContext(request, {
 	'trends': trends,

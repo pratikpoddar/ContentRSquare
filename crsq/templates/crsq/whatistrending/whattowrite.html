@@ -5,11 +5,21 @@
 {% block bodycontent %}
 
 	{% for trend in trends %}
-		<p>{{ trend.country }}</p>
-		<p>{{ trend.sector }}</p>
-		{% for topic in trend.topics %}
-			<a href="#">{{topic}}</a><br/>
-		{% endfor %}
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th>{{ trend.country }} - {{ trend.sector }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for topic in trend.topics %}
+			<tr>
+				<td><a href="http://www.zippednews.com/{{ topic | slugify }}" target="_blank">{{topic}}</a></td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		<br/>
 	{% endfor %}
 
 {% endblock %}
