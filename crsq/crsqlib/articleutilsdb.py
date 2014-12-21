@@ -20,6 +20,8 @@ langid_identifier = langid.langid.identifier
 
 def put_article_details(url, source=None):
 	url = urlutils.getCanonicalUrl(url)
+	if DeleteLinks.objects.filter(url=url).count()>2:
+		return
 	if ArticleInfo.objects.filter(url=url).count()==0:
 		try:
 			articledict = articleutils.getArticlePropertiesFromUrl(url)
@@ -59,6 +61,8 @@ def put_article_details(url, source=None):
 
 def put_article_semantics_tags(url):
 	url = urlutils.getCanonicalUrl(url)
+        if DeleteLinks.objects.filter(url=url).count()>2:
+                return
 	if ArticleInfo.objects.filter(url=url).count()==0:
 		return
 	if ArticleSemantics.objects.filter(url=url).count()==0 or ArticleTags.objects.filter(url=url).count()==0:
