@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 	url(r'^content-affiliate-advertising/?$', views.caa, name='caa'),
 
 	url(r'^what-is-trending/?$', views.viewwhatistrending, name='whatistrending'),
+	url(r'^trending-what-to-write/?$', views.whatistrendingwhattowrite, name='whatistrendingwhattowrite'),
 
 	url(r'^twitterstreetjournal/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?$', views.tw_np, name='tw_np'),
 	url(r'^twitterstreetjournal/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([0-9]+)/?$', views.tw_np, name='tw_np'),
