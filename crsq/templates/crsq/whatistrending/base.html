@@ -1,0 +1,69 @@
+{% load staticfiles %}
+{% load tagfilter %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}What is Trending{% endblock %}</title>
+    {% compress css %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "crsq/css/whatistrending/bootstrap.min.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/whatistrending/bootstrap.readable.min.css" %}" rel="stylesheet"/>
+    <!-- Add custom CSS here -->
+    <link href="{% static "crsq/css/whatistrending/style.css" %}" rel="stylesheet"/>
+    {% endcompress %}
+  </head>
+
+  <body>
+
+    {% block navcontent %}
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" style="height:31px;" href="/">{% block navbartitle %}What is Trending{% endblock %}</a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+	  <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+   {% endblock %}
+
+    <div id="bodyarea" class="container">
+
+	{% block bodycontent %} {% endblock %}
+
+    </div><!-- /.container -->
+
+    {% block footercontent %}
+    <div class="container">
+      <hr>
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Pratik Poddar (<a href="http://www.linkedin.com/in/pratikpoddar" target="_blank">http://www.linkedin.com/in/pratikpoddar</a>)</p>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /.container -->
+
+    {% endblock %}
+
+    <!-- JavaScript -->
+    {% compress js %}
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/jquery-1.10.2.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "crsq/js/whatistrending/jquery-ui.js" %}"></script>
+    {% endcompress %}
+	{% block jscontent %}
+	{% endblock %}
+
+  </body>
+
+</html>

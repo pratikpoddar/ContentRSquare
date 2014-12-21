@@ -1,0 +1,16 @@
+{% extends "crsq/whatistrending/base.html" %}
+{% load staticfiles %}
+{% load tagfilter %}
+
+{% block bodycontent %}
+
+	{% for trend in trends %}
+		<p>{{ trend.country }}</p>
+		<p>{{ trend.sector }}</p>
+		{% for topic in trend.topics %}
+			<a href="#">{{topic}}</a><br/>
+		{% endfor %}
+	{% endfor %}
+
+{% endblock %}
+

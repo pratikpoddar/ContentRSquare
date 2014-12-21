@@ -19,6 +19,7 @@ def get_top_trends(gurl):
 def get_all_google_trends():
         return {'India': get_top_trends("http://www.google.co.in"), 'US': get_top_trends("http://www.google.com"), 'UK': get_top_trends("http://www.google.co.uk"), 'Australia': get_top_trends("http://www.google.com.au"), 'Spain': get_top_trends("http://www.google.es"), 'Brazil': get_top_trends("http://www.google.com.br"), 'Italy': get_top_trends("http://www.google.it"), 'France': get_top_trends("http://www.google.fr")}
 
+@lru_cache(maxsize=64)
 def get_google_trends_topic_location(country, topic):
         url = 'https://news.google.com/news/section?cf=all&topic='+topic+'&&ned='+country
         html = urllib2.urlopen(url).read()
