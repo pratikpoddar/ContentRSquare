@@ -56,10 +56,11 @@ def createarticleindex():
                                     		'compressed': True
                                   	},
                                   	'properties': {
-                                    		'tags': {
-							'type': 'string',
-        	                              		'index': 'not_analyzed'
-                                    		}
+                                    		'text': {'type': 'string', 'index': 'analyzed', 'analyzer': 'my_analyzer'},
+                                                'title': {'type': 'string', 'index': 'analyzed', 'analyzer': 'my_analyzer'},
+                                                'tags': {'type': 'string', 'index': 'analyzed', 'analyzer': 'my_analyzer'},
+                                                'url': {'type': 'string', 'index': 'analyzed', 'analyzer': 'my_analyzer'},
+                                                'domain': {'type': 'string', 'index': 'analyzed', 'analyzer': 'my_analyzer'},
                                   	}
                             	}
                     	}	
@@ -240,6 +241,7 @@ def searchdoc_clusters(urls, keywordstr):
 		countedurls += x
 	return filter(lambda x: len(x)>=2, finalclusters)
 
+createarticleindex()
 
 	
 	

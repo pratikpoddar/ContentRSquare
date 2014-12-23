@@ -459,7 +459,7 @@ def whatistrendingwhattowrite(request):
         {'country': 'U.S.', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','tc')}, 
 	]
 
-    pristine_constraints = {'wordlist': ['venture', 'pe firm', 'equity', 'stock market', 'stock exchange', 'share price', 'valuation', 'earnings', 'ipo', 'nyse', 'nse', 'bse', 'market price', 'investor', 'acquisition'] }
+    pristine_constraints = {'wordlist': ['venture', 'pe firm', 'equity', 'stock market', 'stock exchange', 'share price', 'valuation', 'earning', 'market price', 'investor', 'acquisition'] }
 
     pristine_valid_keywords = filter(lambda y: validkeyword(y, pristine_constraints), list(set(sum((map(lambda x: x['topics'], trends)),[]))))
     
