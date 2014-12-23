@@ -447,7 +447,7 @@ def whatistrendingwhattowrite(request):
         searchterm2 = '"' + keyword + '" ' + keyword
         urls = article_elastic_search.searchdoc(searchterm2, 15, recencyweight=20.0)
         urls = list(set(sum(map(lambda x: map(lambda y: y['url'], ArticleInfo.objects.filter(url__in=urls).filter(articlecontent__icontains=x).values('url')), constraint['wordlist']), [])))
-        if len(urls)>4:
+        if len(urls)>5:
             return True
         else:
             return False
@@ -459,7 +459,7 @@ def whatistrendingwhattowrite(request):
         {'country': 'U.S.', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','tc')}, 
 	]
 
-    pristine_constraints = {'wordlist': ['venture', 'pe firm', 'capital', 'equity', 'shares', 'stock', 'business', 'price', 'valuation', 'earning', 'ipo', 'nyse', 'nse', 'bse', 'market', 'investor', 'business', 'growth'] }
+    pristine_constraints = {'wordlist': ['venture', 'pe firm', 'equity', 'stock market', 'stock exchange', 'share price', 'valuation', 'earnings', 'ipo', 'nyse', 'nse', 'bse', 'market price', 'investor', 'acquisition'] }
 
     pristine_valid_keywords = filter(lambda y: validkeyword(y, pristine_constraints), list(set(sum((map(lambda x: x['topics'], trends)),[]))))
     
