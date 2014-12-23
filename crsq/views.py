@@ -461,7 +461,7 @@ def whatistrendingwhattowrite(request):
 
     pristine_constraints = {'wordlist': ['venture', 'pe firm', 'capital', 'equity', 'shares', 'stock', 'business', 'price', 'valuation', 'earning', 'ipo', 'nyse', 'nse', 'bse', 'market', 'investor', 'business', 'growth'] }
 
-    pristine_valid_keywords = filter(lambda y: validkeyword(y, pristine_constraints), list(set(map(lambda x: x['topics'], trends))))
+    pristine_valid_keywords = filter(lambda y: validkeyword(y, pristine_constraints), list(set(sum((map(lambda x: x['topics'], trends)),[]))))
     
     context = RequestContext(request, {
 	'trends': trends,
