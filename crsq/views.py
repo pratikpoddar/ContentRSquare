@@ -443,14 +443,29 @@ def viewwhatistrending(request):
 
 def whatistrendingwhattowrite(request):
 
+    def validkeyword(keyword, constraint):
+        searchterm2 = '"' + keyword + '" ' + keyword
+        urls = article_elastic_search.searchdoc(searchterm2, 15, recencyweight=20.0)
+        urls = list(set(sum(map(lambda x: map(lambda y: y['url'], ArticleInfo.objects.filter(url__in=urls).filter(articlecontent__icontains=x).values('url')), constraint['wordlist']), [])))
+        if len(urls)>4:
+            return True
+        else:
+            return False
+    
     trends = [
 	{'country': 'India', 'sector': 'Business', 'topics': whatistrending.google_trends.get_google_trends_topic_location('in','b')},
         {'country': 'India', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('in','tc')}, 
         {'country': 'U.S.', 'sector': 'Business', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','b')}, 	
         {'country': 'U.S.', 'sector': 'Technology', 'topics': whatistrending.google_trends.get_google_trends_topic_location('us','tc')}, 
 	]
+
+    pristine_constraints = {'wordlist': ['venture', 'pe firm', 'capital', 'equity', 'shares', 'stock', 'business', 'price', 'valuation', 'earning', 'ipo', 'nyse', 'nse', 'bse', 'market', 'investor', 'business', 'growth'] }
+
+    pristine_valid_keywords = filter(lambda y: validkeyword(y, pristine_constraints), list(set(map(lambda x: x['topics'], trends))))
+    
     context = RequestContext(request, {
 	'trends': trends,
+	'pristine_valid_keywords': pristine_valid_keywords,
     })
 
     template = loader.get_template('crsq/whatistrending/whattowrite.html')

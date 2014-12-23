@@ -4,6 +4,24 @@
 
 {% block bodycontent %}
 
+                <table class="table table-striped">
+                        <thead>
+                        <tr>
+                                <th>Pristine Valid Keywords</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for topic in pristine_valid_keywords %}
+                        <tr>
+                                <td><a href="http://www.zippednews.com/{{ topic | slugify }}" target="_blank">{{topic}}</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+                <br/>
+
+
+
 	{% for trend in trends %}
 		<table class="table table-striped">
 			<thead>
