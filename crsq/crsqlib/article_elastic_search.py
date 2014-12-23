@@ -112,7 +112,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 
 	bodyquery = {
             "custom_score": {
-                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*50000.0/"+maxarticleid+"))",
+                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*30000.0/"+maxarticleid+"))",
                 "query": {
                         "query_string": {"query": keywordstr, "fields": ["text", "title^4", "domain"]}
                 }
