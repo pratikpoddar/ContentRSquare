@@ -11,6 +11,8 @@ from urlparse import urlparse
 import langid
 import re
 from crsq.crsqlib.stringutils import *
+from crsq.crsqlib.twitter_posting import post_twitter_crsq
+from django.template.defaultfilters import slugify
 
 langid.langid.load_model()
 
@@ -82,6 +84,13 @@ def load_rss_in_table(rss_url, extractor):
 
 					articleutilsdb.put_article_semantics_tags(url)
 
+					try:
+						title = ArticleInfo.objects.get(url=url).articletitle
+						tags = map(lambda x: x['articletags'], ArticleTags.objects.filter(url=url).values('articletags'))
+						znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower() in title.lower(), tags), key=lambda x: -len(x))[0])
+						post_twitter_crsq(znlink, url, title, tags)
+					except:
+						pass
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	return
