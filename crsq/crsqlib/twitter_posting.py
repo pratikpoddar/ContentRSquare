@@ -11,6 +11,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def post_twitter_crsq(znlink, link, title, tags):
+    tags = sorted(tags, key=lambda x: -len(x))
     for tag in tags:
         if tag.replace('-',' ') in title.lower():
 	    tag = tag.replace('-',' ')
