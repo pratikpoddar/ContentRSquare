@@ -72,6 +72,7 @@ def load_rss_in_table(rss_url, extractor):
 			if urlutils.is_url_an_article(url):
 				url = urlutils.getCanonicalUrl(url)
 				if urlutils.is_url_an_article(url):
+					posted_before = ArticleInfo.objects.filter(url=url).count()
 					if extractor=="feed":
 						if 'content' in entry.keys() and 'title' in entry.keys():
 							feedanalyzer_put_article_details(entry, rss_url)
@@ -83,12 +84,12 @@ def load_rss_in_table(rss_url, extractor):
 						articleutilsdb.put_article_details(url, source="feedanalyzer"+extractor+rss_url)
 
 					articleutilsdb.put_article_semantics_tags(url)
-
 					try:
-						title = ArticleInfo.objects.get(url=url).articletitle
-						tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
-						znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower().replace('-',' ') in title.lower(), tags), key=lambda x: -len(x))[0])
-						post_twitter_crsq(znlink, url, title, tags)
+						if not posted_before:
+							title = ArticleInfo.objects.get(url=url).articletitle
+							tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
+							znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower().replace('-',' ') in title.lower(), tags), key=lambda x: -len(x))[0])
+							post_twitter_crsq(znlink, url, title, tags)
 					except:
 						pass
 	except Exception as e:
