@@ -1,7 +1,5 @@
 import tweepy
 
-logger = logging.getLogger(__name__)
-
 consumer_key="GvQlGiyFI3YwNtcYSfZkuxHLg"
 consumer_secret="i1jmdb41hjqxRHmXfncjcoY5ijq03Ha8Vd6XB2fpFKehHWXoLQ"
 access_token="2942029428-YKCKJL3QFOue7z0svpTAHGJeRC4pD7LrLlPDqWM"
