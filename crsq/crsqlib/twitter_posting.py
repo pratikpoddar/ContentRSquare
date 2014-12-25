@@ -12,6 +12,7 @@ api = tweepy.API(auth)
 
 def post_twitter_crsq(znlink, link, title, tags):
     tags = sorted(tags, key=lambda x: -len(x))
+    title = title[:100]
     for tag in tags:
         if tag.replace('-',' ') in title.lower():
 	    tag = tag.replace('-',' ')
