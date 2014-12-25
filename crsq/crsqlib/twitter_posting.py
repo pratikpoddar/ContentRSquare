@@ -14,9 +14,13 @@ api = tweepy.API(auth)
 
 def post_twitter_crsq(znlink, link, title, tags):
     for tag in tags:
-        if tag in title:
+        if tag.replace('-',' ') in title.lower():
+	    tag = tag.replace('-',' ')
             title = title.replace(" "+tag, " #"+tag)
-    
+            title = title.replace(" "+tag.title(), " #"+tag.title())
+            title = title.replace(" "+tag.capitalize(), " #"+tag.capitalize())
+            title = title.replace(" "+tag.upper(), " #"+tag.upper())
+
     tweet = title + " " + link + " " + znlink + " #ZippedNews"
     api.update_status(status=tweet)
     return

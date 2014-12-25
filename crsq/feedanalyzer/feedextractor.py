@@ -87,7 +87,7 @@ def load_rss_in_table(rss_url, extractor):
 					try:
 						title = ArticleInfo.objects.get(url=url).articletitle
 						tags = map(lambda x: x['articletags'], ArticleTags.objects.filter(url=url).values('articletags'))
-						znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower() in title.lower(), tags), key=lambda x: -len(x))[0])
+						znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower().replace('-',' ') in title.lower(), tags), key=lambda x: -len(x))[0])
 						post_twitter_crsq(znlink, url, title, tags)
 					except:
 						pass
