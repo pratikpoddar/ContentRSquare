@@ -68,6 +68,16 @@ def fa():
         feedextractor.load_rss_in_table("http://www.business-standard.com/rss/finance-103.rss", "fromscratch")
 	feedextractor.load_rss_in_table("http://www.pakistantribune.com.pk/feed", "fromscratch")
         feedextractor.load_rss_in_table("http://www.business-standard.com/rss/management-107.rss", "fromscratch")
+	feedextractor.load_rss_in_table("http://feeds.feedburner.com/dealbreaker", "fromscratch")
+	feedextractor.load_rss_in_table("http://feeds.feedburner.com/NakedCapitalism", "fromscratch")
+	feedextractor.load_rss_in_table("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml", "fromscratch")
+	feedextractor.load_rss_in_table("http://feeds.feedburner.com/zerohedge/feed", "fromscratch")
+	feedextractor.load_rss_in_table("http://feeds.feedburner.com/marginalrevolution/feed", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.zdnet.com/blog/rss.xml", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.zdnet.com/news/rss.xml", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/2147477989.cms", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/19124836.cms", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/19124827.cms", "fromscratch")
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
