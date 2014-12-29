@@ -3,13 +3,13 @@
 {% load tagfilter %}
 
 {% block title %}
-{{ title | truncatechars:65}}
+{{ title | safe | truncatechars:65}}
 {% endblock %}
 
 {% block metadescription %}
-	{{ h1title }}
+	{{ h1title | safe }}
 	{% for article in articles|slice:"5" %}
-		 - {{ article.articletitle | truncatechars:50 }}
+		 - {{ article.articletitle | safe | truncatechars:50 }}
 	{% endfor %}
 {% endblock %}
 

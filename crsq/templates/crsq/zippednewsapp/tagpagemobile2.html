@@ -3,7 +3,7 @@
 {% load tagfilter %}
 
 {% block title %}
-{{ title | truncatechars:65 }}
+{{ title | safe | truncatechars:65 }}
 {% endblock %}
 
 {% block navbartitle %}
@@ -12,9 +12,9 @@
 
 
 {% block metadescription %}
-        {{ h1title }}
+        {{ h1title | safe }}
         {% for article in articles|slice:"4" %}
-                 - {{ article.articletitle | truncatechars:40 }}
+                 - {{ article.articletitle | safe | truncatechars:40 }}
         {% endfor %}
 {% endblock %}
 
