@@ -8,8 +8,8 @@
 
 {% block metadescription %}
 	{{ h1title }}
-	{% for article in articles %}
-		 - {{ article.articletitle | truncatechars:20 }}
+	{% for article in articles|slice:"5" %}
+		 - {{ article.articletitle | truncatechars:50 }}
 	{% endfor %}
 {% endblock %}
 
