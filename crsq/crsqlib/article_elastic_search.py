@@ -98,7 +98,7 @@ def deleteurl(url):
 def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=12.0, highlight=False):
 
 	recency = recencyweight/1000000.0
-	maxarticleid = str(100000.0)
+	maxarticleid = str(400000.0)
         if keywordstr.strip()=='':
                 return []
 
