@@ -90,9 +90,10 @@
                     </div>
                     <hr/>
 
-		<div class="alert alert-error alert-dismissible fade in" role="alert">
-		      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-		      <strong>Yayy! You are saving 72% of your time.</strong>You are reading news quickly at Zipped News and saving time. <u><a style="color:inherit;" href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a></u>
+		<div class="row">
+		<div class="alert alert-primary" role="alert">
+		      <strong>Yayy! You are saving 72% of your time.</strong><br/>You are reading news quickly at Zipped News and saving time. <u><a style="color:inherit;" href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a></u>
+		</div>
 		</div>
 
 {% endblock %}
@@ -101,20 +102,6 @@
     <script>
 	$(window).load(function() { 
 	    $('.articleimage').jail({loadHiddenImages : true});
-
-	/*	
-	    var tweetplease = new jBox('Notice', {
-	        attributes:{x: 'right', y: 'bottom'},
-	        title: 'Yayy! You are saving <span style="font-size:120%">72%</span> of your time',
-	        content: 'You are reading news quickly at Zipped News and saving time. <u><a style="color:inherit;" href="http://ctt.ec/21ze0" target="_blank">Please tweet about us!</a></u>',
-		delayOpen:5000,
-		autoClose:7000,
-		animation: {open:'slide:left', close:'slide:right'}
-	    });
-	    tweetplease.open();
-	*/
-    
-
           });
     </script>
 
