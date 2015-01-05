@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 langid_identifier = langid.langid.identifier
 
-feedanalyzer_blocked_domains= ['guardianlv.com', 'investasian.com']
+feedanalyzer_blocked_domains= ['guardianlv.com', 'investasian.com', 'www.investasian.com']
 
 def pick_appropriate_url(entry):
 	url = ""
