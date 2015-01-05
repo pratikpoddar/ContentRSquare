@@ -5,6 +5,8 @@ from urlparse import urlparse
 import pickle
 from django.db.models import Count
 
+l = list(set(list(set(l2)-set(l1)) + list(set(l1)-set(l3)) + list(set(l3)-set(l1)) + l5 + l6 + l7 + l8))
+
 l1 = map(lambda x: x['url'], ArticleInfo.objects.all().values('url'))
 l2 = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))
 l3 = map(lambda x: x['url'], ArticleSemantics.objects.all().values('url'))
