@@ -87,8 +87,8 @@ def load_rss_in_table(rss_url, extractor):
 					try:
 						if not posted_before:
 							title = ArticleInfo.objects.get(url=url).articletitle
-							tags = map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag'))
-							znlink = "http://www.zippednews.com/"+slugify(sorted(filter(lambda x: x.lower().replace('-',' ') in title.lower(), tags), key=lambda x: -len(x))[0])
+							tags = sorted(map(lambda x: x['tag'], ArticleTags.objects.filter(url=url).values('tag')), key=lambda x:-len(x))
+							znlink = "http://www.zippednews.com/"+slugify(filter(lambda x: x.lower().replace('-',' ') in title.lower(), tags)[0])
 							post_twitter_crsq(znlink, url, title, tags)
 					except:
 						pass

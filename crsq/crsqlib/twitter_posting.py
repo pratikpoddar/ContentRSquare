@@ -22,7 +22,7 @@ def post_twitter_crsq(znlink, link, title, tags):
             title = title.replace(" "+tag.capitalize(), " #"+tag.capitalize().replace(' ',''))
             title = title.replace(" "+tag.upper(), " #"+tag.upper().replace(' ',''))
 
-    tweet = title + " " + link + " " + znlink + " #ZippedNews"
+    tweet = title + " " + link + " #ZippedNews " + znlink
     api.update_status(status=tweet)
     return
 
