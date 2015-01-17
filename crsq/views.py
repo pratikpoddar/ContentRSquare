@@ -24,7 +24,7 @@ import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq import dbcache
-from crsq.models import ArticleInfo, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo, ZnTagInput
+from crsq.models import ArticleInfo, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo, ZnInputTag
 
 from crsq.crsqlib import article_elastic_search, email_elastic_search, text_summarize
 
@@ -390,8 +390,8 @@ def zippednewsappwelcome(request):
 		'google_trends': gt,
 		'google_trends_mobile': filter(lambda x: ((len(x)>5) and (x[0].isdigit()==False)), list(set(google_trends['US'] + google_trends['India']))),
 		'topicimages': imagedict.items(),
-		'reporting_live_list': ZnTagInput.objects.filter(heading='reporting_live_list').values_list('tag', flat=True),
-		'movie_review_list': ZnTagInput.objects.filter(heading='movie_review_list').values_list('tag', flat=True),
+		'reporting_live_list': ZnInputTag.objects.filter(heading='reporting_live_list').values_list('tag', flat=True),
+		'movie_review_list': ZnInputTag.objects.filter(heading='movie_review_list').values_list('tag', flat=True),
         })
 
         return HttpResponse(template.render(context))
