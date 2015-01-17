@@ -34,7 +34,7 @@ def createarticleindex():
                                                     'type': 'edgeNGram',
                                                     'side': 'front',
                                                     'min_gram': '1',
-                                                    'max_gram': '25'
+                                                    'max_gram': '10'
 
                                             }
                                     },
@@ -42,7 +42,7 @@ def createarticleindex():
                                             'my_ngram_tokenizer' : {
                                                     'type' : 'nGram',
                                                     'min_gram' : '1',
-                                                    'max_gram' : '50'
+                                                    'max_gram' : '10'
                                             }
                                     }
                             }
