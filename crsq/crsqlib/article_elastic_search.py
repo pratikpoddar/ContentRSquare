@@ -150,7 +150,7 @@ def gettopterms():
 			"tag" : {
 				"terms" : {
 					"field" : "tags",
-					"size" : 30000
+					"size" : 40000
 					}
 				}
 			}
