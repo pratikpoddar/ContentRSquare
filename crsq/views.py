@@ -247,7 +247,7 @@ def zippednewsapptrending(request, topic, topicname):
                 articletagsdump2[article['url']].append(article['tag'])
         article_list = []
 
-        relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
+        relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(60)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
         relatedtopics = list(set(relatedtopics))
         for article in articles:
 
@@ -312,7 +312,7 @@ def zippednewsapp(request, tag):
 		articletagsdump2[article['url']].append(article['tag'])
 	article_list = []
 
-	relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(40)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
+	relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(60)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
 	relatedtopics = list(set(relatedtopics))
 	for article in articles:
 
