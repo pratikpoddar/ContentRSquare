@@ -130,7 +130,12 @@ class ImportantTags(models.Model):
     tag = models.CharField(max_length=255L, null=False)
     source = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
-    
+
+class ZnInputTag(models.Model):
+    tag = models.CharField(max_length=255L, null=False)
+    heading = models.CharField(max_length=255L, null=False)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+ 
 class EmailUser(models.Model):
     name = models.CharField(max_length=255L, null=False)
     email = models.CharField(max_length=255L, null=False, db_index=True, unique=True)
