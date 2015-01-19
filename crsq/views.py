@@ -314,6 +314,7 @@ def zippednewsapp(request, tag):
 
 	relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(60)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
 	relatedtopics = list(set(relatedtopics))
+
 	for article in articles:
 
 		domain = urlparse.urlparse(article['url'])[1]
@@ -332,7 +333,7 @@ def zippednewsapp(request, tag):
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tag,
-		'relatedtopics': relatedtopics[:10],
+		'relatedtopics': relatedtopics[:15],
 		'title': title,
 		'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/'+tag
