@@ -13,13 +13,10 @@
     <title>{% block title %}ZippedNews{% endblock %}</title>
     {% compress css %}
     <!-- Bootstrap core CSS -->
-    <link href="{% static "crsq/css/zippednewsapp/bootstrap.readable.min.css" %}" rel="stylesheet"/>
+    <link href="{% static "crsq/css/zippednewsapp/bootstrap.standstone.min.css" %}" rel="stylesheet"/>
     <!-- Add custom CSS here -->
     <link href="{% static "crsq/css/zippednewsapp/zippednewsapp.css" %}" rel="stylesheet"/>
     {% endcompress %}
-    <!--
-    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'/>
-    -->
     <link rel="alternate" href="android-app://com.zippednews/?q={{ request.path | cut:'/zippednewsapp/' | urlencode }}" />
     <link rel="shortcut icon" href="{% static 'crsq/img/zippednewsapp/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'crsq/img/zippednewsapp/favicon.ico' %}" type="image/x-icon">
