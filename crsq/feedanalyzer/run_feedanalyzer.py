@@ -85,6 +85,10 @@ def fa():
 	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/2147477989.cms", "fromscratch")
 	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/19124836.cms", "fromscratch")
 	feedextractor.load_rss_in_table("http://www.gizmodo.in/rss_section_feeds/19124827.cms", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.goodreturns.in/rss/money-business-news-fb.xml", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.drivespark.com/rss/drivespark-four-wheelers-fb.xml", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.drivespark.com/rss/drivespark-two-wheelers-fb.xml", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.gizbot.com/rss/gizbot-fb.xml", "fromscratch")
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
