@@ -138,7 +138,7 @@ def gmailemailjs_imap(request):
 	rlinks=[]
 	for emailhash in emailhashes:
 	        e = EmailInfo.objects.filter(emailhash=emailhash).values()[0]
-		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, weightfrontloading=20.0, recencyweight=0.0)
+		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.25, recencyweight=0.0)
 	        recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 		rlinks += recommendedlinks[:5]
 
@@ -287,8 +287,8 @@ def zippednewsapp(request, tag):
 			if request.GET['elasticsearchfail']=="True":
 				raise
 		searchterm = tag.replace('-',' ').title()
-		searchterm2 = '"' + searchterm + '" ' + searchterm
-		urls = article_elastic_search.searchdoc(searchterm2, num=15, recencyweight=18.0)
+		searchterm2 = searchterm + ' "' + searchterm + '"'
+		urls = article_elastic_search.searchdoc(searchterm2, num=15, recencyweight=15.0)
 		urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 	except:
@@ -530,7 +530,7 @@ def emailrecommender(request, emailhash):
 			subject = map(lambda x: x['subject'], EmailInfo.objects.filter(emailhash=ehash).values('subject'))
 			recommendedemails.append((subject, ehash))
 
-		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.55, weightfrontloading=20.0, recencyweight=0.0)
+		recommendedlinks = article_elastic_search.searchdoc(e['tags'].replace('-',' ').title(), num=30, threshold=0.55, recencyweight=0.0)
 		recommendedlinks = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=recommendedlinks).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:15])
 	
 		#introtags = re.compile(r'<[^>]+>').sub('', e['introductiontags'])

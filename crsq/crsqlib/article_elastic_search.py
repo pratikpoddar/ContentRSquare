@@ -102,19 +102,17 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
         if keywordstr.strip()=='':
                 return []
 
-	if weightfrontloading== 1.0:
-		keywordlist = keywordstr.split(' ')
-		keywordstr = keywordstr
-	else:
-		keywordlist = keywordstr.split(' ')
-		keywordpower = map(lambda y: 1+ (y**2-1)*(weightfrontloading-1)/(len(keywordlist)**2-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
-		keywordstr = ' '.join(map(lambda x: x[0]+"^"+str(x[1]), zip(keywordlist,keywordpower)))
+	keywordlist = keywordstr.split(' ')
+	keywordstr = keywordstr
+	#keywordlist = keywordstr.split(' ')
+	#keywordpower = map(lambda y: 1+ (y**2-1)*(weightfrontloading-1)/(len(keywordlist)**2-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
+	#keywordstr = ' '.join(map(lambda x: x[0]+"^"+str(x[1]), zip(keywordlist,keywordpower)))
 
 	bodyquery = {
             "custom_score": {
-                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*30000.0/"+maxarticleid+"))",
+                "script" : "_score * ("+str(1.0+recency)+"**(doc['articleid'].value*20000.0/"+maxarticleid+"))",
                 "query": {
-                        "query_string": {"query": keywordstr, "fields": ["text", "title^4", "domain", "tags"]}
+                        "query_string": {"query": keywordstr, "fields": ["text", "title^4", "domain", "tags^3"]}
                 }
             }
         }
