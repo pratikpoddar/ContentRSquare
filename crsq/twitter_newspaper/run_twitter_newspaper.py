@@ -10,7 +10,7 @@ from django_cron import CronJobBase, Schedule
 logger = logging.getLogger(__name__)
 
 def get_articles():
-	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-1000:]
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-500:]
 	ai = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
 	tobedeleted = map(lambda x: x['url'], DeleteLinks.objects.filter(url__in=tobeexpanded).values('url'))
@@ -33,7 +33,7 @@ def get_articles():
 	return
 
 def get_article_semantics_tags():
-	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-1000:]
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-500:]
 	ase = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ase))
 
@@ -46,7 +46,7 @@ def get_article_semantics_tags():
 def run_twitter_newspaper(tuser, tlist):
 	logger.exception("Starting to run twitter newspaper")
 	logger.debug('run_twitter_newspaper - Getting Twitter Newspaper Result ' + tuser + tlist)
-	twitter_newspaper.get_list_timeline(tuser, tlist, 200)
+	twitter_newspaper.get_list_timeline(tuser, tlist, 100)
 	get_articles()
 	logger.exception("Get articles done")
 	get_article_semantics_tags()
