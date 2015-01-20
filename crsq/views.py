@@ -267,7 +267,7 @@ def zippednewsapptrending(request, topic, topicname):
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tagname,
-                'relatedtopics': relatedtopics[:10],
+                'relatedtopics': relatedtopics[:25],
                 'title': title,
                 'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/crsqtrending/'+topic+'/'+topicname
@@ -333,7 +333,7 @@ def zippednewsapp(request, tag):
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tag,
-		'relatedtopics': relatedtopics[:15],
+		'relatedtopics': relatedtopics[:25],
 		'title': title,
 		'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/'+tag
