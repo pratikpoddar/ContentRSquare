@@ -129,7 +129,7 @@ body {
                         <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Related topics</div>
                                 <ul class="list-group">
-                                          {% for s in relatedtopics | slice:"10" %}
+                                          {% for s in relatedtopics|slice:"10" %}
                                           	<a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
                                            {% endfor %}
                                 </ul>
