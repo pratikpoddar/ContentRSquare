@@ -97,7 +97,7 @@ def load_rss_in_table(rss_url, extractor):
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
 	ending = ArticleInfo.objects.all().count()
 
-	logger.exception('feedanalyzer - load_rss_in_table - counting - ' + rss_url + ' ' + ending + ' ' + starting + ' ' + ending-starting)
+	logger.exception('feedanalyzer - load_rss_in_table - counting - ' + rss_url + ' ' + str(ending) + ' ' + str(starting) + ' ' + str(ending-starting))
 	return
 	
 def feedanalyzer_put_article_details(entry, rss_url):
