@@ -35,7 +35,7 @@
 
 	    <h1>{{ h1title }}</h1>
 	    {% if relatedtopics %}
-	    <h2 style="font-size:100%"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics|slice:"15" %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+	    <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics|slice:"15" %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
 	    {% endif %}
 	    <hr/>
 	    
@@ -91,7 +91,7 @@
                     <hr/>
 
             {% if relatedtopics %}
-            <h2 style="font-size:100%"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
+            <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics %} <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
             {% endif %}
             <hr/>
 
