@@ -243,12 +243,14 @@ def zippednewsapptrending(request, topic, topicname):
         articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
         articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
         articletagsdump2 = collections.defaultdict(list)
+        articletagslist = []
         for article in articletagsdump:
                 articletagsdump2[article['url']].append(article['tag'])
+                articletagslist.append(article['tag'])
         article_list = []
 
-        relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(60)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
-        relatedtopics = list(set(relatedtopics))
+        relatedtopics = list(set(filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(articletagslist).most_common(50)) + filter(lambda x: x in relevanttags, articletagslist))))
+
         for article in articles:
 
                 domain = urlparse.urlparse(article['url'])[1]
@@ -308,12 +310,13 @@ def zippednewsapp(request, tag):
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
 	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
 	articletagsdump2 = collections.defaultdict(list)
+	articletagslist = []
 	for article in articletagsdump:
 		articletagsdump2[article['url']].append(article['tag'])
+		articletagslist.append(article['tag'])
 	article_list = []
 
-	relatedtopics = filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(sum(articletagsdump2.values(),[])).most_common(60)) + filter(lambda x: x in relevanttags, sum(articletagsdump2.values(),[])))
-	relatedtopics = list(set(relatedtopics))
+	relatedtopics = list(set(filter(lambda y: (len(y)>5) and (len(y)<40) and (not y in tag) and (not tag in y), map(lambda x: x[0], Counter(articletagslist).most_common(50)) + filter(lambda x: x in relevanttags, articletagslist))))
 
 	for article in articles:
 
