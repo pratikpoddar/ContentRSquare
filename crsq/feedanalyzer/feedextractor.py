@@ -63,7 +63,6 @@ def pick_appropriate_url(entry):
 	
 def load_rss_in_table(rss_url, extractor):
 
-	starting = ArticleInfo.objects.all().count()	
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
@@ -95,9 +94,7 @@ def load_rss_in_table(rss_url, extractor):
 						pass
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
-	ending = ArticleInfo.objects.all().count()
 
-	logger.exception('feedanalyzer - load_rss_in_table - counting - ' + rss_url + ' ' + str(ending) + ' ' + str(starting) + ' ' + str(ending-starting))
 	return
 	
 def feedanalyzer_put_article_details(entry, rss_url):
