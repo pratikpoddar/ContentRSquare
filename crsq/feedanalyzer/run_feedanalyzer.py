@@ -101,6 +101,16 @@ def fa():
         feedextractor.load_rss_in_table("http://www.drivespark.com/rss/drivespark-four-wheelers-fb.xml", "fromscratch")
         feedextractor.load_rss_in_table("http://www.drivespark.com/rss/drivespark-two-wheelers-fb.xml", "fromscratch")
         feedextractor.load_rss_in_table("http://www.gizbot.com/rss/gizbot-fb.xml", "fromscratch")
+        feedextractor.load_rss_in_table("http://gulfnews.com/cmlink/1.734148", "fromscratch")
+        feedextractor.load_rss_in_table("http://gulfnews.com/cmlink/1.446098", "fromscratch")
+        feedextractor.load_rss_in_table("http://gulfnews.com/cmlink/1.446095", "fromscratch")
+        feedextractor.load_rss_in_table("http://gulfnews.com/cmlink/1.446097", "fromscratch")
+        feedextractor.load_rss_in_table("http://artsbeat.blogs.nytimes.com/feed/", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.dailymail.co.uk/articles.rss", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.dailymail.co.uk/home/index.rss", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.dailymail.co.uk/ushome/index.rss", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.dailymail.co.uk/tvshowbiz/index.rss", "fromscratch")
+        feedextractor.load_rss_in_table("http://www.dailymail.co.uk/auhome/index.rss", "fromscratch")
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
