@@ -97,16 +97,14 @@ def deleteurl(url):
 
 def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recencyweight=12.0, highlight=False):
 
+	# weightfrontloading and highlight is not working
+
 	recency = recencyweight/1000000.0
 	maxarticleid = str(400000.0)
         if keywordstr.strip()=='':
                 return []
 
-	keywordlist = keywordstr.split(' ')
 	keywordstr = keywordstr
-	#keywordlist = keywordstr.split(' ')
-	#keywordpower = map(lambda y: 1+ (y**2-1)*(weightfrontloading-1)/(len(keywordlist)**2-1), sorted(range(1,(len(keywordlist))+1), key=lambda x: -x))
-	#keywordstr = ' '.join(map(lambda x: x[0]+"^"+str(x[1]), zip(keywordlist,keywordpower)))
 
 	bodyquery = {
             "custom_score": {
@@ -124,7 +122,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 		    if hit['_score']>threshold:
 			    url = hit["_source"]["url"]
 			    highlight = list(set(map(lambda x: x.text.lower(), BeautifulSoup(' '.join(sum(hit['highlight'].values(), []))).find_all('em'))))
-			    highlight_search = ' '.join(list(set(' '.join(filter(lambda x: x.lower() in highlight, keywordlist)).split())))
+			    highlight_search = ''
 			    urls.append({'url':url, 'highlight': highlight_search})
 		return urls
 

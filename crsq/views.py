@@ -232,9 +232,9 @@ def zippednewsapptrending(request, topic, topicname):
 	urls = map(lambda x: x['url'], bi)[-40:]
        	random.shuffle(urls)
 	if request.mobile:
-		urls = urls[:9]
+		urls = urls[:7]
 	else:
-		urls = urls[:12]
+		urls = urls[:10]
 	urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 	urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url'))
 	title = tag.replace('-',' ').title()+ " News - ZippedNews"
@@ -293,7 +293,7 @@ def zippednewsapp(request, tag):
 			if request.GET['elasticsearchfail']=="True":
 				raise
 		searchterm = tag.replace('-',' ').title()
-		searchterm2 = searchterm + ' "' + searchterm + '"'
+		searchterm2 = '"' + searchterm + '" ' + searchterm
 		urls = article_elastic_search.searchdoc(searchterm2, num=15, recencyweight=15.0)
 		urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
@@ -304,9 +304,9 @@ def zippednewsapp(request, tag):
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 
         if request.mobile:
-                urls = urls[:6]
+                urls = urls[:5]
         else:
-                urls = urls[:9]
+                urls = urls[:8]
 
 	title = tag.replace('-',' ').title() + " - Latest news on " + tag.replace('-',' ').title() + " - ZippedNews"
 	h1title = "Real-time news related to \"" + tag.replace('-',' ').title() + "\""
