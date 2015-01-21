@@ -260,16 +260,20 @@ def zippednewsapptrending(request, topic, topicname):
                         articlesummary = None
 
                 try:
-                        articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+			if articlesummary:
+	                        articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+			else:
+				articletags = []
                 except:
                         articletags = []
-
-                article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
+		
+		if articlesummary:
+			article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tagname,
-                'relatedtopics': relatedtopics[:25],
+                'relatedtopics': relatedtopics[:20],
                 'title': title,
                 'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/crsqtrending/'+topic+'/'+topicname
@@ -327,16 +331,20 @@ def zippednewsapp(request, tag):
                 	articlesummary = None
 
 	        try:
-			articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+			if articlesummary:
+				articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+			else:
+				articletags = []
 	        except:
         	        articletags = []
 
-		article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
+		if articlesummary:
+			article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tag,
-		'relatedtopics': relatedtopics[:25],
+		'relatedtopics': relatedtopics[:20],
 		'title': title,
 		'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/'+tag
