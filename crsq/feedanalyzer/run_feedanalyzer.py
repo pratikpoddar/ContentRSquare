@@ -136,7 +136,9 @@ def fa():
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
         logger.exception('run_feedanalyzer - Google starts - ' + str(ArticleInfo.objects.all().count()))
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
+	countrylist = ["in", "us", "au", "uk"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
+        topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"]
 	for country in countrylist:
 		for topic in topiclist:
 			feedextractor.load_rss_in_table("https://news.google.com/news/feeds?ned=" + country + "&output=rss&topic="+topic, "fromscratch")
