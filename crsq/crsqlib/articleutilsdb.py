@@ -69,9 +69,10 @@ def put_article_semantics_tags(url):
 		try:
 			content = crsq_unicode(ArticleInfo.objects.filter(url=url).values('articlecontent')[0]['articlecontent'])
 			semantics_dict = articleutils.getArticleSemanticsTags(content)
-			semantics_row = ArticleSemantics(url=urlutils.getCanonicalUrl(url), summary = crsq_unicode(semantics_dict['summary']), topic = crsq_unicode(semantics_dict['topic']))
 			if ArticleSemantics.objects.filter(url=url).count()==0:
-				semantics_row.save()
+				semantics_row = ArticleSemantics(url=urlutils.getCanonicalUrl(url), summary = crsq_unicode(semantics_dict['summary']), topic = crsq_unicode(semantics_dict['topic']))
+				if ArticleSemantics.objects.filter(url=url).count()==0:
+					semantics_row.save()
 			if ArticleTags.objects.filter(url=url).count()==0:
 				for tag in semantics_dict['tags']:
 					tag_row = ArticleTags(url=url, tag=crsq_unicode(tag))
