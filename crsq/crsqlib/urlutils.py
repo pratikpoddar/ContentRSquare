@@ -52,6 +52,9 @@ def getSocialShares(url):
 	url = crsq_unicode(url)
 	fb = 0
 	tw = 0
+
+        return {'fb': fb, 'tw': tw}
+
 	try:
 		fb = int(simplejson.load(urllib2.urlopen("http://graph.facebook.com/?ids=" + url, timeout=3))[url]['shares'])
 	except Exception as e:
