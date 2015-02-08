@@ -39,7 +39,8 @@ def put_article_details(url, source=None):
 							except:
 								pass
 					except:
-						articleinfo.save()
+						if ArticleInfo.objects.filter(url=url).count()==0:
+							articleinfo.save()
 			else:
 				try:
 					dl = DeleteLinks(url=url, reason="Article Clean Text is less than 250 chars")
