@@ -302,6 +302,11 @@ def zippednewsapp(request, tag):
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 
+	if tag in ["gabi-grecko", "breasts", "porn"]:
+		urls= []
+	if filter(lambda x: x in tag, ["breasts", "porn", "sex-", "nude-", "-sex", "hot-pics"]):
+		urls = []
+
         if request.mobile:
                 urls = urls[:5]
         else:
