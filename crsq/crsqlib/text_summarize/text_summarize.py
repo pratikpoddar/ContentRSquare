@@ -65,11 +65,11 @@ def get_text_tags(text):
 		logger.exception('text_summarize.py - get_text_tags - adding to nltk_ne_tags - error - ' + str(e))
 		pass
 	
-	try:
-		output_tags += get_python_tagger(text, tag_meaning=False)
-	except Exception as e:
-		logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
-		pass
+	#try:
+	#	output_tags += get_python_tagger(text, tag_meaning=False)
+	#except Exception as e:
+	#	logger.exception('text_summarize.py - get_text_tags - error - ' + str(e))
+	#	pass
 
 	#try:
 	#	output_tags += get_topia_termextract(text, tag_meaning=False)
