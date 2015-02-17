@@ -286,7 +286,7 @@ def zippednewsapptrending(request, topic, topicname):
         return HttpResponse(template.render(context))
 
 def zippednewsapp(request, tag):
-
+	tag = tag.lower()
 	try:
 		if 'elasticsearchfail' in request.GET.keys():
 			if request.GET['elasticsearchfail']=="True":
