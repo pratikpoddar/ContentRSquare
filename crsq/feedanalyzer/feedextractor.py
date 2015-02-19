@@ -77,11 +77,13 @@ def load_rss_in_table(rss_url, extractor):
 						if 'content' in entry.keys() and 'title' in entry.keys():
 							feedanalyzer_put_article_details(entry, rss_url)
 						else:
-		                        	        articleutilsdb.put_article_details(url, source="feedanalyzer"+extractor+rss_url)
+							if urlutils.is_url_an_article(url):
+			                        	        articleutilsdb.put_article_details(url, source="feedanalyzer"+extractor+rss_url)
 
 					if extractor=="fromscratch":
 						url = urlutils.getLongUrl(url)
-						articleutilsdb.put_article_details(url, source="feedanalyzer"+extractor+rss_url)
+						if urlutils.is_url_an_article(url):
+							articleutilsdb.put_article_details(url, source="feedanalyzer"+extractor+rss_url)
 
 					articleutilsdb.put_article_semantics_tags(url)
 					try:

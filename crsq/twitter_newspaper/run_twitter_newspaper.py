@@ -21,13 +21,19 @@ def get_articles():
 
 	for l in tobeexpanded:
 		logger.debug("twitter newspaper - getting article_info " + l)
-		twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
-		## hack
-		twitter_newspaper.put_article_semantics_tags(l)
-		## hack
-		if ArticleInfo.objects.filter(url=l).count()==0:
+		if urlutils.is_url_an_article(l):
+			twitter_newspaper.put_article_details(l, source = 'twitter_newspaper')
+			## hack
+			twitter_newspaper.put_article_semantics_tags(l)
+			## hack
+			if ArticleInfo.objects.filter(url=l).count()==0:
+				if DeleteLinks.objects.filter(url=l).count()==0:
+					dl = DeleteLinks(url=l, reason="Reason could not be figured out")
+					dl.save()
+				TweetLinks.objects.filter(url=l).delete()
+		else:
 			if DeleteLinks.objects.filter(url=l).count()==0:
-				dl = DeleteLinks(url=l, reason="Reason could not be figured out")
+				dl = DeleteLinks(url=l, reason="Not an article")
 				dl.save()
 			TweetLinks.objects.filter(url=l).delete()
 	return
