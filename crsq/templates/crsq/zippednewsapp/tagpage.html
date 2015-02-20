@@ -37,7 +37,7 @@
 	    {% if relatedtopics %}
 	    <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics|slice:"15" %} <a href="/{{ s }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
 	    {% endif %}
-            <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related Shopping Links</em>:<a href="http://www.amazon.com/s/?field-keywords={{ s | crsq_unslugify | urlencode }}&tag=cb02-20" title="Amazon Link for {{ s | crsq_unslugify }}">"{{ s | crsq_unslugify }}" at amazon.com</a>, <a href="http://dl.flipkart.com/search?q={{ s | crsq_unslugify | urlencode }}&affid=pratikphod" title="Flipkart Link for {{ s | crsq_unslugify }}">"{{ s | crsq_unslugify }}" at flipkart.com</a></h2>
+            <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related Shopping Links</em>:<a target="_blank" rel="nofollow" href="http://www.amazon.com/s/?field-keywords={{ s | crsq_unslugify | urlencode }}&tag=cb02-20" title="Amazon Link for {{ s | crsq_unslugify }}">"{{ s | crsq_unslugify }}" at amazon.com</a>, <a target="_blank" rel="nofollow" href="http://dl.flipkart.com/search?q={{ s | crsq_unslugify | urlencode }}&affid=pratikphod" title="Flipkart Link for {{ s | crsq_unslugify }}">"{{ s | crsq_unslugify }}" at flipkart.com</a></h2>
 	    <hr/>
 	    
 	    {% if articles %}
