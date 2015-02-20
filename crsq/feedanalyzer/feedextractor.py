@@ -13,6 +13,7 @@ import re
 from crsq.crsqlib.stringutils import *
 from crsq.crsqlib.twitter_posting import post_twitter_crsq
 from django.template.defaultfilters import slugify
+from crsq.crsqlib.timeout import timeout
 
 langid.langid.load_model()
 
@@ -60,7 +61,8 @@ def pick_appropriate_url(entry):
                         return url
 		
 	return None	
-	
+
+@timeout(60.0)	
 def load_rss_in_table(rss_url, extractor):
 
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)

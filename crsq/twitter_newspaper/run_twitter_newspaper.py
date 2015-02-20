@@ -4,6 +4,7 @@ from datetime import datetime
 import logging
 from crsq.crsqlib.article_elastic_search import refreshdbtoes
 from random import shuffle
+from crsq.crsqlib.timeout import timeout
 
 from django_cron import CronJobBase, Schedule
 
@@ -60,6 +61,7 @@ def run_twitter_newspaper(tuser, tlist):
 	#logger.exception('run_twitter_newspaper: ' + tuser + ' ' + tlist + ' articleinfo ' + str(ArticleInfo.objects.all().count()) + ' articlesemantics ' + str(ArticleSemantics.objects.all().count()) + ' articletags ' + str(ArticleTags.objects.values('url').distinct().count()) + ' tweetlinks ' + str(TweetLinks.objects.values('url').distinct().count()))
 	return
 
+@timeout(600.0)
 def time_dependent_tw_np(toberun):
 
 	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
