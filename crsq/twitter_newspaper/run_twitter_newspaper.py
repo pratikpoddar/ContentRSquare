@@ -10,8 +10,9 @@ from django_cron import CronJobBase, Schedule
 
 logger = logging.getLogger(__name__)
 
+@timeout(300.0)
 def get_articles():
-	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-500:]
+	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-1000:]
 	ai = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=tl).values('url'))
 	tobeexpanded = list(set(tl)-set(ai))
 	tobedeleted = map(lambda x: x['url'], DeleteLinks.objects.filter(url__in=tobeexpanded).values('url'))
@@ -39,6 +40,7 @@ def get_articles():
 			TweetLinks.objects.filter(url=l).delete()
 	return
 
+@timeout(300.0)
 def get_article_semantics_tags():
 	tl = map(lambda x: x['url'], TweetLinks.objects.all().values('url'))[-500:]
 	ase = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=tl).values('url'))
