@@ -6,13 +6,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class TimeoutError(Exception e):
-    logger.exception(str(e))
+class TimeoutError(Exception):
     pass
 
 def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
     def decorator(func):
         def _handle_timeout(signum, frame):
+            logger.exception(error_message)
             raise TimeoutError(error_message)
 
         def wrapper(*args, **kwargs):
