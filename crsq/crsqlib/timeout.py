@@ -2,8 +2,12 @@ from functools import wraps
 import errno
 import os
 import signal
+import logging
 
-class TimeoutError(Exception):
+logger = logging.getLogger(__name__)
+
+class TimeoutError(Exception e):
+    logger.exception(str(e))
     pass
 
 def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
