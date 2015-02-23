@@ -119,13 +119,14 @@ def fa():
         feedextractor.load_rss_in_table("http://www.dailymail.co.uk/home/index.rss", "fromscratch")
         feedextractor.load_rss_in_table("http://www.dailymail.co.uk/ushome/index.rss", "fromscratch")
         feedextractor.load_rss_in_table("http://www.dailymail.co.uk/tvshowbiz/index.rss", "fromscratch")
+	feedextractor.load_rss_in_table("http://www.dailymail.co.uk/auhome/index.rss", "fromscratch")
         #logger.exception('run_feedanalyzer - Yahoo starts - ' + str(ArticleInfo.objects.all().count()))
 	feedextractor.load_rss_in_table("https://www.yahoo.com/tech/rss", "feed")
         #logger.exception('run_feedanalyzer - Google starts - ' + str(ArticleInfo.objects.all().count()))
 	countrylist = ["in", "us", "au", "uk", "en_sg"]
-	countrylist = ["in", "us", "au", "uk"]
+	#countrylist = ["in", "us", "au", "uk"]
 	topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e", "p", "n"]
-        topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"]
+        #topiclist = ["t", "s", "snc", "m", "w", "b", "ir", "h", "e"]
 	for country in countrylist:
 		for topic in topiclist:
 			feedextractor.load_rss_in_table("https://news.google.com/news/feeds?ned=" + country + "&output=rss&topic="+topic, "fromscratch")
@@ -138,6 +139,7 @@ def fa():
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml?edition=int", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/health/rss.xml?edition=int", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml?edition=int", "fromscratch")
+	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/rss.xml?edition=int", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/world/europe/rss.xml?edition=int", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/world/middle_east/rss.xml?edition=int", "fromscratch")
 	feedextractor.load_rss_in_table("http://feeds.bbci.co.uk/news/world/asia/rss.xml?edition=int", "fromscratch")
