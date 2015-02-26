@@ -174,6 +174,7 @@ INSTALLED_APPS = (
 
 LOG_DIR='/home/ubuntu/django_log'
 COMPRESS_ROOT = '/home/ubuntu/crsq/crsq/static/'
+DATA_DIR='/home/ubuntu/crsq/crsq/static/crsq/data/'
 
 CRON_CLASSES = [
     "crsq.feedanalyzer.run_feedanalyzer.getFeedAnalyzer",
