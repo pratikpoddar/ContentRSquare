@@ -58,9 +58,10 @@ def get_text_tags(text):
 		if output_tags:
 			## adding to the list of nltk ne tags
 			for tag in list(set(map(lambda x: slugify(x), output_tags))):
-				if ImportantTags.objects.filter(tag=tag, source="nltk_ne_tag").count()==0:
-					imptag = ImportantTags(tag=tag, source="nltk_ne_tag")
-					imptag.save()	
+				if len(tag)>=4:
+					if ImportantTags.objects.filter(tag=tag, source="nltk_ne_tag").count()==0:
+						imptag = ImportantTags(tag=tag, source="nltk_ne_tag")
+						imptag.save()	
 	except Exception as e:
 		logger.exception('text_summarize.py - get_text_tags - adding to nltk_ne_tags - error - ' + str(e))
 		pass
