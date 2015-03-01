@@ -4,6 +4,7 @@ from crsq.crsqlib.text_summarize import text_summarize
 from urlparse import urlparse
 import pickle
 from django.db.models import Count
+from django.conf import settings
 
 """
 toptagshelp = map(lambda x: x['tag'], ArticleTags.objects.values('tag').annotate(Count('url')).order_by('-url__count')[:500])
@@ -42,7 +43,8 @@ def check_if_googlesearch_is_a_tag(googlesearch):
 	return None
 
 #google_trends = {k: filter(lambda y: y, list(set(map(lambda x: check_if_googlesearch_is_a_tag(x), v)))) for k, v in google_trends.items()}
-tagfile = open('/home/ubuntu/crsq/crsq/static/crsq/data/tags/googletrendstags.txt', 'w')
+
+tagfile = open(settings.DATA_DIR + 'tags/googletrendstags.txt', 'w')
 pickle.dump(google_trends, tagfile)
 tagfile.close()
 
