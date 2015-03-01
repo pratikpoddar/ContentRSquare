@@ -76,7 +76,7 @@ def put_article_semantics_tags(url):
 					semantics_row.save()
 			if ArticleTags.objects.filter(url=url).count()==0:
 				for tag in semantics_dict['tags']:
-					if len(tag)>4:
+					if len(tag)>=4:
 						tag_row = ArticleTags(url=url, tag=crsq_unicode(tag))
 						if ArticleTags.objects.filter(url=url, tag=crsq_unicode(tag)).count()==0:
 							tag_row.save()
