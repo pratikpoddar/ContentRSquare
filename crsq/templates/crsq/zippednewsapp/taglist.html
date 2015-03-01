@@ -36,7 +36,7 @@ ZippedNews - Real-time news on Popular Topics
         <div class="row">
                     {% for tag in taglist %}
                         <div class="col-sm-3 col-lg-3 col-md-3">
-                        	<p class="list-group-item-text"><a href="/{{ tag | slugify }}">{{ tag | crsq_unslugify }}</a></p>
+                        	<p class="list-group-item-text" style="margin-top:8px;margin-bottom:8px;"><a href="/{{ tag | slugify }}">{{ tag | crsq_unslugify }}</a></p>
                         </div>
                     {% endfor %}
                 <br/>
