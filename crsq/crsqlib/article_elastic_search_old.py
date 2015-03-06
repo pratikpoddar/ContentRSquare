@@ -19,7 +19,7 @@ tracer.addHandler(logging.FileHandler(settings.ES_LOGS+'debug.log'))
 def createarticleindex():
 
 	es.indices.create(
-            index="article-index-2",
+            index="article-index",
             body={
                     'settings': {
                             'analysis': {
@@ -82,14 +82,14 @@ def indexdoc(articledict):
 	}
 	
 	createarticleindex()
-	res = es.index(index="article-index-2", doc_type='article', body=doc, id=articledict['url'])
+	res = es.index(index="article-index", doc_type='article', body=doc, id=articledict['url'])
 
 	return
 
 def deleteurl(url):
 	
 	try:
-		es.delete(index="article-index-2", doc_type="article", id=url)
+		es.delete(index="article-index", doc_type="article", id=url)
 	except:
 		pass
 
@@ -116,7 +116,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
         }
 
 	if highlight==True:
-	        res = es.search(index="article-index-2", size=max(num, 10), body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
+	        res = es.search(index="article-index", size=max(num, 10), body={"query": bodyquery, "highlight" : {"fields" : {"*" : {}}}})
 		urls = []
 		for hit in res['hits']['hits']:
 		    if hit['_score']>threshold:
@@ -127,7 +127,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 		return urls
 
 	else:
-		res = es.search(index="article-index-2", fields="url", body={"query": bodyquery}, size=max(num,10))
+		res = es.search(index="article-index", fields="url", body={"query": bodyquery}, size=max(num,10))
 		urls = []
 		for hit in res['hits']['hits']:
 		    if hit['_score']>threshold:
@@ -152,11 +152,11 @@ def gettopterms():
 			}
 	}
 
-	res = es.search(index="article-index-2", body=body)
+	res = es.search(index="article-index", body=body)
 	return map(lambda x: x['term'], res['facets']['tag']['terms'])
 
 def getall():
-	res = es.search(index="article-index-2", body={"query": {"match_all": {}}}, size=500000, fields="")
+	res = es.search(index="article-index", body={"query": {"match_all": {}}}, size=500000, fields="")
         print("Getting all elements indexed - Got %d Hits" % res['hits']['total'])
 	if res['hits']['total']>0:
 		urls = map(lambda hit: hit["_id"], res['hits']['hits'])
@@ -204,7 +204,7 @@ def force_refreshdbtoes():
 
 def num_articles_search_exact(string):
 
-	res = es.search(index="article-index-2", body={"query": {"query_string": {"query": '"' + string + '"', "fields": ["text", "title"]}}}, fields="", size=0)
+	res = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string + '"', "fields": ["text", "title"]}}}, fields="", size=0)
 	return res['hits']['total']
 
 # Based on http://www2007.org/papers/paper632.pdf
@@ -212,9 +212,9 @@ def semantic_closeness_webdice(string1, string2):
 
 	string1 = string1.lower()
 	string2 = string2.lower()
-	num1 = es.search(index="article-index-2", body={"query": {"query_string": {"query": '"' + string1 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
-	num2 = es.search(index="article-index-2", body={"query": {"query_string": {"query": '"' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
-	num12 = es.search(index="article-index-2", body={"query": {"query_string": {"query": '"' + string1 + '" AND "' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+	num1 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+	num2 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
+	num12 = es.search(index="article-index", body={"query": {"query_string": {"query": '"' + string1 + '" AND "' + string2 + '"', "fields": ["text", "title"]}}}, fields="", size=0)['hits']['total']
 
 	if float(num12)>30:
 		ratio = 2.0*float(num12)/(float(num1)+float(num2))
@@ -225,7 +225,7 @@ def semantic_closeness_webdice(string1, string2):
 
 def searchdoc_clusters(urls, keywordstr):
 
-	url = 'http://localhost:9200/article-index-2/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title,text,tags,url&algorithm=stc'
+	url = 'http://localhost:9200/article-index/article/_search_with_clusters?q=' + keywordstr + '&size=100&field_mapping_title=fields.title&field_mapping_content=fields.tags&fields=title,text,tags,url&algorithm=stc'
 	clusters = json.loads(requests.get(url).text)['clusters']
 	clusters = map(lambda x: x['documents'], filter(lambda x: not (x['label']=="Other Topics"), clusters))
 	clusters = map(lambda x: filter(lambda y: y in urls, x), clusters)
