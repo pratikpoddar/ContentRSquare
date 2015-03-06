@@ -316,7 +316,7 @@ def zippednewsapp(request, tag):
 	h1title = "Real-time news related to \"" + tag.replace('-',' ').title() + "\""
 
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()
-	articletagsdump = ArticleTags.objects.filter(url__in=urls).values('tag', 'url')
+	articletagsdump = ArticleTags.objects.filter(url__in=urls).values()
 	articletagsdump2 = collections.defaultdict(list)
 	articletagslist = list(set(map(lambda x: x['tag'], articletagsdump)))
 	for article in articletagsdump:
@@ -329,7 +329,7 @@ def zippednewsapp(request, tag):
 
 		domain = urlparse.urlparse(article['url'])[1]
 		try:
-                	articlesummary = ArticleSemantics.objects.filter(url=article['url']).values('summary')[0]['summary']
+                	articlesummary = ArticleSemantics.objects.get(url=article['url']).summary
 		except:
                 	articlesummary = None
 
