@@ -153,7 +153,7 @@ def gettopterms():
 	}
 
 	res = es.search(index="article-index-2", body=body)
-	return map(lambda x: x['term'], res['facets']['tag']['terms'])
+	return filter(lambda y: len(y)>=4, map(lambda x: x['term'], res['facets']['tag']['terms']))
 
 def getall():
 	res = es.search(index="article-index-2", body={"query": {"match_all": {}}}, size=500000, fields="")
