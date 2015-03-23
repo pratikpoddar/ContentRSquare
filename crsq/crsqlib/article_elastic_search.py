@@ -100,7 +100,7 @@ def searchdoc(keywordstr, num=30, threshold=0.0, weightfrontloading=1.0, recency
 	# weightfrontloading and highlight is not working
 
 	recency = recencyweight/1000000.0
-	maxarticleid = str(400000.0)
+	maxarticleid = str(800000.0)
         if keywordstr.strip()=='':
                 return []
 
