@@ -293,7 +293,7 @@ def zippednewsapp(request, tag):
 				raise
 		searchterm = tag.replace('-',' ').title()
 		searchterm2 = '"' + searchterm + '" ' + searchterm
-		urls = article_elastic_search.searchdoc(searchterm2, num=15, recencyweight=15.0)
+		urls = article_elastic_search.searchdoc(searchterm2, num=15, recencyweight=10.0)
 		urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 	except:
@@ -302,9 +302,9 @@ def zippednewsapp(request, tag):
 		urls = map(lambda x: x['url'], ArticleSemantics.objects.filter(url__in=urls).exclude(summary=None).exclude(summary='').values('url'))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 
-	if tag in ["gabi-grecko", "breasts", "porn"]:
+	if tag in ["gabi-grecko", "breasts", "porn", "jihadi"]:
 		urls= []
-	if filter(lambda x: x in tag, ["breasts", "porn", "sex-", "nude-", "-sex", "hot-pics"]):
+	if filter(lambda x: x in tag, ["breasts", "porn", "sex-", "nude-", "-sex", "hot-pics", "jihadi"]):
 		urls = []
 
         if request.mobile:
