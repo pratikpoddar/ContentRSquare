@@ -59,6 +59,30 @@ ZippedNews: Real-time news on Popular Topics - Hate reading full page long artic
 
         <div class="row">
                         <div class="panel panel-default" style="text-align:center">
+                                <div class="panel-heading">Latest News on Trending Topics</div>
+                                        <ul class="list-group list-group-left col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
+                                                {% for s in google_trends_mobile %}
+                                                        {% cycle "1" "0" as row silent %}
+                                                                {% ifequal row "1" %}
+                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic s %}{{ image }}{% endifequal %}{% endfor %}" alt="{{ s | crsq_unslugify }} News" title="{{ s | crsq_unslugify }} News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                {% endifequal %}
+                                                {% endfor %}
+                                          </ul>
+                                        <ul class="list-group list-group-right col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
+                                                {% for s in google_trends_mobile %}
+                                                        {% cycle "0" "1" as row silent %}
+                                                                {% ifequal row "1" %}
+                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic s %}{{ image }}{% endifequal %}{% endfor %}" alt="{{ s | crsq_unslugify }} News" title="{{ s | crsq_unslugify }} News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
+                                                                {% endifequal %}
+                                                {% endfor %}
+                                          </ul>
+
+                        </div>
+                <br/>
+        </div>
+	<br/>
+        <div class="row">
+                        <div class="panel panel-default" style="text-align:center">
                                 <div class="panel-heading">Latest News by Category</div>
                                         <ul class="list-group list-group-left col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;">
                                             <a href="http://www.zippednews.com/crsqtrending/t/Technology" title="Technology - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic "zippednewscrsqt" %}{{ image }}{% endifequal %}{% endfor %}"><p class="list-group-item-text">Technology</p></a>
@@ -78,29 +102,6 @@ ZippedNews: Real-time news on Popular Topics - Hate reading full page long artic
                 <br/>
         </div>
 	<br/>
-        <div class="row">
-                    	<div class="panel panel-default" style="text-align:center">
-                        	<div class="panel-heading">Latest News on Trending Topics</div>
-	                                <ul class="list-group list-group-left col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
-                                                {% for s in google_trends_mobile %}
-							{% cycle "1" "0" as row silent %}
-								{% ifequal row "1" %} 
-                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic s %}{{ image }}{% endifequal %}{% endfor %}" alt="{{ s | crsq_unslugify }} News" title="{{ s | crsq_unslugify }} News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-								{% endifequal %}
-                                                {% endfor %}
-                                          </ul>
-                                        <ul class="list-group list-group-right col-xs-6 col-sm-6 col-md-6" style="padding-left:0px;padding-right:0px;">
-                                                {% for s in google_trends_mobile %}
-							{% cycle "0" "1" as row silent %}
-								{% ifequal row "1" %}
-                                                                <a href="/{{ s | slugify }}" title="{{ s | crsq_unslugify }} - Real Time News" class="list-group-item"><img class="descimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{% for keytopic, image in topicimages %}{% ifequal keytopic s %}{{ image }}{% endifequal %}{% endfor %}" alt="{{ s | crsq_unslugify }} News" title="{{ s | crsq_unslugify }} News"><p class="list-group-item-text">{{ s | crsq_unslugify }}</p></a>
-								{% endifequal %}
-                                                {% endfor %}
-                                          </ul>
-
-                        </div>
-                <br/>
-        </div>
 	<br/><br/>
 	<div class="row well">
 		or choose a topic of your interest<br/>
