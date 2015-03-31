@@ -312,6 +312,9 @@ def zippednewsapp(request, tag):
         else:
                 urls = urls[:8]
 
+	if len(urls)==0:
+		ArticleTags.objects.filter(tag=tag).delete()
+
 	title = tag.replace('-',' ').title() + " - Latest news on " + tag.replace('-',' ').title() + " - ZippedNews"
 	h1title = "Real-time news related to \"" + tag.replace('-',' ').title() + "\""
 
