@@ -15,6 +15,22 @@ def crsq_unicode(s):
         if s  == None:
                 return s
 
+        try:
+                s = s.replace(u'\xc2\xa0', ' ')
+        except:
+                pass
+
+        try:
+                s = s.replace(u'\xc2', ' ')
+        except:
+                pass
+
+        try:
+                s = s.replace(u'\xa0', ' ')
+        except:
+                pass
+
+
         if isinstance(s, unicode):
 		return s
         else:
