@@ -46,9 +46,9 @@ time.sleep(60)  # Delay for 1 minute (60 seconds)
 
 relevanttags = []
 try:
-	relevanttags = article_elastic_search.gettopterms()
+	relevanttags = filter(lambda x: len(x)>4, article_elastic_search.gettopterms())
 except:
-	relevanttags = dbcache.getRelevantTags()
+	relevanttags = filter(lambda x: len(x)>4, dbcache.getRelevantTags())
 
 ##########################################################################################
 ##########################################################################################
