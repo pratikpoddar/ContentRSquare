@@ -292,8 +292,8 @@ def zippednewsapp(request, tag):
 			if request.GET['elasticsearchfail']=="True":
 				raise
 		searchterm = tag.replace('-',' ').title()
-		searchterm2 = searchterm + ' "' + searchterm + '"'
-		urls = article_elastic_search.searchdoc(searchterm2, num=13, recencyweight=9.0)
+		searchterm2 = '"' + searchterm + '" ' + searchterm
+		urls = article_elastic_search.searchdoc(searchterm2, num=12, recencyweight=7.5)
 		urls = map(lambda y: y['url'], filter(lambda x: not ((x['summary'] == None) or (x['summary'] == '')), ArticleSemantics.objects.filter(url__in=urls).values()))
 		urls = map(lambda x: x['url'], ArticleInfo.objects.filter(url__in=urls).exclude(articleimage='').exclude(articleimage=None).order_by('-id').values('url')[:9])
 	except:
