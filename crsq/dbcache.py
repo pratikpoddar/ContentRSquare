@@ -12,9 +12,9 @@ ai = ArticleInfo.objects.filter(id__gt=maxid-400)
 @lru_cache(maxsize=1024)
 def getRelevantTags():
 
-        relevanttags = sorted(filter(lambda x: len(x)<20, list(set(map(lambda x: x['tag'], ImportantTags.objects.all().values('tag'))))))
+        relevanttags = filter(lambda x: len(x)<20, list(set(map(lambda x: x['tag'], ImportantTags.objects.filter(tag__contains='-').filter(source__contains='google_trend').values('tag')))))
 
-	return filter(lambda x: len(x)>=4, relevanttags)
+	return relevanttags
 
 @lru_cache(maxsize=1024)
 def getAppropriateImageTag(tag):
