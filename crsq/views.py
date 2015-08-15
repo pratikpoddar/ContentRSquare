@@ -315,7 +315,7 @@ def zippednewsapp(request, tag):
 	if len(urls)==0:
 		ArticleTags.objects.filter(tag=tag).delete()
 
-	title = tag.replace('-',' ').title() + " - Latest news on " + tag.replace('-',' ').title() + " - ZippedNews"
+	title = '"' + tag.replace('-',' ').title() + '"' + " - Latest news on " + '"' + tag.replace('-',' ').title() + '"' + " - ZippedNews"
 	h1title = "Real-time news related to \"" + tag.replace('-',' ').title() + "\""
 
 	articles = ArticleInfo.objects.filter(url__in=urls).order_by('-id').values()

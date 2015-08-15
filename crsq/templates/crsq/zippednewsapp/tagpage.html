@@ -58,9 +58,6 @@
 		{% endif %}
 
 		  <div class="row" style="margin-top:15px;">
-		  <div class="col-sm-3 col-lg-3 col-md-3" style="border:solid;border-color:#eee;padding:9px;border-width:2px;">
-		  <img class="articleimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" title="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
-		  </div>
 		  <div class="col-sm-9 col-lg-9 col-md-9">
 		  <h4 style="margin-top:0px;"><a rel="nofollow" title="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" target="_blank" href="{{ article.url }}">{{ article.articletitle }} <br/><small>{{ article.domain }}{% if article.articledate %} - {{ article.articledate | date:"D d M Y" }}{% endif %} </small></a></h4>
                   <p class="summary hyphenate">Summary: {{ article.articlesummary }} (<a rel="nofollow" title="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" target="_blank" href="{{ article.url }}">Read full article</a>)</p><br/>
@@ -68,6 +65,11 @@
 		  <p class="tags">{% if article.tags %}Related Topics: {% endif %}{% for t in article.tags %}<a href="/{{t | slugify}}" title="{{ t | crsq_unslugify }} - Real Time News">{{ t | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} <span style="float:right"><a href="https://twitter.com/intent/tweet?button_hashtag=ZippedNews&amp;text={{ article.articletitle}}%20{{ article.url }}%20via%20{{ canonicalurl | urlencode }}" class="twitter-hashtag-button" data-lang="en" data-related="pratikpoddar">Tweet #ZippedNews</a></span></p>
 
 		  </div>
+
+                  <div class="col-sm-3 col-lg-3 col-md-3" style="border:solid;border-color:#eee;padding:9px;border-width:2px;">
+                  <img class="articleimage" src="{% static 'crsq/img/zippednewsapp/loading.gif' %}" data-src="{{ article.articleimage }}" alt="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" title="{{ tagname | crsq_unslugify }} News - {{ article.articletitle }}" style="width:100%;margin-bottom:10px;">
+                  </div>
+
 		  </div>
 		  <hr/>
 	    {% endfor %}

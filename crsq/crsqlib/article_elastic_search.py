@@ -176,7 +176,7 @@ def indexurl(url):
 def refreshdbtoes():
 
 	urls = map(lambda x:x ['url'], ArticleChanged.objects.all().values('url'))
-	urls = list(set(urls))
+	urls = list(set(urls))[:500]
 	for url in urls:
 		try:
 			deleteurl(url)
