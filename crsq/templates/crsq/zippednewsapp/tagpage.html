@@ -19,8 +19,9 @@
 
 {% block bodycontent %}
 
+	    <h1>{{ h1title }}</h1>
 		    <br/>
-                    <div class="text-center">
+                    <div>
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- zippednews_web_large_leaderboard_1 -->
                         <ins class="adsbygoogle"
@@ -32,18 +33,13 @@
                         </script>
                     </div>
 
-
-	    <h1>{{ h1title }}</h1>
-	    {% if relatedtopics %}
-	    <h2 style="font-size:100%;line-height:2;margin-top:11px;"><em>Related to "{{ tagname | crsq_unslugify }}"</em>:{% for s in relatedtopics|slice:"15" %} <a href="/{{ s }}" title="{{ s | crsq_unslugify }} - Real Time News">{{ s | crsq_unslugify }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</h2>
-	    {% endif %}
 	    <hr/>
 	    
 	    {% if articles %}
 	    {% for article in articles %}
 
 		{% if forloop.counter == 2 or forloop.counter|divisibleby:"5" %}
-	            <div class="text-center">
+	            <div>
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- zippednews_web_large_leaderboard_1 -->
 			<ins class="adsbygoogle"
@@ -79,7 +75,7 @@
 	     </h4><br/>
 	    {% endif %}
 
-                    <div class="text-center">
+                    <div>
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- zippednews_web_large_leaderboard_1 -->
                         <ins class="adsbygoogle"
@@ -106,7 +102,7 @@
 		<hr/>
 
 		<div class="row">
-                    <div class="text-center">
+                    <div>
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- zippednews_web_large_leaderboard_1 -->
                         <ins class="adsbygoogle"

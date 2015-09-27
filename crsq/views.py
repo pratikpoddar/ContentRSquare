@@ -42,7 +42,7 @@ from crsq import whatistrending
 
 logger = logging.getLogger(__name__)
 
-time.sleep(60)  # Delay for 1 minute (60 seconds)
+# time.sleep(60)  # Delay for 1 minute (60 seconds)
 
 relevanttags = []
 #try:
@@ -260,7 +260,7 @@ def zippednewsapptrending(request, topic, topicname):
 
                 try:
 			if articlesummary:
-	                        articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+	                        articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])[:5]
 			else:
 				articletags = []
                 except:
@@ -338,7 +338,7 @@ def zippednewsapp(request, tag):
 
 	        try:
 			if articlesummary:
-				articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])
+				articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])[:5]
 			else:
 				articletags = []
 	        except:
@@ -374,6 +374,44 @@ def zippednewsapptaglist(request, tagsearch):
 
         return HttpResponse(template.render(context))
 
+def zippednewszninput(request):
+	html=""
+
+	if 'update' in request.GET.keys():
+		ZnInputTag.objects.all().delete()
+		l = request.GET['reporting_live_list'].split(',')
+		for tag in l:
+			zn = ZnInputTag()
+			zn.heading = 'reporting_live_list'
+			zn.tag = tag
+			zn.save()
+                l = request.GET['movie_review_list'].split(',')
+                for tag in l:
+                        zn = ZnInputTag()
+                        zn.heading = 'movie_review_list'
+                        zn.tag = tag
+                        zn.save()
+                l = request.GET['popular_traffic_sources'].split(',')
+                for tag in l:
+                        zn = ZnInputTag()
+                        zn.heading = 'popular_traffic_sources'
+                        zn.tag = tag
+                        zn.save()
+
+	if 'view' in request.GET.keys() or 'update' in request.GET.keys():
+                html += "<br/>reporting_live_list<br/><textarea form='zninputform' rows=5 cols=50 id='reporting_live_list' name='reporting_live_list'>"
+		tags = ZnInputTag.objects.filter(heading='reporting_live_list').values_list('tag', flat=True)
+                html += ",".join(tags) + "</textarea>"
+                html += "<br/>movie_review_list<br/><textarea form='zninputform' rows=5 cols=50 id='movie_review_list' name='movie_review_list'>"
+		tags = ZnInputTag.objects.filter(heading='movie_review_list').values_list('tag', flat=True)
+                html += ",".join(tags) + "</textarea>"
+                html += "<br/>popular_traffic_sources<br/><textarea form='zninputform' rows=5 cols=50 id='popular_traffic_sources' name='popular_traffic_sources'>"
+		tags = ZnInputTag.objects.filter(heading='popular_traffic_sources').values_list('tag', flat=True)
+                html += ",".join(tags) + "</textarea>"
+		html += "<form id='zninputform' action='/zippednewszninput'><input type='text' value='1' id='update' name='update'/><input type='submit' value='Update'/></form>"
+
+
+	return HttpResponse(html)
 	
 def zippednewsappwelcome(request):
 
@@ -384,7 +422,7 @@ def zippednewsappwelcome(request):
 	google_trends = pickle.load(googletrendsfile)
 	
 	def positioning(loc):
-		p = ['India', 'US', 'UK']
+		p = ['US', 'India', 'UK', 'Australia']
 		try:
 			return p.index(loc)
 		except:
@@ -410,6 +448,7 @@ def zippednewsappwelcome(request):
 		'topicimages': imagedict.items(),
 		'reporting_live_list': ZnInputTag.objects.filter(heading='reporting_live_list').values_list('tag', flat=True),
 		'movie_review_list': ZnInputTag.objects.filter(heading='movie_review_list').values_list('tag', flat=True),
+		'popular_traffic_sources': ZnInputTag.objects.filter(heading='popular_traffic_sources').values_list('tag', flat=True),
         })
 
         return HttpResponse(template.render(context))

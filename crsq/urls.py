@@ -15,6 +15,7 @@ urlpatterns = patterns('',
 	url(r'^twitterstreetjournal', views.tw_np_redirect, name='tw_np_redirect'),
 
 	url(r'^zippednewsapp/?$', views.zippednewsappwelcome, name='znw'),
+	url(r'^zippednewsapp/zippednewszninput/?$', views.zippednewszninput, name='znzini'),
 	url(r'^zippednewsapp/crsqsearch/([a-zA-Z0-9-]+)/?$', views.zippednewsapptaglist, name='zntl'),
         url(r'^zippednewsapp/crsqtrending/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/?$', views.zippednewsapptrending, name='zntp'),
 	url(r'^zippednewsapp/([a-zA-Z0-9-]+)/?$', views.zippednewsapp, name='zn'),
