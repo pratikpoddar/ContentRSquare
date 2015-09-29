@@ -1,5 +1,4 @@
 
 User-agent: *
 Disallow:
-Sitemap: http://zippednews.com/sitemap.xml.gz
 
