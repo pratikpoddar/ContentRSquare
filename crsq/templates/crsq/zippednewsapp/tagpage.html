@@ -2,6 +2,12 @@
 {% load staticfiles %}
 {% load tagfilter %}
 
+{% block noindextag %}
+{% if not indexallowed %}
+<meta name="robots" content="noindex">
+{% endif %}
+{% endblock %}
+
 {% block title %}
 {{ title | truncatechars:65}}
 {% endblock %}

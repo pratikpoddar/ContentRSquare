@@ -221,6 +221,18 @@ def timenews_article(request, articleid):
 ##########################################################################################
 ##########################################################################################
 
+def getIndexAllowed(tag):
+        indexallowed = 0
+        if ImportantTags.objects.filter(tag=tag).count()>0:
+                indexallowed = 1
+		return indexallowed
+
+	if ZnInputTag.objects.filter(tag=tag).count()>0:
+        	indexallowed = 1
+		return indexallowed
+
+	return indexallowed
+
 def zippednewsapptrending(request, topic, topicname):
 
 	maxid = ArticleInfo.objects.all().order_by("-id")[0].id
@@ -353,7 +365,8 @@ def zippednewsapp(request, tag):
 		'relatedtopics': relatedtopics[:20],
 		'title': title,
 		'h1title': h1title,
-		'canonicalurl': 'http://www.zippednews.com/'+tag
+		'canonicalurl': 'http://www.zippednews.com/'+tag,
+		'indexallowed': getIndexAllowed(tag)
         })
 
 	if request.mobile:
