@@ -62,7 +62,7 @@ def pick_appropriate_url(entry):
 		
 	return None	
 
-@timeout(720.0)
+@timeout(540.0)
 def load_rss_in_table(rss_url, extractor):
 
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
