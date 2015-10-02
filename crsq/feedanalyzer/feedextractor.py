@@ -65,11 +65,12 @@ def pick_appropriate_url(entry):
 @timeout(540.0)
 def load_rss_in_table(rss_url, extractor):
 
+	print rss_url + "----"
 	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
-		for entry in feed['items']:
+		for entry in feed['items'][:20]:
 			url = pick_appropriate_url(entry)
 			if urlutils.is_url_an_article(url):
 				url = urlutils.getCanonicalUrl(url)
@@ -98,6 +99,8 @@ def load_rss_in_table(rss_url, extractor):
 						pass
 	except Exception as e:
 		logger.exception('feedanalyzer - load_rss_in_table - error - ' + rss_url + ' - ' + str(e))
+
+	print rss_url + "!!!!"
 
 	return
 	
