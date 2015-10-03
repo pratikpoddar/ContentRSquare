@@ -65,7 +65,7 @@ def pick_appropriate_url(entry):
 @timeout(540.0)
 def load_rss_in_table(rss_url, extractor):
 
-	logger.exception('feedanalyzer - load_rss_in_table - ' + rss_url)
+	logger.debug('feedanalyzer - load_rss_in_table - ' + rss_url)
 	try:
 		rss_url = urlutils.getCanonicalUrl(rss_url)
 		feed = feedparser.parse(rss_url)
