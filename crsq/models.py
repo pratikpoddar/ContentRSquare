@@ -127,12 +127,12 @@ class ArticleChanged(models.Model):
     url = models.CharField(max_length=255L, null=False, db_index=True)
 
 class ImportantTags(models.Model):
-    tag = models.CharField(max_length=255L, null=False)
+    tag = models.CharField(max_length=255L, null=False, db_index=True)
     source = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
 
 class ZnInputTag(models.Model):
-    tag = models.CharField(max_length=255L, null=False)
+    tag = models.CharField(max_length=255L, null=False, db_index=True)
     heading = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
  
