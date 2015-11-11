@@ -108,8 +108,10 @@ class ArticleTags(models.Model):
     tag = models.CharField(max_length=255L, null=False, db_index=True)
     def save(self):
         ac = ArticleChanged(url=self.url)
-        try:
+	ztv = ZnTagVisit(tag=self.tag)
+     	try:
                 ac.save()
+		ztv.save()
         except:
                 pass
         super(ArticleTags, self).save()
@@ -135,7 +137,11 @@ class ZnInputTag(models.Model):
     tag = models.CharField(max_length=255L, null=False, db_index=True)
     heading = models.CharField(max_length=255L, null=False)
     time = models.DateTimeField(auto_now_add=True, blank=True)
- 
+
+class ZnTagVisit(models.Model):
+    tag = models.CharField(max_length=255L, null=False, db_index=True)
+    time = models.DateTimeField(auto_now_add=True, blank=True)
+
 class EmailUser(models.Model):
     name = models.CharField(max_length=255L, null=False)
     email = models.CharField(max_length=255L, null=False, db_index=True, unique=True)

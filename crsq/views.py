@@ -284,7 +284,7 @@ def zippednewsapptrending(request, topic, topicname):
         context = RequestContext(request, {
                 'articles' : article_list,
                 'tagname': tagname,
-                'relatedtopics': relatedtopics[:20],
+                'relatedtopics': relatedtopics,
                 'title': title,
                 'h1title': h1title,
 		'canonicalurl': 'http://www.zippednews.com/crsqtrending/'+topic+'/'+topicname
@@ -299,6 +299,8 @@ def zippednewsapptrending(request, topic, topicname):
 
 def zippednewsapp(request, tag):
 	tag = tag.lower()
+	ztv = ZnTagVisit(tag=tag)
+	ztv.save()
 	try:
 		if 'elasticsearchfail' in request.GET.keys():
 			if request.GET['elasticsearchfail']=="True":
