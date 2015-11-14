@@ -24,7 +24,7 @@ import json
 from crsq.content_affiliate_advertising import content_affiliate_advertising
 from crsq.twitter_newspaper import twitter_newspaper
 from crsq import dbcache
-from crsq.models import ArticleInfo, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo, ZnInputTag
+from crsq.models import ArticleInfo, ArticleSemantics, ArticleTags, ImportantTags, EmailInfo, ZnInputTag, ZnTagVisit
 
 from crsq.crsqlib import article_elastic_search, email_elastic_search, text_summarize
 
@@ -352,7 +352,7 @@ def zippednewsapp(request, tag):
 
 	        try:
 			if articlesummary:
-				articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])[:5]
+				articletags = filter(lambda x: x in relatedtopics, articletagsdump2[article['url']])[:10]
 			else:
 				articletags = []
 	        except:

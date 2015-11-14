@@ -108,10 +108,8 @@ class ArticleTags(models.Model):
     tag = models.CharField(max_length=255L, null=False, db_index=True)
     def save(self):
         ac = ArticleChanged(url=self.url)
-	ztv = ZnTagVisit(tag=self.tag)
      	try:
                 ac.save()
-		ztv.save()
         except:
                 pass
         super(ArticleTags, self).save()
