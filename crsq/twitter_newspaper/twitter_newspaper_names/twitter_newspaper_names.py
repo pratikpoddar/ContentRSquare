@@ -225,7 +225,7 @@ for screen_name in screen_names:
 	print "---"
 	try:
 		print screen_name
-		api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers-1', user_id=int(id_dict[screen_name][0]))
+		api.add_list_member(owner_screen_name="pratikpoddar", slug='crsq-influencers', user_id=int(id_dict[screen_name][0]))
 	except Exception as e:
 		print screen_name + " - error adding member to crsq-influencers"
 	print list(set(ownerslug_dict[screen_name]))

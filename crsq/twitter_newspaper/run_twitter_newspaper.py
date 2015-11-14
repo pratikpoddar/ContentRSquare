@@ -66,7 +66,7 @@ def run_twitter_newspaper(tuser, tlist):
 @timeout(600.0)
 def time_dependent_tw_np(toberun):
 
-	run_twitter_newspaper('pratikpoddar', 'crsq-influencers-1')
+	run_twitter_newspaper('pratikpoddar', 'crsq-influencers')
 	logger.exception("Run Twitter Newspaper Done")
 	refreshdbtoes()
 	logger.exception("Refresh DB to ES Done")
