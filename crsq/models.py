@@ -76,8 +76,11 @@ class ArticleInfo(models.Model):
     def delete(self):
 	ac = ArticleChanged(url=self.url)
 	try:
+		print self.url
 		ac.save()
-	except:
+		print self.url
+	except Exception as e:
+		print e
 		pass
 	super(ArticleInfo, self).delete()
     def domainname(self):
