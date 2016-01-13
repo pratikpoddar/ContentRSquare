@@ -299,8 +299,9 @@ def zippednewsapptrending(request, topic, topicname):
 
 def zippednewsapp(request, tag):
 	tag = tag.lower()
-	ztv = ZnTagVisit(tag=tag)
-	ztv.save()
+	if ArticleTags.objects.filter(tag=tag).count()>0:
+		ztv = ZnTagVisit(tag=tag)
+		ztv.save()
 	try:
 		if 'elasticsearchfail' in request.GET.keys():
 			if request.GET['elasticsearchfail']=="True":
@@ -359,7 +360,8 @@ def zippednewsapp(request, tag):
         	        articletags = []
 
 		if articlesummary:
-			article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
+			if 'nude' not in article['title']:
+				article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
         context = RequestContext(request, {
                 'articles' : article_list,
