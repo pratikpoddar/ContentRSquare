@@ -322,6 +322,8 @@ def zippednewsapp(request, tag):
 	if filter(lambda x: x in tag, ["breasts", "porn", "sex-", "nude-", "-sex", "hot-pics", "jihadi"]):
 		urls = []
 
+	urls = filter(lambda x: not 'dailymail.co.uk' in x, urls)
+
         if request.mobile:
                 urls = urls[:5]
         else:
@@ -360,7 +362,7 @@ def zippednewsapp(request, tag):
         	        articletags = []
 
 		if articlesummary:
-			if 'nude' not in article['title']:
+			if 'nude' not in article['articletitle']:
 				article_list.append(dict( article, **{'domain': domain, 'articlesummary' : articlesummary, 'tags': articletags}))
 
         context = RequestContext(request, {
