@@ -225,6 +225,7 @@ def getIndexAllowed(tag):
         indexallowed = 0
         if ImportantTags.objects.filter(tag=tag).count()>0:
                 indexallowed = 1
+		return indexallowed
 		if ZnTagVisit.objects.filter(tag=tag).count()>0:
 			indexallowed = 1
 			return indexallowed
