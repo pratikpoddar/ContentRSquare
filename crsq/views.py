@@ -225,7 +225,6 @@ def getIndexAllowed(tag):
         indexallowed = 0
         if ImportantTags.objects.filter(tag=tag).count()>0:
                 indexallowed = 1
-		return indexallowed
 		if ZnTagVisit.objects.filter(tag=tag).count()>0:
 			indexallowed = 1
 			return indexallowed
@@ -303,7 +302,7 @@ def zippednewsapptrending(request, topic, topicname):
 def zippednewsapp(request, tag):
 	tag = tag.lower()
 	if ArticleTags.objects.filter(tag=tag).count()>0:
-		ZnTagVisit.objects.filter(tag=tag).delete()
+		##ZnTagVisit.objects.filter(tag=tag).delete()
 		ztv = ZnTagVisit(tag=tag)
 		ztv.save()
 	try:
