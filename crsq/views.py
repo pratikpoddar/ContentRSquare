@@ -226,10 +226,8 @@ def getIndexAllowed(tag):
         if ImportantTags.objects.filter(tag=tag).count()>0:
                 indexallowed = 1
 		if ZnTagVisit.objects.filter(tag=tag).count()>0:
-			ZnTagVisit.objects.filter(tag=tag).exclude(time__year=2016).delete()
-			if ZnTagVisit.objects.filter(tag=tag).count()>0:
-				indexallowed = 1
-				return indexallowed
+			indexallowed = 1
+			return indexallowed
 
 	if ZnInputTag.objects.filter(tag=tag).count()>0:
         	indexallowed = 1
