@@ -83,6 +83,9 @@ def put_article_semantics_tags(url):
 						tag_row = ArticleTags(url=url, tag=crsq_unicode(tag))
 						if ArticleTags.objects.filter(url=url, tag=crsq_unicode(tag)).count()==0:
 							tag_row.save()
+							ZnTagVisit.objects.filter(tag=crsq_unicode(tag)).delete()
+							ztv=ZnTagVisit(tag=crsq_unicode(tag))
+							ztv.save()
 		except Exception as e:
 			logger.exception('articleutilsdb - put_article_semantics_tags - error getting article semantics / tags - ' + removeNonAscii(url) + ' - ' + str(e))
 
