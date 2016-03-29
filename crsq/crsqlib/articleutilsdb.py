@@ -10,7 +10,7 @@ import hashlib
 import langid
 import re
 
-from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags, DeleteLinks
+from crsq.models import TwitterListLinks, TwitterKeywordLinks, TweetLinks, ArticleInfo, ArticleSemantics, ArticleTags, DeleteLinks, ZnTagVisit
 
 langid.langid.load_model()
 
