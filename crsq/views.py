@@ -302,7 +302,7 @@ def zippednewsapptrending(request, topic, topicname):
 def zippednewsapp(request, tag):
 	tag = tag.lower()
 	if ArticleTags.objects.filter(tag=tag).count()>0:
-		##ZnTagVisit.objects.filter(tag=tag).delete()
+		ZnTagVisit.objects.filter(tag=tag).delete()
 		ztv = ZnTagVisit(tag=tag)
 		ztv.save()
 	try:
