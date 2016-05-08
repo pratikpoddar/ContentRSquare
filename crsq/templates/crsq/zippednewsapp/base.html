@@ -21,6 +21,9 @@
     <link rel="alternate" href="android-app://com.zippednews/?q={{ request.path | cut:'/zippednewsapp/' | urlencode }}" />
     <link rel="shortcut icon" href="{% static 'crsq/img/zippednewsapp/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'crsq/img/zippednewsapp/favicon.ico' %}" type="image/x-icon">
+
+     <script src="//load.sumome.com/" data-sumo-site-id="0c2f550eacad157615d2dd61dc9468e4c27c3a30514a210f84facc49c0a46c97" async="async"></script>
+
   </head>
 
   <body>
@@ -110,6 +113,7 @@
 	Hyphenator.config({intermediatestate : 'visible'});
 	Hyphenator.run();
      </script>
+
 
   </body>
 
