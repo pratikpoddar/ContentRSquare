@@ -322,10 +322,11 @@ def zippednewsapp(request, tag):
 
 	if tag in ["gabi-grecko", "breasts", "porn", "jihadi"]:
 		urls= []
-	if filter(lambda x: x in tag, ["breast", "porn", "sex-", "nude-", "portioli", "-sex", "hot-pics", "jihadi", "-nude", "penis", "vagina", "pelvic", "nudity", "arrested-for"]):
+	if filter(lambda x: x in tag, ["breast", "porn", "sex-", "nude-", "portioli", "-sex", "hot-pics", "jihadi", "-nude", "penis", "vagina", "pelvic", "nudity", "arrested-for", "josie-canseco"]):
 		urls = []
 
 	urls = filter(lambda x: not 'dailymail.co.uk' in x, urls)
+        urls = filter(lambda x: not 'dailydot.com' in x, urls)
 
         if request.mobile:
                 urls = urls[:5]
