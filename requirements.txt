@@ -32,7 +32,7 @@ geopy==0.98.2
 gevent==1.0
 greenlet==0.4.2
 gunicorn==18.0
-httplib2==0.8
+httplib2==0.18.0
 jieba==0.31
 jsonpickle==0.6.1
 langid==1.1.4dev
