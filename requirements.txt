@@ -36,7 +36,7 @@ httplib2==0.8
 jieba==0.31
 jsonpickle==0.6.1
 langid==1.1.4dev
-lxml==3.2.5
+lxml==4.6.2
 meld3==0.6.10
 newrelic==2.18.1.15
 nltk==2.0.4
