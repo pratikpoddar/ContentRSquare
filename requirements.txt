@@ -53,7 +53,7 @@ python-amazon-simple-product-api==1.4.0
 python-dateutil==2.2
 pytz==2013.9
 readability==0.1
-requests==2.2.1
+requests==2.20.0
 scikit-learn==0.15.2
 scipy==0.14.0
 setproctitle==1.1.8
